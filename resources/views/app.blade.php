@@ -4,38 +4,32 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
-    <link rel="icon" type="image/png" href="assets/img/favicon.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="assets/images/logo.jpg">
+    <link rel="icon" type="image/jpg" href="assets/images/logo.jpg">
     <title>
       STEAM Generation Recoveries LTD
     </title>
 
 
-    <link rel="canonical" href="https://www.creative-tim.com/product-pro" />
+    <link rel="canonical" href="https://www.steamtz.com" />
 
     <meta name="keywords"
-        content="STEAM Generation, html dashboard, html css dashboard, web dashboard, bootstrap 5 dashboard, bootstrap 5, css3 dashboard, bootstrap 5 admin, material dashboard bootstrap 5 dashboard, frontend, responsive bootstrap 5 dashboard, material design, material dashboard bootstrap 5 dashboard">
+        content="STEAM Generation, Albogast, Kiyogoma, CRM, Tanzania Developer, Albogast, STEAM, Generation, Recoveries">
     <meta name="description"
-        content="STEAM Generation Recoveries LTD is a beautiful Bootstrap 5 admin dashboard with a large number of components, designed to look beautiful, clean and organized. If you are looking for a tool to manage dates about your business, this dashboard is the thing for you.">
+        content="STEAM Generation Recoveries LTD ">
 
     <meta name="twitter:card" content="product">
     <meta name="twitter:site" content="@STEAMGeneration">
     <meta name="twitter:title" content="STEAM Generation Recoveries LTD by STEAM Generation">
     <meta name="twitter:description"
-        content="STEAM Generation Recoveries LTD is a beautiful Bootstrap 5 admin dashboard with a large number of components, designed to look beautiful, clean and organized. If you are looking for a tool to manage dates about your business, this dashboard is the thing for you.">
+        content="STEAM Generation Recoveries LTD">
     <meta name="twitter:creator" content="@STEAMGeneration">
-    <meta name="twitter:image"
-        content="https://s3.amazonaws.com/creativetim_bucket/products/51/original/opt_mdp_bs5_thumbnail.jpg">
-
+  
     <meta property="fb:app_id" content="655968634437471">
     <meta property="og:title" content="STEAM Generation Recoveries LTD by STEAM Generation" />
     <meta property="og:type" content="article" />
-    <meta property="og:url"
-        content="https://demos.creative-tim.com-pro/pages/dashboards/default" />
-    <meta property="og:image"
-        content="https://s3.amazonaws.com/creativetim_bucket/products/51/original/opt_mdp_bs5_thumbnail.jpg" />
-    <meta property="og:description"
-        content="STEAM Generation Recoveries LTD is a beautiful Bootstrap 5 admin dashboard with a large number of components, designed to look beautiful, clean and organized. If you are looking for a tool to manage dates about your business, this dashboard is the thing for you." />
+   <meta property="og:description"
+        content="STEAM Generation Recoveries LTD" />
     <meta property="og:site_name" content="STEAM Generation" />
 
     <link rel="stylesheet" type="text/css"
