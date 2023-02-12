@@ -254,7 +254,7 @@
                           </li>
                           <li class="nav-item ">
                               <a class="nav-link text-white"
-                                  href="/navbar"
+                                  href="/datatables"
                                  >
                                   <span class="sidenav-mini-icon"> L </span>
                                   <span class="sidenav-normal  ms-2  ps-1"> Loans </span>
@@ -289,14 +289,14 @@
                     <ul class="nav ">
                         <li class="nav-item ">
                             <a class="nav-link text-white"
-                                href="/modal"
+                                href="/messages"
                                >
                                 <span class="sidenav-normal  ms-2  ps-1"> New Message </span>
                             </a>
                         </li>
                         <li class="nav-item ">
                             <a class="nav-link text-white"
-                                href="/navs"
+                                href="/notifications"
                                >
                                 <span class="sidenav-normal  ms-2  ps-1"> Sent Messages </span>
                             </a>
