@@ -1,91 +1,613 @@
 <!DOCTYPE html>
-<html lang="eng">
-  <head>
+<html lang="en">
+
+<head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-    <title>Laravel Inertia App</title>
-    <link href="{{ mix('/css/app.css') }}" rel="stylesheet" />
-    <script src="{{ mix('/js/app.js') }}" defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
+    <link rel="icon" type="image/png" href="assets/img/favicon.png">
+    <title>
+      STEAM Generation Recoveries LTD
+    </title>
+
+
+    <link rel="canonical" href="https://www.creative-tim.com/product-pro" />
+
+    <meta name="keywords"
+        content="STEAM Generation, html dashboard, html css dashboard, web dashboard, bootstrap 5 dashboard, bootstrap 5, css3 dashboard, bootstrap 5 admin, material dashboard bootstrap 5 dashboard, frontend, responsive bootstrap 5 dashboard, material design, material dashboard bootstrap 5 dashboard">
+    <meta name="description"
+        content="STEAM Generation Recoveries LTD is a beautiful Bootstrap 5 admin dashboard with a large number of components, designed to look beautiful, clean and organized. If you are looking for a tool to manage dates about your business, this dashboard is the thing for you.">
+
+    <meta name="twitter:card" content="product">
+    <meta name="twitter:site" content="@STEAMGeneration">
+    <meta name="twitter:title" content="STEAM Generation Recoveries LTD by STEAM Generation">
+    <meta name="twitter:description"
+        content="STEAM Generation Recoveries LTD is a beautiful Bootstrap 5 admin dashboard with a large number of components, designed to look beautiful, clean and organized. If you are looking for a tool to manage dates about your business, this dashboard is the thing for you.">
+    <meta name="twitter:creator" content="@STEAMGeneration">
+    <meta name="twitter:image"
+        content="https://s3.amazonaws.com/creativetim_bucket/products/51/original/opt_mdp_bs5_thumbnail.jpg">
+
+    <meta property="fb:app_id" content="655968634437471">
+    <meta property="og:title" content="STEAM Generation Recoveries LTD by STEAM Generation" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url"
+        content="https://demos.creative-tim.com-pro/pages/dashboards/default" />
+    <meta property="og:image"
+        content="https://s3.amazonaws.com/creativetim_bucket/products/51/original/opt_mdp_bs5_thumbnail.jpg" />
+    <meta property="og:description"
+        content="STEAM Generation Recoveries LTD is a beautiful Bootstrap 5 admin dashboard with a large number of components, designed to look beautiful, clean and organized. If you are looking for a tool to manage dates about your business, this dashboard is the thing for you." />
+    <meta property="og:site_name" content="STEAM Generation" />
+
+    <link rel="stylesheet" type="text/css"
+        href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
+
+    <link href="assets/css/nucleo-icons.css" rel="stylesheet" />
+    <link href="assets/css/nucleo-svg.css" rel="stylesheet" />
+
+    <script src="assets/js/fonts.js" crossorigin="anonymous"></script>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+
+    <link id="pagestyle" href="assets/css/material-dashboard.min.css" rel="stylesheet" />
+
     <style>
-      
-    .bd-placeholder-img {
-      font-size: 1.125rem;
-      text-anchor: middle;
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      user-select: none;
-    }
+        .async-hide {
+            opacity: 0 !important
+        }
 
-    @media (min-width: 768px) {
-      .bd-placeholder-img-lg {
-        font-size: 3.5rem;
-      }
-    }
-
-    .b-example-divider {
-      height: 3rem;
-      background-color: rgba(0, 0, 0, .1);
-      border: solid rgba(0, 0, 0, .15);
-      border-width: 1px 0;
-      box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
-    }
-
-    .b-example-vr {
-      flex-shrink: 0;
-      width: 1.5rem;
-      height: 100vh;
-    }
-
-    .bi {
-      vertical-align: -.125em;
-      fill: currentColor;
-    }
-
-    .nav-scroller {
-      position: relative;
-      z-index: 2;
-      height: 2.75rem;
-      overflow-y: hidden;
-    }
-
-    .nav-scroller .nav {
-      display: flex;
-      flex-wrap: nowrap;
-      padding-bottom: 1rem;
-      margin-top: -1px;
-      overflow-x: auto;
-      text-align: center;
-      white-space: nowrap;
-      -webkit-overflow-scrolling: touch;
-    }
-
-    .form-control-dark {
-        border-color: var(--bs-gray);
-      }
-      .form-control-dark:focus {
-        border-color: #fff;
-        box-shadow: 0 0 0 .25rem rgba(255, 255, 255, .25);
-      }
-      
-      Link{
-        color:#fff;
-      }
-      .text-small {
-        font-size: 85%;
-      }
-      
-      .dropdown-toggle {
-        outline: 0;
-      }
-      
     </style>
-        @inertiaHead
+       <link href="{{ mix('/css/app.css') }}" rel="stylesheet" />
+       <script src="{{ mix('/js/app.js') }}" defer></script>
+   @inertiaHead
+</head>
 
-  </head>
-  <body>
+<body class="g-sidenav-show  bg-white">
 
+    <aside
+        class="sidenav navbar navbar-vertical navbar-expand-xs border-0 fixed-start bg-dark"
+        id="sidenav-main">
+        <div class="sidenav-header">
+            <i class="fas fa-times p-3 cursor-pointer text-white opacity-5 position-absolute end-0 top-0 d-none d-xl-none"
+                aria-hidden="true" id="iconSidenav"></i>
+            <a class="navbar-brand m-0"
+                href="/dashboard"
+               >
+                <img src="assets/images/logo.jpg" class="navbar-brand-img h-100" alt="main_logo">
+                <span class="ms-1 font-weight-bold text-white">STEAM Generation </span> 
+            </a>
+        </div>
+        <hr class="horizontal light mt-0 mb-2">
+        <div class="collapse navbar-collapse  w-auto h-auto" id="sidenav-collapse-main">
+            <ul class="navbar-nav">
+                <li class="nav-item mb-2 mt-0">
+                    <a data-bs-toggle="collapse" href="#ProfileNav" class="nav-link text-white"
+                        aria-controls="ProfileNav" role="button" aria-expanded="false">
+                        <img src="assets/img/team-3.jpg" class="avatar">
+                        <span class="nav-link-text ms-2 ps-1">Brooklyn Alice</span>
+                    </a>
+                    <div class="collapse" id="ProfileNav">
+                        <ul class="nav ">
+                            <li class="nav-item">
+                                <a class="nav-link text-white" href="/profile">
+                                    <i class="material-icons text-lg me-2">person</i>
+                                    <span class="sidenav-normal  ms-3  ps-1"> My Profile </span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" href="/tasks">
+                                  <i class="material-icons text-lg me-2">layers</i>
+                                    <span class="sidenav-normal  ms-3  ps-1"> My Tasks </span>
+                                </a>
+                            {{-- <li class="nav-item">
+                                    <a class="nav-link text-white" href="/account">
+                                        <span class="sidenav-mini-icon"> S </span>
+                                        <span class="sidenav-normal  ms-3  ps-1"> Settings </span>
+                                    </a>
+                            </li> --}}
+                            <li class="nav-item">
+                              <a class="nav-link text-white" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                  <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                      {{ csrf_field() }}
+                              </form>
+                              <i class="material-icons text-lg me-2">lock</i>
+                                    <span class="sidenav-normal  ms-3  ps-1"> Logout </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <hr class="horizontal light mt-0">
+                <li class="nav-item">
+                    <a data-bs-toggle="collapse" href="#dashboardsExamples" class="nav-link text-white"
+                        aria-controls="dashboardsExamples" role="button" aria-expanded="false">
+                        <i class="material-icons-round opacity-10">dashboard</i>
+                        <span class="nav-link-text ms-2 ps-1">Dashboards</span>
+                    </a>
+                    <div class="collapse " id="dashboardsExamples">
+                        <ul class="nav ">
+                            <li class="nav-item ">
+                                <a class="nav-link text-white" href="/crm">
+                                    <span class="sidenav-mini-icon"> A </span>
+                                    <span class="sidenav-normal  ms-2  ps-1"> Analytics </span>
+                                </a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link text-white" href="/">
+                                    <span class="sidenav-mini-icon"> D </span>
+                                    <span class="sidenav-normal  ms-2  ps-1"> Discover </span>
+                                </a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link text-white" href="/partners">
+                                    <span class="sidenav-mini-icon"> S </span>
+                                    <span class="sidenav-normal  ms-2  ps-1"> Partners </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+               
+                <li class="nav-item">
+                  <a data-bs-toggle="collapse" href="#componentsStaffs" class="nav-link text-white"
+                      aria-controls="componentsStaffs" role="button" aria-expanded="false">
+                      <i class="material-icons opacity-10">table_view</i>
+                      <span class="nav-link-text ms-2 ps-1">Staffs</span>
+                  </a>
+                  <div class="collapse " id="componentsStaffs">
+                      <ul class="nav ">
+                          <li class="nav-item ">
+                              <a class="nav-link text-white" href="/add-user">
+                                  <span class="sidenav-mini-icon"> A </span>
+                                  <span class="sidenav-normal  ms-2  ps-1"> Add User </span>
+                              </a>
+                          </li>
+                          <li class="nav-item ">
+                              <a class="nav-link text-white"
+                                  href="/users"
+                                 >
+                                  <span class="sidenav-mini-icon"> E </span>
+                                  <span class="sidenav-normal  ms-2  ps-1"> Employees </span>
+                              </a>
+                          </li>
+                          <li class="nav-item ">
+                              <a class="nav-link text-white"
+                                  href="/tasks"
+                                 >
+                                  <span class="sidenav-mini-icon"> T </span>
+                                  <span class="sidenav-normal  ms-2  ps-1"> Tasks </span>
+                              </a>
+                          </li>
+                          <li class="nav-item ">
+                              <a class="nav-link text-white"
+                                  href="/pagination"
+                                 >
+                                  <span class="sidenav-mini-icon"> M </span>
+                                  <span class="sidenav-normal  ms-2  ps-1"> Materials </span>
+                              </a>
+                          </li>
+                          <li class="nav-item ">
+                              <a class="nav-link text-white"
+                                  href="/popovers"
+                                 >
+                                  <span class="sidenav-mini-icon"> P </span>
+                                  <span class="sidenav-normal  ms-2  ps-1"> Popovers </span>
+                              </a>
+                          </li>
+                      </ul>
+                  </div>
+                </li>
+                <li class="nav-item">
+                    <a data-bs-toggle="collapse" href="#pagesExamples" class="nav-link text-white"
+                        aria-controls="pagesExamples" role="button" aria-expanded="false">
+                        <i class="material-icons opacity-10">store</i>
+                        <span class="nav-link-text ms-2 ps-1">Cases</span>
+                    </a>
+                    <div class="collapse " id="pagesExamples">
+                        <ul class="nav ">
+                          
+                            <li class="nav-item ">
+                                <a class="nav-link text-white" href="/pricing-page">
+                                    <span class="sidenav-mini-icon"> W </span>
+                                    <span class="sidenav-normal  ms-2  ps-1"> View Depts </span>
+                                </a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link text-white" href="/rtl-page">
+                                    <span class="sidenav-mini-icon"> P </span>
+                                    <span class="sidenav-normal  ms-2  ps-1"> Payments </span>
+                                </a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link text-white" href="/widgets">
+                                    <span class="sidenav-mini-icon"> I </span>
+                                    <span class="sidenav-normal  ms-2  ps-1"> Installments </span>
+                                </a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link text-white" href="/charts">
+                                    <span class="sidenav-mini-icon"> S </span>
+                                    <span class="sidenav-normal  ms-2  ps-1"> Import&Export </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                
+              <li class="nav-item">
+                  <a data-bs-toggle="collapse" href="#componentsCustomers" class="nav-link text-white"
+                      aria-controls="componentsCustomers" role="button" aria-expanded="false">
+                      <i
+                      class="material-icons-round {% if page.brand == 'RTL' %}ms-2{% else %} me-2{% endif %}">apps</i>
+                      <span class="nav-link-text ms-2 ps-1">Customers</span>
+                  </a>
+                  <div class="collapse " id="componentsCustomers">
+                      <ul class="nav ">
+                          <li class="nav-item ">
+                              <a class="nav-link text-white"
+                                  href="/partners"
+                                 >
+                                  <span class="sidenav-mini-icon"> P </span>
+                                  <span class="sidenav-normal  ms-2  ps-1"> Partiners </span>
+                              </a>
+                          </li>
+                          <li class="nav-item ">
+                              <a class="nav-link text-white"
+                                  href="/tables"
+                                 >
+                                  <span class="sidenav-mini-icon"> C </span>
+                                  <span class="sidenav-normal  ms-2  ps-1"> Clients </span>
+                              </a>
+                          </li>
+                          <li class="nav-item ">
+                              <a class="nav-link text-white"
+                                  href="/navbar"
+                                 >
+                                  <span class="sidenav-mini-icon"> L </span>
+                                  <span class="sidenav-normal  ms-2  ps-1"> Loans </span>
+                              </a>
+                          </li>
+                          <li class="nav-item ">
+                              <a class="nav-link text-white"
+                                  href="/pagination"
+                                 >
+                                  <span class="sidenav-mini-icon"> C </span>
+                                  <span class="sidenav-normal  ms-2  ps-1"> Claims </span>
+                              </a>
+                          </li>
+                          <li class="nav-item ">
+                              <a class="nav-link text-white"
+                                  href="/popovers"
+                                 >
+                                  <span class="sidenav-mini-icon"> L </span>
+                                  <span class="sidenav-normal  ms-2  ps-1"> Letters </span>
+                              </a>
+                          </li>
+                      </ul>
+                  </div>
+              </li>
+              <li class="nav-item">
+                <a data-bs-toggle="collapse" href="#componentsCases" class="nav-link text-white"
+                    aria-controls="componentsCases" role="button" aria-expanded="false">
+                    <i class="material-icons text-lg position-relative">email</i>
+                    <span class="nav-link-text ms-2 ps-1">Messages</span>
+                </a>
+                <div class="collapse " id="componentsCases">
+                    <ul class="nav ">
+                        <li class="nav-item ">
+                            <a class="nav-link text-white"
+                                href="/modal"
+                               >
+                                <span class="sidenav-normal  ms-2  ps-1"> New Message </span>
+                            </a>
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link text-white"
+                                href="/navs"
+                               >
+                                <span class="sidenav-normal  ms-2  ps-1"> Sent Messages </span>
+                            </a>
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link text-white"
+                                href="/navbar"
+                               >
+                                <span class="sidenav-normal  ms-2  ps-1"> Set Reminders </span>
+                            </a>
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link text-white"
+                                href="/pagination"
+                               >
+                                <span class="sidenav-normal  ms-2  ps-1"> View Report </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+                <li class="nav-item">
+                    <a data-bs-toggle="collapse" href="#componentsExamples" class="nav-link text-white"
+                        aria-controls="componentsExamples" role="button" aria-expanded="false">
+                        <i
+                            class="material-icons-round {% if page.brand == 'RTL' %}ms-2{% else %} me-2{% endif %}">view_in_ar</i>
+                        <span class="nav-link-text ms-2 ps-1">Reports</span>
+                    </a>
+                    <div class="collapse " id="componentsExamples">
+                        <ul class="nav ">
+                            <li class="nav-item ">
+                                <a class="nav-link text-white"
+                                    href="/reports"
+                                   >
+                                    <span class="sidenav-mini-icon"> GR </span>
+                                    <span class="sidenav-normal  ms-2  ps-1"> General Report </span>
+                                </a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link text-white"
+                                    href="/partners"
+                                   >
+                                    <span class="sidenav-mini-icon"> PR </span>
+                                    <span class="sidenav-normal  ms-2  ps-1"> Partners Report </span>
+                                </a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link text-white"
+                                    href="/billing"
+                                   >
+                                    <span class="sidenav-mini-icon"> SR </span>
+                                    <span class="sidenav-normal  ms-2  ps-1"> Staffs Report </span>
+                                </a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link text-white"
+                                    href="/pagination"
+                                   >
+                                    <span class="sidenav-mini-icon"> CR </span>
+                                    <span class="sidenav-normal  ms-2  ps-1"> Credits Report </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/logs">
+                        <i class="material-icons-round {% if page.brand == 'RTL' %}ms-2{% else %} me-2{% endif %}">receipt_long</i>
+                        <span class="nav-link-text ms-2 ps-1">Changelog</span>
+                    </a>
+                </li>
+                
+                <li class="nav-item">
+                  <a class="nav-link"
+                      href="/profile"
+                     >
+                      <i class="material-icons opacity-10">person_add</i>
+                      <span class="nav-link-text ms-2 ps-1">My Profile</span>
+                  </a>
+              </li>
+            </ul>
+        </div>
+    </aside>
+    <main class="main-content position-relative max-height-vh-100 h-100">
 
-    @inertia
+    <nav class="navbar navbar-main navbar-expand-lg position-sticky top-0 px-0 shadow-none z-index-sticky" id="navbarBlur" data-scroll="true">
+      <div class="container-fluid py-1 px-3">
+          
+          <div class="sidenav-toggler sidenav-toggler-inner d-xl-block d-none ">
+              <a href="javascript:;" class="nav-link text-body p-0">
+                  <div class="sidenav-toggler-inner">
+                      <i class="sidenav-toggler-line"></i>
+                      <i class="sidenav-toggler-line"></i>
+                      <i class="sidenav-toggler-line"></i>
+                  </div>
+              </a>
+              
+          </div>
+          <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-8" id="navbar">
+              <div class="ms-md-auto pe-md-3 d-flex">
+                  <div class="input-group input-group-outline">
+                      <label class="form-label">Search here</label>
+                      <input type="text" class="form-control">
+                  </div>
+              </div>
+              <ul class="navbar-nav  justify-content-end">
+                  <li class="nav-item">
+                      <a href="/profile"
+                          class="nav-link text-body p-0 position-relative">
+                          <i class="material-icons me-sm-1">
+                              account_circle
+                          </i>
+                      </a>
+                  </li>
+                  <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
+                      <a href="javascript:;" class="nav-link text-body p-0" id="iconNavbarSidenav">
+                          <div class="sidenav-toggler-inner">
+                              <i class="sidenav-toggler-line"></i>
+                              <i class="sidenav-toggler-line"></i>
+                              <i class="sidenav-toggler-line"></i>
+                          </div>
+                      </a>
+                  </li>
+                  <li class="nav-item px-3">
+                      <a href="javascript:;" class="nav-link text-body p-0">
+                          <i class="material-icons fixed-plugin-button-nav cursor-pointer">
+                              layers
+                          </i>
+                      </a>
+                  </li>
+                  <li class="nav-item dropdown pe-2">
+                      <a href="javascript:;" class="nav-link text-body p-0 position-relative"
+                          id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                          <i class="material-icons cursor-pointer">
+                              notifications
+                          </i>
+                          <span
+                              class="position-absolute top-5 start-100 translate-middle badge rounded-pill bg-danger border border-white small py-1 px-2">
+                              <span class="small">11</span>
+                              <span class="visually-hidden">unread notifications</span>
+                          </span>
+                      </a>
+                      <ul class="dropdown-menu dropdown-menu-end p-2 me-sm-n4"
+                          aria-labelledby="dropdownMenuButton">
+                          <li class="mb-2">
+                              <a class="dropdown-item border-radius-md" href="javascript:;">
+                                  <div class="d-flex align-items-center py-1">
+                                      <span class="material-icons">email</span>
+                                      <div class="ms-2">
+                                          <h6 class="text-sm font-weight-normal my-auto">
+                                              Check new messages
+                                          </h6>
+                                      </div>
+                                  </div>
+                              </a>
+                          </li>
+                          <li class="mb-2">
+                              <a class="dropdown-item border-radius-md" href="javascript:;">
+                                  <div class="d-flex align-items-center py-1">
+                                      <span class="material-icons">podcasts</span>
+                                      <div class="ms-2">
+                                          <h6 class="text-sm font-weight-normal my-auto">
+                                              Manage podcast session
+                                          </h6>
+                                      </div>
+                                  </div>
+                              </a>
+                          </li>
+                          <li>
+                              <a class="dropdown-item border-radius-md" href="javascript:;">
+                                  <div class="d-flex align-items-center py-1">
+                                      <span class="material-icons">shopping_cart</span>
+                                      <div class="ms-2">
+                                          <h6 class="text-sm font-weight-normal my-auto">
+                                              Payment successfully completed
+                                          </h6>
+                                      </div>
+                                  </div>
+                              </a>
+                          </li>
+                      </ul>
+                  </li>
+              </ul>
+          </div>
+      </div>
+    </nav>
 
-  </body>
+      @inertia
+
+    </main>
+    <div class="fixed-plugin">
+        <a class="fixed-plugin-button text-dark position-fixed px-3 py-2">
+            {{-- <i class="material-icons py-2">settings</i> --}}
+            <i class="material-icons py-2">
+              notifications
+          </i>
+        </a>
+        <div class="card bg-gradient-dark">
+          <div class="card-header pb-0 pt-3">
+                <div class="float-start">
+                    <h5 class="mt-3 mb-0">Latest  Notifications</h5>
+                    <p>See Your Activities.</p>
+                </div>
+                <div class="float-end mt-4">
+                    <button class="btn btn-link text-dark p-0 fixed-plugin-close-button">
+                        <i class="material-icons">clear</i>
+                    </button>
+                </div>
+
+            </div>
+            <hr class="horizontal dark my-1">
+            <div class="card-body p-3">
+              <div class="timeline timeline-dark timeline-one-side" data-timeline-axis-style="dotted">
+                  <div class="timeline-block mb-3">
+                      <span class="timeline-step bg-dark p-3">
+                          <i class="material-icons text-white text-sm opacity-10">
+                              notifications
+                          </i>
+                      </span>
+                      <div class="timeline-content pt-1">
+                          <h6 class="text-white text-sm font-weight-bold mb-0">$2400, Design changes</h6>
+                          <p class="text-secondary text-xs mt-1 mb-0">22 DEC 7:20 PM</p>
+                          <p class="text-sm text-white mt-3 mb-2">
+                              People care about how you see the world, how you think, what motivates you, what
+                              you’re struggling with or afraid of.
+                          </p>
+                      </div>
+                  </div>
+                  <div class="timeline-block mb-3">
+                      <span class="timeline-step bg-primary p-3">
+                          <i class="material-icons text-white text-sm opacity-10">
+                              code
+                          </i>
+                      </span>
+                      <div class="timeline-content pt-1">
+                          <h6 class="text-white text-sm font-weight-bold mb-0">New order #1832412</h6>
+                          <p class="text-secondary text-xs mt-1 mb-0">21 DEC 11 PM</p>
+                          <p class="text-sm text-white mt-3 mb-2">
+                              People care about how you see the world, how you think, what motivates you, what
+                              you’re struggling with or afraid of.
+                          </p>
+                      </div>
+                  </div>
+                  <div class="timeline-block mb-3">
+                      <span class="timeline-step bg-success p-3">
+                          <i class="material-icons text-white text-sm opacity-10">
+                              shopping_cart
+                          </i>
+                      </span>
+                      <div class="timeline-content pt-1">
+                          <h6 class="text-white text-sm font-weight-bold mb-0">Server payments for April</h6>
+                          <p class="text-secondary text-xs mt-1 mb-0">21 DEC 9:34 PM</p>
+                          <p class="text-sm text-white mt-3 mb-2">
+                              People care about how you see the world, how you think, what motivates you, what
+                              you’re struggling with or afraid of.
+                          </p>
+                      </div>
+                  </div>
+                  <div class="timeline-block mb-3">
+                      <span class="timeline-step bg-success p-3">
+                          <i class="material-icons text-white text-sm opacity-10">
+                              done
+                          </i>
+                      </span>
+                      <div class="timeline-content pt-1">
+                          <h6 class="text-white text-sm font-weight-bold mb-0">Notifications unread</h6>
+                          <p class="text-secondary text-xs mt-1 mb-0">15 DEC</p>
+                          <p class="text-sm text-white mt-3 mb-2">
+                              People care about how you see the world, how you think, what motivates you, what
+                              you’re struggling with or afraid of.
+                          </p>
+                      </div>
+                  </div>
+                  <div class="timeline-block">
+                      <span class="timeline-step bg-dark p-3">
+                          <i class="material-icons text-white text-sm opacity-10">
+                              sports_esports
+                          </i>
+                      </span>
+                      <div class="timeline-content pt-1">
+                          <h6 class="text-white text-sm font-weight-bold mb-0">Controller issues</h6>
+                          <p class="text-secondary text-xs mt-1 mb-0">13 DEC</p>
+                          <p class="text-sm text-white mt-3 mb-2">
+                              People care about how you see the world, how you think, what motivates you, what
+                              you’re struggling with or afraid of.
+                          </p>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          
+        </div>
+    </div>
+
+    <script src="assets/js/core/popper.min.js"></script>
+    <script src="assets/js/core/bootstrap.min.js"></script>
+    <script src="assets/js/plugins/perfect-scrollbar.min.js"></script>
+    <script src="assets/js/plugins/smooth-scrollbar.min.js"></script>
+    <script src="assets/js/plugins/fullcalendar.min.js"></script>
+
+    <script src="assets/js/plugins/dragula/dragula.min.js"></script>
+    <script src="assets/js/plugins/jkanban/jkanban.js"></script>
+    <script src="assets/js/plugins/chartjs.min.js"></script>
+    <script src="assets/js/material-dashboard.min.js"></script>
+
+</body>
+
 </html>

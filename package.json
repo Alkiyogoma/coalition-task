@@ -11,11 +11,12 @@
     },
     "devDependencies": {
         "@popperjs/core": "^2.10.2",
+        "@types/lodash": "^4.14.191",
         "@vue/compiler-sfc": "^3.2.45",
         "axios": "^0.21",
         "bootstrap": "^5.2.2",
         "laravel-mix": "^6.0.6",
-        "lodash": "^4.17.19",
+        "lodash": "^4.17.21",
         "postcss": "^8.1.14",
         "vue-loader": "^16.8.3"
     },
@@ -27,11 +28,17 @@
         "@inertiajs/inertia-vue3": "^0.6.0",
         "@inertiajs/progress": "^0.2.7",
         "bootstrap-vue": "^2.23.1",
-        "datatables.net-select": "^1.5.0",
+        "datatables.net-bs5": "^1.13.2",
         "datatables.net-vue3": "^2.0.0",
         "feather-icons": "^4.29.0",
+        "highcharts-vue": "^1.4.0",
+        "jquery": "^3.6.3",
+        "uuid": "^9.0.0",
         "vue": "^3.2.45",
         "vue-feather": "^2.0.0",
-        "vue3-timeago": "^1.0.6"
+        "vue-full-calendar": "^3.0.0",
+        "vue-select2": "^0.2.6",
+        "vue3-timeago": "^1.0.6",
+        "webpack-livereload-plugin": "^3.0.2"
     }
 }
