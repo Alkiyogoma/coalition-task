@@ -11,13 +11,6 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Employer
- * 
- * @property int $id
- * @property string $name
- * @property string|null $phone
- * @property string|null $address
- * @property Carbon $created_at
- * @property Carbon $updated_at
  *
  * @package App\Models
  */
@@ -30,9 +23,4 @@ class Employer extends Model
 		'phone',
 		'address'
 	];
-
-	public function clients()
-	{
-		return $this->hasMany(Client::class);
-	}
 }

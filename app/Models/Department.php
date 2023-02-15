@@ -12,20 +12,6 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Department
- * 
- * @property int $id
- * @property string $name
- * @property string $about
- * @property string $address
- * @property string $phone
- * @property string|null $email
- * @property int $user_id
- * @property Carbon|null $created_at
- * @property Carbon $updated_at
- * 
- * @property User $user
- * @property Collection|User[] $users
- *
  * @package App\Models
  */
 class Department extends Model
@@ -40,6 +26,7 @@ class Department extends Model
 		'name',
 		'about',
 		'address',
+		'uuid',
 		'phone',
 		'email',
 		'user_id'

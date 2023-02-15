@@ -492,9 +492,9 @@
           </div>
       </div>
     </nav>
-
+    <div class="container-fluid py-4">
       @inertia
-
+    </div>
     </main>
     <div class="fixed-plugin">
         <a class="fixed-plugin-button text-dark position-fixed px-3 py-2">

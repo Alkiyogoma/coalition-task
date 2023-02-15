@@ -27,33 +27,33 @@
               </h1>
               <label class="block text-sm">
                 <span class="text-gray-700 dark:text-gray-400">Your Fullname</span>
-                <input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" placeholder="Jane Doe" name="name" required />
+                <input class="form-control" placeholder="Jane Doe" name="name" required />
               </label>
 
               <label class="block mt-4 text-sm">
                 <span class="text-gray-700 dark:text-gray-400">Phone Number</span>
-                <input type="text" class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" placeholder="+2557xxxxxxxxx" name='phone' required minlength="10" />
+                <input type="text" class="form-control" placeholder="+2557xxxxxxxxx" name='phone' required minlength="10" />
               </label>
 
               <label class="block mt-4 text-sm">
                 <span class="text-gray-700 dark:text-gray-400">Email</span>
-                <input type="email" class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" placeholder="youremail@email.com" name="email" required />
+                <input type="email" class="form-control" placeholder="youremail@email.com" name="email" required />
               </label>
 
               <label class="block mt-4 text-sm">
                 <span class="text-gray-700 dark:text-gray-400">Your Company Name</span>
-                <input type="text" class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" placeholder="Company name" name='sname' required minlength="10" />
+                <input type="text" class="form-control" placeholder="Company name" name='sname' required minlength="10" />
               </label>
 
              
               <label class="block mt-4 text-sm">
                 <span class="text-gray-700 dark:text-gray-400">Your Address</span>
-                <input type="text" class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" placeholder="Enter address...." name='address' required minlength="10" />
+                <input type="text" class="form-control" placeholder="Enter address...." name='address' required minlength="10" />
               </label>
 
               <label class="block mt-4 text-sm">
                 <span class="text-gray-700 dark:text-gray-400"> Number of Users</span>
-                <input type="number" class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" placeholder="0" name='students' required min="50" />
+                <input type="number" class="form-control" placeholder="0" name='students' required min="50" />
               </label>
        
               <div class="flex mt-6 text-sm">

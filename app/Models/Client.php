@@ -9,7 +9,7 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Support\Facades\DB;
 /**
  * Class Client
  * @package App\Models
@@ -30,6 +30,8 @@ class Client extends Model
 		'name',
 		'phone',
 		'address',
+		'sex',
+		'uuid',
 		'employer',
 		'employer_id',
 		'amount',
@@ -55,6 +57,14 @@ class Client extends Model
 	{
 		return $this->belongsTo(Partner::class);
 	}
+	public function employers()
+	{
+		return $this->belongsTo(Employer::class, 'employer_id', 'id');
+	}
+	public function branchs()
+	{
+		return $this->belongsTo(Branch::class, 'branch_id', 'id');
+	}
 
 	public function installments()
 	{
@@ -72,4 +82,22 @@ class Client extends Model
 	{
 		return $this->hasMany(Task::class);
 	}
+
+	public function scopeFilter($query, array $filters)
+    {
+        $query->when($filters['search'] ?? null, function ($query, $search) {
+            $query->where(function ($query) use ($search) {
+                $query->where(DB::raw('lower(name)'), 'like', '%'.strtolower($search).'%')
+				->orWhere(DB::raw('lower(phone)'), 'like', '%'.strtolower($search).'%')
+				->orWhere(DB::raw('lower(branch)'), 'like', '%'.strtolower($search).'%');
+            });
+        })->when($filters['trashed'] ?? null, function ($query, $trashed) {
+            if ($trashed === 'with') {
+                $query->withTrashed();
+            } elseif ($trashed === 'only') {
+                $query->onlyTrashed();
+            }
+        });
+    }
+	
 }

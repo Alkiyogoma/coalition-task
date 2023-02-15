@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Facades\DB;
 
 class User extends Authenticatable
 {
@@ -42,7 +43,9 @@ class User extends Authenticatable
 	protected $fillable = [
 		'name',
 		'email',
+		'phone',
 		'sex',
+		'uuid',
 		'code',
 		'photo',
 		'dob',
@@ -52,7 +55,6 @@ class User extends Authenticatable
 		'jod',
 		'salary',
 		'status',
-		'private_email',
 		'email_verified_at',
 		'password',
 		'remember_token'
@@ -94,4 +96,31 @@ class User extends Authenticatable
 	{
 		return $this->hasMany(Task::class);
 	}
+	
+	public function role()
+	{
+		return $this->belongsTo(Role::class);
+	}
+
+	public function department()
+	{
+		return $this->belongsTo(Department::class);
+	}
+
+	public function scopeFilter($query, array $filters)
+    {
+        $query->when($filters['search'] ?? null, function ($query, $search) {
+            $query->where(function ($query) use ($search) {
+                $query->where(DB::raw('lower(name)'), 'like', '%'.strtolower($search).'%')
+				->orWhere(DB::raw('lower(phone)'), 'like', '%'.strtolower($search).'%')
+				->orWhere(DB::raw('lower(email)'), 'like', '%'.strtolower($search).'%');
+            });
+        })->when($filters['trashed'] ?? null, function ($query, $trashed) {
+            if ($trashed === 'with') {
+                $query->withTrashed();
+            } elseif ($trashed === 'only') {
+                $query->onlyTrashed();
+            }
+        });
+    }
 }

@@ -40,6 +40,7 @@ class Partner extends Model
 		'phone',
 		'address',
 		'webstite',
+		'uuid',
 		'logo',
 		'partner_group_id',
 		'about'
