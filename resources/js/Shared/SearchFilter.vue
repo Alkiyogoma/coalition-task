@@ -1,7 +1,8 @@
 <template>
-  <div class="flex items-center">
-    <div class="flex w-full bg-white rounded shadow">
-      <dropdown :auto-close="false" class="focus:z-10 px-4 hover:bg-gray-100 border-r focus:border-white rounded-l focus:ring md:px-6" placement="bottom-start">
+  <div class="row">
+    <div class="col-12">
+      <div class="px-4 py-2 input-group input-group-outline mb-2">
+  <!-- <dropdown :auto-close="false" class="focus:z-10 px-4 hover:bg-gray-100 border-r focus:border-white rounded-l focus:ring md:px-6" placement="bottom-start">
         <template #default>
           <div class="flex items-baseline">
             <span class="hidden text-gray-700 md:inline">Filter</span>
@@ -15,12 +16,17 @@
             <slot />
           </div>
         </template>
-      </dropdown>
-      <input class="relative px-6 py-3 w-full rounded-r focus:shadow-outline" autocomplete="off" type="text" name="search" placeholder="Search Here…" :value="modelValue" @input="$emit('update:modelValue', $event.target.value)" />
+      </dropdown> -->
+      <input class="form-control" autocomplete="off" type="text" name="search" placeholder="Search Here…" :value="modelValue" @input="$emit('update:modelValue', $event.target.value)" />
     </div>
-    <button class="px-3 py-3 inset-y-0 right-0 px-4 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-r-md active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"  type="button" @click="$emit('reset')">
+    <!-- <div class="col-2">
+      <div class="input-group input-group-outline mb-4">
+    <button class="btn btn-primary"  type="button" @click="$emit('reset')">
         Clear
     </button>
+  </div>
+</div> -->
+</div>
   </div>
 </template>
 

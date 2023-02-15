@@ -69,29 +69,31 @@ Route::get('/billing', function () {
     return Inertia('Billing');
 });
 
-Route::get('/users', function () {
-    return Inertia('User');
-});
+
 Route::get('/notifications', function () {
     return Inertia('Notification');
 });
 Route::get('/messages', function () {
     return Inertia('Message');
 });
-Route::get('/add-user', function () {
-    return Inertia('NewUser');
-});
-Route::get('user/{contact}/edit', [UsersController::class, 'edit_customer'])->name('contacts.edit');
-// Route::get('messages', [UsersController::class, 'address'])->name('contacts.edit');
-Route::get('names', [UsersController::class, 'address'])->name('contacts.edit');
-Route::get('contacts', [UsersController::class, 'address'])->name('contacts.edit');
-Route::get('groups', [UsersController::class, 'address'])->name('contacts.edit');
-Route::get('invoices', [UsersController::class, 'address'])->name('contacts.edit');
-Route::get('week', [UsersController::class, 'address'])->name('contacts.edit');
-Route::get('month', [UsersController::class, 'address'])->name('contacts.edit');
-Route::get('year', [UsersController::class, 'address'])->name('contacts.edit');
-Route::get('last', [UsersController::class, 'address'])->name('contacts.edit');
-Route::get('integretions', [UsersController::class, 'address'])->name('contacts.edit');
+
+Route::get('user/{contact}/edit', [UsersController::class, 'edit_customer']);
+Route::get('add-user', [UsersController::class, 'create']);
+Route::post('saveuser', [UsersController::class, 'saveuser']);
+Route::get('users', [UsersController::class, 'index']);
+
+Route::get('add-customer', [UsersController::class, 'addcustomer']);
+Route::post('saveclient', [UsersController::class, 'saveclient']);
+Route::get('clients', [UsersController::class, 'clients']);
+
+Route::get('contacts', [UsersController::class, 'address']);
+Route::get('groups', [UsersController::class, 'address']);
+Route::get('invoices', [UsersController::class, 'address']);
+Route::get('week', [UsersController::class, 'address']);
+Route::get('month', [UsersController::class, 'address']);
+Route::get('year', [UsersController::class, 'address']);
+Route::get('last', [UsersController::class, 'address']);
+Route::get('integretions', [UsersController::class, 'address']);
 
 Route::post('/logouts', function () {
     dd('Logout page visited');

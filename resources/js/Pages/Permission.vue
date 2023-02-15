@@ -31,7 +31,7 @@
                                     <tr>
                                         <td class="ps-1" colspan="4">
                                             <div class="my-auto">
-                                                <span class="text-dark d-block text-sm">Mentions</span>
+                                                <span class="text-dark d-form-label">Mentions</span>
                                                 <span class="text-xs font-weight-normal">Notify when another user
                                                     mentions you in a comment</span>
                                             </div>
@@ -61,7 +61,7 @@
                                     <tr>
                                         <td class="ps-1" colspan="4">
                                             <div class="my-auto">
-                                                <span class="text-dark d-block text-sm">Comments</span>
+                                                <span class="text-dark d-form-label">Comments</span>
                                                 <span class="text-xs font-weight-normal">Notify when another user
                                                     comments your item.</span>
                                             </div>
@@ -91,7 +91,7 @@
                                     <tr>
                                         <td class="ps-1" colspan="4">
                                             <div class="my-auto">
-                                                <span class="text-dark d-block text-sm">Follows</span>
+                                                <span class="text-dark d-form-label">Follows</span>
                                                 <span class="text-xs font-weight-normal">Notify when another user
                                                     follows you.</span>
                                             </div>

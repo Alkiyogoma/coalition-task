@@ -12,24 +12,6 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Post
- * 
- * @property int $id
- * @property string|null $title
- * @property string|null $content
- * @property string|null $attach
- * @property int|null $status
- * @property int|null $category_id
- * @property Carbon $created_at
- * @property Carbon $updated_at
- * @property int|null $views
- * @property int $user_id
- * 
- * @property User $user
- * @property PostCategory|null $post_category
- * @property Collection|PostComment[] $post_comments
- * @property Collection|PostView[] $post_views
- *
- * @package App\Models
  */
 class Post extends Model
 {
@@ -45,6 +27,7 @@ class Post extends Model
 	protected $fillable = [
 		'title',
 		'content',
+		'uuid',
 		'attach',
 		'status',
 		'category_id',

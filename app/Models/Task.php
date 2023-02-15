@@ -9,7 +9,7 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Support\Facades\DB;
 /**
  * Class Task
  * @package App\Models
@@ -40,6 +40,7 @@ class Task extends Model
 		'client_id',
 		'task_type_id',
 		'task_date',
+		'uuid',
 		'priority_id',
 		'status_id',
 		'next_date',
@@ -89,4 +90,18 @@ class Task extends Model
 					->withPivot('id')
 					->withTimestamps();
 	}
+	public function scopeFilter($query, array $filters)
+    {
+        $query->when($filters['search'] ?? null, function ($query, $search) {
+            $query->where(function ($query) use ($search) {
+                $query->where(DB::raw('lower(title)'), 'like', '%'.strtolower($search).'%');
+            });
+        })->when($filters['trashed'] ?? null, function ($query, $trashed) {
+            if ($trashed === 'with') {
+                $query->withTrashed();
+            } elseif ($trashed === 'only') {
+                $query->onlyTrashed();
+            }
+        });
+    }
 }

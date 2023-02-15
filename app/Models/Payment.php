@@ -32,6 +32,7 @@ class Payment extends Model
 
 	protected $fillable = [
 		'client_id',
+		'uuid',
 		'installment_id',
 		'amount',
 		'date',
