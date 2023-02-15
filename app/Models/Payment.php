@@ -9,23 +9,7 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
-/**
- * Class Payment
- * 
- * @property int $payment_id
- * @property int $customer_id
- * @property int $staff_id
- * @property int|null $rental_id
- * @property float $amount
- * @property Carbon $payment_date
- * @property Carbon $last_update
- * 
- * @property Customer $customer
- * @property Rental|null $rental
- * @property Staff $staff
- *
- * @package App\Models
- */
+
 class Payment extends Model
 {
 	protected $table = 'payment';

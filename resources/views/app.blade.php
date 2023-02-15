@@ -265,7 +265,7 @@
                                   href="/pagination"
                                  >
                                   <span class="sidenav-mini-icon"> C </span>
-                                  <span class="sidenav-normal  ms-2  ps-1"> Claims </span>
+                                  <span class="sidenav-normal  ms-2  ps-1"> Confirmations </span>
                               </a>
                           </li>
                           <li class="nav-item ">
@@ -340,23 +340,32 @@
                                     href="/partners"
                                    >
                                     <span class="sidenav-mini-icon"> PR </span>
-                                    <span class="sidenav-normal  ms-2  ps-1"> Partners Report </span>
+                                    <span class="sidenav-normal  ms-2  ps-1"> Pre Invoices </span>
                                 </a>
                             </li>
                             <li class="nav-item ">
                                 <a class="nav-link text-white"
                                     href="/billing"
                                    >
-                                    <span class="sidenav-mini-icon"> SR </span>
-                                    <span class="sidenav-normal  ms-2  ps-1"> Staffs Report </span>
+                                    <span class="sidenav-mini-icon"> MR </span>
+                                    <span class="sidenav-normal  ms-2  ps-1"> Monthly Report </span>
                                 </a>
                             </li>
                             <li class="nav-item ">
                                 <a class="nav-link text-white"
                                     href="/pagination"
                                    >
-                                    <span class="sidenav-mini-icon"> CR </span>
-                                    <span class="sidenav-normal  ms-2  ps-1"> Credits Report </span>
+                                    <span class="sidenav-mini-icon"> MP </span>
+                                    <span class="sidenav-normal  ms-2  ps-1"> Monthly Prospects </span>
+                                </a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a class="nav-link text-white"
+                                    href="/pagination"
+                                   >
+                                    <span class="sidenav-mini-icon"> MP </span>
+                                    <span class="sidenav-normal  ms-2  ps-1"> Monthly Prospects </span>
                                 </a>
                             </li>
                         </ul>
