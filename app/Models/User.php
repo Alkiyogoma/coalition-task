@@ -43,19 +43,25 @@ class User extends Authenticatable
 		'name',
 		'email',
 		'sex',
+		'code',
 		'photo',
 		'dob',
 		'address',
-		'code',
 		'department_id',
 		'role_id',
 		'jod',
 		'salary',
 		'status',
+		'private_email',
 		'email_verified_at',
 		'password',
 		'remember_token'
 	];
+
+	public function client_installments()
+	{
+		return $this->hasMany(ClientInstallment::class);
+	}
 
 	public function clients()
 	{
@@ -69,9 +75,9 @@ class User extends Authenticatable
 					->withTimestamps();
 	}
 
-	public function posts()
+	public function installments()
 	{
-		return $this->hasMany(Post::class);
+		return $this->hasMany(Installment::class);
 	}
 
 	public function payments()
@@ -79,8 +85,13 @@ class User extends Authenticatable
 		return $this->hasMany(Payment::class);
 	}
 
-	public function amounts()
+	public function posts()
 	{
-		return $this->hasMany(ClientInstallment::class);
+		return $this->hasMany(Post::class);
+	}
+
+	public function tasks()
+	{
+		return $this->hasMany(Task::class);
 	}
 }
