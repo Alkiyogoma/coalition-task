@@ -199,7 +199,7 @@
                                 <div class="card-body p-3 pt-0">
                                     <div class="row">
                                         <div class="col-4">
-                                            <img src="assets/img/kal-visuals-square.jpg" alt="kal"
+                                            <img src="/assets/img/kal-visuals-square.jpg" alt="kal"
                                                 class="border-radius-lg shadow shadow-dark w-100 mt-n4">
                                         </div>
                                         <div class="col-8 my-auto">

@@ -3,9 +3,10 @@
 
 <head>
     <meta charset="utf-8" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="apple-touch-icon" sizes="76x76" href="assets/images/logo.jpg">
-    <link rel="icon" type="image/jpg" href="assets/images/logo.jpg">
+    <link rel="apple-touch-icon" sizes="76x76" href="/assets/images/logo.jpg">
+    <link rel="icon" type="image/jpg" href="/assets/images/logo.jpg">
     <title>
       STEAM Generation Recoveries LTD
     </title>
@@ -35,14 +36,16 @@
     <link rel="stylesheet" type="text/css"
         href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
 
-    <link href="assets/css/nucleo-icons.css" rel="stylesheet" />
-    <link href="assets/css/nucleo-svg.css" rel="stylesheet" />
+    <link href="/assets/css/nucleo-icons.css" rel="stylesheet" />
+    <link href="/assets/css/nucleo-svg.css" rel="stylesheet" />
 
-    <script src="assets/js/fonts.js" crossorigin="anonymous"></script>
+    <script src="/assets/js/fonts.js" crossorigin="anonymous"></script>
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
 
-    <link id="pagestyle" href="assets/css/material-dashboard.min.css" rel="stylesheet" />
+    <link id="pagestyle" href="/assets/css/material-dashboard.min.css" rel="stylesheet" />
+
+    <link href="{{ URL::asset('assets/css/toastr.min.css') }}" rel="stylesheet">
 
     <style>
         .async-hide {
@@ -66,7 +69,7 @@
             <a class="navbar-brand m-0"
                 href="/dashboard"
                >
-                <img src="assets/images/logo.jpg" class="navbar-brand-img h-100" alt="main_logo">
+                <img src="/assets/images/logo.jpg" class="navbar-brand-img h-100" alt="main_logo">
                 <span class="ms-1 font-weight-bold text-white">STEAM Generation </span> 
             </a>
         </div>
@@ -76,7 +79,7 @@
                 <li class="nav-item mb-2 mt-0">
                     <a data-bs-toggle="collapse" href="#ProfileNav" class="nav-link text-white"
                         aria-controls="ProfileNav" role="button" aria-expanded="false">
-                        <img src="assets/img/team-3.jpg" class="avatar">
+                        <img src="/assets/img/team-3.jpg" class="avatar">
                         <span class="nav-link-text ms-2 ps-1">Brooklyn Alice</span>
                     </a>
                     <div class="collapse" id="ProfileNav">
@@ -145,14 +148,17 @@
                   <a data-bs-toggle="collapse" href="#componentsStaffs" class="nav-link text-white"
                       aria-controls="componentsStaffs" role="button" aria-expanded="false">
                       <i class="material-icons opacity-10">table_view</i>
-                      <span class="nav-link-text ms-2 ps-1">Staffs</span>
+                      <span class="nav-link-text ms-2 ps-1">Company</span>
                   </a>
                   <div class="collapse " id="componentsStaffs">
                       <ul class="nav ">
-                          <li class="nav-item ">
-                              <a class="nav-link text-white" href="/add-user">
-                                  <span class="sidenav-mini-icon"> A </span>
-                                  <span class="sidenav-normal  ms-2  ps-1"> Add User </span>
+                         
+                        <li class="nav-item ">
+                            <a class="nav-link text-white"
+                                href="/departments"
+                               >
+                                  <span class="sidenav-mini-icon"> D </span>
+                                  <span class="sidenav-normal  ms-2  ps-1"> Departments </span>
                               </a>
                           </li>
                           <li class="nav-item ">
@@ -168,27 +174,19 @@
                                   href="/tasks"
                                  >
                                   <span class="sidenav-mini-icon"> T </span>
-                                  <span class="sidenav-normal  ms-2  ps-1"> Tasks </span>
+                                  <span class="sidenav-normal  ms-2  ps-1"> Staff Tasks </span>
                               </a>
                           </li>
                           <li class="nav-item ">
                               <a class="nav-link text-white"
-                                  href="/pagination"
+                                  href="/Modal"
                                  >
                                   <span class="sidenav-mini-icon"> M </span>
                                   <span class="sidenav-normal  ms-2  ps-1"> Materials </span>
                               </a>
                           </li>
-                          <li class="nav-item ">
-                              <a class="nav-link text-white"
-                                  href="/popovers"
-                                 >
-                                  <span class="sidenav-mini-icon"> P </span>
-                                  <span class="sidenav-normal  ms-2  ps-1"> Popovers </span>
-                              </a>
-                          </li>
-                      </ul>
-                  </div>
+                        </ul>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <a data-bs-toggle="collapse" href="#pagesExamples" class="nav-link text-white"
@@ -227,58 +225,7 @@
                     </div>
                 </li>
                 
-              <li class="nav-item">
-                  <a data-bs-toggle="collapse" href="#componentsCustomers" class="nav-link text-white"
-                      aria-controls="componentsCustomers" role="button" aria-expanded="false">
-                      <i
-                      class="material-icons-round {% if page.brand == 'RTL' %}ms-2{% else %} me-2{% endif %}">apps</i>
-                      <span class="nav-link-text ms-2 ps-1">Customers</span>
-                  </a>
-                  <div class="collapse " id="componentsCustomers">
-                      <ul class="nav ">
-                          <li class="nav-item ">
-                              <a class="nav-link text-white"
-                                  href="/partners"
-                                 >
-                                  <span class="sidenav-mini-icon"> P </span>
-                                  <span class="sidenav-normal  ms-2  ps-1"> Partiners </span>
-                              </a>
-                          </li>
-                          <li class="nav-item ">
-                              <a class="nav-link text-white"
-                                  href="/tables"
-                                 >
-                                  <span class="sidenav-mini-icon"> C </span>
-                                  <span class="sidenav-normal  ms-2  ps-1"> Clients </span>
-                              </a>
-                          </li>
-                          <li class="nav-item ">
-                              <a class="nav-link text-white"
-                                  href="/datatables"
-                                 >
-                                  <span class="sidenav-mini-icon"> L </span>
-                                  <span class="sidenav-normal  ms-2  ps-1"> Loans </span>
-                              </a>
-                          </li>
-                          <li class="nav-item ">
-                              <a class="nav-link text-white"
-                                  href="/pagination"
-                                 >
-                                  <span class="sidenav-mini-icon"> C </span>
-                                  <span class="sidenav-normal  ms-2  ps-1"> Confirmations </span>
-                              </a>
-                          </li>
-                          <li class="nav-item ">
-                              <a class="nav-link text-white"
-                                  href="/popovers"
-                                 >
-                                  <span class="sidenav-mini-icon"> L </span>
-                                  <span class="sidenav-normal  ms-2  ps-1"> Letters </span>
-                              </a>
-                          </li>
-                      </ul>
-                  </div>
-              </li>
+          
               <li class="nav-item">
                 <a data-bs-toggle="collapse" href="#componentsCases" class="nav-link text-white"
                     aria-controls="componentsCases" role="button" aria-expanded="false">
@@ -318,6 +265,60 @@
                     </ul>
                 </div>
             </li>
+             
+            <li class="nav-item">
+                <a data-bs-toggle="collapse" href="#componentsAccounts" class="nav-link text-white"
+                    aria-controls="componentsAccounts" role="button" aria-expanded="false">
+                    <i class="material-icons-round {% if page.brand == 'RTL' %}ms-2{% else %} me-2{% endif %}">receipt_long</i>
+                    <span class="nav-link-text ms-2 ps-1">Accounts</span>
+                </a>
+                <div class="collapse " id="componentsAccounts">
+                    <ul class="nav ">
+                     
+                        <li class="nav-item ">
+                            <a class="nav-link text-white"
+                                href="/users"
+                               >
+                                <span class="sidenav-mini-icon"> A </span>
+                                <span class="sidenav-normal  ms-2  ps-1"> Accounts Groups </span>
+                            </a>
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link text-white"
+                                href="/tasks"
+                               >
+                                <span class="sidenav-mini-icon"> E </span>
+                                <span class="sidenav-normal  ms-2  ps-1"> Expenses </span>
+                            </a>
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link text-white"
+                                href="/pagination"
+                               >
+                                <span class="sidenav-mini-icon"> R </span>
+                                <span class="sidenav-normal  ms-2  ps-1"> Revenues </span>
+                            </a>
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link text-white"
+                                href="/reports"
+                               >
+                                <span class="sidenav-mini-icon"> C </span>
+                                <span class="sidenav-normal  ms-2  ps-1"> Cash Requests </span>
+                            </a>
+                        </li>
+                        
+                        <li class="nav-item ">
+                            <a class="nav-link text-white"
+                                href="/reports"
+                               >
+                                <span class="sidenav-mini-icon"> R </span>
+                                <span class="sidenav-normal  ms-2  ps-1">Reports </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+              </li>
                 <li class="nav-item">
                     <a data-bs-toggle="collapse" href="#componentsExamples" class="nav-link text-white"
                         aria-controls="componentsExamples" role="button" aria-expanded="false">
@@ -372,17 +373,10 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/logs">
-                        <i class="material-icons-round {% if page.brand == 'RTL' %}ms-2{% else %} me-2{% endif %}">receipt_long</i>
-                        <span class="nav-link-text ms-2 ps-1">Changelog</span>
-                    </a>
-                </li>
-                
-                <li class="nav-item">
                   <a class="nav-link"
                       href="/profile"
                      >
-                      <i class="material-icons opacity-10">person_add</i>
+                      <i class="material-icons opacity-10">person</i>
                       <span class="nav-link-text ms-2 ps-1">My Profile</span>
                   </a>
               </li>
@@ -600,16 +594,56 @@
         </div>
     </div>
 
-    <script src="assets/js/core/popper.min.js"></script>
-    <script src="assets/js/core/bootstrap.min.js"></script>
-    <script src="assets/js/plugins/perfect-scrollbar.min.js"></script>
-    <script src="assets/js/plugins/smooth-scrollbar.min.js"></script>
-    <script src="assets/js/plugins/fullcalendar.min.js"></script>
+    <script src="/assets/js/core/popper.min.js"></script>
+    <script src="/assets/js/core/bootstrap.min.js"></script>
+    <script src="/assets/js/plugins/perfect-scrollbar.min.js"></script>
+    <script src="/assets/js/plugins/smooth-scrollbar.min.js"></script>
+    <script src="/assets/js/plugins/fullcalendar.min.js"></script>
+    <script type="text/javascript" src="{{ URL::asset('assets/js/toastr.min.js') }}"></script>
 
-    <script src="assets/js/plugins/dragula/dragula.min.js"></script>
-    <script src="assets/js/plugins/jkanban/jkanban.js"></script>
-    <script src="assets/js/plugins/chartjs.min.js"></script>
-    <script src="assets/js/material-dashboard.min.js"></script>
+    <script src="/assets/js/plugins/dragula/dragula.min.js"></script>
+    <script src="/assets/js/plugins/jkanban/jkanban.js"></script>
+    <script src="/assets/js/plugins/chartjs.min.js"></script>
+    <script src="/assets/js/material-dashboard.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+  @if(session()->has('success'))
+  toastr.options =
+  {
+  	"closeButton" : true,
+  	"progressBar" : true
+  }
+  		toastr.success("{{ session()->get('success') }}");
+  @endif
+
+  @if(session()->has('error'))
+  toastr.options =
+  {
+  	"closeButton" : true,
+  	"progressBar" : true
+  }
+  		toastr.error("{{ session()->get('error') }}");
+  @endif
+
+  @if(session()->has('info'))
+  toastr.options =
+  {
+  	"closeButton" : true,
+  	"progressBar" : true
+  }
+  		toastr.info("{{ session()->get('info') }}");
+  @endif
+
+  @if(session()->has('warning'))
+  toastr.options =
+  {
+  	"closeButton" : true,
+  	"progressBar" : true
+  }
+  		toastr.warning("{{ session()->get('warning') }}");
+  @endif
+});
 
 </body>
 

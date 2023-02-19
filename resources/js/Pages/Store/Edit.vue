@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import { Link } from '@inertiajs/inertia-vue3'
+import { Link } from '@inertiajs/vue3'
 import TextInput from '../../Shared/TextInput'
 import TextareaInput from '../../Shared/TextareaInput'
 import LoadingButton from '../../Shared/LoadingButton'

@@ -56,7 +56,7 @@ class Task extends Model
 
 	public function tasktype()
 	{
-		return $this->belongsTo(TaskType::class);
+		return $this->belongsTo(TaskType::class, 'task_type_id', 'id');
 	}
 
 	public function nexttask()

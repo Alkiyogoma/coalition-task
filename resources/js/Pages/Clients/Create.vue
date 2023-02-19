@@ -65,7 +65,7 @@
 <script>
     import {
         Link
-    } from '@inertiajs/inertia-vue3'
+    } from '@inertiajs/vue3'
     // import Layout from '../Shared/Layout'
     import TextInput from '../../Shared/TextInputB'
     import SelectInput from '../../Shared/SelectInput'
