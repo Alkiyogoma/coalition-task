@@ -7,7 +7,7 @@
                     <div class="row justify-content-center align-items-center">
                         <div class="col-sm-auto col-4">
                             <div class="avatar avatar-xl position-relative">
-                                <img src="assets/img/bruce-mars.jpg" alt="bruce"
+                                <img src="/assets/img/bruce-mars.jpg" alt="bruce"
                                     class="w-100 rounded-circle shadow-sm">
                             </div>
                         </div>

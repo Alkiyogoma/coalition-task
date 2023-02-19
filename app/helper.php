@@ -289,6 +289,56 @@ function allUpper($str){
     return strtoupper($str);
   }
 
+    function sendMessages(){
+      
+        $messages =  DB::table('messages')->where('status', 0)->select('body')->limit(5)->distinct()->get();
+        if (count($messages) > 0) {
+            $i = 1;
+            $numbers = [];
+            $numbers1 = array();
+
+            foreach($messages as $message1){
+                $body = $message1->body;
+
+                $real_messages =  \DB::table('messages')->where('body', $body)->where('status', 0)->limit(10)->get();
+               
+            foreach($real_messages as $message){
+                $phone_number = str_replace('+', '', validate_phone_number(trim($message->phone))[1]);
+                if(preg_match('/25576/', $phone_number) || preg_match('/25575/', $phone_number) || preg_match('/25574/', $phone_number)){
+                    array_push($numbers1, $phone_number);
+                }else{
+                    array_push($numbers, $phone_number);
+                }
+               \DB::table('messages')->where('id', $message->id)->update(['status' => 1, 'return_code' => 'Message Sent Successfuly']);
+            }
+           count($numbers1) > 0 ? set_numbers(array_unique($numbers1) , $body) : '';
+           count($numbers) > 0 ? imart($body, (string)implode(',', array_unique($numbers)), 'STEAM') : '';
+        }
+            return true;
+        }else{
+            return true;
+        }
+    }
+
+
+    function imart($message, $phone_number, $sender){
+        $api_key = '363622C886AD5E';
+        $contacts = $phone_number;
+        $from = $sender;
+        $sms_text = urlencode($message);
+        if(preg_match('/25576/', $phone_number) || preg_match('/25575/', $phone_number) || preg_match('/25574/', $phone_number)){
+            send_sms1($phone_number, $message);
+        }
+        //Submit to server
+        $ch = curl_init();
+        curl_setopt($ch,CURLOPT_URL, "http://smsportal.imartgroup.co.tz/app/smsapi/index.php");
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, "key=".$api_key."&campaign=1&routeid=8&type=text&contacts=".$contacts."&senderid=".$from."&msg=".$sms_text);
+        $response = curl_exec($ch);
+        curl_close($ch);
+        echo $response; 
+    }
 
 
 function send_sms($phone_number, $message, $sender = 'DARSMS'){
@@ -319,178 +369,22 @@ function send_sms($phone_number, $message, $sender = 'DARSMS'){
         }
     }
 
-
-  function send_sms1($phone, $message){
-//.... replace <api_key> and <secret_key> with the valid keys obtained from the platform, under profile>authentication information
-if($phone != ''){
-$api_key='4a85e6b2d1106f14';
-$secret_key = 'Y2I1YzcyNDIyMTI2ODJmYjhmMWYxNDk3YzgzNGY4ZjUxNGYxMTJkZmMxOTlmZTAzYmI3MTI2ZjQyOTUxM2Y3MA==';
-// The data to send to the API
-$posthata = array(
-    'source_addr' => 'INTERSCHOOL',
-    'encoding'=> 0,
-    'schedule_time' => '',
-    'message' => $message,
-    'recipients' => [array('recipient_id' => '1','dest_addr'=> $phone)]
-);
-//.... Api url
-$Url ='https://apisms.beem.africa/v1/send';
-
-// Setup cURL
-$ch = curl_init($Url);
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
-curl_setopt_array($ch, array(
-    CURLOPT_POST => TRUE,
-    CURLOPT_RETURNTRANSFER => TRUE,
-    CURLOPT_HTTPHEADER => array(
-        'Authorization:Basic ' . base64_encode("$api_key:$secret_key"),
-        'Content-Type: application/json'
-    ),
-    CURLOPT_POSTFIELDS => json_encode($posthata)
-));
-
-// Send the request
-$response = curl_exec($ch);
-
-// Check for errors
-if($response === FALSE){
-        echo $response;
-
-        die(curl_error($ch));
-    }
-        $success = 'sent';
-    }else{
-        $success = 'Failed';
-    }
-
-return $success;
-}
-
-
-function getWeeks($month,$year){
-    $month = intval($month);				//force month to single integer if '0x'
-    $suff = array('st','nd','rd','th','th','th'); 		//week suffixes
-    $end = date('t',mktime(0,0,0,$month,1,$year)); 		//last date day of month: 28 - 31
-      $start = date('w',mktime(0,0,0,$month,1,$year)); 	//1st day of month: 0 - 6 (Sun - Sat)
-    $last = 7 - $start; 					//get last day date (Sat) of first week
-    $noweeks = ceil((($end - ($last + 1))/7) + 1);		//total no. weeks in month
-    $output = "";						//initialize string		
-    $output .= "<table class='table table-striped' id='datatable'><thead><tr><th>Weeks</th>";
-    $monthlabel = str_pad($month, 2, '0', STR_PAD_LEFT);
-    $conts = \App\Models\Contribution::get();
-   
-    for($x=1;$x<$noweeks+1;$x++){	
-        if($x == 1){
-            $starthate = "$year-$monthlabel-01";
-            $day = $last - 6;
-        }else{
-            $day = $last + 1 + (($x-2)*7);
-            $day = str_pad($day, 2, '0', STR_PAD_LEFT);
-            $starthate = "$year-$monthlabel-$day";
-        }
-        if($x == $noweeks){
-            $enddate = "$year-$monthlabel-$end";
-        }else{
-            $dayend = $day + 6;
-            $dayend = str_pad($dayend, 2, '0', STR_PAD_LEFT);
-            $enddate = "$year-$monthlabel-$dayend";
-        }
-        $output .= " <th class='text-center'>{$x}{$suff[$x-1]} week </th>";
-    }
-    $output .= "<th class='text-center'>Total</th></thead></tr>";	
-
-    $output .= "<tbody>";
-    $output .= "<tr><th>Date<br> Name</th>";
-    $i = 1;
-    for($x=1;$x<$noweeks+1;$x++){	
-        if($x == 1){
-            $starthate = "01-$monthlabel-$year";
-            $day = $last - 6;
-        }else{
-            $day = $last + 1 + (($x-2)*7);
-            $day = str_pad($day, 2, '0', STR_PAD_LEFT);
-            $starthate = "$day-$monthlabel-$year";
-        }
-        if($x == $noweeks){
-            $enddate = "$end-$monthlabel-$year";
-        }else{
-            $dayend = $day + 6;
-            $dayend = str_pad($dayend, 2, '0', STR_PAD_LEFT);
-            $enddate = "$dayend-$monthlabel-$year";
-        }
-      //  $output .= "<tr> <th>{$x}{$suff[$x-1]} week </th> </tr>";
-        $output .= "<th class='text-center'>$starthate <br> $enddate </th>";
-
-    }
-    $output .= "<th>-</th></tr>";
+    function send_sms1($phone_number, $message, $sender = 'DARSMS'){
+        $api_key = '363622C886AD5E';
+        $contacts = $phone_number;
+        $from = $sender;
+        $sms_text = urlencode($message);
         
-    foreach($conts as $type){
-        
-        $output .= "<tr><th>$type->name</th>";
-        $sum = 0;
-        for($x=1;$x<$noweeks+1;$x++){
-           
-            if($x == 1){
-                $starthate = "01-$monthlabel-$year";
-                $day = $last - 6;
-            }else{
-                $day = $last + 1 + (($x-2)*7);
-                $day = str_pad($day, 2, '0', STR_PAD_LEFT);
-                $starthate = "$day-$monthlabel-$year";
-            }
-            if($x == $noweeks){
-                $enddate = "$end-$monthlabel-$year";
-            }else{
-                $dayend = $day + 6;
-                $dayend = str_pad($dayend, 2, '0', STR_PAD_LEFT);
-                $enddate = "$dayend-$monthlabel-$year";
-            }
-            $mwanzo = date("Y-m-d", strtotime($starthate));
-            $mwisho = date("Y-m-d", strtotime($enddate));
-          
-          $amount = $type->collections->whereBetween('date', [$mwanzo, $mwisho])->sum('amount');
-          $sum += $amount;	
-          $output .= "<th class='text-center'>". $amount ."</th>";
-        }
-        $output .= "<th class='text-center'>$sum</th></tr>";
-
+        //Submit to server
+        $ch = curl_init();
+        curl_setopt($ch,CURLOPT_URL, "http://smsportal.imartgroup.co.tz/app/smsapi/index.php");
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, "key=".$api_key."&campaign=1&routeid=8&type=text&contacts=".$contacts."&senderid=".$from."&msg=".$sms_text);
+        $response = curl_exec($ch);
+        curl_close($ch);
+        echo $response; 
     }
-
-        $output .= "<tfooter><tr><th>Total</th>";
-        $sum1 = 0;
-
-        for($x=1;$x<$noweeks+1;$x++){
-           
-            if($x == 1){
-                $starthate = "01-$monthlabel-$year";
-                $day = $last - 6;
-            }else{
-                $day = $last + 1 + (($x-2)*7);
-                $day = str_pad($day, 2, '0', STR_PAD_LEFT);
-                $starthate = "$day-$monthlabel-$year";
-            }
-            if($x == $noweeks){
-                $enddate = "$end-$monthlabel-$year";
-            }else{
-                $dayend = $day + 6;
-                $dayend = str_pad($dayend, 2, '0', STR_PAD_LEFT);
-                $enddate = "$dayend-$monthlabel-$year";
-            }
-            $mwanzo1 = date("Y-m-d", strtotime($starthate));
-            $mwisho1 = date("Y-m-d", strtotime($enddate));
-          
-          $amount1 = \App\Models\Collect::whereBetween('date', [$mwanzo1, $mwisho1])->sum('amount');
-          $sum1 += $amount1;	
-          $output .= "<th class='text-center'>". $amount1 ."</th>";
-        }
-        $output .= "<th class='text-center'>$sum1</th></tr>";
-
-    $output .= "</tbody></tfooter></table>";
-    return $output;
-}
 
 
     

@@ -56,7 +56,7 @@
                             <div class="card-body p-2">
                                 <a href="javascript:;" class="d-block p-2 border-radius-lg bg-gradient-primary">
                                     <div class="d-flex p-2">
-                                        <img alt="Image" src="assets/img/team-2.jpg" class="avatar shadow">
+                                        <img alt="Image" src="/assets/img/team-2.jpg" class="avatar shadow">
                                         <div class="ms-3">
                                             <div class="justify-content-between align-items-center">
                                                 <h6 class="text-white mb-0">Charlie Watson
@@ -69,7 +69,7 @@
                                 </a>
                                 <a href="javascript:;" class="d-block p-2">
                                     <div class="d-flex p-2">
-                                        <img alt="Image" src="assets/img/team-1.jpg" class="avatar shadow">
+                                        <img alt="Image" src="/assets/img/team-1.jpg" class="avatar shadow">
                                         <div class="ms-3">
                                             <h6 class="mb-0">Jane Doe</h6>
                                             <p class="text-muted text-xs mb-2">1 hour ago</p>
@@ -81,7 +81,7 @@
                                 </a>
                                 <a href="javascript:;" class="d-block p-2">
                                     <div class="d-flex p-2">
-                                        <img alt="Image" src="assets/img/team-3.jpg" class="avatar shadow">
+                                        <img alt="Image" src="/assets/img/team-3.jpg" class="avatar shadow">
                                         <div class="ms-3">
                                             <h6 class="mb-0">Mila Skylar</h6>
                                             <p class="text-muted text-xs mb-2">24 min ago</p>
@@ -92,7 +92,7 @@
                                 </a>
                                 <a href="javascript:;" class="d-block p-2">
                                     <div class="d-flex p-2">
-                                        <img alt="Image" src="assets/img/team-5.jpg" class="avatar shadow">
+                                        <img alt="Image" src="/assets/img/team-5.jpg" class="avatar shadow">
                                         <div class="ms-3">
                                             <h6 class="mb-0">Sofia Scarlett</h6>
                                             <p class="text-muted text-xs mb-2">7 hours ago</p>
@@ -103,7 +103,7 @@
                                 </a>
                                 <a href="javascript:;" class="d-block p-2">
                                     <div class="d-flex p-2">
-                                        <img alt="Image" src="assets/img/team-4.jpg" class="avatar shadow">
+                                        <img alt="Image" src="/assets/img/team-4.jpg" class="avatar shadow">
                                         <div class="ms-3">
                                             <div class="justify-content-between align-items-center">
                                                 <h6 class="mb-0">Tom Klein</h6>
@@ -124,7 +124,7 @@
                                     <div class="row">
                                         <div class="col-md-9 col-lg-10">
                                             <div class="d-flex align-items-center">
-                                                <img alt="Image" src="assets/img/team-2.jpg" class="avatar">
+                                                <img alt="Image" src="/assets/img/team-2.jpg" class="avatar">
                                                 <div class="ms-3">
                                                     <h6 class="mb-0 d-block text-white">Charlie Watson</h6>
                                                     <span class="text-sm text-white opacity-8">last seen today at

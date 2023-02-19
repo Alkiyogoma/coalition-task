@@ -147,7 +147,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> 
                 </div>
             </div>
             <div class="col-lg-6 mt-4 mt-lg-0">

@@ -24,7 +24,7 @@
                                     <div class="row align-items-center">
                                         <div class="col-auto">
 
-                                            <img src="assets/img/icons/flags/US.png" alt="Country flag">
+                                            <img src="/assets/img/icons/flags/US.png" alt="Country flag">
                                         </div>
                                         <div class="col">
                                             <p class="text-xs font-weight-bold mb-0">Country:</p>
@@ -45,7 +45,7 @@
                                     <div class="row align-items-center">
                                         <div class="col-auto">
 
-                                            <img src="assets/img/icons/flags/DE.png" alt="Country flag">
+                                            <img src="/assets/img/icons/flags/DE.png" alt="Country flag">
                                         </div>
                                         <div class="col">
                                             <p class="text-xs font-weight-bold mb-0">Country:</p>
@@ -66,7 +66,7 @@
                                     <div class="row align-items-center">
                                         <div class="col-auto">
 
-                                            <img src="assets/img/icons/flags/GB.png" alt="Country flag">
+                                            <img src="/assets/img/icons/flags/GB.png" alt="Country flag">
                                         </div>
                                         <div class="col">
                                             <p class="text-xs font-weight-bold mb-0">Country:</p>
@@ -87,7 +87,7 @@
                                     <div class="row align-items-center">
                                         <div class="col-auto">
 
-                                            <img src="assets/img/icons/flags/BR.png" alt="Country flag">
+                                            <img src="/assets/img/icons/flags/BR.png" alt="Country flag">
                                         </div>
                                         <div class="col">
                                             <p class="text-xs font-weight-bold mb-0">Country:</p>
@@ -293,7 +293,7 @@
 </template>
 
 <script>
-import { Head, Link } from "@inertiajs/inertia-vue3";
+import { Head, Link } from "@inertiajs/vue3";
 import pickBy from "lodash/pickBy";
 import throttle from "lodash/throttle";
 import mapValues from "lodash/mapValues";

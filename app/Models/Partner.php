@@ -39,14 +39,15 @@ class Partner extends Model
 		'name',
 		'phone',
 		'address',
-		'webstite',
+		'email',
+		'website',
 		'uuid',
 		'logo',
 		'partner_group_id',
 		'about'
 	];
 
-	public function partner_group()
+	public function partnerGroup()
 	{
 		return $this->belongsTo(PartnerGroup::class);
 	}

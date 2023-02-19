@@ -7,7 +7,7 @@
               <div class="bg-gradient-primary shadow-primary border-radius-lg pt-3 pb-3">
                 <a class="text-white text-capitalize ps-3">List of All Compy Clients</a>
                 <a href="/add-customer" style="float: right; margin-right: 4em;" class="mr-4 text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                  <span class="btn btn-primary btn-sm bg-gradient-secondary"> <i class="material-icons text-lg me-2">person</i> Add Clients</span>
+                  <span class="btn btn-primary btn-sm bg-gradient-secondary"><i class="material-icons text-lg me-2">person_add</i> Add Clients</span>
                 </a>
               </div>
             </div>
@@ -43,7 +43,9 @@
                         <span class="text-secondary text-xs font-weight-bold">{{ user.id }}</span>
                       </td>
                       <td>
-                            <h6 class="mb-0 text-sm">{{ user.name }}</h6>
+                        <Link :href="`/client/${user.uuid}/view`" class="text-secondary font-weight-bold  " data-toggle="tooltip" data-original-title="Edit user">
+                             <h6 class="mb-0 text-sm">{{ user.name }}</h6>
+                        </Link>
                       </td>
                       
                       <td class="align-middle text-center">
@@ -71,15 +73,15 @@
                         <span class="text-secondary text-xs font-weight-bold">{{ user.collector }}</span>
                       </td>
                         <td class="align-middle">
-                        <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                          <span class="badge badge-sm bg-gradient-success">View</span>
-                        </a>
-                        <a href="javascript:;" class="ml-3 text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                          <Link :href="`/client/${user.uuid}/view`" class="text-secondary font-weight-bold  " data-toggle="tooltip" data-original-title="Edit user">
+                          <span class="btn btn-outline-primary btn-sm mb-0">Profile</span>
+                        </Link>
+                        <!-- <a href="javascript:;" class="ml-3 text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
                           <span class="badge badge-sm bg-gradient-primary">Edit</span>
                         </a>
                         <a href="javascript:;" class="ml-4 text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
                           <span class="badge badge-sm bg-gradient-secondary">Delete</span>
-                        </a>
+                        </a> -->
                       </td>
                     </tr>
                  
@@ -100,7 +102,7 @@
 </template>
 
 <script>
-import { Head, Link } from '@inertiajs/inertia-vue3'
+import { Head, Link } from '@inertiajs/vue3'
 import pickBy from 'lodash/pickBy'
 import throttle from 'lodash/throttle'
 import mapValues from 'lodash/mapValues'

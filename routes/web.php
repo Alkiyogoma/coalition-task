@@ -36,7 +36,7 @@ Route::get('/datatable', function () {
 });
 
 
-Route::get('/partners', function () {
+Route::get('/customers', function () {
     return inertia('Partners');
 });
 
@@ -57,7 +57,7 @@ Route::get('/profile', function () {
     return Inertia('Profile');
 });
 
-Route::get('/customers', function () {
+Route::get('/reports', function () {
     return Inertia('Report');
 });
 
@@ -80,11 +80,20 @@ Route::get('/messages', function () {
 Route::get('user/{contact}/edit', [UsersController::class, 'edit_customer']);
 Route::get('add-user', [UsersController::class, 'create']);
 Route::post('saveuser', [UsersController::class, 'saveuser']);
-Route::get('users', [UsersController::class, 'index']);
+Route::get('users/{type?}', [UsersController::class, 'index']);
 
 Route::get('add-customer', [UsersController::class, 'addcustomer']);
-Route::post('saveclient', [UsersController::class, 'saveclient']);
-Route::get('clients', [UsersController::class, 'clients']);
+Route::get('add/{branch}', [UsersController::class, 'addemployer']);
+Route::post('save/{branch}', [UsersController::class, 'saveemployer']);
+Route::get('add-partner', [UsersController::class, 'addPartner']);
+Route::post('savepartner', [UsersController::class, 'savePartner']);
+Route::post('saveclient', [UsersController::class, 'saveClient']);
+Route::get('clients/{type?}/{id?}', [UsersController::class, 'clients']);
+Route::get('client/{uuid}/view', [UsersController::class, 'client']);
+
+Route::get('partners/{id?}', [UsersController::class, 'partners']);
+Route::get('branches/{id?}', [UsersController::class, 'branches']);
+Route::get('delete/{type}/{id}', [UsersController::class, 'deleteemployer']);
 
 Route::get('contacts', [UsersController::class, 'address']);
 Route::get('groups', [UsersController::class, 'address']);
@@ -93,7 +102,9 @@ Route::get('week', [UsersController::class, 'address']);
 Route::get('month', [UsersController::class, 'address']);
 Route::get('year', [UsersController::class, 'address']);
 Route::get('last', [UsersController::class, 'address']);
-Route::get('integretions', [UsersController::class, 'address']);
+Route::post('savePayment', [UsersController::class, 'savePayment']);
+Route::post('saveTask', [UsersController::class, 'saveTask']);
+Route::post('sendMessage', [UsersController::class, 'sendMessage']);
 
 Route::post('/logouts', function () {
     dd('Logout page visited');

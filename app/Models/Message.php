@@ -17,38 +17,36 @@ use Illuminate\Database\Eloquent\Model;
 class Message extends Model
 {
 	protected $table = 'messages';
-	public $incrementing = true;
 
 	protected $casts = [
-		'id' => 'int'
+		'user_id' => 'int',
+		'status' => 'int',
+		'client_id' => 'int',
+		'sms_count' => 'int',
+		'sms_type' => 'int'
 	];
 
-    protected $fillable = [
+	protected $fillable = [
 		'title',
 		'body',
 		'phone',
 		'user_id',
-		'sender_id',
-		'client_id',
-		'sms_type',
 		'status',
 		'return_code',
+		'client_id',
 		'sms_count',
-		'created_at'
+		'sender_id',
+		'sms_id',
+		'sms_type'
 	];
-	
+
 	public function user()
 	{
-		return $this->belongsTo(User::class, 'user_id', 'id');
-	}
-
-	public function sender()
-	{
-		return $this->belongsTo(SenderName::class, 'sender_id', 'id');
+		return $this->belongsTo(User::class);
 	}
 
 	public function client()
 	{
-		return $this->belongsTo(Clients::class, 'client_id', 'id')->withDefault(['name' => 'Not Defined']);
+		return $this->belongsTo(Client::class);
 	}
 }

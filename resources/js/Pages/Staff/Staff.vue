@@ -39,7 +39,7 @@
                       <td>
                         <div class="d-flex px-2">
                           <div>
-                            <img src="assets/img/small-logos/logo-asana.svg" class="avatar avatar-sm rounded-circle me-2" alt="spotify">
+                            <img src="/assets/img/small-logos/logo-asana.svg" class="avatar avatar-sm rounded-circle me-2" alt="spotify">
                           </div>
                           <div class="my-auto">
                             <h6 class="mb-0 text-sm">Asana</h6>
@@ -72,7 +72,7 @@
                       <td>
                         <div class="d-flex px-2">
                           <div>
-                            <img src="assets/img/small-logos/github.svg" class="avatar avatar-sm rounded-circle me-2" alt="invision">
+                            <img src="/assets/img/small-logos/github.svg" class="avatar avatar-sm rounded-circle me-2" alt="invision">
                           </div>
                           <div class="my-auto">
                             <h6 class="mb-0 text-sm">Github</h6>
@@ -105,7 +105,7 @@
                       <td>
                         <div class="d-flex px-2">
                           <div>
-                            <img src="assets/img/small-logos/logo-atlassian.svg" class="avatar avatar-sm rounded-circle me-2" alt="jira">
+                            <img src="/assets/img/small-logos/logo-atlassian.svg" class="avatar avatar-sm rounded-circle me-2" alt="jira">
                           </div>
                           <div class="my-auto">
                             <h6 class="mb-0 text-sm">Atlassian</h6>
@@ -138,7 +138,7 @@
                       <td>
                         <div class="d-flex px-2">
                           <div>
-                            <img src="assets/img/small-logos/bootstrap.svg" class="avatar avatar-sm rounded-circle me-2" alt="webdev">
+                            <img src="/assets/img/small-logos/bootstrap.svg" class="avatar avatar-sm rounded-circle me-2" alt="webdev">
                           </div>
                           <div class="my-auto">
                             <h6 class="mb-0 text-sm">Bootstrap</h6>
@@ -171,7 +171,7 @@
                       <td>
                         <div class="d-flex px-2">
                           <div>
-                            <img src="assets/img/small-logos/logo-slack.svg" class="avatar avatar-sm rounded-circle me-2" alt="slack">
+                            <img src="/assets/img/small-logos/logo-slack.svg" class="avatar avatar-sm rounded-circle me-2" alt="slack">
                           </div>
                           <div class="my-auto">
                             <h6 class="mb-0 text-sm">Slack</h6>
@@ -204,7 +204,7 @@
                       <td>
                         <div class="d-flex px-2">
                           <div>
-                            <img src="assets/img/small-logos/devto.svg" class="avatar avatar-sm rounded-circle me-2" alt="xd">
+                            <img src="/assets/img/small-logos/devto.svg" class="avatar avatar-sm rounded-circle me-2" alt="xd">
                           </div>
                           <div class="my-auto">
                             <h6 class="mb-0 text-sm">Devto</h6>
@@ -246,7 +246,7 @@
     import {
         Head,
         Link
-    } from '@inertiajs/inertia-vue3'
+    } from '@inertiajs/vue3'
     import pickBy from 'lodash/pickBy'
     import throttle from 'lodash/throttle'
     import mapValues from 'lodash/mapValues'

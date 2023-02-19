@@ -57,6 +57,12 @@ class Client extends Model
 	{
 		return $this->belongsTo(Partner::class);
 	}
+
+	public function messages()
+	{
+		return $this->hasMany(Message::class);
+	}
+
 	public function employers()
 	{
 		return $this->belongsTo(Employer::class, 'employer_id', 'id');
