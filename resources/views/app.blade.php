@@ -189,6 +189,59 @@
                     </div>
                 </li>
                 <li class="nav-item">
+                    <a data-bs-toggle="collapse" href="#componentsCustomers" class="nav-link text-white"
+                        aria-controls="componentsCustomers" role="button" aria-expanded="false">
+                        <i
+                        class="material-icons-round {% if page.brand == 'RTL' %}ms-2{% else %} me-2{% endif %}">apps</i>
+                        <span class="nav-link-text ms-2 ps-1">Customers</span>
+                    </a>
+                    <div class="collapse " id="componentsCustomers">
+                        <ul class="nav ">
+                            <li class="nav-item ">
+                                <a class="nav-link text-white"
+                                    href="/partners"
+                                   >
+                                    <span class="sidenav-mini-icon"> P </span>
+                                    <span class="sidenav-normal  ms-2  ps-1"> Partiners </span>
+                                </a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link text-white"
+                                    href="/clients"
+                                   >
+                                    <span class="sidenav-mini-icon"> C </span>
+                                    <span class="sidenav-normal  ms-2  ps-1"> Clients </span>
+                                </a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link text-white"
+                                    href="/datatables"
+                                   >
+                                    <span class="sidenav-mini-icon"> L </span>
+                                    <span class="sidenav-normal  ms-2  ps-1"> Bran </span>
+                                </a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link text-white"
+                                    href="/pagination"
+                                   >
+                                    <span class="sidenav-mini-icon"> C </span>
+                                    <span class="sidenav-normal  ms-2  ps-1"> Confirmations </span>
+                                </a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link text-white"
+                                    href="/popovers"
+                                   >
+                                    <span class="sidenav-mini-icon"> L </span>
+                                    <span class="sidenav-normal  ms-2  ps-1"> Letters </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+  
+                <li class="nav-item">
                     <a data-bs-toggle="collapse" href="#pagesExamples" class="nav-link text-white"
                         aria-controls="pagesExamples" role="button" aria-expanded="false">
                         <i class="material-icons opacity-10">store</i>
@@ -285,8 +338,13 @@
                         </li>
                         <li class="nav-item ">
                             <a class="nav-link text-white"
-                                href="/tasks"
-                               >
+                                href="/tasks">
+                                <span class="sidenav-mini-icon"> E </span>
+                                <span class="sidenav-normal  ms-2  ps-1"> Invoices </span>
+                            </a>
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link text-white" href="/tasks">
                                 <span class="sidenav-mini-icon"> E </span>
                                 <span class="sidenav-normal  ms-2  ps-1"> Expenses </span>
                             </a>
