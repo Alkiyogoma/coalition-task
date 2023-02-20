@@ -1,7 +1,7 @@
 <template>
   <div :class="$attrs.class">
     <label v-if="label" class="form-label" :for="id">{{ label }}:</label>
-    <textarea :id="id" ref="input" v-bind="{ ...$attrs, class: null }"  class="form-control" rows="4" placeholder="Enter description here..." :class="{ error: error }" :value="modelValue" @input="$emit('update:modelValue', $event.target.value)" />
+    <textarea :id="id" ref="input" v-bind="{ ...$attrs, class: null }"  class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-textarea focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray" rows="4" placeholder="Enter description here..." :class="{ error: error }" :value="modelValue" @input="$emit('update:modelValue', $event.target.value)" />
     <div v-if="error" class="form-error">{{ error }}</div>
   </div>
 </template>
