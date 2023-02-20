@@ -53,6 +53,28 @@ class UsersController extends Controller
             ]);
         }
     
+        public function departments()
+        {
+            $id = request()->segment(2);
+            
+            return Inertia::render('Staff/Department', [
+                'users' => \App\Models\Department::whereNotNull('id')
+                    ->orderBy('id')
+                    ->paginate(12)->withQueryString()
+                    ->through(fn ($User) => [
+                        'id' => $User->id,
+                        'uuid' => $User->uuid,
+                        'address' => $User->address,
+                        'name' => $User->name,
+                        'email' => $User->email,
+                        'phone' => $User->phone,
+                        'website' => $User->about,
+                        'clients' =>   !empty($User->users) ? $User->users->count() : '0',
+                        'created_at' => $User->created_at,
+                        'edit_url' => url('users.edit', $User),
+                    ]),
+            ]);
+        }
 
     public function clients()
     {
@@ -417,6 +439,30 @@ class UsersController extends Controller
             return redirect('partners')->with('success', 'User updated.');
         }
 
+        public function addDept()
+        {
+            return Inertia::render('Staff/AddDept',
+            [
+                'roles' => DB::table('users')->get(),
+                'uuid' => (string) Str::uuid()
+            ]);
+        }
+    
+        public function saveDept()
+        {
+                Request::validate([
+                    'name' => ['required', 'max:150'],
+                    'email' => ['required', 'max:150', 'email'],
+                    'phone' => ['required', 'max:50'],
+                    'address' => ['required', 'max:150'],
+                    'user_id' => ['required', 'max:150'],
+                    'about' => ['required', 'max:500'],
+                ]);
+                \App\Models\Department::create(array_merge(request()->all(), ['uuid' => (string) Str::uuid()]));
+    
+                return redirect('departments')->with('success', 'User updated.');
+            }
+    
     public function edit(User $User)
     {
 

@@ -287,7 +287,7 @@
                     </div>
                 </div>
                   <div class="text-center">
-                    <button type="submit" class="btn bg-gradient-primary btn-lg btn-rounded w-100 mt-4 mb-0">Save Payment</button>
+                    <button type="submit" class="btn bg-gradient-primary btn-lg btn-rounded w-100 mt-4 mb-0">Save Task</button>
                   </div> 
                 </form>
           </div>

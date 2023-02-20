@@ -26,11 +26,10 @@
                   <tr>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">S/N</th>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Name</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Group</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Contacts</th>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"> Phone</th>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Email</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Customers</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Address</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Clients</th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</th>
                   </tr>
                 </thead>
@@ -44,16 +43,13 @@
                     </td>
                     
                     <td class="align-middle text-center">
-                      <span class="text-secondary text-xs font-weight-bold">{{ user.group }}</span>
-                    </td>
-                    <td class="align-middle text-center">
                       <span class="text-secondary text-xs font-weight-bold">{{ user.phone }}</span>
                     </td>
                     <td class="align-middle text-center">
                       <span class="text-secondary text-xs font-weight-bold">{{ user.email }}</span>
                     </td>
                     <td class="align-middle text-center">
-                      <span class="text-secondary text-xs font-weight-bold">{{ user.website }}</span>
+                      <span class="text-secondary text-xs font-weight-bold">{{ user.address }}</span>
                     </td>
                     <td class="align-middle text-center">
                       <span class="text-secondary text-xs font-weight-bold">{{ user.clients }}</span>

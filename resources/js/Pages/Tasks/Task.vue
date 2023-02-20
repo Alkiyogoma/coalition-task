@@ -27,7 +27,7 @@
                     <div class="card h-100">
                         <div class="card-header pb-0 p-3">
                             <div class="d-flex align-items-center">
-                                <h6 class="mb-0">Social</h6>
+                                <h6 class="mb-0">Top Tasks Percentages</h6>
                                 <button type="button"
                                     class="btn btn-icon-only btn-rounded btn-outline-secondary mb-0 ms-2 btn-sm d-flex align-items-center justify-content-center ms-auto"
                                     data-bs-toggle="tooltip" data-bs-placement="bottom"
@@ -39,96 +39,21 @@
                         
                         <div class="card-body p-3">
                             <ul class="list-group">
-                                <li class="list-group-item border-0 d-flex align-items-center px-0 mb-2">
-                                    <div class="w-100">
-                                        <div class="d-flex align-items-center mb-2">
-                                            <a class="btn btn-facebook btn-simple mb-0 p-0" href="javascript:;">
-                                                <i class="material-icons text-sm">done</i>
-                                            </a>
-                                            <span
-                                                class="me-2 text-sm font-weight-normal text-capitalize ms-2">Facebook</span>
-                                            <span class="ms-auto text-sm font-weight-normal">80%</span>
-                                        </div>
-                                        <div>
-                                            <div class="progress progress-md">
-                                                <div class="progress-bar bg-gradient-dark w-80" role="progressbar"
-                                                    aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="list-group-item border-0 d-flex align-items-center px-0 mb-2">
-                                    <div class="w-100">
-                                        <div class="d-flex align-items-center mb-2">
-                                            <a class="btn btn-twitter btn-simple mb-0 p-0" href="javascript:;">
-                                                <i class="fab fa-twitter fa-lg"></i>
-                                            </a>
-                                            <span
-                                                class="me-2 text-sm font-weight-normal text-capitalize ms-2">Twitter</span>
-                                            <span class="ms-auto text-sm font-weight-normal">40%</span>
-                                        </div>
-                                        <div>
-                                            <div class="progress progress-md">
-                                                <div class="progress-bar bg-gradient-dark w-40" role="progressbar"
-                                                    aria-valuenow="40" aria-valuemin="0" aria-valuemax="100">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="list-group-item border-0 d-flex align-items-center px-0 mb-2">
-                                    <div class="w-100">
-                                        <div class="d-flex align-items-center mb-2">
-                                            <a class="btn btn-reddit btn-simple mb-0 p-0" href="javascript:;">
-                                                <i class="fab fa-reddit fa-lg"></i>
-                                            </a>
-                                            <span
-                                                class="me-2 text-sm font-weight-normal text-capitalize ms-2">Reddit</span>
-                                            <span class="ms-auto text-sm font-weight-normal">30%</span>
-                                        </div>
-                                        <div>
-                                            <div class="progress progress-md">
-                                                <div class="progress-bar bg-gradient-dark w-30" role="progressbar"
-                                                    aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="list-group-item border-0 d-flex align-items-center px-0 mb-2">
+                               
+                                <li v-for="average in averages" :key="average.id" class="list-group-item border-0 d-flex align-items-center px-0 mb-2">
                                     <div class="w-100">
                                         <div class="d-flex align-items-center mb-2">
                                             <a class="btn btn-youtube btn-simple mb-0 p-0" href="javascript:;">
                                                 <i class="fab fa-youtube fa-lg"></i>
                                             </a>
                                             <span
-                                                class="me-2 text-sm font-weight-normal text-capitalize ms-2">Youtube</span>
-                                            <span class="ms-auto text-sm font-weight-normal">25%</span>
+                                                class="me-2 text-sm font-weight-normal text-capitalize ms-2">{{ average.name }}</span>
+                                            <span class="ms-auto text-sm font-weight-normal">{{ Math.ceil(average.total*100/total) }}%</span>
                                         </div>
                                         <div>
                                             <div class="progress progress-md">
                                                 <div class="progress-bar bg-gradient-dark w-25" role="progressbar"
-                                                    aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="list-group-item border-0 d-flex align-items-center px-0 mb-2">
-                                    <div class="w-100">
-                                        <div class="d-flex align-items-center mb-2">
-                                            <a class="btn btn-slack btn-simple mb-0 p-0" href="javascript:;">
-                                                <i class="fab fa-slack fa-lg"></i>
-                                            </a>
-                                            <span
-                                                class="me-2 text-sm font-weight-normal text-capitalize ms-2">Slack</span>
-                                            <span class="ms-auto text-sm font-weight-normal">15%</span>
-                                        </div>
-                                        <div>
-                                            <div class="progress progress-md">
-                                                <div class="progress-bar bg-gradient-dark w-15" role="progressbar"
-                                                    aria-valuenow="15" aria-valuemin="0" aria-valuemax="100">
+                                                    :aria-valuenow="`${ Math.ceil(average.total*100/total) }`" aria-valuemin="0" aria-valuemax="100">
                                                 </div>
                                             </div>
                                         </div>
@@ -158,119 +83,38 @@
                                         <tr>
                                             <th
                                                 class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                                Page</th>
-                                            <th
+                                                Employee</th>
+                                            <th  align="center"
                                                 class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                                 Clients</th>
-                                            <th
+                                            <th align="center" 
                                                 class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                                Amounts</th>
-                                            <th
+                                                Tasks</th>
+                                            <th  align="center"
+                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                                Complete</th>
+                                            <th  align="center" 
                                                 class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                                 Rate</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
+                                        <tr v-for="user in usertasks" :key="user.id">
                                             <td>
-                                                <p class="text-sm font-weight-normal mb-0">1. /bits</p>
+                                                <p class="text-sm font-weight-normal mb-0">{{ user.name }}</p>
                                             </td>
                                             <td>
-                                                <p class="text-sm font-weight-normal mb-0">345</p>
+                                                <p class="text-sm font-weight-normal mb-0">{{ user.client }}</p>
                                             </td>
-                                            <td>
-                                                <p class="text-sm font-weight-normal mb-0">00:17:07</p>
+                                            
+                                            <td align="center">
+                                                <p class="text-sm font-weight-normal mb-0">{{ user.total }}</p>
                                             </td>
-                                            <td>
-                                                <p class="text-sm font-weight-normal mb-0">40.91%</p>
+                                            <td align="center">
+                                                <p class="text-sm font-weight-normal mb-0">{{ user.completed }}</p>
                                             </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <p class="text-sm font-weight-normal mb-0">2. /pages/argon-dashboard
-                                                </p>
-                                            </td>
-                                            <td>
-                                                <p class="text-sm font-weight-normal mb-0">520</p>
-                                            </td>
-                                            <td>
-                                                <p class="text-sm font-weight-normal mb-0">00:23:13</p>
-                                            </td>
-                                            <td>
-                                                <p class="text-sm font-weight-normal mb-0">30.14%</p>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <p class="text-sm font-weight-normal mb-0">3. /pages/soft-ui-dashboard
-                                                </p>
-                                            </td>
-                                            <td>
-                                                <p class="text-sm font-weight-normal mb-0">122</p>
-                                            </td>
-                                            <td>
-                                                <p class="text-sm font-weight-normal mb-0">00:3:10</p>
-                                            </td>
-                                            <td>
-                                                <p class="text-sm font-weight-normal mb-0">54.10%</p>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <p class="text-sm font-weight-normal mb-0">4. /bootstrap-themes</p>
-                                            </td>
-                                            <td>
-                                                <p class="text-sm font-weight-normal mb-0">1,900</p>
-                                            </td>
-                                            <td>
-                                                <p class="text-sm font-weight-normal mb-0">00:30:42</p>
-                                            </td>
-                                            <td>
-                                                <p class="text-sm font-weight-normal mb-0">20.93%</p>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <p class="text-sm font-weight-normal mb-0">5. /react-themes</p>
-                                            </td>
-                                            <td>
-                                                <p class="text-sm font-weight-normal mb-0">1,442</p>
-                                            </td>
-                                            <td>
-                                                <p class="text-sm font-weight-normal mb-0">00:31:50</p>
-                                            </td>
-                                            <td>
-                                                <p class="text-sm font-weight-normal mb-0">34.98%</p>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <p class="text-sm font-weight-normal mb-0">6.
-                                                    /product/argon-dashboard</p>
-                                            </td>
-                                            <td>
-                                                <p class="text-sm font-weight-normal mb-0">201</p>
-                                            </td>
-                                            <td>
-                                                <p class="text-sm font-weight-normal mb-0">00:12:42</p>
-                                            </td>
-                                            <td>
-                                                <p class="text-sm font-weight-normal mb-0">21.4%</p>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <p class="text-sm font-weight-normal mb-0">7.
-                                                    /product/material-pro</p>
-                                            </td>
-                                            <td>
-                                                <p class="text-sm font-weight-normal mb-0">2,115</p>
-                                            </td>
-                                            <td>
-                                                <p class="text-sm font-weight-normal mb-0">00:50:11</p>
-                                            </td>
-                                            <td>
-                                                <p class="text-sm font-weight-normal mb-0">34.98%</p>
+                                            <td align="center">
+                                                <p class="text-sm font-weight-normal mb-0">{{ Math.ceil(user.completed*100/user.total) }}%</p>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -296,9 +140,11 @@
                                 </span>
                                 <div class="timeline-content pt-1">
                                     <h6 class="text-dark text-sm font-weight-bold mb-0">{{ task.name }}</h6>
-                                    <p class="text-secondary text-xs mt-1 mb-0">Client: {{ task.client }} - {{ task.time }}</p>
-                                    <p class="text-sm text-dark mt-3 mb-2">
+                                    <p class="text-secondary text-xs mt-1 mb-1"> <Link :href="`/client/${task.uuid}/view`">Client: {{ task.client }}</Link> - {{ task.time }}</p>
+                                    <p class="text-sm text-dark">
                                         {{ task.about }}
+                                        <br> <strong> Status - {{ task.status }}</strong>
+
                                     </p>
                                 </div>
                             </div>
@@ -316,13 +162,13 @@
                             <div v-for="task in alltasks" :key="task.id" class="timeline-block mb-3">
                                 <span class="timeline-step bg-dark p-3">
                                     <i class="material-icons text-white text-sm opacity-10">
-                                        notifications
+                                        done
                                     </i>
                                 </span>
                                 <div class="timeline-content pt-1">
                                     <h6 class="text-white text-sm font-weight-bold mb-0">{{ task.name }}</h6>
-                                    <p class="text-secondary text-xs mt-1 mb-0">{{ task.time }}</p>
-                                    <p class="text-sm text-white mt-3 mb-2">
+                                    <p class="text-secondary text-xs mt-1 mb-0">{{ task.user }} - {{ task.time }}</p>
+                                    <p class="text-sm text-white">
                                         {{ task.about }}
                                     </p>
                                 </div>
@@ -407,7 +253,7 @@
                     </div>
                 </div>
                   <div class="text-center">
-                    <button type="submit" class="btn bg-gradient-primary btn-lg btn-rounded w-100 mt-4 mb-0">Save Payment</button>
+                    <button type="submit" class="btn bg-gradient-primary btn-lg btn-rounded w-100 mt-4 mb-0">Save Task</button>
                   </div> 
                 </form>
           </div>
@@ -417,6 +263,8 @@
 </template>
 
 <script>
+import { Link } from '@inertiajs/vue3';
+
 
 export default {
     props: {
@@ -427,7 +275,11 @@ export default {
         alltasks: Array,
         task_priority: Array,
         tasktypes: Array,
+        averages: Array,
+        total: Number,
         task_status: Array,
-    }
+        usertasks: Array,
+    },
+    components: { Link }
 };
 </script>
