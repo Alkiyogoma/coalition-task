@@ -46,7 +46,7 @@
     // import Layout from '../Shared/Layout'
     import TextInput from '../../Shared/TextInputB'
     import SelectInput from '../../Shared/SelectInput'
-    import TextAreaInput from '../../Shared/TextAreaInput'
+    import TextareaInput from '../../Shared/TextareaInput'
     import LoadingButton from '../../Shared/LoadingButton'
 
     export default {
@@ -54,7 +54,7 @@
             Link,
             LoadingButton,
             SelectInput,
-            TextAreaInput,
+            TextareaInput,
             TextInput,
         },
         props: {
