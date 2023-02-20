@@ -80,7 +80,7 @@
                     <a data-bs-toggle="collapse" href="#ProfileNav" class="nav-link text-white"
                         aria-controls="ProfileNav" role="button" aria-expanded="false">
                         <img src="/assets/img/team-3.jpg" class="avatar">
-                        <span class="nav-link-text ms-2 ps-1">Brooklyn Alice</span>
+                        <span class="nav-link-text ms-2 ps-1">{{ !Auth::check() ? 'Staff Profile' : Auth::User()->name }}</span>
                     </a>
                     <div class="collapse" id="ProfileNav">
                         <ul class="nav ">
@@ -215,18 +215,18 @@
                             </li>
                             <li class="nav-item ">
                                 <a class="nav-link text-white"
-                                    href="/datatables"
+                                    href="/branches"
                                    >
-                                    <span class="sidenav-mini-icon"> L </span>
-                                    <span class="sidenav-normal  ms-2  ps-1"> Bran </span>
+                                    <span class="sidenav-mini-icon"> B </span>
+                                    <span class="sidenav-normal  ms-2  ps-1"> Branches </span>
                                 </a>
                             </li>
                             <li class="nav-item ">
                                 <a class="nav-link text-white"
-                                    href="/pagination"
+                                    href="/branches/employee"
                                    >
-                                    <span class="sidenav-mini-icon"> C </span>
-                                    <span class="sidenav-normal  ms-2  ps-1"> Confirmations </span>
+                                    <span class="sidenav-mini-icon"> E </span>
+                                    <span class="sidenav-normal  ms-2  ps-1"> Employers </span>
                                 </a>
                             </li>
                             <li class="nav-item ">
@@ -566,86 +566,46 @@
                         <i class="material-icons">clear</i>
                     </button>
                 </div>
-
             </div>
+        <?php
+        $tasks = \App\Models\Task::whereNotIn('status_id', [2])->orderBy('id', 'desc')->limit(4)
+        ->get();
+        // ->map(fn ($pay) => [
+        //     'id' => $pay->id,
+        //     'uuid' => $pay->uuid,
+        //     'name' => $pay->title,
+        //     'about' => $pay->about,
+        //     'date' => date('d M, Y', strtotime($pay->task_date)),
+        //     'time' => timeAgo($pay->created_at),
+        //     'user' => !empty($pay->user) ? $pay->user->name : 'Not Defined',
+        //     'client' => !empty($pay->client) ? $pay->client->name : 'Not Defined',
+        //     'phone' => !empty($pay->client) ? $pay->client->phone : 'Not Defined',
+        //     'type' => !empty($pay->tasktype) ? $pay->tasktype->name : 'Followup',
+        //     'status' => !empty($pay->taskstatus) ? $pay->taskstatus->name : 'On progess',
+        //     'nexttask' => !empty($pay->nexttask) ? $pay->nexttask->name : 'Followup',
+        // ])
+        ?>
             <hr class="horizontal dark my-1">
             <div class="card-body p-3">
               <div class="timeline timeline-dark timeline-one-side" data-timeline-axis-style="dotted">
-                  <div class="timeline-block mb-3">
-                      <span class="timeline-step bg-dark p-3">
-                          <i class="material-icons text-white text-sm opacity-10">
-                              notifications
-                          </i>
-                      </span>
-                      <div class="timeline-content pt-1">
-                          <h6 class="text-white text-sm font-weight-bold mb-0">$2400, Design changes</h6>
-                          <p class="text-secondary text-xs mt-1 mb-0">22 DEC 7:20 PM</p>
-                          <p class="text-sm text-white mt-3 mb-2">
-                              People care about how you see the world, how you think, what motivates you, what
-                              you’re struggling with or afraid of.
-                          </p>
-                      </div>
-                  </div>
-                  <div class="timeline-block mb-3">
-                      <span class="timeline-step bg-primary p-3">
-                          <i class="material-icons text-white text-sm opacity-10">
-                              code
-                          </i>
-                      </span>
-                      <div class="timeline-content pt-1">
-                          <h6 class="text-white text-sm font-weight-bold mb-0">New order #1832412</h6>
-                          <p class="text-secondary text-xs mt-1 mb-0">21 DEC 11 PM</p>
-                          <p class="text-sm text-white mt-3 mb-2">
-                              People care about how you see the world, how you think, what motivates you, what
-                              you’re struggling with or afraid of.
-                          </p>
-                      </div>
-                  </div>
-                  <div class="timeline-block mb-3">
-                      <span class="timeline-step bg-success p-3">
-                          <i class="material-icons text-white text-sm opacity-10">
-                              shopping_cart
-                          </i>
-                      </span>
-                      <div class="timeline-content pt-1">
-                          <h6 class="text-white text-sm font-weight-bold mb-0">Server payments for April</h6>
-                          <p class="text-secondary text-xs mt-1 mb-0">21 DEC 9:34 PM</p>
-                          <p class="text-sm text-white mt-3 mb-2">
-                              People care about how you see the world, how you think, what motivates you, what
-                              you’re struggling with or afraid of.
-                          </p>
-                      </div>
-                  </div>
-                  <div class="timeline-block mb-3">
-                      <span class="timeline-step bg-success p-3">
-                          <i class="material-icons text-white text-sm opacity-10">
-                              done
-                          </i>
-                      </span>
-                      <div class="timeline-content pt-1">
-                          <h6 class="text-white text-sm font-weight-bold mb-0">Notifications unread</h6>
-                          <p class="text-secondary text-xs mt-1 mb-0">15 DEC</p>
-                          <p class="text-sm text-white mt-3 mb-2">
-                              People care about how you see the world, how you think, what motivates you, what
-                              you’re struggling with or afraid of.
-                          </p>
-                      </div>
-                  </div>
-                  <div class="timeline-block">
-                      <span class="timeline-step bg-dark p-3">
-                          <i class="material-icons text-white text-sm opacity-10">
-                              sports_esports
-                          </i>
-                      </span>
-                      <div class="timeline-content pt-1">
-                          <h6 class="text-white text-sm font-weight-bold mb-0">Controller issues</h6>
-                          <p class="text-secondary text-xs mt-1 mb-0">13 DEC</p>
-                          <p class="text-sm text-white mt-3 mb-2">
-                              People care about how you see the world, how you think, what motivates you, what
-                              you’re struggling with or afraid of.
-                          </p>
-                      </div>
-                  </div>
+                  @foreach ($tasks as $task)
+                  <div v-for="task in alltasks" :key="task.id" class="timeline-block mb-3">
+                                <span class="timeline-step bg-dark p-3">
+                                    <i class="material-icons text-white text-sm opacity-10">
+                                        notifications
+                                    </i>
+                                </span>
+                                <div class="timeline-content pt-1">
+                                    <h6 class="text-white text-sm font-weight-bold mb-0">{{  $task->title }} - {{ !empty($task->tasktype) ? $task->tasktype->name : 'Followup' }}</h6>
+                                    <p class="text-secondary text-xs mt-1 mb-0">{{  !empty($task->client) ? $task->client->name : 'Not Defined' }} - {{  date('d M, Y', strtotime($task->task_date)), }}</p>
+                                    <p class="text-sm text-white">
+                                        {{ $task->about }}
+                                        <br> Status - {{ $task->taskstatus->name }}
+                                    </p>
+                                </div>
+                            </div>
+                  @endforeach
+                  
               </div>
           </div>
           

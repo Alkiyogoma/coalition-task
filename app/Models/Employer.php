@@ -24,4 +24,10 @@ class Employer extends Model
 		'email',
 		'address'
 	];
+
+	
+	public function clients()
+	{
+		return $this->hasMany(Client::class);
+	}
 }

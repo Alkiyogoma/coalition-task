@@ -99,7 +99,9 @@ Route::get('partners/{id?}', [UsersController::class, 'partners']);
 Route::get('branches/{id?}', [UsersController::class, 'branches']);
 Route::get('delete/{type}/{id}', [UsersController::class, 'deleteemployer']);
 
-Route::get('accounts', [UsersController::class, 'address']);
+Route::get('departments', [UsersController::class, 'departments']);
+Route::get('add-dept', [UsersController::class, 'addDept']);
+Route::post('saveDept', [UsersController::class, 'saveDept']);
 Route::get('groups', [UsersController::class, 'address']);
 Route::get('invoices', [UsersController::class, 'address']);
 Route::get('week', [UsersController::class, 'address']);
