@@ -69,7 +69,6 @@ Route::get('/billing', function () {
     return Inertia('Billing');
 });
 
-
 Route::get('/notifications', function () {
     return Inertia('Notification');
 });
