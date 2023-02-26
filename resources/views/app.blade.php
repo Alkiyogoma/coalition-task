@@ -327,51 +327,43 @@
                 </a>
                 <div class="collapse " id="componentsAccounts">
                     <ul class="nav ">
-                     
+                      
                         <li class="nav-item ">
-                            <a class="nav-link text-white"
-                                href="/users"
-                               >
-                                <span class="sidenav-mini-icon"> A </span>
-                                <span class="sidenav-normal  ms-2  ps-1"> Accounts Groups </span>
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link text-white"
-                                href="/tasks">
-                                <span class="sidenav-mini-icon"> E </span>
-                                <span class="sidenav-normal  ms-2  ps-1"> Invoices </span>
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link text-white" href="/tasks">
+                            <a class="nav-link text-white" href="/expenses">
                                 <span class="sidenav-mini-icon"> E </span>
                                 <span class="sidenav-normal  ms-2  ps-1"> Expenses </span>
                             </a>
                         </li>
                         <li class="nav-item ">
                             <a class="nav-link text-white"
-                                href="/pagination"
+                                href="/revenues"
                                >
                                 <span class="sidenav-mini-icon"> R </span>
                                 <span class="sidenav-normal  ms-2  ps-1"> Revenues </span>
                             </a>
                         </li>
+                    
                         <li class="nav-item ">
                             <a class="nav-link text-white"
-                                href="/reports"
-                               >
-                                <span class="sidenav-mini-icon"> C </span>
-                                <span class="sidenav-normal  ms-2  ps-1"> Cash Requests </span>
+                                href="/invoices">
+                                <span class="sidenav-mini-icon"> E </span>
+                                <span class="sidenav-normal  ms-2  ps-1"> Invoices </span>
                             </a>
                         </li>
-                        
                         <li class="nav-item ">
                             <a class="nav-link text-white"
                                 href="/reports"
                                >
                                 <span class="sidenav-mini-icon"> R </span>
                                 <span class="sidenav-normal  ms-2  ps-1">Reports </span>
+                            </a>
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link text-white"
+                                href="/groups"
+                               >
+                                <span class="sidenav-mini-icon"> A </span>
+                                <span class="sidenav-normal  ms-2  ps-1"> Groups </span>
                             </a>
                         </li>
                     </ul>
@@ -548,7 +540,7 @@
       @inertia
     </div>
     </main>
-    <div class="fixed-plugin">
+    <div id="bottom-icon" class="fixed-plugin">
         <a class="fixed-plugin-button text-dark position-fixed px-3 py-2">
             {{-- <i class="material-icons py-2">settings</i> --}}
             <i class="material-icons py-2">
@@ -589,7 +581,7 @@
             <div class="card-body p-3">
               <div class="timeline timeline-dark timeline-one-side" data-timeline-axis-style="dotted">
                   @foreach ($tasks as $task)
-                  <div v-for="task in alltasks" :key="task.id" class="timeline-block mb-3">
+                  <div v-for="task in alltasks" :key="task.id" class="timeline-block">
                                 <span class="timeline-step bg-dark p-3">
                                     <i class="material-icons text-white text-sm opacity-10">
                                         notifications

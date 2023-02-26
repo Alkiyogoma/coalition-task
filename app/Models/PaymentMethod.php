@@ -13,14 +13,6 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * Class PaymentMethod
  * 
- * @property int $id
- * @property string|null $name
- * @property int|null $status
- * @property Carbon $created_at
- * @property Carbon $updated_at
- * 
- * @property Collection|Payment[] $payments
- *
  * @package App\Models
  */
 class PaymentMethod extends Model
