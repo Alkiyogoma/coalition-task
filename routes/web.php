@@ -108,7 +108,6 @@ Route::post('savePayment', [UsersController::class, 'savePayment']);
 Route::post('saveTask', [UsersController::class, 'saveTask']);
 Route::post('sendMessage', [UsersController::class, 'sendMessage']);
 
-
 // Contacts
 
 Route::get('accounts/create', [AccountController::class, 'create'])->name('accounts.create')->middleware('auth');
