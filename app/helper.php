@@ -39,18 +39,11 @@ function json_call($array = null) {
     }
 }
 
-function money($amount, $decimal = 0) {
-    return number_format($amount, $decimal);
-}
+    function money($amount, $decimal = 0) {
+        return number_format($amount, $decimal);
+    }
 
-/*
- * *  Function:   Convert number to string
- * *  Arguments:  int
- * *  Returns:    string
- * *  Description:
- * *      Converts a given integer (in range [0..1T-1], inclusive) into
- * *      alphabetical format ("one", "two", etc.).
- */
+
 
 function number_to_words($number) {
     if (($number < 0) || ($number > 999999999)) {
