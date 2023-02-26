@@ -132,7 +132,7 @@
                     </div>
                     <div class="card-body p-3">
                         <div class="timeline timeline-one-side" data-timeline-axis-style="dotted">
-                            <div v-for="task in tasks" :key="task.id" class="timeline-block mb-3">
+                            <div v-for="task in tasks" :key="task.id" class="timeline-block">
                                 <span class="timeline-step bg-dark p-3">
                                     <i class="material-icons text-white text-sm opacity-10">
                                         notifications
@@ -159,7 +159,7 @@
                     </div>
                     <div class="card-body p-3">
                         <div class="timeline timeline-dark timeline-one-side" data-timeline-axis-style="dotted">
-                            <div v-for="task in alltasks" :key="task.id" class="timeline-block mb-3">
+                            <div v-for="task in alltasks" :key="task.id" class="timeline-block">
                                 <span class="timeline-step bg-dark p-3">
                                     <i class="material-icons text-white text-sm opacity-10">
                                         done

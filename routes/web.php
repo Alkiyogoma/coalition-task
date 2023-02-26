@@ -115,7 +115,6 @@ Route::post('sendMessage', [UsersController::class, 'sendMessage']);
 
 // Contacts
 
-Route::get('accounts', [AccountController::class, 'index'])->name('accounts')->middleware('auth');
 Route::get('accounts/create', [AccountController::class, 'create'])->name('accounts.create')->middleware('auth');
 Route::post('accounts', [AccountController::class, 'store'])->name('accounts.store')->middleware('auth');
 Route::get('accounts/{contact}/edit', [AccountController::class, 'edit'])->name('accounts.edit');
@@ -123,29 +122,31 @@ Route::put('accounts/{contact}', [AccountController::class, 'update'])->name('ac
 Route::delete('accounts/{contact}', [AccountController::class, 'destroy'])->name('accounts.destroy');
 Route::put('accounts/{contact}/restore', [AccountController::class, 'restore'])->name('accounts.restore')->middleware('auth');
 
+Route::get('accounts', [AccountController::class, 'index'])->name('accounts')->middleware('auth');
+Route::get('/addgroup', [AccountController::class, 'addGroup'])->name('addgroup');
+Route::post('/savegroup', [AccountController::class, 'saveGroup'])->name('saveGroup');
+Route::get('accounts/{contact}/delete', [AccountController::class, 'deleteGroup'])->name('accounts.edit');
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/groups', [AccountController::class, 'groups'])->name('groups');
+Route::get('/addaccount', [AccountController::class, 'addChart'])->name('addAccount');
+Route::post('/savechart', [AccountController::class, 'saveChart'])->name('saveAccount');
+Route::get('groups/{contact}/delete', [AccountController::class, 'deleteAccount'])->name('deleteAccount.edit');
+
+
+Route::get('/revenues/{id?}', [AccountController::class, 'revenues'])->name('revenues');
+Route::get('/revenueadd', [AccountController::class, 'revenueAdd'])->name('revenueadd');
+Route::post('/revenueadd', [AccountController::class, 'revenueAdd'])->name('revenueadd');
+Route::get('/revenueedit/{id}/edit', [AccountController::class, 'revenueEdit'])->name('revenueEdit');
+Route::post('/revenueedit/{id}/edit', [AccountController::class, 'revenueEdit'])->name('revenueEdit');
+Route::get('/revenuedelete/{id}/delete', [AccountController::class, 'revenueDelete'])->name('revenueDelete');
+Route::get('/receipt/{id}/view', [AccountController::class, 'receipt'])->name('receipt');
+
+Route::get('/expenses/{id?}', [AccountController::class, 'expenses'])->name('expenses');
+Route::get('/expenseadd', [AccountController::class, 'expenseAdd'])->name('expenseadd');
+Route::post('/expenseadd', [AccountController::class, 'expenseAdd'])->name('expenseadd');
+Route::get('/expenseedit/{id}/edit', [AccountController::class, 'expenseEdit'])->name('expenseEdit');
+Route::post('/expenseedit/{id}/edit', [AccountController::class, 'expenseEdit'])->name('expenseEdit');
+Route::get('/expensedelete/{id}/delete', [AccountController::class, 'expenseDelete'])->name('expenseDelete');
+Route::get('/voucher/{id}/view', [AccountController::class, 'voucher'])->name('voucher');
 
 Route::get('/tasks', [HomeController::class, 'tasks'])->name('home');
-
-Route::get('/home', [HomeController::class, 'index'])->name('home');
-
-Route::get('/home', [HomeController::class, 'index'])->name('home');
-
-Route::get('/home', [HomeController::class, 'index'])->name('home');
-
-Route::get('/home', [HomeController::class, 'index'])->name('home');
-
-Route::get('/home', [HomeController::class, 'index'])->name('home');
-
-Route::get('/home', [HomeController::class, 'index'])->name('home');
-
-Route::get('/home', [HomeController::class, 'index'])->name('home');
-
-Route::get('/home', [HomeController::class, 'index'])->name('home');
-
-Route::get('/home', [HomeController::class, 'index'])->name('home');
-
-Route::get('/home', [HomeController::class, 'index'])->name('home');
-
-Route::get('/home', [HomeController::class, 'index'])->name('home');

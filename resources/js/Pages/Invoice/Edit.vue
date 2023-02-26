@@ -1,104 +1,83 @@
 <template>
-  <div class="container px-6 mx-auto grid">
-    <br>
-            <!-- CTA -->
-            <a
-              class="flex items-center justify-between p-4 mb-8 text-sm font-semibold text-purple-100 bg-purple-600 rounded-lg shadow-md focus:outline-none focus:shadow-outline-purple"
-              href="/dashboard"
-            >
-              <div class="flex items-center">
-                <svg
-                  class="w-5 h-5 mr-2"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                >
-                  <path
-                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
-                  ></path>
-                </svg>
-                <span>
-                    <Link class="text-indigo-400 hover:text-indigo-600" href="/contacts">Contacts</Link>
-                    <span class="text-indigo-400 font-medium">/
-                    {{ form.name }}
-                  </span>
-                </span>
-              </div>
-              <span>View more &RightArrow;</span>
-            </a>
+  <br>
+  <!-- CTA -->
+  <Link
+    class="flex items-center justify-between p-4 mb-8 text-sm font-semibold text-purple-100 bg-purple-600 rounded-lg shadow-md focus:outline-none focus:shadow-outline-purple"
+    href="/classes"
+  >
+    <div class="flex items-center">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+        <path fill-rule="evenodd" d="M7.502 6h7.128A3.375 3.375 0 0118 9.375v9.375a3 3 0 003-3V6.108c0-1.505-1.125-2.811-2.664-2.94a48.972 48.972 0 00-.673-.05A3 3 0 0015 1.5h-1.5a3 3 0 00-2.663 1.618c-.225.015-.45.032-.673.05C8.662 3.295 7.554 4.542 7.502 6zM13.5 3A1.5 1.5 0 0012 4.5h4.5A1.5 1.5 0 0015 3h-1.5z" clip-rule="evenodd" />
+        <path fill-rule="evenodd" d="M3 9.375C3 8.339 3.84 7.5 4.875 7.5h9.75c1.036 0 1.875.84 1.875 1.875v11.25c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875 0 013 20.625V9.375zm9.586 4.594a.75.75 0 00-1.172-.938l-2.476 3.096-.908-.907a.75.75 0 00-1.06 1.06l1.5 1.5a.75.75 0 001.116-.062l3-3.75z" clip-rule="evenodd" />
+      </svg>
 
-    <div class="row">
-      <div class="col-md-12">
-    
-    <!-- <trashed-message v-if="contact.deleted_at" class="mb-6" @restore="restore"> This contact has been deleted. </trashed-message> -->
-    <div class="px-2 py-2 mb-8 bg-white w-full overflow-hidden rounded-lg shadow-xs overflow-x-auto dark:bg-gray-800">
-      <form @submit.prevent="update" class="px-2 py-2 mb-8">
-          <text-input v-model="form.name" :error="form.errors.name" class="pb-8 pr-6 w-full lg:w-1/2" value="{{ contact.name }}" label="Fullname" />
-          <text-input v-model="form.sex" :error="form.errors.sex" class="pb-8 pr-6 w-full lg:w-1/2" :value="contact.name" label="Student Sex" />
-          <select-input v-model="form.organization_id" :error="form.errors.organization_id" class="pb-8 pr-6 w-full lg:w-1/2" label="Groups">
-            <option :value="null" />
-            <option v-for="organization in groups" :key="organization.id" :value="organization.id">{{ organization.name }}</option>
-          </select-input>
-          <text-input v-model="form.dob" :error="form.errors.dob" class="pb-8 pr-6 w-full lg:w-1/2" :value="contact.dob" label="dob" />
-          <text-input v-model="form.roll" :error="form.errors.roll" class="pb-8 pr-6 w-full lg:w-1/2" label="roll" />
-          <text-input v-model="form.address" :error="form.errors.address" class="pb-8 pr-6 w-full lg:w-1/2" value="{{ contact.address }}" label="Address" />
-          <text-input v-model="form.jod" :error="form.errors.jod" class="pb-8 pr-6 w-full lg:w-1/2"  :value="contact.jod" type="date" label="jod"/>
-        <div class="flex items-center px-8 py-4 bg-gray-50 border-t border-gray-100">
-          <button v-if="!contact.deleted_at" class="text-red-600 hover:underline" tabindex="-1" type="button" @click="destroy">Delete Contact</button>
-          <loading-button :loading="form.processing" class="px-3 py-3 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600  rounded-lg shadow-md" type="submit">Update Contact</loading-button>
-        </div>
-      </form>
-      </div>
+
+      <span class="ml-3">Edit School Class</span>
     </div>
-  </div>
-  </div>
+    <span class="mr-3"> Go back  &RightArrow;</span>
+  </Link>
+         
+          <div
+            class="px-2 py-2 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800"
+          >   
+      <form @submit.prevent="update">
+       
+          <text-input v-model="form.classes" :error="form.errors.classes" class="mb-3 pr-6 w-full lg:w-1/2" label="Class name" />
+          <text-input type="number" v-model="form.classes_numeric" :error="form.errors.classes_numeric" class="mb-5 pr-6 w-full lg:w-1/2" label="Class Order ID" />
+          <select-input v-model="form.classlevel_id" :error="form.errors.classlevel_id" class="mb-5 pr-6 w-full lg:w-1/2" label="Classlevel">
+            <option :value="null" />
+            <option v-for="classlevel in classlevels" :key="classlevel.classlevel_id" :value="classlevel.classlevel_id">{{ classlevel.name }}</option>
+          </select-input>
+          <select-input v-model="form.user_id" :error="form.errors.user_id" class="mb-5 pr-6 w-full lg:w-1/2" label="Class Teacher">
+            <option :value="null" />
+            <option v-for="teacher in teachers" :key="teacher.id" :value="teacher.id">{{ teacher.name }}</option>
+          </select-input>
+          <text-input v-model="form.note" :error="form.errors.note" class="mb-5 pr-6 w-full lg:w-1/2" label="About This Class" />
+        <div class="flex items-center justify-end px-8 py-4 bg-gray-50 border-t border-gray-100">
+          <loading-button :loading="form.processing" class="btn-indigo" type="submit">Update Class</loading-button>
+        </div>
+        
+      </form>
+    </div>
+    
 </template>
 
 <script>
 import { Link } from '@inertiajs/vue3'
-// import Layout from '@/Shared/Layout'
 import TextInput from '../../Shared/TextInput'
 import SelectInput from '../../Shared/SelectInput'
+import MultipleInput from '../../Shared/MultipleInput'
 import LoadingButton from '../../Shared/LoadingButton'
-import TrashedMessage from '../../Shared/TrashedMessage'
 
 export default {
   components: {
     Link,
     LoadingButton,
     SelectInput,
+    MultipleInput,
     TextInput,
-    TrashedMessage,
   },
   props: {
-    contact: Object,
-    groups: Array,
+    classes: Array,
+    classlevels: Array,
+    teachers: Array,
   },
   remember: 'form',
   data() {
     return {
       form: this.$inertia.form({
-        name: this.contact.name,
-        organization_id: this.contact.organization_id,
-        sex: this.contact.sex,
-        roll: this.contact.roll,
-        dob: this.contact.dob,
-        address: this.contact.address,
-        jod: this.contact.jod,
+        classes:  this.classes.classes,
+        classlevel_id:  this.classes.classlevel_id,
+        user_id:  this.classes.user_id,
+        note:  this.classes.note,
+        classes_numeric:  this.classes.classes_numeric,
       }),
     }
   },
   methods: {
     update() {
-      this.form.put(`/contacts/${this.contact.id}`)
-    },
-    destroy() {
-      if (confirm('Are you sure you want to delete this contact?')) {
-        this.$inertia.delete(`/contacts/${this.contact.id}`)
-      }
-    },
-    restore() {
-      if (confirm('Are you sure you want to restore this contact?')) {
-        this.$inertia.put(`/contacts/${this.contact.id}/restore`)
+      if (confirm('Are you sure you want to edit this class?')) {
+        this.form.post('/classes/'+ this.classes.uuid +'/update')
       }
     },
   },

@@ -8,36 +8,19 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class Revenue
  * 
  * @property int $id
  * @property int $user_id
- * @property int $account_group_id
- * @property float $amount
- * @property Carbon $date
- * @property int|null $method_id
- * @property string|null $note
- * @property string|null $reference
- * @property string|null $phone
- * @property string|null $name
- * @property string|null $type
- * @property int|null $status
- * @property int $added_by
- * @property Carbon $created_at
- * @property Carbon $updated_at
- * 
- * @property AccountGroup $account_group
- * @property PaymentMethod|null $payment_method
- * @property User $user
- *
  * @package App\Models
  */
 class Revenue extends Model
 {
 	protected $table = 'revenues';
-
+ 
 	protected $casts = [
 		'user_id' => 'int',
 		'account_group_id' => 'int',
@@ -52,6 +35,7 @@ class Revenue extends Model
 	];
 
 	protected $fillable = [
+		'uuid',
 		'user_id',
 		'account_group_id',
 		'amount',
@@ -76,8 +60,31 @@ class Revenue extends Model
 		return $this->belongsTo(PaymentMethod::class, 'method_id');
 	}
 
-	public function user()
+	public function addedBy()
 	{
 		return $this->belongsTo(User::class, 'added_by');
 	}
+
+	
+	public function user()
+	{
+		return $this->belongsTo(User::class, 'user_id');
+	}
+
+	public function scopeFilter($query, array $filters)
+    {
+        $query->when($filters['search'] ?? null, function ($query, $search) {
+            $query->where(function ($query) use ($search) {
+                $query->where(DB::raw('lower(name)'), 'like', '%'.strtolower($search).'%')
+				->orWhere(DB::raw('lower(reference)'), 'like', '%'.strtolower($search).'%')
+				->orWhere(DB::raw('lower(amount)'), 'like', '%'.strtolower($search).'%');
+            });
+        })->when($filters['trashed'] ?? null, function ($query, $trashed) {
+            if ($trashed === 'with') {
+                $query->withTrashed();
+            } elseif ($trashed === 'only') {
+                $query->onlyTrashed();
+            }
+        });
+    }
 }

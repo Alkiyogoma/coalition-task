@@ -9,24 +9,10 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class AccountGroup
- * 
- * @property int $id
- * @property int $account_id
- * @property string $name
- * @property string|null $about
- * @property string|null $code
- * @property int|null $status
- * @property int $user_id
- * @property Carbon $created_at
- * @property Carbon $updated_at
- * 
- * @property Account $account
- * @property Collection|Expense[] $expenses
- * @property Collection|Revenue[] $revenues
- *
  * @package App\Models
  */
 class AccountGroup extends Model
@@ -67,4 +53,19 @@ class AccountGroup extends Model
 	{
 		return $this->hasMany(Revenue::class);
 	}
+
+	public function scopeFilter($query, array $filters)
+    {
+        $query->when($filters['search'] ?? null, function ($query, $search) {
+            $query->where(function ($query) use ($search) {
+                $query->where(DB::raw('lower(name)'), 'like', '%'.strtolower($search).'%');
+            });
+        })->when($filters['trashed'] ?? null, function ($query, $trashed) {
+            if ($trashed === 'with') {
+                $query->withTrashed();
+            } elseif ($trashed === 'only') {
+                $query->onlyTrashed();
+            }
+        });
+    }
 }
