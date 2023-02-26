@@ -125,7 +125,7 @@ Route::put('accounts/{contact}/restore', [AccountController::class, 'restore'])-
 Route::get('accounts', [AccountController::class, 'index'])->name('accounts')->middleware('auth');
 Route::get('/addgroup', [AccountController::class, 'addGroup'])->name('addgroup');
 Route::post('/savegroup', [AccountController::class, 'saveGroup'])->name('saveGroup');
-Route::get('accounts/{contact}/delete', [AccountController::class, 'deleteGroup'])->name('accounts.edit');
+Route::get('accounts/{contact}/delete', [AccountController::class, 'deleteGroup'])->name('accounts.deleteGroup');
 
 Route::get('/groups', [AccountController::class, 'groups'])->name('groups');
 Route::get('/addaccount', [AccountController::class, 'addChart'])->name('addAccount');
