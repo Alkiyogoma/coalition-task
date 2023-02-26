@@ -104,10 +104,6 @@ Route::get('add-dept', [UsersController::class, 'addDept']);
 Route::post('saveDept', [UsersController::class, 'saveDept']);
 Route::get('groups', [UsersController::class, 'address']);
 Route::get('invoices', [UsersController::class, 'address']);
-Route::get('week', [UsersController::class, 'address']);
-Route::get('month', [UsersController::class, 'address']);
-Route::get('year', [UsersController::class, 'address']);
-Route::get('last', [UsersController::class, 'address']);
 Route::post('savePayment', [UsersController::class, 'savePayment']);
 Route::post('saveTask', [UsersController::class, 'saveTask']);
 Route::post('sendMessage', [UsersController::class, 'sendMessage']);
@@ -135,17 +131,17 @@ Route::get('groups/{contact}/delete', [AccountController::class, 'deleteAccount'
 
 Route::get('/revenues/{id?}', [AccountController::class, 'revenues'])->name('revenues');
 Route::get('/revenueadd', [AccountController::class, 'revenueAdd'])->name('revenueadd');
-Route::post('/revenueadd', [AccountController::class, 'revenueAdd'])->name('revenueadd');
-Route::get('/revenueedit/{id}/edit', [AccountController::class, 'revenueEdit'])->name('revenueEdit');
+Route::post('/revenueadd', [AccountController::class, 'revenueAdd'])->name('revenueaddw');
+Route::get('/revenueedit/{id}/edit', [AccountController::class, 'revenueEdit'])->name('revenueEditw');
 Route::post('/revenueedit/{id}/edit', [AccountController::class, 'revenueEdit'])->name('revenueEdit');
 Route::get('/revenuedelete/{id}/delete', [AccountController::class, 'revenueDelete'])->name('revenueDelete');
 Route::get('/receipt/{id}/view', [AccountController::class, 'receipt'])->name('receipt');
 
 Route::get('/expenses/{id?}', [AccountController::class, 'expenses'])->name('expenses');
 Route::get('/expenseadd', [AccountController::class, 'expenseAdd'])->name('expenseadd');
-Route::post('/expenseadd', [AccountController::class, 'expenseAdd'])->name('expenseadd');
+Route::post('/expenseadd', [AccountController::class, 'expenseAdd'])->name('expenseaddw');
 Route::get('/expenseedit/{id}/edit', [AccountController::class, 'expenseEdit'])->name('expenseEdit');
-Route::post('/expenseedit/{id}/edit', [AccountController::class, 'expenseEdit'])->name('expenseEdit');
+Route::post('/expenseedit/{id}/edit', [AccountController::class, 'expenseEdit'])->name('expenseEditw');
 Route::get('/expensedelete/{id}/delete', [AccountController::class, 'expenseDelete'])->name('expenseDelete');
 Route::get('/voucher/{id}/view', [AccountController::class, 'voucher'])->name('voucher');
 
