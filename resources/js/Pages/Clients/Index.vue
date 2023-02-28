@@ -61,10 +61,10 @@
                         <span class="text-secondary text-xs font-weight-bold">{{ user.branch }}</span>
                       </td>
                       <td class="align-middle text-center">
-                        <span class="text-secondary text-xs font-weight-bold">{{ user.amount }}</span>
+                        <span class="text-secondary text-xs font-weight-bold">{{ money(user.amount) }}</span>
                       </td>
                       <td class="align-middle text-center">
-                        <span class="text-secondary text-xs font-weight-bold">{{ user.paid }}</span>
+                        <span class="text-secondary text-xs font-weight-bold">{{ money(user.paid) }}</span>
                       </td>
                       <td class="align-middle text-center">
                         <span class="text-secondary text-xs font-weight-bold">{{ user.code }}</span>
@@ -144,6 +144,10 @@ export default {
     reset() {
       this.form = mapValues(this.form, () => null)
     },
+    money: function(value) {
+          let val = (value/1).toFixed(2).replace(',', '.')
+          return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+      }
   },
 }
 </script>

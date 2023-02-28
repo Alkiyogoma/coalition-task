@@ -79,7 +79,7 @@
                 <li class="nav-item mb-2 mt-0">
                     <a data-bs-toggle="collapse" href="#ProfileNav" class="nav-link text-white"
                         aria-controls="ProfileNav" role="button" aria-expanded="false">
-                        <img src="/assets/img/team-3.jpg" class="avatar">
+                        <img src="/<?= !Auth::check() && Auth::User()->sex == 'Female' ? 'assets/img/team-3.jpg' : 'assets/img/drake.jpg' ?>" class="avatar">
                         <span class="nav-link-text ms-2 ps-1">{{ !Auth::check() ? 'Staff Profile' : Auth::User()->name }}</span>
                     </a>
                     <div class="collapse" id="ProfileNav">
@@ -114,7 +114,7 @@
                     </div>
                 </li>
                 <hr class="horizontal light mt-0">
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a data-bs-toggle="collapse" href="#dashboardsExamples" class="nav-link text-white"
                         aria-controls="dashboardsExamples" role="button" aria-expanded="false">
                         <i class="material-icons-round opacity-10">dashboard</i>
@@ -143,7 +143,7 @@
                         </ul>
                     </div>
                 </li>
-               
+                --}}
                 <li class="nav-item">
                   <a data-bs-toggle="collapse" href="#componentsStaffs" class="nav-link text-white"
                       aria-controls="componentsStaffs" role="button" aria-expanded="false">
@@ -421,6 +421,12 @@
                             </li>
                         </ul>
                     </div>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" href="/payments">
+                        <i class="material-icons-round opacity-10">dashboard</i>
+                        <span class="nav-link-text ms-2 ps-1">Payments</span>
+                    </a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link"
