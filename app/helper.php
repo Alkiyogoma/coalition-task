@@ -531,3 +531,27 @@ function send_sms($phone_number, $message, $sender = 'DARSMS'){
             RETURN 10;
         }
     }
+
+//  PHP function that finds the next multiple of 5 or 10 from a given number:
+    function findNextMultiple($num) {
+        // check if the number is already a multiple of 5 or 10
+        if ($num % 5 == 0 || $num % 10 == 0) {
+            return $num;
+        }
+        
+        // calculate the difference between the number and the next multiple of 5 or 10
+        $diff = 0;
+        if ($num < 5) {
+            $diff = 5 - $num;
+        } else if ($num < 10) {
+            $diff = 10 - $num;
+        } else {
+            $diff = 10 - ($num % 10);
+        }
+        
+        // add the difference to the number to get the next multiple of 5 or 10
+        $nextMultiple = $num + $diff;
+        
+        return $nextMultiple;
+    }
+    

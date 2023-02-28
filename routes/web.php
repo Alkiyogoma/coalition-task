@@ -17,13 +17,6 @@ use \App\Http\Controllers\AccountController;
 |
 */
 
-Route::get('/', function () {
-    return inertia('Dashboard');
-});
-
-Route::get('/dashboard', function () {
-    return inertia('Dashboard');
-});
 
 Route::get('/crm', function () {
     return inertia('Crm');
@@ -143,4 +136,16 @@ Route::post('/expenseedit/{id}/edit', [AccountController::class, 'expenseEdit'])
 Route::get('/expensedelete/{id}/delete', [AccountController::class, 'expenseDelete'])->name('expenseDelete');
 Route::get('/voucher/{id}/view', [AccountController::class, 'voucher'])->name('voucher');
 
-Route::get('/tasks', [HomeController::class, 'tasks'])->name('home');
+Route::get('/tasks', [HomeController::class, 'tasks'])->name('tasks');
+Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
+Route::get('/payments', [HomeController::class, 'payments'])->name('homeview');
+Route::get('/payments/{staff}/view', [HomeController::class, 'payments'])->name('homeview');
+Route::get('/payments/{client}/client', [HomeController::class, 'payments'])->name('homeclient');
+Route::get('/payments/{partner}/partner', [HomeController::class, 'payments'])->name('homepartner');
+Route::get('/dashboard', [HomeController::class, 'index'])->name('home');
+Route::get('/receipt/{id}/payment', [HomeController::class, 'receipt'])->name('receipt');
+
+Route::get('/', function () {
+    return redirect('/dashboard');
+});
+

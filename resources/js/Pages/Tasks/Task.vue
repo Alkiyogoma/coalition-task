@@ -44,7 +44,7 @@
                                     <div class="w-100">
                                         <div class="d-flex align-items-center mb-2">
                                             <a class="btn btn-youtube btn-simple mb-0 p-0" href="javascript:;">
-                                                <i class="fab fa-youtube fa-lg"></i>
+                                                <i class="fab fa-slack fa-lg"></i>
                                             </a>
                                             <span
                                                 class="me-2 text-sm font-weight-normal text-capitalize ms-2">{{ average.name }}</span>
@@ -52,8 +52,8 @@
                                         </div>
                                         <div>
                                             <div class="progress progress-md">
-                                                <div class="progress-bar bg-gradient-dark w-25" role="progressbar"
-                                                    :aria-valuenow="`${ Math.ceil(average.total*100/total) }`" aria-valuemin="0" aria-valuemax="100">
+                                                <div :class="`progress-bar bg-gradient-dark w-${ callPercent(Math.ceil(average.total*100/total)) }`" role="progressbar"
+                                                    :aria-valuenow="`${ Math.ceil(average.total*100/total) }`" aria-valuemin="0" :aria-valuemax="`${ Math.ceil(average.total*100/total) }`">
                                                 </div>
                                             </div>
                                         </div>
@@ -280,6 +280,30 @@ export default {
         task_status: Array,
         usertasks: Array,
     },
-    components: { Link }
+    components: { Link },
+    methods: {
+    callPercent: function (num) {
+      
+      if (num % 5 == 0 || num % 10 == 0) {
+            return num;
+        }
+        
+        // calculate the difference between the number and the next multiple of 5 or 10
+        var diff = 0;
+        if (num < 5) {
+            diff = 5 - num;
+        } else if (num < 10) {
+            diff = 10 - num;
+        } else {
+            diff = 10 - (num % 10);
+        }
+        
+        // add the difference to the number to get the next multiple of 5 or 10
+        var nextMultiple = 0;
+        nextMultiple = num + diff;
+        
+        return nextMultiple;
+    }
+  }
 };
 </script>
