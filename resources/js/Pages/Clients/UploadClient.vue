@@ -26,6 +26,7 @@
                                     <div class="text-center">
                                         <a href="/assets/sample_one.xlsx" class="label bg-gradient-primary label-lg label-rounded py-2 px-2 w-30 mt-4 mb-0" for="flexSwitchCheckDefault1">Download Sample One </a>
                                         <br>
+                                        <br>
                                         <a href="/assets/sample_two.xlsx" class="label bg-gradient-primary label-lg label-rounded py-2 px-2 w-30 mt-4 mb-0" for="flexSwitchCheckDefault1">Download Sample Two</a>
                                     </div>
                                 </div>
