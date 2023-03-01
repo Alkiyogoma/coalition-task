@@ -155,7 +155,7 @@ Route::get('/clientUploads', [HomeController::class, 'clientUploads'])->name('cl
 
 Route::any('/sendmessage', [HomeController::class, 'send'])->name('sendmessage');
 Route::get('/inbox', [HomeController::class, 'inbox'])->name('inbox');
-Route::get('/sent', [HomeController::class, 'sent'])->name('sent');
+Route::get('/sent/{status?}', [HomeController::class, 'sent'])->name('sent');
 
 Route::get('/messages', [HomeController::class, 'messages'])->name('messages');
 Route::get('/message/setting', [HomeController::class, 'setting'])->name('messages');

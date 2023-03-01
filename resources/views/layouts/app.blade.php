@@ -41,9 +41,14 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
 
     <link id="pagestyle" href="/assets/css/material-dashboard.min.css" rel="stylesheet" />
+    <script src="/assets/js/jquery-3.6.3.min.js"></script>
 
+    <link href="{{ URL::asset('assets/css/select2.min.css') }}" rel="stylesheet" />
+    <script src="{{ URL::asset('assets/css/select2.min.js') }}"></script>
+    
+
+    <script type="text/javascript" src="{{ URL::asset('assets/js/toastr.min.js') }}"></script>
     <link href="{{ URL::asset('assets/css/toastr.min.css') }}" rel="stylesheet">
-
     <style>
         .async-hide {
             opacity: 0 !important
@@ -255,28 +260,28 @@
                     <ul class="nav ">
                         <li class="nav-item ">
                             <a class="nav-link text-white"
-                                href="/messages"
+                                href="/sendmessage"
                                >
                                 <span class="sidenav-normal  ms-2  ps-1"> New Message </span>
                             </a>
                         </li>
                         <li class="nav-item ">
                             <a class="nav-link text-white"
-                                href="/notifications"
+                                href="/messages"
                                >
                                 <span class="sidenav-normal  ms-2  ps-1"> Sent Messages </span>
                             </a>
                         </li>
                         <li class="nav-item ">
                             <a class="nav-link text-white"
-                                href="/navbar"
+                                href="/inbox"
                                >
                                 <span class="sidenav-normal  ms-2  ps-1"> Set Reminders </span>
                             </a>
                         </li>
                         <li class="nav-item ">
                             <a class="nav-link text-white"
-                                href="/pagination"
+                                href="/sent"
                                >
                                 <span class="sidenav-normal  ms-2  ps-1"> View Report </span>
                             </a>
@@ -509,7 +514,55 @@
       </div>
     </nav>
     <div class="container-fluid py-4">
-      
+        
+        @if(session()->has('error') || session()->has('urls'))
+            <div class="alert alert-primary alert-dismissible text-white" role="alert">
+                <span class="text-sm">{{ session()->get('error') }} <a href="{{ session()->get('urls') }}" class="alert-link text-white">Open Link</a>.</span>
+                <button type="button" class="btn-close text-lg py-3 opacity-10" data-bs-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        @endif
+
+        @if(session()->has('success'))
+            <div class="alert alert-dark alert-dismissible text-white" role="alert">
+                <span class="text-sm">{{ session()->get('success') }}</span>
+                <button type="button" class="btn-close text-lg py-3 opacity-10" data-bs-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        @endif
+
+        @if(session()->has('message'))
+        <div class="alert alert-info alert-dismissible text-white" role="alert">
+            <div class="alert-body">
+                <button class="close" data-dismiss="alert">
+                    <span>&times;</span>
+                </button>
+                {{ session()->get('message') }}
+            </div>
+        </div>
+        @endif
+
+        @if(session()->has('warning'))
+        <div class="alert alert-warning alert-dismissible text-white" role="alert">
+            <span class="text-sm">{{ session()->get('warning') }}.</span>
+            <button type="button" class="btn-close text-lg py-3 opacity-10" data-bs-dismiss="alert"
+                aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        @endif
+        @if(session()->has('secondary'))
+        <div class="alert alert-success alert-dismissible show fade alert-dismissible show fade">
+            <div class="alert-body">
+                <button class="close" data-dismiss="alert alert-dismissible show fade">
+                    <span>&times;</span>
+                </button>
+                {{ session()->get('secondary') }}
+            </div>
+        </div>
+        @endif
         @yield('content')
 
     </div>
@@ -592,6 +645,9 @@
 
 <script>
     $(document).ready(function() {
+        $('.js-example-basic-single').select2();
+        $('.js-example-basic-multiple').select2();
+
   @if(session()->has('success'))
   toastr.options =
   {

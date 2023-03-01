@@ -16,22 +16,22 @@
             <form id="add-form" action="" method="POST">
             <?= csrf_field() ?>
               <div class="row input-group input-group-outline my-3">
-                <label class="col-form-label text-md-right col-12 col-md-2">Select Type</label>
+                <label class="col-form-label text-md-right col-12 col-md-2">Set Message Group</label>
                 <div class="col-sm-12 col-md-8" data-select2-id="12">
-                <select name="source" class="form-control selectric" id="source">
-                <option value="_">select Here..</option>
-                  <option value="members">Church Members</option>
-                    <option value="leaders">Church Leaders</option>
-                    <option value="groups">Church Groups</option>
-                    <option value="families">Church Families</option>
-                    <option value="visitors">Church Visitors</option>
+                <select name="source" class="form-control" required id="source">
+                <option value="" selected>select Here..</option>
+                    <option value="groups">Specific Partners</option>
+                    <option value="leaders">Specific Branches</option>
+                    <option value="families">Specific Employers</option>
+                    <option value="visitors">Assigned Clients</option>
+                    <option value="members">Company Employee</option>
                   </select>
                 </div>
               </div>
               <div class="row input-group input-group-outline my-3" style="display: none;" id="groups">
                 <label class="col-form-label text-md-right col-12 col-md-2">Select Group</label>
                 <div class="col-sm-12 col-md-8" data-select2-id="12">
-                <select name="group_id[]" class="form-control  select2" style="width: 100%"style="width: 100%" multiple="">
+                <select name="group_id[]" class="form-control js-example-basic-multiple" style="width: 100%"style="width: 100%" multiple="">
                 <option value="">Select Group here...</option>
                     <option value="all">All</option>
                     <?php 
@@ -46,7 +46,7 @@
               <div class="row input-group input-group-outline my-3" style="display: none;" id="leaders">
                 <label class="col-form-label text-md-right col-12 col-md-2">Select Leaders</label>
                 <div class="col-sm-12 col-md-8" data-select2-id="12">
-                <select name="leader_id[]" class="form-control  select2" style="width: 100%"style="width: 100%" multiple="">
+                <select name="leader_id[]" class="form-control js-example-basic-multiple" style="width: 100%"style="width: 100%" multiple="">
                 <option value="">Select Leaders here...</option>
                     <option value="all">All</option>
                     <?php 
@@ -61,7 +61,7 @@
               <div class="row input-group input-group-outline my-3" style="display: none;" id="families">
                 <label class="col-form-label text-md-right col-12 col-md-2">Select Families</label>
                 <div class="col-sm-12 col-md-8" data-select2-id="12">
-                <select name="family_id[]" class="form-control  select2" style="width: 100%"style="width: 100%" multiple="">
+                <select name="family_id[]" class="form-control js-example-basic-multiple" style="width: 100%"style="width: 100%" multiple="">
                 <option value="">Select Families here...</option>
                     <option value="all">All</option>
                     <?php 
@@ -78,12 +78,12 @@
               <div class="row input-group input-group-outline my-3" style="display: none;" id="visitors">
                 <label class="col-form-label text-md-right col-12 col-md-2">Select Visitors</label>
                 <div class="col-sm-12 col-md-8" data-select2-id="12">
-                <select name="visitor_id[]" class="form-control  select2" style="width: 100%"style="width: 100%" multiple="">
+                <select name="visitor_id[]" class="form-control js-example-basic-multiple" style="width: 100%"style="width: 100%" multiple="">
                 <option value="">Select Visitor here...</option>
                     <option value="all">All</option>
                     <?php 
                       foreach($visitors as $visitor){
-                        echo '<option value="'.$visitor->id.'">'.$visitor->name.' ('.$visitor->sex.')</option>';
+                        echo '<option value="'.$visitor->id.'">'.$visitor->name.' ('.$visitor->clients->count().')</option>';
                       }
                       ?>
                   </select>
@@ -94,7 +94,7 @@
               <div class="row input-group input-group-outline my-3"  style="display: none;" id="members">
                 <label class="col-form-label text-md-right col-12 col-md-2">Select Members</label>
                 <div class="col-sm-12 col-md-8" data-select2-id="12">
-                <select name="member_id[]" class="form-control  select2" style="width: 100%"style="width: 100%" multiple="">
+                <select name="member_id[]" class="form-control js-example-basic-multiple" style="width: 100%"style="width: 100%" multiple="">
                 <option value="">Select Members here...</option>
                 <option value="all">All</option>
                     <?php 
@@ -108,13 +108,12 @@
               <div class="row input-group input-group-outline my-3">
                 <label class="col-form-label text-md-right col-12 col-md-2">Content</label>
                 <div class="col-sm-12 col-md-8" data-select2-id="12">
-                  <textarea class="form-control" name="body" style="height: 200px;" rows="10" required id="content_area"></textarea><br>
-                  <span>SMS count <b id="word_counts">0</b>/<b id="sms_count">1</b></span>
+                  <textarea class="form-control" id="comment" name="body" style="height: 200px;" rows="10" required></textarea><br>
+                  <span>SMS count - <b id="word_counts">0</b>/<b id="sms_count">1</b></span>
                 </div>
                 <div class="col-sm-12 pl-4">
               
-              <div class="text-center">Write <b style="color: green;">#name</b>, System will replace with a member name. </div>
-              <!-- <code style="color: green;">#username</code>,  Replace With Member Username</div> -->
+              <div class="text-center">Keywords <b style="color: green;">#name</b> for client name,  <b style="color: green;">#balance</b> for client outstanding balance,  <b style="color: green;">#bank</b> for client bank name. </div>
               
           </div>
               </div>
@@ -132,11 +131,24 @@
       </div>
     </div>
   </section>
-  <script src="/assets/js/jquery-3.6.3.min.js"></script>
   <script>
-    jQuery.noConflict();
-    // Use jQuery via jQuery() instead of via jQuery()
-    jQuery(document).ready(function(){
+   $(document).ready(function() {
+        $('.js-example-basic-single').select2();
+        $('.js-example-basic-multiple').select2();
+
+      $('#comment').keyup(function () {
+          var words = $('#comment').text().length;
+          $('#word_counts').html(words);
+          $('#sms_count').html(Math.ceil(words / 160));
+
+          if (words > 475) {
+              swal("Warning!", "You have reached maximum message words limit of 480 Words ", "warning");
+          }
+          if (words > 160) {
+              $('#word_counts').style.color = 'black';
+          }
+          
+      });
       jQuery('#source').change(function (event) {
       var source = jQuery(this).val();
       if (source === 'all' || source === '') {
@@ -162,6 +174,27 @@
   });
   jQuery('#families,#groups,#members,#leaders,#visitors').hide();
 });  
+
+    word_count = function () {
+        $('#comment').keyup(function () {
+            var words = $('#comment').val().length;
+            $('#word_counts').html(words);
+            $('#sms_count').html(Math.ceil(words / 160));
+            if (words > 475) {
+              toastr.options =
+                {
+                  "closeButton" : true,
+                  "progressBar" : true
+                }
+                  toastr.error("You have reached maximum message words limit of 480 Words");
+            }
+            if (words > 160) {
+                $('#word_counts').style.color = 'black';
+            }
+            
+        });
+      }
+$(document).ready(word_count);
 
 </script>
 
