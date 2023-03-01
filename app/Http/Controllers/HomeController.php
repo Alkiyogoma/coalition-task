@@ -221,6 +221,11 @@ class HomeController extends Controller
     // }
 
 
+
+    public function messages()
+    { 
+        return inertia('Message');
+    }
     public function inbox()
     { 
         $this->data['messages'] = \App\Models\Message::where('user_id', Auth::User()->id)->orderBy('id', 'DESC')->get();
@@ -229,6 +234,9 @@ class HomeController extends Controller
 
     public function sent()
     { 
+        if(request()->segment(2) != ''){
+            return redirect()->back()->with('success', 'Your Message Should have atleast 10 Words. Please try Again!!!');
+        }
         $this->data['messages'] = \App\Models\Message::whereIn('user_id', \App\Models\User::where('status', 1)->get(['id']))->paginate(20);
         return view('message.sent', $this->data);
     }

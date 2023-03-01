@@ -1,15 +1,8 @@
-@extends('layouts.admin-master')
-
-@section('title')
-Message Report
-@endsection
+@extends('layouts.app')
 
 @section('content')
 <?php $root = url('/') . '/public/' ?>
 
-<section class="section">
-
-    <div class="section-body">
         <div class="row">
             <div class="col-12 col-sm-12 col-lg-6">
                 <div class="card">
@@ -97,7 +90,7 @@ Message Report
 
 <div class="modal fade" id="status-Modals">
 <div class="modal-dialog modal-lg" role="document">
-<form id="add-form" action="<?=url('messages/buySMS') ?>" method="POST">
+<form id="add-form" action="<?=url('buySMS') ?>" method="POST">
 <?= csrf_field() ?>
       <div class="modal-content">
         <div class="modal-header">
@@ -144,11 +137,9 @@ Message Report
 </div>
 </div>
 </div>
-</div>
-</div>
-<script src="<?=url('public/assets/js/jquery-1.8.2.min.js')?>"></script>
-    <script src="<?= url('public/assets/js/highchart.js') ?>"></script>
-<script src="<?= url('public/assets/js/exporting.js') ?>"></script>
+
+<script src="/assets/js/highchart.jsjs-example-basic-multiple"></script>
+<script src="/assets/js/exporting.jsjs-example-basic-multiple"></script>
 
     <script type="text/javascript">
         jQuery.noConflict();
