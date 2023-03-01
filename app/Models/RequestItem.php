@@ -11,18 +11,6 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class RequestItem
- * 
- * @property int $id
- * @property int $request_id
- * @property int $item_id
- * @property float $amount
- * @property int|null $quantity
- * @property Carbon $created_at
- * @property Carbon $updated_at
- * 
- * @property Item $item
- * @property Request $request
- *
  * @package App\Models
  */
 class RequestItem extends Model

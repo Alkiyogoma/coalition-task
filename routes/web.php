@@ -65,9 +65,7 @@ Route::get('/billing', function () {
 Route::get('/notifications', function () {
     return Inertia('Notification');
 });
-Route::get('/messages', function () {
-    return Inertia('Message');
-});
+
 Route::get('/calendar', function () {
     return Inertia('Calendar');
 });
@@ -154,3 +152,14 @@ Route::get('/uploadPayments', [HomeController::class, 'uploadPayments'])->name('
 
 Route::post('/clientUpload', [HomeController::class, 'clientUpload'])->name('clientUpload');
 Route::get('/clientUploads', [HomeController::class, 'clientUploads'])->name('clientUploads');
+
+Route::any('/sendmessage', [HomeController::class, 'send'])->name('sendmessage');
+Route::get('/inbox', [HomeController::class, 'inbox'])->name('inbox');
+Route::get('/sent', [HomeController::class, 'sent'])->name('sent');
+
+Route::get('/messages', [HomeController::class, 'messages'])->name('messages');
+Route::get('/message/setting', [HomeController::class, 'setting'])->name('messages');
+Route::post('/sendSingle', [HomeController::class, 'sendSingle'])->name('sendSingle');
+Route::post('/buySMS', [HomeController::class, 'buySMS'])->name('buySMS');
+Route::post('/send_to_numbers', [HomeController::class, 'send_to_numbers'])->name('send_to_numbers');
+Route::post('/buySMS', [HomeController::class, 'buySMS'])->name('buySMS');

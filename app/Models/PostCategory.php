@@ -12,14 +12,6 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class PostCategory
- * 
- * @property int $id
- * @property string|null $name
- * @property string|null $about
- * @property Carbon $created_at
- * @property Carbon $updated_at
- * 
- * @property Collection|Post[] $posts
  *
  * @package App\Models
  */

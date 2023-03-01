@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\DB;
 use App\Imports\UsersImport;
 use App\Imports\PaymentImport;
 use Maatwebsite\Excel\Facades\Excel;
+use \App\Models\Client;
+use \App\Models\Message;
 
 class HomeController extends Controller
 {
@@ -20,6 +22,8 @@ class HomeController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->data = array();
+
     }
  
     public function payments($id = null, $group = null)
@@ -215,4 +219,199 @@ class HomeController extends Controller
     // public function studentExport(){
     //     return Excel::download(new StudentExport, 'exported_visitors.xlsx');
     // }
+
+
+    public function inbox()
+    { 
+        $this->data['messages'] = \App\Models\Message::where('user_id', Auth::User()->id)->orderBy('id', 'DESC')->get();
+        return view('message.inbox', $this->data);
+    }
+
+    public function sent()
+    { 
+        $this->data['messages'] = \App\Models\Message::whereIn('user_id', \App\Models\User::where('status', 1)->get(['id']))->paginate(20);
+        return view('message.sent', $this->data);
+    }
+
+  
+    public function sendSingle()
+    {
+        $id = request('user_id');
+        $message = request('name') != '' ?  request('name') :  request('body');
+        $user = Client::where('id', $id)->first();
+      
+        if ($user) {
+            if(strlen($message) > 10){
+            send_sms(str_replace('+', '', validate_phone_number(trim($user->phone))[1]), $message, Auth::User()->username);
+            $sent = Message::create(['title' => $user->name.' Sent Message', 'user_id' => Auth::User()->id, 'phone' => validate_phone_number(trim($user->phone))[1], 'body' => $message, 'sender_id' =>  Auth::User()->username, 'status' => 1]);
+            if($sent){
+                return request('body') != '' ? redirect()->back()->with('success', 'SMS Sent to '.$user->name) : '';
+
+                return response()->json([
+                "title" => "SMS Sent to ".$user->name,
+                "text" => $message,
+                "icon" => "success"
+            ]);
+        }
+        }else{
+            return response()->json([
+                "title" => Auth::User()->name,
+                "text" => "You have to write something to send this message at least 10 words",
+                "icon" => "error"
+            ]);
+        }
+        } else {
+            return response()->json([
+                "title" => "Message Failed!",
+                "text" => 'User Information Not Found',
+                "icon" => "error"
+            ]);
+        }
+    }
+
+        
+        public function send()
+        {
+            $this->data['users'] = \App\Models\Client::where('status', 1)->get();
+            $this->data['groups'] = \App\Models\Partner::get();
+            $this->data['families'] = \App\Models\Client::where('user_id', Auth::User()->id)->where('status', 1)->get();
+            $this->data['leaders'] = \App\Models\Branch::get();
+            $this->data['visitors'] = \App\Models\Employer::get();
+
+            if($_POST){
+                //Send SMS to Leaders
+                $users = [];
+                if(request('leader_id') != '' && request('leader_id')[0] == 'all'){
+                    $users = \App\Models\Client::where('status', 1)->whereIn('branch_id', \App\Models\Branch::where('status', 1)->get(['id']))->get();
+                }elseif(request('leader_id') != ''){
+                    $users = \App\Models\Client::where('status', 1)->whereIn('branch_id', request('leader_id'))->get();
+                }
+
+                //Send SMS to Family Member
+                if(request('family_id') != '' && request('family_id')[0] == 'all'){
+                    $users = \App\Models\Client::where('status', 1)->where('user_id', Auth::User()->id)->get();
+                }elseif(request('family_id') != ''){
+                    $users = \App\Models\Client::where('status', 1)->whereIn('id', request('family_id'))->get();
+                }
+               
+                //Send SMS to Visitors Member
+                if(request('visitor_id') != '' && request('visitor_id')[0] == 'all'){
+                    $users = \App\Models\Client::where('status', 1)->where('status', 1)->get();
+                }elseif(request('visitor_id') != ''){
+                    $users = \App\Models\Client::where('status', 1)->whereIn('id', request('visitor_id'))->get();
+                }
+
+                //Send SMS to Believer Member
+                if(request('believer_id') != '' && request('believer_id')[0] == 'all'){
+                    $users = \App\Models\Client::where('status', 1)->where('status', 1)->get();
+                }elseif(request('believer_id') != ''){
+                    $users = \App\Models\Client::where('status', 1)->whereIn('id', request('believer_id'))->get();
+                }
+
+                //Send SMS to Groups
+                if(request('group_id') != '' && request('group_id')[0] == 'all'){
+                    $users = \App\Models\Client::where('status', 1)->get();
+                }elseif(request('group_id') != '' && request('group_id')[0] != 'all'){
+                    $users = \App\Models\Client::where('status', 1)->whereIn('partner_id',  request('group_id'))->get();
+                }
+
+                //Send SMS to all members
+                if(request('client_id') != '' && request('client_id')[0] == 'all'){
+                    $users = \App\Models\Client::where('status', 1)->where('status', 1)->get();
+                }elseif(request('client_id') != ''){
+                    $users = \App\Models\Client::where('status', 1)->whereIn('id', request('client_id'))->get();
+                }
+
+
+                $message = request('body');
+                if (count($users) > 0 && strlen($message) > 15) {  
+                    foreach($users as $user){ 
+                       if($user->phone != ''){
+                        $body = str_replace('#name', $user->name, $message);
+                        Message::create(['title' => $user->name.' New Message', 'user_id' => $user->id, 'phone' => validate_phone_number(trim($user->phone))[1], 'body' => $body, 'status' => 0]);
+                      //  send_sms(str_replace('+', '', validate_phone_number(trim($user->phone))[1]), $body);
+                    }
+                }
+                return redirect()->back()->with('success', 'Congraturations ' . count($users) . ' Messages Sent Successfully');
+            }else{
+                    return redirect()->back()->with('error', 'Your Message Should have atleast 10 Words. Please try Again!!!');
+                }
+            }
+            $setting = DB::table('setting')->first()->sms_enabled;
+            if((int)$setting < 20){
+                return redirect('messages/setting')->with('error', 'Your Message balance is less than 20 SMS. Please buy new sms now!!');
+            }
+            return view('message.add', $this->data);
+        }
+
+        public function setting()
+        {
+            $week = date('Y-m-d', strtotime('-7 days'));
+            $month = (int)date('m');
+            $this->data['this_day'] = \App\Models\Message::whereYear('created_at', date('Y'))->whereDate('created_at', date("Y-m-d"))->count();
+            $this->data['this_month'] = \App\Models\Message::whereYear('created_at', date('Y'))->whereMonth('created_at', $month)->count();
+            $this->data['this_week'] = \App\Models\Message::where('created_at', '>=', $week)->count();
+            $this->data["datas"] = DB::SELECT('SELECT count(id) as ynumber, DATE(t.created_at) as date FROM messages t  GROUP BY DATE(t.created_at) ORDER BY DATE(t.created_at) desc limit 8');
+            return view('message.reports', $this->data);
+        }
+        
+        public function trynew()
+        {
+            return view('layouts.default');
+        }
+
+        public function buySMS()
+        {
+            $message =  church_name(). ' ';  
+            $message .= request('comment');
+            $message .= chr(10);
+            $message .= 'Number of SMS - '. request('message');   
+            $message .= chr(10);
+            $message .= 'Phone - '. request('phone');
+            $message .= chr(10);
+            $message .= 'Method - '. request('method');
+           send_sms('255744158016', $message);
+            if(Auth::User()->phone != ''){
+            send_sms(Auth::User()->phone, 'Hello '.Auth::User()->name .', DARSMS have Received your order to buy '. request('message'). ' SMS we will send you invoice soon.');
+           }
+           return redirect()->back()->with('success', 'We have Received Your Order of ' . request('message') . ' SMS we will send you invoice to pay.');
+        }
+
+        
+        public function send_to_numbers(){
+            $message = request('message');
+            $key_name = request('sender_name') != '' ? request('sender_name') : 'INFO';
+            $custom_numbers = request('numbers');
+            
+            if($custom_numbers != ''){
+                $numbers = [];
+                if (preg_match('/,/', $custom_numbers)) {
+                    $numbers = explode(',', $custom_numbers);
+                } else if (preg_match('/ /', $custom_numbers)) {
+                    $numbers = explode(' ', $custom_numbers);
+                } else {
+                    $numbers = [$custom_numbers];
+                }
+                $sent_to = 0;
+                $wrong = 0;
+                $invalid_numbers = '';
+
+                foreach ($numbers as $number) {
+                    $valid = validate_phone_number($number);
+                    if (is_array($valid)) {
+                        $sent_to++;
+                    $message = request('body');
+                            $body = $message;
+                            \App\Models\Message::create(['title' => 'New Message', 'user_id' => Auth::User()->id, 'sender_id' => Auth::User()->username, 'phone' => str_replace('+', '', $valid[1]), 'body' => $body, 'return_code' => $key_name, 'status' => 0]);
+                    } else {
+                        $wrong++;
+                        $invalid_numbers .= $number . ',';
+                    }
+                }
+                return redirect()->back()->with('success', 'Congraturations ' . $sent_to. ' Messages Sent Successfully');
+            }
+        
+        redirect()->back()->with('success', 'Mesage Sent');
+    }
+
 }

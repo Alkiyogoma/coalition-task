@@ -12,24 +12,6 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Request
- * 
- * @property int $id
- * @property string|null $title
- * @property string $body
- * @property Carbon $start_date
- * @property Carbon $end_date
- * @property int $user_id
- * @property int $status
- * @property Carbon $created_at
- * @property Carbon $updated_at
- * @property string|null $phone
- * @property string|null $name
- * @property string|null $approve_id
- * @property int|null $method_id
- * 
- * @property User $user
- * @property Collection|Item[] $items
- *
  * @package App\Models
  */
 class Request extends Model
