@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Imports\UsersImport;
+use App\Imports\PaymentImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class HomeController extends Controller
 {
@@ -40,15 +43,15 @@ class HomeController extends Controller
         $date = "'".date('Y-m-d')."'";
         $where_date = request('days') > 0 ? date('Y-m-d', strtotime('- '.request('days').'days')) : date('Y-m-01');
         $where_ = request('days') > 0 ? "'".date('Y-m-d', strtotime('- '.request('days').'days'))."'" : "'".date('Y-m-01')."'";
-        $payments = DB::select('WITH alltasks as(SELECT a.id, a.name, a.sex, sum(b.amount) as total, COUNT(DISTINCT b.client_id) as client FROM `payments` b JOIN `users` a on b.user_id=a.id where b.created_at >'.$where_.' GROUP BY a.id, a.name,a.sex), allusers as (SELECT a.id, a.name, sum(b.amount) as amount, COUNT(b.id) as clients FROM `clients` b JOIN `users` a on b.user_id=a.id where b.status=1 GROUP BY a.id, a.name) select a.id, a.name, a.sex, a.total, a.client, b.amount, b.clients from alltasks a left join allusers b on a.id=b.id order by total desc;');
+        $payments = DB::select('WITH alltasks as(SELECT a.id, a.name, a.sex, sum(b.amount) as total, COUNT(DISTINCT b.client_id) as client FROM `payments` b JOIN `users` a on b.user_id=a.id where b.created_at >='.$where_.' GROUP BY a.id, a.name,a.sex), allusers as (SELECT a.id, a.name, sum(b.amount) as amount, COUNT(b.id) as clients FROM `clients` b JOIN `users` a on b.user_id=a.id where b.status=1 GROUP BY a.id, a.name) select a.id, a.name, a.sex, a.total, a.client, b.amount, b.clients from alltasks a left join allusers b on a.id=b.id order by total desc;');
         
         return inertia('Dashboard/Dashboard',
         [
             'payments' => $payments,
-            'tasks' => money(\App\Models\Task::whereDate('created_at', '>', $where_date)->count()),
-            'amounts' => money(\App\Models\Payment::whereDate('created_at', '>', $where_date)->sum('amount')),
-            'messages' => money(\App\Models\Message::whereDate('created_at', '>', $where_date)->count()),
-            'clients' => money(\App\Models\Client::whereDate('created_at', '>', $where_date)->count()),
+            'tasks' => money(\App\Models\Task::whereDate('created_at', '>=', $where_date)->count()),
+            'amounts' => money(\App\Models\Payment::whereDate('created_at', '>=', $where_date)->sum('amount')),
+            'messages' => money(\App\Models\Message::whereDate('created_at', '>=', $where_date)->count()),
+            'clients' => money(\App\Models\Client::whereDate('created_at', '>=', $where_date)->count()),
             'collections' => DB::select('SELECT a.id, a.name, a.code, count(b.id) as total, sum(b.amount) as amount, COUNT(DISTINCT b.client_id) as client FROM `payments` b JOIN `users` a on b.user_id=a.id WHERE date ='.$date.' GROUP BY a.id, a.name, a.code')
 
         ]);
@@ -132,4 +135,84 @@ class HomeController extends Controller
             return Inertia::render('Invoice/PaymentReceipt', $array);
         }
     }
+
+
+    public function collections($id = null, $group = null)
+    {
+        if(strlen($id) > 10 && (int)$group > 0){
+            $user= \App\Models\User::where('uuid', $id)->first();
+            $where_condition = " AND f.id=$user->id and a.partner_id=$group ";
+        }elseif(strlen($id) > 10 && (int)$group == 0){
+            $user= \App\Models\User::where('uuid', $id)->first();
+            $where_condition = " AND f.id=$user->id ";
+
+        }elseif((int)$group > 0){
+            $where_condition = " AND f.partner_id=$group ";
+        }else{
+            $where_condition = '';
+        }
+        $date = "'".date('Y-m-d')."'";
+        $where_date = request('days') > 0 ? date('Y-m-d', strtotime('- '.request('days').'days')) : date('Y-m-01');
+        $where_ = request('days') > 0 ? "'".date('Y-m-d', strtotime('- '.request('days').'days'))."'" : "'".date('Y-m-01')."'";
+        $payments = DB::select('WITH alltasks as(SELECT c.id, c.name, sum(b.amount) as total, COUNT(DISTINCT b.client_id) as client FROM `payments` b JOIN `clients` a on b.client_id=a.id join partners c on c.id=a.partner_id join users f on f.id=a.user_id where b.created_at >='.$where_. ' '. $where_condition.' GROUP BY c.id, c.name), allusers as (SELECT b.id, b.name, sum(a.amount) as amount, COUNT(a.id) as clients FROM `clients` a JOIN `partners` b on a.partner_id=b.id  join users f on f.id=a.user_id   where a.status=1 '.$where_condition .' GROUP BY b.id, b.name) select a.id, a.name, a.total, a.client, b.amount, b.clients from alltasks a left join allusers b on a.id=b.id order by total desc;');
+   
+        return inertia('Clients/Payment',
+        [
+            'date' => $where_date,
+            'url' => url()->current(),
+            'days' => request('days'),
+            'payments' => $payments,
+            'collections' => DB::select('SELECT b.uuid, f.name as collector, f.uuid as user_id, b.client_id, a.name, a.account, a.branch, a.phone, a.amount as amount, b.date FROM `payments` b JOIN `users` f on b.user_id=f.id join clients a on a.id=b.client_id where b.created_at >='.$where_. ' '. $where_condition.' ORDER BY b.id desc;'),
+
+        ]);
+    }
+
+    public function AddPayment(){
+        return Inertia::render('Clients/AddPayment',
+        [
+            'users' => DB::table('users')->get(),
+            'partners' => DB::table('partners')->get(),
+            'installments' => DB::table('installments')->get(),
+            '_token' => csrf_token(),
+            'clients' => DB::table('clients')->orderBy('id')->get(),
+            'methods' => DB::table('payment_methods')->orderBy('id', 'desc')->get(),
+        ]);
+    }
+    
+    public function uploadPayments(){
+        return Inertia::render('Clients/UploadPayment',
+        [
+            'users' => DB::table('users')->get(),
+            '_token' => csrf_token(),
+        ]);
+    }
+           
+    public function clientUploads(){
+        return Inertia::render('Clients/UploadClient',
+        [
+            'users' => DB::table('users')->get(),
+            '_token' => csrf_token(),
+        ]);
+    }
+           
+
+    public function uploadPayment() 
+    {
+        Excel::import(new PaymentImport, request()->file('files'));
+        return redirect('/payments')->with('success', 'All Members Uploaded Successfully!');
+    }
+
+    public function clientUpload() 
+    {
+        Excel::import(new UsersImport, request()->file('files'));
+        return redirect('clients')->with('success', 'All Students Uploaded Successfully!');
+    }
+
+    // public function userExport(){
+    //     return Excel::download(new UsersExport, 'Exported_members.xlsx');
+    // }
+
+    // public function studentExport(){
+    //     return Excel::download(new StudentExport, 'exported_visitors.xlsx');
+    // }
 }

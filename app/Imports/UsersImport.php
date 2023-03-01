@@ -2,52 +2,96 @@
 
 namespace App\Imports;
 
-use App\Models\User;
-use App\Models\Clients;
+use App\Models\Client;
+use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Collection;
-use Maatwebsite\Excel\Concerns\ToCollection;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 
-class UsersImport implements ToCollection
+
+class UsersImport implements ToModel, WithHeadingRow
 {
-    public function collection(Collection $rows)
+   
+    public function model(array $row)
     {
-        foreach ($rows as $key => $row) {
-
-        $email =  random_username($row[1]).'@darsms.co.tz';
-        $dob = date('Y-d-m');
-        if(is_array(validate_phone_number(trim($row[2])))){
-        $user = Clients::where('user_id', Auth::User()->id)->where('name', $row[1])->where('phone', validate_phone_number(trim($row[2]))[1])->first();
+        $user = Client::where('name', $row['customer'])->where('branch', $row['branch'])->first();
+        $emloyer = isset($row['employer']) && $row['employer'] != '' ? \App\Models\Employer::where('name', $row['employer'])->first() : [];
+        $branch =  \App\Models\Branch::where('name', $row['branch'])->first();
+        $phone = isset($row['phone']) && $row['phone'] != '' ? str_replace(['(000)', '', '(', ')'], ['','', '',''], $row['phone']) : 0;
+        $brach = !empty($branch) ? $branch : \App\Models\Branch::create(['name' => $row['branch']]);
+        $emp = !empty($emloyer) ? $emloyer : \App\Models\Employer::create(['name' => isset($row['employer']) && $row['employer'] != '' ? $row['employer'] : $row['customer'], 'phone' => isset($phone) && $phone != '' ? $phone : '0']);
+        $staff = \App\Models\User::where(DB::raw('lower(name)'), 'like', '%'.strtolower($row['collector']).'%')->first();
+        $partner = \App\Models\Partner::where(DB::raw('lower(name)'), 'like', '%'.strtolower($row['partner']).'%')->first();
         if(empty($user)){
+            $user = \App\Models\Client::create([
+                'name' => $row['customer'],
+                'sex' => 'Male',
+                'uuid' => (string) Str::uuid(),
+                'employer' => isset($row['employer']) && $row['employer'] != '' ? $row['employer'] : '',
+                'phone' => isset($phone) && $phone != '' ? validate_phone_number(trim($phone))[1] : 0,
+                'user_id' => !empty($staff) ? $staff->id : Auth::User()->id,
+                'branch' => $row['branch'],
+                'branch_id' => $brach->id,
+                'employer_id' => $emp->id,
+                'account' => $row['account'],
+                'amount' => (float)$row['balance'],
+                'code' => date("mH"),
+                'address' => isset($row['branch']) && $row['branch'] != '' ? $row['branch'] : 'Dar Es Salaam',
+                'partner_id' => !empty($partner) ? $partner-> id : 1,
+                'collector' => $row['collector'],
+                'deposit_account' => isset($row['settementaccount']) ? $row['settementaccount'] : null,
+            ]);
 
-        $user = Clients::create([
-           'name' => $row[1],
-           'phone'  => validate_phone_number(trim($row[2]))[1],
-           'email'  => $email,
-           'status'  => 1,
-           'address'  => $row[3],
-           'jod'  => $dob,
-           'user_id' => Auth::User()->id
-        ]);
-   // id	name	email	phone	address	jod	code
-        }
-        if($row[4] != '' && $user){
-            $family = \App\Models\Group::where('user_id', Auth::User()->id)->where('code', strtoupper(rtrim($row[4])))->first();
-            $project = \App\Models\Contribution::where('user_id', Auth::User()->id)->where('code', strtoupper(rtrim($row[4])))->first();
-        if(!empty($family)){
-                \App\Models\GroupMember::create(['group_id' => $family->id,'status' => 1, 'client_id' => $user->id, 'join_date' => date('Y-m-d')]);
-           }
-        if(!empty($project)){
-            \App\Models\ContributionMember::create(['contribution_id' => $project->id,'status' => 1, 'user_id' => Auth::User()->id, 'client_id' => $user->id, 'join_date' => date('Y-m-d')]);
-            if($row[5] > 0){
-                \App\Models\Collect::create(array_merge(['amount' => $row[5], 'date' => date('Y-m-d'), 'reference' => "KA".date("Yis"), 'method_id' =>1, 'about' => 'Uploaded', 'client_id' => $user->id, 'contribution_id' => $project->id, 'user_id' => Auth::User()->id]));
-            }
-       }
-    }
+            $installment = \App\Models\Installment::orderBy('id')->first();
         
-    }
-}
-    return true;
+                \App\Models\ClientInstallment::create([
+                'name' => $installment->name,
+                'start_date'  => date('Y-m-d'),
+                'end_date'   => date('Y-m-d', strtotime('+30 days')),
+                'received_amount'  => 0,
+                'amount'  => (float)$row['balance'],
+                'status' => 1,
+                'user_id' => !empty($staff) ? $staff->id : Auth::User()->id,
+                'client_id' => $user->id,
+                'installment_id' => $installment->id,
+                'installment_type_id' => 2
+            ]);
+        
+            if(isset($row['payment']) && (int)$row['payment'] > 0){
+                \App\Models\Payment::create([
+                    'client_id' => $user->id,
+                    'uuid' => (string) Str::uuid(),
+                    'installment_id' => \App\Models\ClientInstallment::where('client_id', $user->id)->orderBy('id')->first()->id,
+                    'amount' => (float)$row['payment'],
+                    'date' => date('Y-m-d'),
+                    'method_id' => 2,
+                    'about' => 'Received from '. $row['customer'],
+                    'reference' => date("MYH"),
+                    'status' => 1,
+                    'user_id' => !empty($staff) ? $staff->id : Auth::User()->id,
+                ]);
+            }
+            return $user;
+        }else{
+            if(isset($row['payment']) && (int)$row['payment'] > 0){
+                \App\Models\Payment::create([
+                    'client_id' => $user->id,
+                    'uuid' => (string) Str::uuid(),
+                    'installment_id' => \App\Models\ClientInstallment::where('client_id', $user->id)->orderBy('id')->first()->id,
+                    'amount' => (float)$row['payment'],
+                    'date' => date('Y-m-d'),
+                    'method_id' => 2,
+                    'about' => 'Received from '. $row['customer'],
+                    'reference' => date("MYH"),
+                    'status' => 1,
+                    'user_id' => !empty($staff) ? $staff->id : Auth::User()->id,
+                ]);
+            }
+            return $user;
+        }
+                
+        }
 
-    }
+
 }

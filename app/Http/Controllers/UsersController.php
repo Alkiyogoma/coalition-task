@@ -367,7 +367,7 @@ class UsersController extends Controller
                 'user_id' => $user->id,
                 'status' =>  1]);
 
-        return redirect('clients')->with('success', 'User created.');
+        return redirect('users')->with('success', 'User created.');
     }
 
 
@@ -569,7 +569,7 @@ class UsersController extends Controller
             }
         }
                 
-        return Redirect::back()->with('success', 'Received Amount of '. request('payment'));
+        return redirect('receipt/'.$pay->uuid.'/payment')->with('success', 'Received Amount of '. request('payment'));
     }
 
 

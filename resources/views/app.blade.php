@@ -197,20 +197,29 @@
                     </a>
                     <div class="collapse " id="componentsCustomers">
                         <ul class="nav ">
-                            <li class="nav-item ">
-                                <a class="nav-link text-white"
-                                    href="/partners"
-                                   >
-                                    <span class="sidenav-mini-icon"> P </span>
-                                    <span class="sidenav-normal  ms-2  ps-1"> Partiners </span>
-                                </a>
-                            </li>
+                         
                             <li class="nav-item ">
                                 <a class="nav-link text-white"
                                     href="/clients"
                                    >
                                     <span class="sidenav-mini-icon"> C </span>
                                     <span class="sidenav-normal  ms-2  ps-1"> Clients </span>
+                                </a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link text-white"
+                                    href="/collections"
+                                   >
+                                    <span class="sidenav-mini-icon"> P </span>
+                                    <span class="sidenav-normal  ms-2  ps-1"> Payments </span>
+                                </a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link text-white"
+                                    href="/partners"
+                                   >
+                                    <span class="sidenav-mini-icon"> P </span>
+                                    <span class="sidenav-normal  ms-2  ps-1"> Partiners </span>
                                 </a>
                             </li>
                             <li class="nav-item ">
@@ -229,14 +238,7 @@
                                     <span class="sidenav-normal  ms-2  ps-1"> Employers </span>
                                 </a>
                             </li>
-                            <li class="nav-item ">
-                                <a class="nav-link text-white"
-                                    href="/popovers"
-                                   >
-                                    <span class="sidenav-mini-icon"> L </span>
-                                    <span class="sidenav-normal  ms-2  ps-1"> Letters </span>
-                                </a>
-                            </li>
+                        
                         </ul>
                     </div>
                 </li>

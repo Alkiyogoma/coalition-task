@@ -50,10 +50,17 @@
                           </div>
                           
                             <div class="row">
-                            <div
-                                class="flex items-center justify-end border-gray-100">
-                                <loading-button :loading="form.processing" class="btn-indigo" type="submit">Add Customer</loading-button>
-                            </div>
+                                <div class="col-md-6">
+                                    <div class="flex items-center justify-end border-gray-100">
+                                        <loading-button :loading="form.processing" class="btn-indigo" type="submit">Add Customer</loading-button>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="flex items-center justify-end border-gray-100">
+                                        <a href="/clientUploads" class="btn bg-gradient-info btn-sm btn-rounded w-80 mt-4 mb-0" type="submit">Upload Customer by Excel</a>
+                                    </div>
+                                </div>
+                          
                             </div>
 
                         </form>

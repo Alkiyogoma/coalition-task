@@ -7,23 +7,5 @@
                 View Source
             </a>
         </div>
-
-        <vue3-datatable :rows="rows" :columns="cols" :totalRows="rows?.length"> </vue3-datatable>
     </div>
 </template>
-<script setup lang="ts">
-    import { ref } from 'vue';
-    import Vue3Datatable from '@bhplugin/vue3-datatable';
-    import '@bhplugin/vue3-datatable/dist/style.css';
-    const cols =
-        ref([
-            { field: 'id', title: 'ID', isUnique: true },
-            { field: 'firstName', title: 'First Name' },
-            { field: 'lastName', title: 'Last Name' },
-            { field: 'email', title: 'Email' },
-            { field: 'phone', title: 'Phone' },
-        ]) || [];
-
-    const  data =  ('/data.json');
-    const rows = data.value || [];
-</script>

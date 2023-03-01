@@ -138,14 +138,19 @@ Route::get('/voucher/{id}/view', [AccountController::class, 'voucher'])->name('v
 
 Route::get('/tasks', [HomeController::class, 'tasks'])->name('tasks');
 Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
+Route::get('/', [HomeController::class, 'index'])->name('homepage');
 Route::get('/payments', [HomeController::class, 'payments'])->name('homeview');
 Route::get('/payments/{staff}/view', [HomeController::class, 'payments'])->name('homeview');
 Route::get('/payments/{client}/client', [HomeController::class, 'payments'])->name('homeclient');
 Route::get('/payments/{partner}/partner', [HomeController::class, 'payments'])->name('homepartner');
 Route::get('/dashboard', [HomeController::class, 'index'])->name('home');
 Route::get('/receipt/{id}/payment', [HomeController::class, 'receipt'])->name('receipt');
+Route::get('/collections/{client?}/{partner?}', [HomeController::class, 'collections'])->name('collections');
 
-Route::get('/', function () {
-    return redirect('/dashboard');
-});
+Route::get('/paymentadd', [HomeController::class, 'AddPayment'])->name('paymentAdd');
+Route::post('/savepayment', [HomeController::class, 'savePayment'])->name('savePayment');
+Route::post('/uploadPayment', [HomeController::class, 'uploadPayment'])->name('uploadPayment');
+Route::get('/uploadPayments', [HomeController::class, 'uploadPayments'])->name('savePayment');
 
+Route::post('/clientUpload', [HomeController::class, 'clientUpload'])->name('clientUpload');
+Route::get('/clientUploads', [HomeController::class, 'clientUploads'])->name('clientUploads');

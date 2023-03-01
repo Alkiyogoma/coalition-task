@@ -67,7 +67,7 @@
                     <div class="card h-100 mt-4 mt-md-0">
                         <div class="card-header pb-0 p-3">
                             <div class="d-flex align-items-center">
-                                <h6>Pages</h6>
+                                <h6>Completed Tasks</h6>
                                 <button type="button"
                                     class="btn btn-icon-only btn-rounded btn-outline-success mb-0 ms-2 btn-sm d-flex align-items-center justify-content-center ms-auto"
                                     data-bs-toggle="tooltip" data-bs-placement="bottom"
