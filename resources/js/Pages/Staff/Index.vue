@@ -12,7 +12,7 @@
               </div>
             </div>
             <div class="card-body px-0 pb-2">
-              <div class="table-responsive p-0">
+              <div class="table-responsivdde p-0">
                 <table class="table align-items-center mb-0">
                   <thead>
                     <tr>
@@ -36,7 +36,7 @@
                             <h6 class="mb-0 text-sm">{{ user.name }}</h6>
                       </td>
                       
-                      <td class="align-middle text-center">
+                      <td class="align-middle">
                         <span class="text-secondary text-xs font-weight-bold">{{ user.email }}</span>
                       </td>
                       <td class="align-middle text-center">
@@ -59,11 +59,11 @@
                           <span class="badge badge-sm bg-gradient-success">View</span>
                         </a>
                         <a href="javascript:;" class="ml-3 text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                          <span class="badge badge-sm bg-gradient-primary">Edit</span>
+                          <span class="badge badge-sm bg-gradient-secondary">Edit</span>
                         </a>
-                        <a href="javascript:;" class="ml-4 text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                        <!-- <a href="javascript:;" class="ml-4 text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
                           <span class="badge badge-sm bg-gradient-secondary">Delete</span>
-                        </a>
+                        </a> -->
                       </td>
                     </tr>
                  

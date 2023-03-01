@@ -24,10 +24,12 @@
                     </div>
                   </div>
                   <div class="card-body pt-0 p-3 text-center">
-                    <h6 class="text-center mb-0">Clients</h6>
+                    <a href="/clients">
+                      <h6 class="text-center mb-0">Clients</h6>
                     <h5 class="mb-0">{{ clients }}</h5>
                    <!-- <span class="text-xs">Belong Interactive</span> -->
                     <hr class="horizontal dark my-3">
+                    </a>
                   </div>
                 </div>
               </div>
@@ -39,10 +41,12 @@
                     </div>
                   </div>
                   <div class="card-body pt-0 p-3 text-center">
+                  <a href="/tasks">
                     <h6 class="text-center mb-0">Tasks</h6>
                     <h5 class="mb-0">{{ tasks }}</h5>
                    <!-- <span class="text-xs">Belong Interactive</span> -->
                     <hr class="horizontal dark my-3">
+                  </a>
                   </div>
                 </div>
               </div>
@@ -54,10 +58,12 @@
                     </div>
                   </div>
                   <div class="card-body pt-0 p-3 text-center">
-                    <h6 class="text-center mb-0">Mesages</h6>
-                    <h5 class="mb-0">{{ messages }}</h5>
-                   <!-- <span class="text-xs">Belong Interactive</span> -->
-                    <hr class="horizontal dark my-3">
+                    <a href="/messages">
+                      <h6 class="text-center mb-0">Mesages</h6>
+                        <h5 class="mb-0">{{ messages }}</h5>
+                      <!-- <span class="text-xs">Belong Interactive</span> -->
+                        <hr class="horizontal dark my-3">
+                    </a>
                   </div>
                 </div>
               </div>
@@ -154,7 +160,7 @@
             </div>
             <div class="card-body p-3 pb-0">
               <ul class="list-group">
-                <li v-for="collect in collections" key="collect.id" class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
+                <li v-for="collect in collections" key="collect.id" class="list-group-item border-0 d-flex justify-content-between ps-0 mb-1 border-radius-lg">
                   <div class="d-flex flex-column">
                     <h6 class="mb-1 text-dark font-weight-bold text-sm"> - {{ collect.name }}</h6>
                     <span class="text-xs">#{{ collect.code }}</span>
