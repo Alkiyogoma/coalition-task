@@ -52,6 +52,52 @@ class UsersController extends Controller
     
             ]);
         }
+
+        public function profile($id = null)
+        {
+                if($id != ''){
+                    $user = \App\Models\User::where('uuid', $id)->first();
+                }else{
+                    $user = \App\Models\User::where('uuid', Auth::User()->uuid)->first();
+                }
+                $payments = DB::select('WITH alltasks as(SELECT a.id,MONTH(b.created_at) as month, sum(b.amount) as total, COUNT(DISTINCT b.client_id) as client FROM `payments` b JOIN `users` a on b.user_id=a.id where b.user_id='. $user->id .' AND YEAR(b.created_at) = YEAR(CURRENT_DATE()) GROUP BY a.id,MONTH(b.created_at) ), allusers as (SELECT a.id, a.name, a.sex, sum(b.amount) as amount, COUNT(b.id) as clients, MONTH(b.created_at) as month FROM `clients` b JOIN `users` a on b.user_id=a.id where  b.user_id='. $user->id .' AND b.status=1 AND YEAR(b.created_at) = YEAR(CURRENT_DATE()) GROUP BY a.id, a.name, a.sex, MONTH(b.created_at))
+                select a.id, b.name, b.sex, a.total, a.client, b.amount, b.clients, a.month from alltasks a join allusers b on a.id=b.id AND a.month=b.month order by b.month desc;');
+                $users = [
+                        'id' => $user->id,
+                        'uuid' => $user->uuid,
+                        'name' => $user->name,
+                        'email' => $user->email,
+                        'role' => !empty($user->role) ? $user->role->name : 'Staff',
+                        'department' => !empty($user->department) ? $user->department->name : 'Staff',
+                        'address' => $user->address,
+                        'phone' => $user->phone,
+                        'dob' => date("Y-m-d", strtotime($user->dob)),
+                        'jod' => timeAgo($user->jod),
+                        'sex' => ucfirst($user->sex),
+                        'last_update' => $user->updated_at,
+                        'edit_url' => url('users.edit', $user),
+                    ];
+            return Inertia::render('Staff/Staff', [
+                'payments' => $payments,
+                'staff' => $users,
+                'tasks' => \App\Models\Task::where('user_id', $user->id)->orderBy('id', 'desc')->limit(20)
+                ->get()->map(fn ($pay) => [
+                    'id' => $pay->id,
+                    'uuid' => $pay->client->uuid,
+                    'name' => $pay->title,
+                    'about' => $pay->about,
+                    'date' => date('d M, Y', strtotime($pay->task_date)),
+                    'time' => timeAgo($pay->created_at),
+                    'user' => !empty($pay->user) ? $pay->user->name : 'Not Defined',
+                    'client' => !empty($pay->client) ? $pay->client->name : 'Not Defined',
+                    'phone' => !empty($pay->client) ? $pay->client->phone : 'Not Defined',
+                    'type' => !empty($pay->tasktype) ? $pay->tasktype->name : 'Followup',
+                    'status' => !empty($pay->taskstatus) ? $pay->taskstatus->name : 'On progess',
+                    'nexttask' => !empty($pay->nexttask) ? $pay->nexttask->name : 'Followup',
+                ]),
+    
+            ]);
+        }
     
         public function departments()
         {
@@ -87,7 +133,7 @@ class UsersController extends Controller
             $client = \App\Models\Client::where('status', 1);
         }
             $users = $client->filter(Request::only('search'))
-                ->paginate(11)
+                ->paginate(9)
                 ->withQueryString()
                 ->through(fn ($user) => [
                     'id' => $user->id,
@@ -537,7 +583,6 @@ class UsersController extends Controller
 
 
     public function savePayment(){
-       // dd(request()->all());
         if((int)request('payment') > 0){
           $pay =  \App\Models\Payment::create([
                 'client_id' => request('client_id'),

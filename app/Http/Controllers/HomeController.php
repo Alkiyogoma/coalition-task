@@ -232,12 +232,28 @@ class HomeController extends Controller
         return view('message.inbox', $this->data);
     }
 
+     public function templates()
+    { 
+        $this->data['messages'] = \App\Models\Template::orderBy('id', 'DESC')->get();
+        return view('message.templates', $this->data);
+    }
+
+    public function addtemplate()
+    { 
+        if($_POST){
+            \App\Models\Template::create(request()->all());
+            return redirect('templates')->with('success', 'Success - '. request('name'). ' Added');
+     }
+        $this->data['messages'] = \App\Models\Message::where('user_id', Auth::User()->id)->orderBy('id', 'DESC')->limit(5)->get();
+        return view('message.addtemp', $this->data);
+    }
+
     public function sent()
     { 
         if(request()->segment(2) != ''){
             return redirect()->back()->with('success', 'Your Message Should have atleast 10 Words. Please try Again!!!');
         }
-        $this->data['messages'] = \App\Models\Message::whereIn('user_id', \App\Models\User::where('status', 1)->get(['id']))->paginate(20);
+        $this->data['messages'] = \App\Models\Message::whereIn('user_id', \App\Models\User::where('status', 1)->get(['id']))->orderBy('id', 'DESC')->paginate(3);
         return view('message.sent', $this->data);
     }
 
@@ -299,14 +315,14 @@ class HomeController extends Controller
                 if(request('family_id') != '' && request('family_id')[0] == 'all'){
                     $users = \App\Models\Client::where('status', 1)->where('user_id', Auth::User()->id)->get();
                 }elseif(request('family_id') != ''){
-                    $users = \App\Models\Client::where('status', 1)->whereIn('id', request('family_id'))->get();
+                    $users = \App\Models\Client::where('user_id', Auth::User()->id)->where('status', 1)->whereIn('id', request('family_id'))->get();
                 }
                
                 //Send SMS to Visitors Member
                 if(request('visitor_id') != '' && request('visitor_id')[0] == 'all'){
                     $users = \App\Models\Client::where('status', 1)->where('status', 1)->get();
                 }elseif(request('visitor_id') != ''){
-                    $users = \App\Models\Client::where('status', 1)->whereIn('id', request('visitor_id'))->get();
+                    $users = \App\Models\Client::where('status', 1)->whereIn('employer_id', request('visitor_id'))->get();
                 }
 
                 //Send SMS to Believer Member
@@ -330,14 +346,23 @@ class HomeController extends Controller
                     $users = \App\Models\Client::where('status', 1)->whereIn('id', request('client_id'))->get();
                 }
 
+                //Send SMS to Employers
+                if(request('member_id') != '' && request('member_id')[0] == 'all'){
+                    $users = \App\Models\Client::where('status', 1)->get();
+                }elseif(request('member_id') != '' && request('member_id')[0] != 'all'){
+                    $users = \App\Models\Client::where('status', 1)->whereIn('partner_id',  request('member_id'))->get();
+                }
 
                 $message = request('body');
                 if (count($users) > 0 && strlen($message) > 15) {  
                     foreach($users as $user){ 
                        if($user->phone != ''){
                         $body = str_replace('#name', $user->name, $message);
-                        Message::create(['title' => $user->name.' New Message', 'user_id' => $user->id, 'phone' => validate_phone_number(trim($user->phone))[1], 'body' => $body, 'status' => 0]);
-                      //  send_sms(str_replace('+', '', validate_phone_number(trim($user->phone))[1]), $body);
+                        $body = str_replace('#balance', money($user->amount), $body);
+                        $body = str_replace('#amount', money($user->amount), $body);
+                        $body = isset($user->partner) && !empty($user->partner) ? str_replace('#bank', $user->partner->name, $body) : str_replace('#amount', $user->amount, $body);
+                        \App\Models\Message::create(['title' => $user->name.' New Message', 'user_id' => $user->id, 'phone' => validate_phone_number(trim($user->phone))[1], 'body' => $body, 'status' => 1]);
+                        send_sms(str_replace('+', '', validate_phone_number(trim($user->phone))[1]), $body);
                     }
                 }
                 return redirect()->back()->with('success', 'Congraturations ' . count($users) . ' Messages Sent Successfully');
