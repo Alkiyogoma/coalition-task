@@ -26,6 +26,7 @@
                             <?php } ?>
                             <div class="d-flex justify-content-center">
                                 {!! $messages->links('pagination::bootstrap-4') !!}
+                                
                             </div>
                             <?php }else{ ?>
                             <div class="text-center p-3 text-muted">

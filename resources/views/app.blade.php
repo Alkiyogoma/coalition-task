@@ -298,7 +298,7 @@
                         </li>
                         <li class="nav-item ">
                             <a class="nav-link text-white"
-                                href="/messages"
+                                href="/sent"
                                >
                                 <span class="sidenav-normal  ms-2  ps-1"> Sent Messages </span>
                             </a>
@@ -312,9 +312,9 @@
                         </li>
                         <li class="nav-item ">
                             <a class="nav-link text-white"
-                                href="/sent"
+                                href="/templates"
                                >
-                                <span class="sidenav-normal  ms-2  ps-1"> View Report </span>
+                                <span class="sidenav-normal  ms-2  ps-1"> Templates </span>
                             </a>
                         </li>
                     </ul>

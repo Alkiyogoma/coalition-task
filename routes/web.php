@@ -46,9 +46,6 @@ Route::get('/reports', function () {
 });
 
 
-Route::get('/profile', function () {
-    return Inertia('Profile');
-});
 
 Route::get('/reports', function () {
     return Inertia('Report');
@@ -75,6 +72,7 @@ Route::get('user/{contact}/edit', [UsersController::class, 'edit_customer']);
 Route::get('add-user', [UsersController::class, 'create']);
 Route::post('saveuser', [UsersController::class, 'saveuser']);
 Route::get('users/{type?}', [UsersController::class, 'index']);
+Route::get('/profile/{id?}', [UsersController::class, 'profile']);
 
 Route::get('add-customer', [UsersController::class, 'addcustomer']);
 Route::get('add/{branch}', [UsersController::class, 'addemployer']);
@@ -145,6 +143,7 @@ Route::get('/dashboard', [HomeController::class, 'index'])->name('home');
 Route::get('/receipt/{id}/payment', [HomeController::class, 'receipt'])->name('receipt');
 Route::get('/collections/{client?}/{partner?}', [HomeController::class, 'collections'])->name('collections');
 
+Route::get('/home', [HomeController::class, 'index'])->name('indexpage');
 Route::get('/paymentadd', [HomeController::class, 'AddPayment'])->name('paymentAdd');
 Route::post('/savepayment', [HomeController::class, 'savePayment'])->name('savePayment');
 Route::post('/uploadPayment', [HomeController::class, 'uploadPayment'])->name('uploadPayment');
@@ -156,6 +155,9 @@ Route::get('/clientUploads', [HomeController::class, 'clientUploads'])->name('cl
 Route::any('/sendmessage', [HomeController::class, 'send'])->name('sendmessage');
 Route::get('/inbox', [HomeController::class, 'inbox'])->name('inbox');
 Route::get('/sent/{status?}', [HomeController::class, 'sent'])->name('sent');
+Route::get('/templates', [HomeController::class, 'templates'])->name('templates');
+Route::any('/addtemplate', [HomeController::class, 'addtemplate'])->name('addtemplate');
+Route::get('/deletetemplate/{status?}', [HomeController::class, 'deletetemplate'])->name('deletetemplate');
 
 Route::get('/messages', [HomeController::class, 'messages'])->name('messages');
 Route::get('/message/setting', [HomeController::class, 'setting'])->name('messages');

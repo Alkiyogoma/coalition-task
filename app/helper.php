@@ -334,14 +334,11 @@ function allUpper($str){
     }
 
 
-function send_sms($phone_number, $message, $sender = 'DARSMS'){
+function send_sms($phone_number, $message, $sender = 'INFO'){
     $api_key = '363622C886AD5E';
     $contacts = $phone_number;
     $from = $sender;
     $sms_text = urlencode($message);
-    if(preg_match('/25576/', $phone_number) || preg_match('/25575/', $phone_number) || preg_match('/25574/', $phone_number)){
-        send_sms1($phone_number, $message);
-    }
     //Submit to server
     $ch = curl_init();
     curl_setopt($ch,CURLOPT_URL, "http://smsportal.imartgroup.co.tz/app/smsapi/index.php");
