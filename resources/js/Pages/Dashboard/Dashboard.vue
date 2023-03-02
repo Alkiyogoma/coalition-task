@@ -179,8 +179,6 @@
 <script>
 import { Head, Link } from "@inertiajs/vue3";
 import { Chart } from "highcharts-vue";
-
-
 export default {
     components: {
         Link, Head,
