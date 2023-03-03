@@ -447,4 +447,12 @@ class HomeController extends Controller
         redirect()->back()->with('success', 'Mesage Sent');
     }
 
+
+    
+    public function comments()
+    { 
+        $this->data['clients'] = \App\Models\Client::orderBy('id', 'DESC')->get();
+        return view('message.comments', $this->data);
+    }
+
 }

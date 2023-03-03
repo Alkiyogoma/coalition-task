@@ -56,4 +56,10 @@ class Partner extends Model
 	{
 		return $this->hasMany(Client::class);
 	}
+
+	
+	public function codes()
+	{
+		return $this->hasMany(ActionCode::class);
+	}
 }
