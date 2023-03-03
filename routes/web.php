@@ -160,8 +160,9 @@ Route::any('/addtemplate', [HomeController::class, 'addtemplate'])->name('addtem
 Route::get('/deletetemplate/{status?}', [HomeController::class, 'deletetemplate'])->name('deletetemplate');
 
 Route::get('/messages', [HomeController::class, 'messages'])->name('messages');
-Route::get('/message/setting', [HomeController::class, 'setting'])->name('messages');
+Route::get('/message/setting', [HomeController::class, 'setting'])->name('settingmessages');
 Route::post('/sendSingle', [HomeController::class, 'sendSingle'])->name('sendSingle');
 Route::post('/buySMS', [HomeController::class, 'buySMS'])->name('buySMS');
 Route::post('/send_to_numbers', [HomeController::class, 'send_to_numbers'])->name('send_to_numbers');
 Route::post('/buySMS', [HomeController::class, 'buySMS'])->name('buySMS');
+Route::get('/comments/{id?}/{status?}', [HomeController::class, 'comments'])->name('comments');
