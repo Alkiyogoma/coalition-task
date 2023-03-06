@@ -44,6 +44,22 @@
                           Edit
                         </a>
                       </td>
+                      <td>
+                        <div class="dropdown pt-2">
+                      <a href="javascript:;" class="text-secondary ps-4" id="dropdownCam" data-bs-toggle="dropdown" aria-expanded="false">
+                      <i class="fas fa-ellipsis-v"></i>
+                      </a>
+                      <ul class="dropdown-menu dropdown-menu-end me-sm-n4 p-2" aria-labelledby="dropdownCam">
+                      <li><a class="dropdown-item border-radius-md" href="javascript:;">Pause</a></li>
+                      <li><a class="dropdown-item border-radius-md" href="javascript:;">Stop</a></li>
+                      <li><a class="dropdown-item border-radius-md" href="javascript:;">Schedule</a></li>
+                      <li>
+                      <hr class="dropdown-divider">
+                      </li>
+                      <li><a class="dropdown-item border-radius-md text-danger" href="javascript:;">Remove</a></li>
+                      </ul>
+                      </div>
+                      </td>
                     </tr>
                     <tr>
                       <td>
@@ -240,6 +256,21 @@
                         <button class="btn btn-link text-secondary mb-0">
                           <i class="fa fa-ellipsis-v text-xs"></i>
                         </button>
+                      </td>
+                      <td>
+                        <div class="dropdown pt-2">
+                          <a href="javascript:;" class="text-secondary ps-4" id="dropdownCam" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-ellipsis-v"></i></a>
+                            <ul class="dropdown-menu dropdown-menu-end me-sm-n4 p-2" aria-labelledby="dropdownCam">
+                            <li><a class="dropdown-item border-radius-md" href="javascript:;">Pause</a></li>
+                            <li><a class="dropdown-item border-radius-md" href="javascript:;">Stop</a></li>
+                            <li><a class="dropdown-item border-radius-md" href="javascript:;">Schedule</a></li>
+                            <li>
+                            <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item border-radius-md text-danger" href="javascript:;">Remove</a></li>
+                          </ul>
+                        </div>
                       </td>
                     </tr>
                     <tr>

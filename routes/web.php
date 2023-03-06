@@ -93,7 +93,6 @@ Route::post('saveDept', [UsersController::class, 'saveDept']);
 Route::get('groups', [UsersController::class, 'address']);
 Route::get('invoices', [UsersController::class, 'address']);
 Route::post('savePayment', [UsersController::class, 'savePayment']);
-Route::post('saveTask', [UsersController::class, 'saveTask']);
 Route::post('sendMessage', [UsersController::class, 'sendMessage']);
 
 // Contacts
@@ -133,6 +132,10 @@ Route::get('/expensedelete/{id}/delete', [AccountController::class, 'expenseDele
 Route::get('/voucher/{id}/view', [AccountController::class, 'voucher'])->name('voucher');
 
 Route::get('/tasks', [HomeController::class, 'tasks'])->name('tasks');
+Route::get('/mytasks/{id?}', [HomeController::class, 'profile'])->name('mytasks');
+Route::post('saveTask', [HomeController::class, 'saveTask']);
+Route::get('taskstatus/{id}/{type}', [HomeController::class, 'updateTask']);
+Route::get('deletetask/{id}/delete', [HomeController::class, 'deleteTask']);
 Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
 Route::get('/', [HomeController::class, 'index'])->name('homepage');
 Route::get('/payments', [HomeController::class, 'payments'])->name('homeview');

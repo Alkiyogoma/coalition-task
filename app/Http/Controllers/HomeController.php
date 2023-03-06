@@ -11,6 +11,7 @@ use App\Imports\PaymentImport;
 use Maatwebsite\Excel\Facades\Excel;
 use \App\Models\Client;
 use \App\Models\Message;
+use Illuminate\Support\Str;
 
 class HomeController extends Controller
 {
@@ -108,6 +109,58 @@ class HomeController extends Controller
         'task_priority' => DB::table('task_priority')->orderBy('id')->get(),
         'task_status' => DB::table('task_status')->orderBy('id')->get(),
         '_token' => csrf_token()
+
+    ]);
+    }
+
+
+
+    public function profile($id=null)
+    {
+     $uuid = $id !='' ? $id : Auth::User()->uuid;
+     $user = \App\Models\User::where('uuid', $uuid)->first();
+        return inertia('Tasks/Profile',
+        [
+            'total' => \App\Models\Task::where('user_id', $user->id)->count(),
+            'averages' => DB::select('SELECT a.id, a.name, COUNT(b.id) as total FROM `tasks` b JOIN `task_type` a on b.task_type_id=a.id WHERE  b.user_id='. $user->id . ' GROUP BY a.id, a.name'),
+            'statues' => DB::select('SELECT a.id, a.name, COUNT(b.id) as total FROM `tasks` b JOIN `task_status` a on b.task_type_id=a.id WHERE  b.user_id='. $user->id . ' GROUP BY a.id, a.name'),
+            'alltasks' => \App\Models\Task::where('user_id', $user->id)->where('status_id', 2)->orderBy('id', 'desc')->limit(20)
+            ->get()->map(fn ($pay) => [
+            'id' => $pay->id,
+            'uuid' => $pay->uuid,
+            'name' => $pay->title,
+            'about' => $pay->about,
+            'time' => timeAgo($pay->created_at),
+            'date' => date('d M, Y', strtotime($pay->task_date)),
+            'user' => !empty($pay->user) ? $pay->user->name : 'Not Defined',
+            'type' => !empty($pay->tasktype) ? $pay->tasktype->name : 'Followup',
+            'client' => !empty($pay->client) ? $pay->client->name : 'Not Defined',
+            'phone' => !empty($pay->client) ? $pay->client->phone : 'Not Defined',
+            'status' => !empty($pay->taskstatus) ? $pay->taskstatus->name : 'On progess',
+            'nexttask' => !empty($pay->nexttask) ? $pay->nexttask->name : 'Followup',
+        ]),
+        'tasks' => \App\Models\Task::where('user_id', $user->id)->whereNotIn('status_id', [2])->orderBy('id', 'desc')->limit(120)
+        ->get()->map(fn ($pay) => [
+            'id' => $pay->id,
+            'uuid' => $pay->uuid,
+            'name' => $pay->title,
+            'about' => $pay->about,
+            'date' => date('d M, Y', strtotime($pay->task_date)),
+            'time' => timeAgo($pay->created_at),
+            'user' => !empty($pay->user) ? $pay->user->name : 'Not Defined',
+            'client' => !empty($pay->client) ? $pay->client->name : 'Not Defined',
+            'phone' => !empty($pay->client) ? $pay->client->phone : 'Not Defined',
+            'type' => !empty($pay->tasktype) ? $pay->tasktype->name : 'Followup',
+            'status' => !empty($pay->taskstatus) ? $pay->taskstatus->name : 'On progess',
+            'nexttask' => !empty($pay->nexttask) ? $pay->nexttask->name : 'Followup',
+        ]),
+        'user' => $user,
+        'clients' => DB::table('clients')->where('user_id', $user->id)->orderBy('id')->get(),
+        'tasktypes' => DB::table('task_type')->orderBy('id')->get(),
+        'task_priority' => DB::table('task_priority')->orderBy('id')->get(),
+        'task_status' => DB::table('task_status')->orderBy('id')->get(),
+        '_token' => csrf_token(),
+        'color' => ['primary', 'secondary', 'success', 'info', 'warning', 'danger', 'dark']
 
     ]);
     }
@@ -455,4 +508,36 @@ class HomeController extends Controller
         return view('message.comments', $this->data);
     }
 
+    
+    public function saveTask(){
+         \App\Models\Task::create([
+             'title' => request('title'),
+             'about' => request('about'),
+             'user_id' => request('user_id'),
+             'client_id' => request('client_id'),
+             'task_date' => date('Y-m-d'),
+             'uuid' => (string) Str::uuid(),
+             'priority_id' => request('priority_id'),
+             'status_id' => request('status_id'),
+             'next_date' => request('date'),
+             'task_type_id' => request('task_type_id'),
+             'next_type_id' => request('next_type_id'),
+             'created_by' => request('user_id')
+         ]);
+              
+        redirect()->back()->with('success', 'Mesage Sent');
+     }
+ 
+     public function deleteTask($id)
+     { 
+        \App\Models\Task::where('uuid', $id)->delete();
+       return redirect()->back()->with('warning', 'Task Deleted');
+     }
+
+     public function updateTask($id, $status)
+     { 
+        \App\Models\Task::where('uuid', $id)->update(['status_id' => $status]);
+      return  redirect(url()->previous())->with('success', 'Task Updated');
+    }
+  
 }

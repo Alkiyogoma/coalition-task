@@ -138,9 +138,6 @@
 </div>
 </div>
 
-<script src="/assets/js/highchart.jsjs-example-basic-multiple"></script>
-<script src="/assets/js/exporting.jsjs-example-basic-multiple"></script>
-
     <script type="text/javascript">
         jQuery.noConflict();
         jQuery(document).ready(function () {
