@@ -26,14 +26,14 @@
                     <tr>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">S/N</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Customer</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Employer</th>
+                      <!-- <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Employer</th> -->
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"> Account number</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Contacts</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Branch</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Balance</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"> Received</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"> Reason Code</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Next action</th>
+                      <!-- <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"> Reason Code</th> -->
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Collector</th>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</th>
                     </tr>
                   </thead>
@@ -48,9 +48,9 @@
                         </Link>
                       </td>
                       
-                      <td class="align-middle text-center">
+                      <!-- <td class="align-middle text-center">
                         <span class="text-secondary text-xs font-weight-bold">{{ user.employer }}</span>
-                      </td>
+                      </td> -->
                       <td class="align-middle text-center">
                         <span class="text-secondary text-xs font-weight-bold">{{ user.account }}</span>
                       </td>
@@ -66,9 +66,9 @@
                       <td class="align-middle text-center">
                         <span class="text-secondary text-xs font-weight-bold">{{ money(user.paid) }}</span>
                       </td>
-                      <td class="align-middle text-center">
+                      <!-- <td class="align-middle text-center">
                         <span class="text-secondary text-xs font-weight-bold">{{ user.code }}</span>
-                      </td>
+                      </td> -->
                       <td class="align-middle text-center">
                         <span class="text-secondary text-xs font-weight-bold">{{ user.collector }}</span>
                       </td>
