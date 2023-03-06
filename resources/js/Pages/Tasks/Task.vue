@@ -84,17 +84,13 @@
                                             <th
                                                 class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                                 Employee</th>
-                                            <th  align="center"
-                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                            <th class="align-middle text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                                 Clients</th>
-                                            <th align="center" 
-                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                            <th class="align-middle text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                                 Tasks</th>
-                                            <th  align="center"
-                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                            <th class="align-middle text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                                 Complete</th>
-                                            <th  align="center" 
-                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                            <th class="align-middle text-center text-sm text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                                 Rate</th>
                                         </tr>
                                     </thead>
@@ -103,17 +99,17 @@
                                             <td>
                                                 <p class="text-sm font-weight-normal mb-0">{{ user.name }}</p>
                                             </td>
-                                            <td>
-                                                <p class="text-sm font-weight-normal mb-0">{{ user.client }}</p>
+                                            <td class="align-middle text-center text-sm">
+                                                <p class="text-sm font-weight-normal mb-0">{{ user.client }}</p> 
                                             </td>
                                             
-                                            <td align="center">
+                                            <td class="align-middle text-center text-sm">
                                                 <p class="text-sm font-weight-normal mb-0">{{ user.total }}</p>
                                             </td>
-                                            <td align="center">
+                                            <td class="align-middle text-center text-sm">
                                                 <p class="text-sm font-weight-normal mb-0">{{ user.completed }}</p>
                                             </td>
-                                            <td align="center">
+                                            <td class="align-middle text-center text-sm">
                                                 <p class="text-sm font-weight-normal mb-0">{{ Math.ceil(user.completed*100/user.total) }}%</p>
                                             </td>
                                         </tr>

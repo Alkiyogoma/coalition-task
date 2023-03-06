@@ -16,7 +16,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="input-group input-group-outline my-3">
-                                    <select required class="form-control" name="client_id" id="choices-client_id-edit">
+                                    <select required class="form-control select-single" name="client_id" id="choices-client_id-edit">
                                         <option value="" selected="">Select Customer</option>
                                         <option v-for="installment in clients" :value="installment.id">{{ installment.name }}</option>
                                     </select>

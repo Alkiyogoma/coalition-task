@@ -552,3 +552,26 @@ function send_sms($phone_number, $message, $sender = 'INFO'){
         return $nextMultiple;
     }
     
+    function split_name($name) {
+        $parts = array();
+    
+        while ( strlen( trim($name)) > 0 ) {
+            $name = trim($name);
+            $string = preg_replace('#.*\s([\w-]*)$#', '$1', $name);
+            $parts[] = $string;
+            $name = trim( preg_replace('#'.preg_quote($string,'#').'#', '', $name ) );
+        }
+    
+        if (empty($parts)) {
+            return false;
+        }
+    
+        $parts = array_reverse($parts);
+        $name = array();
+        $name['first'] = $parts[0];
+        $name['middle'] = (isset($parts[2])) ? $parts[1] : '';
+        $name['last'] = (isset($parts[2])) ? $parts[2] : ( isset($parts[1]) ? $parts[1] : '');
+    
+        return $name;
+    }
+    

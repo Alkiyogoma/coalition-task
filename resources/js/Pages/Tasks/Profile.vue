@@ -1,148 +1,321 @@
 <template>
-                <br>
-                <!-- CTA -->
-                <a
-                  class="flex items-center justify-between p-4 mb-8 text-sm font-semibold text-purple-100 bg-purple-600 rounded-lg shadow-md focus:outline-none focus:shadow-outline-purple"
-                  href="/subjects"
-                >
-                  <div class="flex items-center">
-                    <svg
-                  class="w-5 h-5"
-                  aria-hidden="true"
-                  fill="none"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"
-                  ></path>
-                  <path d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"></path>
-                    </svg>
-                    <span class="pl-4">{{ classes.classes }} Subjects</span>
-                  </div>
-                  <span>Go Back &RightArrow;</span>
-                </a>
-    
-                <!-- Responsive cards -->
-               
-          <div class="w-full mb-8 overflow-hidden rounded-lg shadow-xs">
-            <div class="w-full overflow-x-auto">
-              <h4 class="mb-1 ml-4 py-4 font-semibold text-gray-600 dark:text-gray-300">
-                List of {{ classes.classes }} Subjects
-                </h4>
-                <div class="w-full overflow-x-auto">
-                        <table class="w-full whitespace-no-wrap">
-                            <thead>
-                                <tr
-                                class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800"
-                                >
-                                <th class="px-2 py-2">S/N</th>
-                                <th class="px-2 py-2">Subject</th>
-                                <th class="px-2 py-2">Code</th>
-                                <th class="px-2 py-2"> Type</th>
-                                <th class="px-2 py-2">Teacher</th>
-                                <th class="px-2 py-2">Is Counted</th>
-                                <th class="px-2 py-2">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody
-                                class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800"
-                            >
-                              <tr  v-for="exam in subjects.data" :key="exam.id" class="text-gray-700 dark:text-gray-400">
-                                <td class="px-2 py-2 text-sm">
-                                    {{ exam.id }}
-                                </td>
-                                <td class="px-2 py-2">
-                                    <div class="flex items-center text-sm">
-                                    <div>
-                                        <p class="font-semibold">{{ exam.name }}</p>
-                                        <p class="text-xs text-gray-600 dark:text-gray-400">
-                                        {{ exam.subject_type }}
-                                        </p>
-                                    </div>
-                                    </div>
-                                </td>
-                                <td class="px-2 py-2 text-sm">
-                                    {{ exam.code }}
-                                </td>
-                                <td class="px-2 py-2 text-xs">
-                                    <span
-                                    class="px-2 py-2 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100"
-                                    >
-                                    {{ exam.subject_type }}
-                                    </span>
-                                </td>
-                                <td class="px-2 py-2 text-sm">
-                                    {{ exam.teacher }}
-                                </td>
-                                
-                                <td class="px-2 py-2 text-sm">
-                                  <span class="px-2 py-2 font-semibold leading-tight text-orange-700 bg-orange-100 rounded-full dark:text-white dark:bg-orange-600">
-                                    {{ exam.counted }}
-                                  </span>
-                                </td>
-                                <td class="px-2 py-2 text-sm">
-                                <Link :href="`/subjects/${exam.subject_id}/edit`" tabindex="-1"
-                                  class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
-                                  aria-label="Edit"
-                                >
-                                  <svg
-                                    class="w-5 h-5"
-                                    aria-hidden="true"
-                                    fill="currentColor"
-                                    viewBox="0 0 20 20"
-                                  >
-                                    <path
-                                      d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"
-                                    ></path>
-                                  </svg>
-                                </Link>
-                                </td>
-                                </tr>
+  <div class="row">
+    <div class="col-lg-6 col-12 d-flex ms-auto">
+      {{ user.name}} Tasks Dashboard
+    </div>
+    <div class="col-lg-6 col-12 d-flex ms-auto">
+      <a data-bs-toggle="modal" data-bs-target="#exampleModalLong" class="btn btn-icon btn-outline-secondary ms-auto">
+        <i class="material-icons text-lg me-2">add</i> Add Task
+      </a>
+      <!-- <div class="dropleft ms-3">
+        <button class="btn bg-gradient-dark dropdown-toggle" type="button" id="dropdownImport" data-bs-toggle="dropdown"
+          aria-expanded="false">
+          Today
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownImport">
+          <li><a class="dropdown-item" href="javascript:;">Yesterday</a></li>
+          <li><a class="dropdown-item" href="javascript:;">Last 7 days</a></li>
+          <li><a class="dropdown-item" href="javascript:;">Last 30 days</a></li>
+        </ul>
+      </div> -->
 
-                            </tbody>
-                            </table>
+    </div>
+  </div>
+  <div class="row mb-5 mb-md-0">
+    <div class="col-sm-6">
+      <div class="card h-100">
+        <div class="card-header pb-0 p-3">
+          <div class="d-flex align-items-center">
+            <h6 class="mb-0">Top Tasks Percentages</h6>
+            <button type="button"
+              class="btn btn-icon-only btn-rounded btn-outline-secondary mb-0 ms-2 btn-sm d-flex align-items-center justify-content-center ms-auto"
+              data-bs-toggle="tooltip" data-bs-placement="bottom"
+              title="See how much traffic do you get from social media">
+              <i class="material-icons text-sm">priority_high</i>
+            </button>
+          </div>
+        </div>
+
+        <div class="card-body p-3">
+          <ul class="list-group">
+
+            <li v-for="average in averages" :key="average.id"
+              class="list-group-item border-0 d-flex align-items-center px-0 mb-2">
+              <div class="w-100">
+                <div class="d-flex align-items-center mb-2">
+                  <a class="btn btn-youtube btn-simple mb-0 p-0" href="javascript:;">
+                    <i class="fab fa-slack fa-lg"></i>
+                  </a>
+                  <span class="me-2 text-sm font-weight-normal text-capitalize ms-2">{{ average.name }}</span>
+                  <span class="ms-auto text-sm font-weight-normal">{{ Math.ceil(average.total * 100 / total) }}%</span>
+                </div>
+                <div>
+                  <div class="progress progress-md">
+                    <div :class="`progress-bar bg-gradient-dark w-${callPercent(Math.ceil(average.total * 100 / total))}`"
+                      role="progressbar" :aria-valuenow="`${Math.ceil(average.total * 100 / total)}`" aria-valuemin="0"
+                      :aria-valuemax="`${Math.ceil(average.total * 100 / total)}`">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6 mt-4 mt-lg-0">
+      <div class="card">
+        <div class="card-header pb-0 p-3">
+          <div class="d-flex align-items-center">
+            <h6 class="mb-0"> Performed Task Status</h6>
+            <button type="button"
+              class="btn btn-icon-only btn-rounded btn-outline-secondary mb-0 ms-2 btn-sm d-flex align-items-center justify-content-center ms-auto"
+              data-bs-toggle="tooltip" data-bs-placement="bottom" title="Completed Tasks">
+              <i class="fas fa-info"></i>
+            </button>
+          </div>
+        </div>
+        <div class="card-body p-3">
+          <div class="row">
+            <div class="col-5 text-center">
+              <div class="chart">
+                <canvas id="chart-consumption" class="chart-canvas" height="200"></canvas>
+              </div>
+              <h4 class="font-weight-bold mt-n8">
+                <span>{{ total }}</span>
+                <span class="d-block text-body text-sm">TASKS</span>
+              </h4>
+            </div>
+            <div class="col-7">
+              <div class="table-responsive">
+                <table class="table align-items-center mb-0">
+                  <tbody>
+                    <tr v-for="status in statues" key="status.id">
+                      <td>
+                        <div class="d-flex px-2 py-0">
+                          <span :class="`badge bg-gradient-${color[status.id]} me-3`"> - </span>
+                          <div class="d-flex flex-column justify-content-center">
+                            <h6 class="mb-0 text-sm"> {{ status.name }}</h6>
+                          </div>
+                        </div>
+                      </td>
+                      <td class="align-middle text-center text-sm">
+                        <span class="text-xs"> {{ Math.ceil(status.total * 100 / total) }} </span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row gx-4">
+    <div class="col-lg-6">
+      <div class="card mt-4">
+        <div class="card-header pb-0">
+          <h6>Latest New Client Tasks</h6>
+        </div>
+              
+            <div class="card-body">
+              <div class="d-flex mt-2"  v-for="task in tasks" :key="task.id">
+                <div class="flex-shrink-0">
+                  <img alt="Image placeholder" class="avatar rounded-circle" src="/assets/images/logo.jpg">
+                </div>
+                <div class="flex-grow-1 ms-3">
+                  <h6 class="h6 mt-0">{{ task.name }}</h6>
+                  <p class="text-sm">{{ task.about }}</p>
+                  <div class="d-flex">
+                    <div>
+                      <i class="material-icons text-sm me-1 cursor-pointer">notifications</i>
+                    </div>
+                    <span class="text-sm me-2">{{ task.type }}</span>
+                    <div>
+                      <i class="material-icons text-sm me-1 cursor-pointer">layers</i>
+                    </div>
+                    <span class="text-sm me-2">{{ task.status }}</span>
+                    <div>
+                      <i class="material-icons text-sm me-1 cursor-pointer">thumb_up</i>
+                    </div>
+                    <span class="text-sm me-2"> {{ task.time }}</span>
+                    <div>
+                      <i class="material-icons text-xl me-1 cursor-pointer">more_vert</i>
+                    </div>
+                    <span class="text-sm me-2">
+                      <div class="dropstart">
+                        <a href="javascript:;" class="text-success" id="dropdownDesignCard" data-bs-toggle="dropdown" aria-expanded="false">
+                          <b><u>Update</u></b>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-lg-start px-2 py-3" aria-labelledby="dropdownDesignCard">
+                          <li  v-for="method in task_status" ><a class="dropdown-item border-radius-md" :href="`/taskstatus/${task.uuid}/${method.id}`">{{ method.name }}</a></li>
+                          <li><hr class="dropdown-divider"></li>
+                          <li><a class="dropdown-item border-radius-md text-danger" :href="`/deletetask/${task.uuid}/delete`">Delete Task</a></li>
+                        </ul>
+                      </div>
+                    </span>
+                  </div>
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+
+    <div class="col-lg-6 mt-lg-0">
+      <div class="card mt-4 bg-gradient-dark">
+        <div class="card-header bg-transparent pb-0">
+          <h6 class="text-white">Completed Client Tasks</h6>
+        </div>
+        <div class="card-body p-3">
+          <div class="timeline timeline-dark timeline-one-side" data-timeline-axis-style="dotted">
+            <div v-for="task in alltasks" :key="task.id" class="timeline-block">
+              <span class="timeline-step bg-dark p-3">
+                <i class="material-icons text-white text-sm opacity-10">
+                  done
+                </i>
+              </span>
+              <div class="timeline-content pt-1">
+                <h6 class="text-white text-sm font-weight-bold mb-0">{{ task.name }}</h6>
+                <p class="text-secondary text-xs mt-1 mb-0">{{ task.user }} - {{ task.time }}</p>
+                <p class="text-sm text-white">
+                  {{ task.about }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-danger modal-dialog-centered modal-" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title font-weight-normal" id="modal-title-exampleModalLong"> Add New Task Performed to
+            Clients </h5>
+          <button type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form role="form text-left" method="post" action="/saveTask">
+
+            <div class="input-group input-group-outline my-3">
+              <label class="form-label">Task Title</label>
+              <input type="text" required name="title" class="form-control">
+              <input type="hidden" :value="_token" name="_token" class="form-control">
+              <input type="hidden" :value="user.id" name="user_id" class="form-control">
+            </div>
+
+            <div class="input-group input-group-outline my-3" style="min-width: 100% !important;">
+              <select required class="form-control select-single" style="min-width: 100% !important;" name="client_id" id="choices-currency-edit">
+                <option value="" selected="">Select Client</option>
+                <option v-for="installment in clients" :value="installment.id">{{ installment.name }}</option>
+              </select>
+            </div>
+
+            <div class="input-group input-group-outline my-3">
+              <select required class="form-control" name="task_type_id" id="choices-currency-edit">
+                <option value="" selected="">Select Task Category</option>
+                <option v-for="installment in tasktypes" :value="installment.id">{{ installment.name }}</option>
+              </select>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="input-group input-group-outline my-3">
+                  <select required class="form-control" name="priority_id" id="choices-currency">
+                    <option value="" selected="">Select Task Priority</option>
+                    <option v-for="priority in task_priority" :value="priority.id">{{ priority.name }}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="input-group input-group-outline my-3">
+                  <select required class="form-control" name="status_id" id="choices-currency">
+                    <option value="" selected=""> Current Task Status</option>
+                    <option v-for="method in task_status" :value="method.id">{{ method.name }}</option>
+                  </select>
                 </div>
               </div>
             </div>
-    </template>
-    
+            <div class="input-group input-group-outline my-3">
+              <textarea name="about" required class="multisteps-form__textarea form-control" rows="3"
+                :placeholder="`Write your activity performed`" spellcheck="false"></textarea>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="input-group input-group-outline my-3">
+                  <input onfocus="(this.type = 'datetime-local')" class="form-control" required
+                    onblur="(this.type = 'text')" name="date" placeholder="Set Next Action Date" />
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="input-group input-group-outline my-3">
+                  <select required class="form-control" name="next_type_id" id="choices-currency">
+                    <option value="" selected="">Next Action Activity</option>
+                    <option v-for="priority in tasktypes" :value="priority.id">{{ priority.name }}</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="text-center">
+              <button type="submit" class="btn bg-gradient-primary btn-lg btn-rounded w-100 mt-4 mb-0">Save
+                Task</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
 <script>
-import { Head, Link } from '@inertiajs/vue3'
-import pickBy from 'lodash/pickBy'
-import throttle from 'lodash/throttle'
-import mapValues from 'lodash/mapValues'
-import SearchFilter from '../../Shared/SearchFilter'
-import Pagination from '../../Shared/Pagination'
-import Icon from '../../Shared/Icon'
+import { Link } from '@inertiajs/vue3';
+
 
 export default {
-  components: {
-    Head,
-    Icon,
-    Link,
-    Pagination,
-    SearchFilter,
-  },
   props: {
-    subjects: Object,
-    classes: Array,
+    _token: String,
+    user: Array,
+    clients: Array,
+    tasks: Array,
+    alltasks: Array,
+    task_priority: Array,
+    tasktypes: Array,
+    averages: Array,
+    total: Number,
+    task_status: Array,
+    statues: Array,
+    color: Array,
   },
-  watch: {
-    form: {
-      deep: true,
-      handler: throttle(function () {
-        this.$inertia.get('/contacts', pickBy(this.form), { preserveState: true })
-      }, 150),
-    },
-  },
+  components: { Link },
   methods: {
-    reset() {
-      this.form = mapValues(this.form, () => null)
-    },
-  },
-}
+    callPercent: function (num) {
+
+      if (num % 5 == 0 || num % 10 == 0) {
+        return num;
+      }
+
+      // calculate the difference between the number and the next multiple of 5 or 10
+      var diff = 0;
+      if (num < 5) {
+        diff = 5 - num;
+      } else if (num < 10) {
+        diff = 10 - num;
+      } else {
+        diff = 10 - (num % 10);
+      }
+
+      // add the difference to the number to get the next multiple of 5 or 10
+      var nextMultiple = 0;
+      nextMultiple = num + diff;
+
+      return nextMultiple;
+    }
+  }
+};
 </script>
