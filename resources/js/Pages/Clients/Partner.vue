@@ -78,7 +78,7 @@
                   </tbody>
                 </table>
               </div>
-              <pagination class="mt-6" :links="users.links" />
+              <pagination class="mt-2" :links="users.links" />
 
             </div>
           </div>

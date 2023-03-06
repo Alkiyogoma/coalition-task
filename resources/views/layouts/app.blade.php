@@ -90,7 +90,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-white" href="/tasks">
+                                <a class="nav-link text-white" href="/mytasks">
                                   <i class="material-icons text-lg me-2">layers</i>
                                     <span class="sidenav-normal  ms-3  ps-1"> My Tasks </span>
                                 </a>
@@ -273,10 +273,14 @@
                             </a>
                         </li>
                         <li class="nav-item ">
-                            <a class="nav-link text-white"
-                                href="/inbox"
-                               >
+                            <a class="nav-link text-white" href="/inbox">
                                 <span class="sidenav-normal  ms-2  ps-1"> Set Reminders </span>
+                            </a>
+                        </li>
+                        
+                        <li class="nav-item ">
+                            <a class="nav-link text-white" href="/#">
+                                <span class="sidenav-normal  ms-2  ps-1"> Print Letters </span>
                             </a>
                         </li>
                         <li class="nav-item ">
@@ -645,8 +649,8 @@
 
 <script>
     $(document).ready(function() {
-        $('.js-example-basic-single').select2();
-        $('.js-example-basic-multiple').select2();
+        $('.select-single').select2();
+        $('.select-multiple').select2();
 
   @if(session()->has('success'))
   toastr.options =

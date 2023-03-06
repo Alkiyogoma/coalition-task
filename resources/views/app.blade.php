@@ -46,6 +46,10 @@
     <link id="pagestyle" href="/assets/css/material-dashboard.min.css" rel="stylesheet" />
 
     <link href="{{ URL::asset('assets/css/toastr.min.css') }}" rel="stylesheet">
+    <link href="/assets/css/select2.min.css" rel="stylesheet" />
+    <script src="/assets/js/jquery-3.6.3.min.js"></script>
+    <script src="/assets/css/select2.min.js"></script>
+
 
     <style>
         .async-hide {
@@ -91,7 +95,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-white" href="/tasks">
+                                <a class="nav-link text-white" href="/mytasks">
                                   <i class="material-icons text-lg me-2">layers</i>
                                     <span class="sidenav-normal  ms-3  ps-1"> My Tasks </span>
                                 </a>
@@ -255,19 +259,19 @@
                             <li class="nav-item ">
                                 <a class="nav-link text-white" href="/pricing-page">
                                     <span class="sidenav-mini-icon"> W </span>
-                                    <span class="sidenav-normal  ms-2  ps-1"> View Depts </span>
+                                    <span class="sidenav-normal  ms-2  ps-1"> Persons </span>
                                 </a>
                             </li>
                             <li class="nav-item ">
                                 <a class="nav-link text-white" href="/rtl-page">
                                     <span class="sidenav-mini-icon"> P </span>
-                                    <span class="sidenav-normal  ms-2  ps-1"> Payments </span>
+                                    <span class="sidenav-normal  ms-2  ps-1"> Claims </span>
                                 </a>
                             </li>
                             <li class="nav-item ">
                                 <a class="nav-link text-white" href="/widgets">
                                     <span class="sidenav-mini-icon"> I </span>
-                                    <span class="sidenav-normal  ms-2  ps-1"> Installments </span>
+                                    <span class="sidenav-normal  ms-2  ps-1"> Letters </span>
                                 </a>
                             </li>
                             <li class="nav-item ">
@@ -304,16 +308,18 @@
                             </a>
                         </li>
                         <li class="nav-item ">
-                            <a class="nav-link text-white"
-                                href="/inbox"
-                               >
+                            <a class="nav-link text-white" href="/inbox">
                                 <span class="sidenav-normal  ms-2  ps-1"> Set Reminders </span>
                             </a>
                         </li>
+                        
                         <li class="nav-item ">
-                            <a class="nav-link text-white"
-                                href="/templates"
-                               >
+                            <a class="nav-link text-white" href="/#">
+                                <span class="sidenav-normal  ms-2  ps-1"> Print Letters </span>
+                            </a>
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link text-white" href="/templates">
                                 <span class="sidenav-normal  ms-2  ps-1"> Templates </span>
                             </a>
                         </li>
@@ -674,44 +680,31 @@
     <script src="/assets/js/material-dashboard.min.js"></script>
 
 <script>
-    $(document).ready(function() {
+$(document).ready(function() {
+    $('.select-single').select2();
+    $('.select-multiple').select2();
+    toastr.options =
+    {
+        "closeButton" : true,
+        "progressBar" : true
+    }
   @if(session()->has('success'))
-  toastr.options =
-  {
-  	"closeButton" : true,
-  	"progressBar" : true
-  }
   		toastr.success("{{ session()->get('success') }}");
-  @endif
+    @endif
 
-  @if(session()->has('error'))
-  toastr.options =
-  {
-  	"closeButton" : true,
-  	"progressBar" : true
-  }
-  		toastr.error("{{ session()->get('error') }}");
-  @endif
+    @if(session()->has('error'))
+        toastr.error("{{ session()->get('error') }}");
+    @endif
 
-  @if(session()->has('info'))
-  toastr.options =
-  {
-  	"closeButton" : true,
-  	"progressBar" : true
-  }
-  		toastr.info("{{ session()->get('info') }}");
-  @endif
+    @if(session()->has('info'))
+        toastr.info("{{ session()->get('info') }}");
+    @endif
 
-  @if(session()->has('warning'))
-  toastr.options =
-  {
-  	"closeButton" : true,
-  	"progressBar" : true
-  }
-  		toastr.warning("{{ session()->get('warning') }}");
-  @endif
+    @if(session()->has('warning'))
+        toastr.warning("{{ session()->get('warning') }}");
+    @endif
 });
-
+</script>
 </body>
 
 </html>
