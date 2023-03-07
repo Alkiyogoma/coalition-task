@@ -29,6 +29,10 @@ class RoleHasPermission extends Model
 		'permission_id' => 'int',
 		'role_id' => 'int'
 	];
+	protected $fillable = [
+		'role_id',
+		'permission_id'
+	];
 
 	public function permission()
 	{

@@ -587,7 +587,7 @@ class UsersController extends Controller
           $pay =  \App\Models\Payment::create([
                 'client_id' => request('client_id'),
                 'uuid' => (string) Str::uuid(),
-                'installment_id' => request('client_id') != '' ? request('client_id') : \App\Models\ClientInstallment::where('client_id', request('client_id'))->orderBy('id')->first()->id,
+                'installment_id' => request('installment_id') != '' ? request('installment_id') : \App\Models\ClientInstallment::where('client_id', request('client_id'))->orderBy('id')->first()->installment_id,
                 'amount' => request('payment'),
                 'date' => request('date'),
                 'method_id' => request('method_id'),

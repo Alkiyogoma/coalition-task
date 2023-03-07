@@ -183,10 +183,10 @@
                           </li>
                           <li class="nav-item ">
                               <a class="nav-link text-white"
-                                  href="/Modal"
+                                  href="/roles"
                                  >
                                   <span class="sidenav-mini-icon"> M </span>
-                                  <span class="sidenav-normal  ms-2  ps-1"> Materials </span>
+                                  <span class="sidenav-normal  ms-2  ps-1"> Permissions </span>
                               </a>
                           </li>
                         </ul>
@@ -623,7 +623,7 @@
                 </div>
             </div>
         <?php
-        $tasks = \App\Models\Task::whereNotIn('status_id', [2])->orderBy('id', 'desc')->limit(4)
+        $tasks = \App\Models\Task::whereNotIn('status_id', [2])->where('user_id', Auth::User()->id)->orderBy('id', 'desc')->limit(4)
         ->get();
         // ->map(fn ($pay) => [
         //     'id' => $pay->id,

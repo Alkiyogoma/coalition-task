@@ -22,10 +22,6 @@ Route::get('/crm', function () {
     return inertia('Crm');
 });
 
-Route::get('/permission', function () {
-    return inertia('Permission');
-});
-
 Route::get('/datatable', function () {
     return inertia('Datatable');
 });
@@ -169,3 +165,8 @@ Route::post('/buySMS', [HomeController::class, 'buySMS'])->name('buySMS');
 Route::post('/send_to_numbers', [HomeController::class, 'send_to_numbers'])->name('send_to_numbers');
 Route::post('/buySMS', [HomeController::class, 'buySMS'])->name('buySMS');
 Route::get('/comments/{id?}/{status?}', [HomeController::class, 'comments'])->name('comments');
+
+
+Route::get('/roles', [HomeController::class, 'roles'])->name('roles');
+Route::get('/permissions/{setting}', [HomeController::class, 'permissions'])->name('permissions');
+Route::post('/savePermits', [HomeController::class, 'savePermits'])->name('savePermits');

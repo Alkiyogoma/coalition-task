@@ -148,10 +148,10 @@
                           </li>
                           <li class="nav-item ">
                               <a class="nav-link text-white"
-                                  href="/Modal"
+                                  href="/roles"
                                  >
                                   <span class="sidenav-mini-icon"> M </span>
-                                  <span class="sidenav-normal  ms-2  ps-1"> Materials </span>
+                                  <span class="sidenav-normal  ms-2  ps-1"> Permissions </span>
                               </a>
                           </li>
                         </ul>

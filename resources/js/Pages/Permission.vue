@@ -1,8 +1,7 @@
 <template>
-    <div class="container-fluid py-4">
       <div class="row">
         <div class="col-lg-12"> 
-    <div class="card mt-4" id="notifications">
+            <div class="card mt-4" id="notifications">
                     <div class="card-header">
                         <h5>Notifications</h5>
                         <p class="text-sm">Choose how you receive notifications. These notification settings apply to
@@ -153,5 +152,4 @@
                 </div>
             </div>
         </div>
-    </div>
 </template>

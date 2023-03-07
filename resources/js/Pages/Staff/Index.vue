@@ -55,7 +55,7 @@
                         <span class="text-secondary text-xs font-weight-bold">{{ user.jod }}</span>
                       </td>
                         <td class="align-middle">
-                        <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                        <a :href="`/profile/${user.uuid}`" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
                           <span class="badge badge-sm bg-gradient-success">View</span>
                         </a>
                         <a href="javascript:;" class="ml-3 text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
