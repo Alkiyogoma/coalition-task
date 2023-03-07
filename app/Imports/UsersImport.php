@@ -16,8 +16,8 @@ class UsersImport implements ToModel, WithHeadingRow
     public function model(array $row)
     {
         $user = Client::where('name', $row['customer'])->where('branch', $row['branch'])->first();
-        $emloyer = isset($row['employer']) && $row['employer'] != '' ? \App\Models\Employer::where('name', $row['employer'])->first() : [];
-        $branch =  \App\Models\Branch::where('name', $row['branch'])->first();
+        $emloyer = isset($row['employer']) && $row['employer'] != '' ? \App\Models\Employer::first() : [];
+        $branch =  \App\Models\Branch::first();
         $phone = isset($row['phone']) && $row['phone'] != '' ? str_replace(['(000)', '', '(', ')'], ['','', '',''], $row['phone']) : 0;
         $brach = !empty($branch) ? $branch : \App\Models\Branch::create(['name' => $row['branch']]);
         $emp = !empty($emloyer) ? $emloyer : \App\Models\Employer::create(['name' => isset($row['employer']) && $row['employer'] != '' ? $row['employer'] : $row['customer'], 'phone' => isset($phone) && $phone != '' ? $phone : '0']);
@@ -35,7 +35,7 @@ class UsersImport implements ToModel, WithHeadingRow
                 'branch_id' => $brach->id,
                 'employer_id' => $emp->id,
                 'account' => $row['account'],
-                'amount' => (float)$row['balance'],
+                'amount' => (float)str_replace(',', '', $row['balance']),
                 'code' => date("mH"),
                 'address' => isset($row['branch']) && $row['branch'] != '' ? $row['branch'] : 'Dar Es Salaam',
                 'partner_id' => !empty($partner) ? $partner-> id : 1,

@@ -539,5 +539,51 @@ class HomeController extends Controller
         \App\Models\Task::where('uuid', $id)->update(['status_id' => $status]);
       return  redirect(url()->previous())->with('success', 'Task Updated');
     }
+
+
+    
+    public function roles()
+    {
+        $this->data['roles'] = \App\Models\Role::get();
+        return view('message.roles', $this->data);
+    }
+
+    public function permissions()
+    {
+
+        $id = request()->segment(2);
+        if($_POST){
+            $permission = \App\Models\Permission::create(request()->all());
+            \App\Models\RoleHasPermission::create(['role_id' => 1, 'permission_id' => $permission->id]);
+        }
+        $this->data['role_'] =  \App\Models\Role::where('id', $id)->first();
+        $this->data['groups'] = \App\Models\PermissionGroup::get();
+        return view('message.permission', $this->data);
+    
+    }
+
+    public function groups()
+    {
+        return view('message.roles');
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function savePermits()
+    {   
+        if($_POST){
+      
+        foreach(request('permission_id') as $value){
+            $check  = \App\Models\RoleHasPermission::where('role_id', request('role_id'))->where('permission_id', $value)->first();
+            if(empty($check)){
+                \App\Models\RoleHasPermission::create(['role_id' => request('role_id'), 'permission_id' => $value]);
+            }
+        }
+        return redirect()->back()->with('message', 'New Post created successfully');
+    }
+}
+
+
   
 }

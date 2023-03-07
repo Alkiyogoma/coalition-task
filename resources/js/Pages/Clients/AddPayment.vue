@@ -18,7 +18,7 @@
                                 <div class="input-group input-group-outline my-3">
                                     <select required class="form-control select-single" name="client_id" id="choices-client_id-edit">
                                         <option value="" selected="">Select Customer</option>
-                                        <option v-for="installment in clients" :value="installment.id">{{ installment.name }}</option>
+                                        <option v-for="installment in clients" :value="installment.id" :key="installment.id">{{ installment.name }}</option>
                                     </select>
                                 <input type="hidden" :value="_token" name="_token" class="form-control">
                             </div>
@@ -30,7 +30,7 @@
                                 <div class="input-group input-group-outline my-3">
                                     <select required class="form-control" name="user_id" id="choices-currency-edit">
                                         <option value="" selected=""> Collector?</option>
-                                        <option v-for="installment in users" :value="installment.id">{{ installment.name }}</option>
+                                        <option v-for="installment in users" :value="installment.id" :key="installment.id">{{ installment.name }}</option>
                                     </select>
                                 </div>
                             </div>
@@ -44,7 +44,7 @@
                             <div class="input-group input-group-outline my-3">
                                 <select required class="form-control" name="installment_id" id="choices-currency-edit">
                                     <option value="" selected="">Select Installments</option>
-                                    <option v-for="installment in installments" :value="installment.id">{{ installment.name }}</option>
+                                    <option v-for="installment in installments" :key="installment.id" :value="installment.id">{{ installment.name }}</option>
                                 </select>
                             </div>
                             <div class="input-group input-group-outline my-3">
@@ -53,7 +53,7 @@
                             <div class="input-group input-group-outline my-3">
                                 <select required class="form-control" name="method_id" id="choices-currency">
                                     <option value="" selected="">Select Payment Method</option>
-                                    <option v-for="method in methods" :value="method.id">{{ method.name }}</option>
+                                    <option v-for="method in methods" :value="method.id" :key="method.id">{{ method.name }}</option>
                                 </select>
                             </div>
                             <div class="input-group input-group-outline my-3">

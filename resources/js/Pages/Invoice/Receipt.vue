@@ -3,7 +3,7 @@
       <div class="col-12">
         <div class="card">
           <div class="card-header p-0 position-relative z-index-2" id="topheader">
-              <h5 class="px-4" id="modal-title-exampleModalLong"> Add New Revenue  to Clients </h5>
+              <h5 class="px-4" id="modal-title-exampleModalLong">Received Payment Receipt </h5>
           </div>
           <div id="printablediv">
           <div class="card-body">  
@@ -24,7 +24,7 @@
                     </th>
                 </tr>
                 <tr class="text-gray-700 dark:text-gray-400">
-                    <th colspan="2" align="" class="px-2 py-2"><center>{{ title }}</center></th>
+                    <th colspan="2" class="px-2 py-2"><center>{{ title }}</center></th>
                 </tr>
              
 
