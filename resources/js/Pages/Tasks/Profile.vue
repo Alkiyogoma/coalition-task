@@ -272,6 +272,7 @@
 </template>
 
 <script>
+
 import { Link } from '@inertiajs/vue3';
 
 export default {
@@ -306,7 +307,6 @@ export default {
       } else {
         diff = 10 - (num % 10);
       }
-
       // add the difference to the number to get the next multiple of 5 or 10
       var nextMultiple = 0;
       nextMultiple = num + diff;
