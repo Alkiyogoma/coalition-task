@@ -688,7 +688,7 @@ $(document).ready(function() {
         "closeButton" : true,
         "progressBar" : true
     }
-  @if(session()->has('success'))
+    @if(session()->has('success'))
   		toastr.success("{{ session()->get('success') }}");
     @endif
 
