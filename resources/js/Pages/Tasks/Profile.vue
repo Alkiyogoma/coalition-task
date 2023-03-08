@@ -210,14 +210,12 @@
               <input type="hidden" :value="_token" name="_token" class="form-control">
               <input type="hidden" :value="user.id" name="user_id" class="form-control">
             </div>
-
             <div class="input-group input-group-outline my-3" style="min-width: 100% !important;">
               <select required class="form-control select-single" style="min-width: 100% !important;" name="client_id" id="choices-currency-edit">
                 <option value="" selected="">Select Client</option>
                 <option v-for="installment in clients" :value="installment.id">{{ installment.name }}</option>
               </select>
             </div>
-
             <div class="input-group input-group-outline my-3">
               <select required class="form-control" name="task_type_id" id="choices-currency-edit">
                 <option value="" selected="">Select Task Category</option>
@@ -275,7 +273,6 @@
 
 <script>
 import { Link } from '@inertiajs/vue3';
-
 
 export default {
   props: {
