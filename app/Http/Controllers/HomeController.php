@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Imports\UsersImport;
 use App\Imports\PaymentImport;
+use App\Exports\CustomerExport;
 use Maatwebsite\Excel\Facades\Excel;
 use \App\Models\Client;
 use \App\Models\Message;
@@ -265,9 +266,10 @@ class HomeController extends Controller
         return redirect('clients')->with('success', 'All Students Uploaded Successfully!');
     }
 
-    // public function userExport(){
-    //     return Excel::download(new UsersExport, 'Exported_members.xlsx');
-    // }
+    public function exportReport(){
+        $date = date('F-d');
+        return Excel::download(new CustomerExport, 'Report_'.request()->segment(2).'_'.$date.'_'.Auth::User()->name.'.xlsx');
+    }
 
     // public function studentExport(){
     //     return Excel::download(new StudentExport, 'exported_visitors.xlsx');
@@ -502,13 +504,117 @@ class HomeController extends Controller
 
 
     
-    public function comments()
-    { 
-        $this->data['clients'] = \App\Models\Client::orderBy('id', 'DESC')->get();
+    public function comments($type)
+    {
+        $partner = request('partner_id');
+        $user_id = request('user_id');
+        $task = \App\Models\Task::where('user_id', Auth::User()->id)->whereDate('created_at', date('Y-m-d'))->first();
+
+        $this->data['url'] = !empty($task) ? "exportreport/".$type."/".$task->client->partner_id."/".Auth::User()->id : '';
+        $task =   \App\Models\Task::where('user_id', Auth::User()->id)->whereDate('created_at', date('Y-m-d'))->get(['client_id']);
+        $this->data['clients'] = \App\Models\Client::whereIn('id', $task)->orderBy('id', 'DESC')->get();
+        if($type == 'today' && $partner > 0){
+            $task = (int)$user_id > 0 ? \App\Models\Task::where('user_id', $user_id)->whereDate('created_at', date('Y-m-d'))->get(['client_id']) :  \App\Models\Task::whereDate('created_at', date('Y-m-d'))->get(['client_id']);
+            $this->data['clients'] = \App\Models\Client::where('partner_id', $partner)->whereIn('id', $task)->orderBy('id', 'DESC')->get();
+            $this->data['url'] = "exportreport/$type/$partner/$user_id";
+        }
+        if($type == 'week' && $partner > 0){
+            $task = (int)$user_id > 0 ? \App\Models\Client::where('user_id', $user_id)->whereDate('created_at', date('Y-m-d'))->get(['client_id']) :  \App\Models\Client::whereDate('created_at', date('Y-m-d'))->get(['client_id']);
+            $this->data['clients'] = \App\Models\Client::where('partner_id', $partner)->whereIn('id', $task)->orderBy('id', 'DESC')->get();
+            $this->data['url'] = "exportreport/$type/$partner/$user_id";
+        }
+        if($type == 'month' && $partner > 0){
+            $task = (int)$user_id > 0 ? \App\Models\Client::where('user_id', $user_id)->whereDate('created_at', date('Y-m-d'))->get(['client_id']) :  \App\Models\Client::whereDate('created_at', date('Y-m-d'))->get(['client_id']);
+            $this->data['clients'] = \App\Models\Client::where('partner_id', $partner)->whereIn('id', $task)->orderBy('id', 'DESC')->get();
+            $this->data['url'] = "exportreport/$type/$partner/$user_id";
+        }
+        $this->data['partners'] = \App\Models\Partner::get();
+        $this->data['codes'] = \App\Models\ActionCode::get();
         return view('message.comments', $this->data);
     }
 
+   
+   public function callClient()
+    {
+        $class_level_id = request('partner_id');
+        $classes = (int) $class_level_id == 0 ? \App\Models\Client::where('user_id', Auth::User()->id)->get() : \App\Models\Client::where('partner_id', $class_level_id)->get();
+        if ((int)request('group_id') > 0) {
+            $classes = \App\Models\Client::where('group_id',  request('group_id'))->get();
+        }
+
+        if (!empty($classes)) {
+            echo "<option value='all'>All Customers</option>";
+            foreach ($classes as $class) {
+                echo '<option value=' . $class->id . '>' . $class->name . ' - '. $class->account . '</option>';
+            }
+        } else {
+            echo "0";
+        }
+    }
+
+
+    function staffClient()
+    {
+        $id = request('partner_id');
+        $classes = \App\Models\User::whereIn('id', \App\Models\Client::where('partner_id', $id)->distinct()->get(['user_id']))->get();
+        if (count($classes)) {
+            echo "<option value='all'>All Staff</option>";
+            foreach ($classes as $class) {
+                echo '<option value=' . $class->id . '>' . $class->name . '</option>';
+            }
+        } else {
+            echo "0";
+        }
+    }
+
+    function callGroup()
+    {
+        $class_level_id = request('group_id');
+        if ((int) $class_level_id > 0) {
+            $classes = \App\Models\Client::where('group_id', $class_level_id)->get();
+            if (!empty($classes)) {
+                echo "<option value='null'> Select Class </option>";
+                echo "<option value='all'>All Classes</option>";
+                foreach ($classes as $class) {
+                    echo '<option value=' . $class->id . '>' . $class->account . '</option>';
+                }
+            } else {
+                echo '0';
+            }
+        } else {
+            echo "0";
+        }
+    }
+
+    /**
+     * @accessed: -- Add student view
+     */
+    public function callTasks()
+    {
+        $class_level_id = request('user_id');
+        $classes = \App\Models\Task::where('user_id', $class_level_id)->orderBy('id', 'desc')->get();
+        if (count($classes) > 0) {
+            echo '<option value="">select task</option>';
+            foreach ($classes as $value) {
+                echo '<option value="' . $value->id . '">' . $value->title . '</option>';
+            }
+        } else {
+            echo "0";
+        }
+    }
     
+    public function getCode(){
+        $code = \App\Models\ActionCode::where('code',  request('code'))->first();
+        if (!empty($code)) {
+            echo $code->about;
+        }else{
+            echo request('code');
+        }
+        if((int)request('client_id') > 0){
+            \App\Models\Client::where('id', request('client_id'))->update(['code' => request('code'),  'placement' => $code->about]);
+        }
+    }
+
     public function saveTask(){
          \App\Models\Task::create([
              'title' => request('title'),
@@ -524,8 +630,7 @@ class HomeController extends Controller
              'next_type_id' => request('next_type_id'),
              'created_by' => request('user_id')
          ]);
-              
-        redirect()->back()->with('success', 'Mesage Sent');
+        return redirect()->back()->with('success', 'Mesage Sent');
      }
  
      public function deleteTask($id)

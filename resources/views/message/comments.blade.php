@@ -1,15 +1,43 @@
 @extends('layouts.app')
 
-
 @section('content')
     <div class="row gx-4">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header pb-0">
-                    <h6>Timeline light</h6>
-                </div>
-
                 <div class="card-body p-3">
+                <form id="add-form" action="" method="POST">
+                    <?= csrf_field() ?>
+                    <div class="row input-group input-group-outline my-3">
+                        <div class="col-md-3">
+                            <label class="col-form-label text-md-right">Set Title </label>
+                            <select name="partner_id" id="partner_id" class="form-control select-single" style="width: 100%" required>
+                            <option value="">select bank</option>
+                            <?php 
+                                foreach($partners as $leader){
+                                    echo '<option value="'.$leader->id.'">'.$leader->name.' ('.$leader->clients->count().')</option>';
+                                }
+                            ?>
+                            </select>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label class="col-form-label text-md-right">Message</label>
+                            <select name="user_id" id="user_id" class="form-control select-single" style="width: 100%" required>
+                            </select>
+                        </div>
+                        
+                        <div class="col-md-3">
+                            <label class="col-form-label text-md-right">Message</label>
+                            <input name="date" type="date" class="form-control" style="width: 100%" required>
+                            </input>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="col-form-label text-md-right">Action</label> <br>
+                            <input type="submit"  class="btn btn-success" value="Submit Here" />
+                        </div>
+                        </div>
+                    </form>
+              <hr>
                     <div class="table-responsive">
                         <table class="table table-flush" id="datatable-basic">
                             <thead class="thead-light">
@@ -35,37 +63,162 @@
                                 </tr>
                             </thead>
                             <tbody>
+                            @if (count($clients))
                                 @foreach ($clients as $client)
-                                    
                                 <tr>
-                                    <td class="text-sm font-weight-normal">{{ split_name($client->name)['first'] }}</td>
+                                    <td class="text-sm font-weight-normal">{{ $client->name }}</td>
                                     <td class="text-sm font-weight-normal">{{ $client->account }}</td>
-                                    <td class="text-sm font-weight-normal">
-                                        <select name="codes" id="codes" class="form-control">
-                                            <option value="003">client number is not correct so as I will find this client in credt info to get more information</option>
-                                            <option value="006">client is not answered my phone so as I continue to call later and text a message</option>
-                                            <option value="012">He promise to pay when he gets money</option>
-
+                                    <td class="text-sm font-weight-normal ">
+                                        <div class="input-group input-group-outline">
+                                        <select name="codes" id="code{{ $client->id }}" onchange="send_comment(<?= $client->id ?>)" class="form-control">
+                                           @foreach($codes as $code)
+                                            <option value="{{ $code->code }}"> {{ $code->code}}</option>
+                                           @endforeach
                                         </select>
+                                        </div>
                                     </td>
                                     <td class="text-sm font-weight-normal">
-                                        <input type="date" name="dates" id="dates" class="form-control">
+                                        <div class="input-group input-group-outline">
+                                            <input type="date" name="date{{ $client->id }}" id="dates" class="form-control">
+                                        </div>
                                     </td>
-                                    <td class="text-sm font-weight-normal"><input type="text" id="amounts" value="{{ $client->payments()->sum('amount') }}"></td>
-                                    <td class="text-sm font-weight-normal"><textarea name="comments" id="comments" rows="1"></textarea></td>
+                                    <td class="text-sm font-weight-normal">
+                                        <div class="input-group input-group-outline">
+                                            <input type="text" class="form-control" name="ptamount{{ $client->id }}" value="{{ $client->payments()->sum('amount') }}">
+                                        </div>
+                                    </td>
+                                    <td class="text-sm font-weight-normal">
+                                        <div class="input-group input-group-outline">
+                                            <textarea type="text" style="height: 40px;" name="comment{{ $client->id }}" id="comment{{ $client->id }}" class="form-control"></textarea>
+                                        </div>
+                                    </td>
                                 </tr>
                                 @endforeach
+                            @endif
                             </tbody>
                         </table>
                     </div>
                 </div>
+          
+
+    <div class="card justify-content-center">
+
+    <div class="card-body">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="flex items-center justify-end border-gray-100">
+                <button class="btn btn-success btn-rounded" type="submit">Save Changes</button>
             </div>
-
         </div>
+        <div class="col-md-6">
+            <div class="flex items-center justify-end border-gray-100">
+               @if($url != '') <a href="/{{ $url }}" class="btn bg-gradient-info btn-rounded" type="submit">Export Report</a> @endif
+            </div>
+        </div>
+    </div>
 
     </div>
-    <div class="d-flex justify-content-center">
 
+<script>
+    $(document).ready(function() {
+        $('.js-example-basic-single').select2();
+        $('.js-example-basic-multiple').select2();
+      
+      $('#partner_id').change(function (event) {
+        var class_id = $(this).val();
+        if (class_id === '0') {
+            $('#group_id').val(0);
+        } else {
+            $.ajax({
+                type: 'POST',
+                url: "<?= url('callGroup') ?>",
+                data: "partner_id=" + class_id,
+                dataType: "html",
+                success: function (data) {
+                    $('#group_id').html(data);
+                }
+            });
+        }
+    });
 
-    </div>
+    $('#partner_id').change(function (event) {
+        var class_id = $(this).val();
+        if (class_id === '0') {
+            $('#user_id').val(0);
+        } else {
+            $.ajax({
+                type: 'POST',
+                url: "<?= url('staffClient') ?>",
+                data: "partner_id=" + class_id,
+                dataType: "html",
+                success: function (data) {
+                    $('#user_id').html(data);
+                }
+            });
+        }
+    });
+
+    $('#user_id').change(function (event) {
+        var class_id = $(this).val();
+        if (class_id === '0') {
+            $('#task_id').val(0);
+        } else {
+            $.ajax({
+                type: 'POST',
+                url: "<?= url('callTasks') ?>",
+                data: "user_id=" + class_id,
+                dataType: "html",
+                success: function (data) {
+                    $('#task_id').html(data);
+                }
+            });
+        }
+    });
+
+    $('#group_id').change(function (event) {
+        var class_id = $(this).val();
+        if (class_id === '0') {
+            $('#client_id').val(0);
+        } else {
+            $.ajax({
+                type: 'POST',
+                url: "<?= url('groupClient') ?>",
+                data: "group_id=" + class_id,
+                dataType: "html",
+                success: function (data) {
+                    $('#client_id').html(data);
+                }
+            });
+        }
+    });
+    send_comment = function(id) {
+        var amount = $('#code'+id).val();
+        if (amount == 0) {
+
+        } else {
+            $.ajax({
+                type: 'POST',
+                url: "<?= url('getCode') ?>",
+                data: {
+                    code: amount,
+                    client_id: id
+                },
+                dataType: "html",
+                success: function(data) {
+                    $('#comment' + id).html(data);
+                }
+            });
+        }
+    }
+
+    
+
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+
+});
+    </script>
 @endsection

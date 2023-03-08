@@ -31,7 +31,7 @@
               <div class="row input-group input-group-outline my-3" style="display: none;" id="groups">
                 <label class="col-form-label text-md-right col-12 col-md-2">Select Partners</label>
                 <div class="col-sm-12 col-md-8" data-select2-id="12">
-                <select name="group_id[]" class="form-control select-multiple" style="width: 100%"style="width: 100%" multiple="">
+                <select name="group_id[]" class="form-control select-multiple" style="width: 100%" multiple="">
                 <option value="">Select Partners here...</option>
                     <option value="all">Send to All Partners</option>
                     <?php 
@@ -46,7 +46,7 @@
               <div class="row input-group input-group-outline my-3" style="display: none;" id="leaders">
                 <label class="col-form-label text-md-right col-12 col-md-2">Select Branches</label>
                 <div class="col-sm-12 col-md-8" data-select2-id="12">
-                <select name="leader_id[]" class="form-control select-multiple" style="width: 100%"style="width: 100%" multiple="">
+                <select name="leader_id[]" class="form-control select-multiple" style="width: 100%" multiple="">
                 <option value="">Select Branches here...</option>
                     <option value="all">All Branches</option>
                     <?php 
@@ -61,7 +61,7 @@
               <div class="row input-group input-group-outline my-3" style="display: none;" id="families">
                 <label class="col-form-label text-md-right col-12 col-md-2">Select Clients</label>
                 <div class="col-sm-12 col-md-8" data-select2-id="12">
-                <select name="family_id[]" class="form-control select-multiple" style="width: 100%"style="width: 100%" multiple="">
+                <select name="family_id[]" class="form-control select-multiple" style="width: 100%" multiple="">
                 <option value="">Select Clients here...</option>
                     <option value="all">All Clients</option>
                     <?php 
@@ -78,7 +78,7 @@
               <div class="row input-group input-group-outline my-3" style="display: none;" id="visitors">
                 <label class="col-form-label text-md-right col-12 col-md-2">Select Employers</label>
                 <div class="col-sm-12 col-md-8" data-select2-id="12">
-                <select name="visitor_id[]" class="form-control select-multiple" style="width: 100%"style="width: 100%" multiple="">
+                <select name="visitor_id[]" class="form-control select-multiple" style="width: 100%" multiple="">
                 <option value="">Select Employers here...</option>
                     <option value="all">All Employers</option>
                     <?php 
@@ -94,7 +94,7 @@
               <div class="row input-group input-group-outline my-3"  style="display: none;" id="members">
                 <label class="col-form-label text-md-right col-12 col-md-2">Select Staff</label>
                 <div class="col-sm-12 col-md-8" data-select2-id="12">
-                <select name="member_id[]" class="form-control select-multiple" style="width: 100%"style="width: 100%" multiple="">
+                <select name="member_id[]" class="form-control select-multiple" style="width: 100%" multiple="">
                 <option value="">Select Staffs here...</option>
                 <option value="all">All Staffs</option>
                     <?php 

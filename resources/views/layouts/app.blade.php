@@ -212,6 +212,7 @@
                     </div>
                 </li>
   
+          
                 <li class="nav-item">
                     <a data-bs-toggle="collapse" href="#pagesExamples" class="nav-link text-white"
                         aria-controls="pagesExamples" role="button" aria-expanded="false">
@@ -222,34 +223,33 @@
                         <ul class="nav ">
                           
                             <li class="nav-item ">
-                                <a class="nav-link text-white" href="/pricing-page">
+                                <a class="nav-link text-white" href="/clients/{{ Auth::User()->uuid }}">
+                                    <span class="sidenav-mini-icon"> C </span>
+                                    <span class="sidenav-normal  ms-2  ps-1"> Customers </span>
+                                </a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link text-white" href="/comments/today">
+                                    <span class="sidenav-mini-icon"> T </span>
+                                    <span class="sidenav-normal  ms-2  ps-1"> Today Report </span>
+                                </a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link text-white" href="/comments/week">
                                     <span class="sidenav-mini-icon"> W </span>
-                                    <span class="sidenav-normal  ms-2  ps-1"> View Depts </span>
+                                    <span class="sidenav-normal  ms-2  ps-1"> Weekly Report </span>
                                 </a>
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link text-white" href="/rtl-page">
-                                    <span class="sidenav-mini-icon"> P </span>
-                                    <span class="sidenav-normal  ms-2  ps-1"> Payments </span>
-                                </a>
-                            </li>
-                            <li class="nav-item ">
-                                <a class="nav-link text-white" href="/widgets">
-                                    <span class="sidenav-mini-icon"> I </span>
-                                    <span class="sidenav-normal  ms-2  ps-1"> Installments </span>
-                                </a>
-                            </li>
-                            <li class="nav-item ">
-                                <a class="nav-link text-white" href="/charts">
-                                    <span class="sidenav-mini-icon"> S </span>
-                                    <span class="sidenav-normal  ms-2  ps-1"> Import&Export </span>
+                                <a class="nav-link text-white" href="/comments/month">
+                                    <span class="sidenav-mini-icon"> M </span>
+                                    <span class="sidenav-normal  ms-2  ps-1"> Monthly Report </span>
                                 </a>
                             </li>
                         </ul>
                     </div>
                 </li>
                 
-          
               <li class="nav-item">
                 <a data-bs-toggle="collapse" href="#componentsCases" class="nav-link text-white"
                     aria-controls="componentsCases" role="button" aria-expanded="false">
