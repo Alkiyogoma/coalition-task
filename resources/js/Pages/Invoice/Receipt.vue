@@ -6,7 +6,7 @@
               <h5 class="px-4" id="modal-title-exampleModalLong">Received Payment Receipt </h5>
           </div>
           <div id="printablediv">
-          <div class="card-body">  
+          <div class="card-body">   
         <div class="table-responsive p-0">
             <table class="table align-items-center mb-0">
             <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">

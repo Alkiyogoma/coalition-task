@@ -23,7 +23,14 @@ class Client extends Model
 		'status' => 'int',
 		'user_id' => 'int',
 		'partner_id' => 'int',
-		'branch_id' => 'int'
+		'branch_id' => 'int',
+		'code_id' => 'int',
+		'group_id' => 'int',
+		'ptpamount' => 'float'
+	];
+
+	protected $dates = [
+		'ptpdate'
 	];
 
 	protected $fillable = [
@@ -44,7 +51,13 @@ class Client extends Model
 		'branch_id',
 		'branch',
 		'placement',
-		'code'
+		'code',
+		'code_id',
+		'nextkin',
+		'kinphone',
+		'group_id',
+		'ptpdate',
+		'ptpamount'
 	];
 
 	public function user()
@@ -56,6 +69,16 @@ class Client extends Model
 	public function partner()
 	{
 		return $this->belongsTo(Partner::class);
+	}
+
+	public function group()
+	{
+		return $this->belongsTo(Group::class);
+	}
+
+	public function codename()
+	{
+		return $this->belongsTo(ActionCode::class, 'code_id', 'id');
 	}
 
 	public function messages()

@@ -164,7 +164,13 @@ Route::post('/sendSingle', [HomeController::class, 'sendSingle'])->name('sendSin
 Route::post('/buySMS', [HomeController::class, 'buySMS'])->name('buySMS');
 Route::post('/send_to_numbers', [HomeController::class, 'send_to_numbers'])->name('send_to_numbers');
 Route::post('/buySMS', [HomeController::class, 'buySMS'])->name('buySMS');
-Route::get('/comments/{id?}/{status?}', [HomeController::class, 'comments'])->name('comments');
+Route::any('/comments/{type}/{client?}/{user?}', [HomeController::class, 'comments'])->name('comments');
+Route::get('/exportreport/{type}/{client?}/{user?}', [HomeController::class, 'exportReport'])->name('exportreport');
+Route::post('/staffClient', [HomeController::class, 'staffClient'])->name('staffClient');
+Route::post('/groupClient', [HomeController::class, 'groupClient'])->name('groupClient');
+Route::post('/callTasks', [HomeController::class, 'callTasks'])->name('callTasks');
+Route::post('/callGroup', [HomeController::class, 'callGroup'])->name('callGroup');
+Route::post('/getCode', [HomeController::class, 'getCode'])->name('getCode');
 
 
 Route::get('/roles', [HomeController::class, 'roles'])->name('roles');

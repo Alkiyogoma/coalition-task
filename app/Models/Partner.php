@@ -15,16 +15,6 @@ use Illuminate\Database\Eloquent\Model;
  * 
  * @property int $id
  * @property string $name
- * @property string $phone
- * @property string $address
- * @property int $partner_group_id
- * @property string|null $about
- * @property Carbon $created_at
- * @property Carbon $updated_at
- * 
- * @property PartnerGroup $partner_group
- * @property Collection|Client[] $clients
- *
  * @package App\Models
  */
 class Partner extends Model
@@ -56,10 +46,14 @@ class Partner extends Model
 	{
 		return $this->hasMany(Client::class);
 	}
-
 	
 	public function codes()
 	{
 		return $this->hasMany(ActionCode::class);
+	}
+
+	public function groups()
+	{
+		return $this->hasMany(Group::class);
 	}
 }

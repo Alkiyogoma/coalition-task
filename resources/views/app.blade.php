@@ -257,27 +257,27 @@
                         <ul class="nav ">
                           
                             <li class="nav-item ">
-                                <a class="nav-link text-white" href="/pricing-page">
+                                <a class="nav-link text-white" href="/clients/{{ Auth::User()->uuid }}">
+                                    <span class="sidenav-mini-icon"> C </span>
+                                    <span class="sidenav-normal  ms-2  ps-1"> Customers </span>
+                                </a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link text-white" href="/comments/today">
+                                    <span class="sidenav-mini-icon"> T </span>
+                                    <span class="sidenav-normal  ms-2  ps-1"> Today Report </span>
+                                </a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link text-white" href="/comments/week">
                                     <span class="sidenav-mini-icon"> W </span>
-                                    <span class="sidenav-normal  ms-2  ps-1"> Persons </span>
+                                    <span class="sidenav-normal  ms-2  ps-1"> Weekly Report </span>
                                 </a>
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link text-white" href="/rtl-page">
-                                    <span class="sidenav-mini-icon"> P </span>
-                                    <span class="sidenav-normal  ms-2  ps-1"> Claims </span>
-                                </a>
-                            </li>
-                            <li class="nav-item ">
-                                <a class="nav-link text-white" href="/widgets">
-                                    <span class="sidenav-mini-icon"> I </span>
-                                    <span class="sidenav-normal  ms-2  ps-1"> Letters </span>
-                                </a>
-                            </li>
-                            <li class="nav-item ">
-                                <a class="nav-link text-white" href="/charts">
-                                    <span class="sidenav-mini-icon"> S </span>
-                                    <span class="sidenav-normal  ms-2  ps-1"> Import&Export </span>
+                                <a class="nav-link text-white" href="/comments/month">
+                                    <span class="sidenav-mini-icon"> M </span>
+                                    <span class="sidenav-normal  ms-2  ps-1"> Monthly Report </span>
                                 </a>
                             </li>
                         </ul>
@@ -623,7 +623,7 @@
                 </div>
             </div>
         <?php
-        $tasks = \App\Models\Task::whereNotIn('status_id', [2])->where('user_id', Auth::User()->id)->orderBy('id', 'desc')->limit(4)
+        $tasks = \App\Models\Task::where('user_id', Auth::User()->id)->orderBy('id', 'desc')->limit(5)
         ->get();
         // ->map(fn ($pay) => [
         //     'id' => $pay->id,
@@ -703,6 +703,12 @@ $(document).ready(function() {
     @if(session()->has('warning'))
         toastr.warning("{{ session()->get('warning') }}");
     @endif
+});
+
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
 });
 </script>
 </body>
