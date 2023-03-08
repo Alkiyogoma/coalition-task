@@ -57,7 +57,7 @@ class UsersImport implements ToModel, WithHeadingRow
                 'installment_id' => $installment->id,
                 'installment_type_id' => 2
             ]);
-        
+         
             if(isset($row['payment']) && (int)$row['payment'] > 0){
                 \App\Models\Payment::create([
                     'client_id' => $user->id,
