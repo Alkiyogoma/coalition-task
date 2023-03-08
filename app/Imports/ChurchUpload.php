@@ -2,7 +2,7 @@
 
 namespace App\Imports;
 
-use App\Models\Church;
+use App\Models\Payment;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Concerns\ToModel;
 
@@ -15,7 +15,7 @@ class ChurchUpload implements ToModel
      */
     public function model(array $row)
     {
-        return new Church([
+        return new Payment([
            'name' => $row[0],
            'location'  => $row[1],
            'phone'  => validate_phone_number(trim($row[2]))[1],
