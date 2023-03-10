@@ -30,7 +30,7 @@
                                         <td>{{ $role->name }}</td>
                                         <td>Active</td>
                                         <td class="text-right">
-                                            <a href="<?=url('permissions/'.$role->id)?>" class="btn btn-outline-secondary btn-sm btn-rounded"><i class="fas fa-toggle-on"></i>Assign</a>
+                                            <a href="<?=url('permissions/'.$role->id)?>" class="btn btn-outline-secondary btn-sm btn-rounded"><i class="px-2 fas fa-toggle-on text-lg"></i>Assign</a>
                                         </td>
                                     </tr>
                                     @endforeach

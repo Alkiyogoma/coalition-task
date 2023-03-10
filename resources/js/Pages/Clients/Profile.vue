@@ -94,7 +94,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr v-for="install in installments">
+                                        <tr v-for="install in installments" :key="install.id">
                                             <td>
                                                 <div class="d-flex px-2 py-1">
                                                     <div class="m-3">
@@ -189,7 +189,7 @@
                 <div class="input-group input-group-outline my-3">
                     <select required class="form-control" name="installment_id" id="choices-currency-edit">
                         <option value="" selected="">Select Installments</option>
-                        <option v-for="installment in installments" :value="installment.id">{{ installment.name }}</option>
+                        <option v-for="installment in installments" :key="installment.id" :value="installment.id">{{ installment.name }}</option>
                     </select>
                 </div>
                 <div class="input-group input-group-outline my-3">
@@ -199,7 +199,7 @@
                 <div class="input-group input-group-outline my-3">
                     <select required class="form-control" name="method_id" id="choices-currency">
                         <option value="" selected="">Select Payment Method</option>
-                        <option v-for="method in methods" :value="method.id">{{ method.name }}</option>
+                        <option v-for="method in methods" :key="method.id" :value="method.id">{{ method.name }}</option>
                     </select>
                 </div>
                 <div class="input-group input-group-outline my-3">
@@ -247,7 +247,7 @@
                 <div class="input-group input-group-outline my-3">
                     <select required class="form-control" name="task_type_id" id="choices-currency-edit">
                         <option value="" selected="">Select Task Category</option>
-                        <option v-for="installment in tasktypes" :value="installment.id">{{ installment.name }}</option>
+                        <option v-for="installment in tasktypes" :key="installment.id" :value="installment.id">{{ installment.name }}</option>
                     </select>
                 </div>
                 <div class="row">
@@ -255,7 +255,7 @@
                         <div class="input-group input-group-outline my-3">
                             <select required class="form-control" name="priority_id" id="choices-currency">
                                 <option value="" selected="">Select Task Priority</option>
-                                <option v-for="priority in task_priority" :value="priority.id">{{ priority.name }}</option>
+                                <option v-for="priority in task_priority" :key="priority.id" :value="priority.id">{{ priority.name }}</option>
                             </select>
                         </div>
                     </div>
@@ -263,7 +263,7 @@
                         <div class="input-group input-group-outline my-3">
                             <select required class="form-control" name="status_id" id="choices-currency">
                                 <option value="" selected=""> Current Task Status</option>
-                                <option v-for="method in task_status" :value="method.id">{{ method.name }}</option>
+                                <option v-for="method in task_status" :key="method.id" :value="method.id">{{ method.name }}</option>
                             </select>
                         </div>
                     </div>
@@ -281,7 +281,7 @@
                     <div class="input-group input-group-outline my-3">
                         <select required class="form-control" name="next_type_id" id="choices-currency">
                             <option value="" selected="">Next Action Activity</option>
-                            <option v-for="priority in tasktypes" :value="priority.id">{{ priority.name }}</option>
+                            <option v-for="priority in tasktypes" :key="priority.id" :value="priority.id">{{ priority.name }}</option>
                         </select>
                     </div>
                     </div>

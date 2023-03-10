@@ -80,6 +80,7 @@
         <hr class="horizontal light mt-0 mb-2">
         <div class="collapse navbar-collapse  w-auto h-auto" id="sidenav-collapse-main">
             <ul class="navbar-nav">
+            @if(Auth::User()->role_id == 1 || Auth::User()->role_id ==2)
                 <li class="nav-item mb-2 mt-0">
                     <a data-bs-toggle="collapse" href="#ProfileNav" class="nav-link text-white"
                         aria-controls="ProfileNav" role="button" aria-expanded="false">
@@ -99,12 +100,7 @@
                                   <i class="material-icons text-lg me-2">layers</i>
                                     <span class="sidenav-normal  ms-3  ps-1"> My Tasks </span>
                                 </a>
-                            {{-- <li class="nav-item">
-                                    <a class="nav-link text-white" href="/account">
-                                        <span class="sidenav-mini-icon"> S </span>
-                                        <span class="sidenav-normal  ms-3  ps-1"> Settings </span>
-                                    </a>
-                            </li> --}}
+                            </li>
                             <li class="nav-item">
                               <a class="nav-link text-white" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                   <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -257,7 +253,7 @@
                         <ul class="nav ">
                           
                             <li class="nav-item ">
-                                <a class="nav-link text-white" href="/clients/{{ Auth::User()->uuid }}">
+                                <a class="nav-link text-white" href="/clients/user/{{ Auth::User()->id }}">
                                     <span class="sidenav-mini-icon"> C </span>
                                     <span class="sidenav-normal  ms-2  ps-1"> Customers </span>
                                 </a>
@@ -430,12 +426,44 @@
                         </ul>
                     </div>
                 </li>
+                @else
                 <li class="nav-item">
-                <a class="nav-link" href="/payments">
+                    <a class="nav-link text-white" href="/profile">
+                        <i class="material-icons-round opacity-10">home</i>
+                        <span class="nav-link-text ms-2 ps-1"> Dashboard </span>
+                    </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="/clients/user/{{ Auth::User()->id }}">
+                        <i class="material-icons-round opacity-10">table_view</i>
+                        <span class="nav-link-text ms-2 ps-1">Customers</span>
+                    </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a class="nav-link" href="/payments">
                         <i class="material-icons-round opacity-10">dashboard</i>
                         <span class="nav-link-text ms-2 ps-1">Payments</span>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="/mytasks">
+                        <i class="material-icons-round opacity-10">layers</i>
+                        <span class="nav-link-text ms-2 ps-1"> My Tasks </span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            {{ csrf_field() }}
+                    </form>
+                    <i class="material-icons-round opacity-10">lock</i>
+                        <span class="nav-link-text ms-2 ps-1"> Logout </span>
+                    </a>
+                </li>
+                @endif
+
                 <li class="nav-item">
                   <a class="nav-link"
                       href="/profile"

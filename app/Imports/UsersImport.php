@@ -15,12 +15,13 @@ class UsersImport implements ToModel, WithHeadingRow
    
     public function model(array $row)
     {
-        $user = Client::where('name', $row['customer'])->where('branch', $row['branch'])->first();
-        $emloyer = isset($row['employer']) && $row['employer'] != '' ? \App\Models\Employer::first() : [];
-        $branch =  \App\Models\Branch::first();
-        $phone = isset($row['phone']) && $row['phone'] != '' ? str_replace(['(000)', '', '(', ')'], ['','', '',''], $row['phone']) : 0;
-        $brach = !empty($branch) ? $branch : \App\Models\Branch::create(['name' => $row['branch']]);
-        $emp = !empty($emloyer) ? $emloyer : \App\Models\Employer::create(['name' => isset($row['employer']) && $row['employer'] != '' ? $row['employer'] : $row['customer'], 'phone' => isset($phone) && $phone != '' ? $phone : '0']);
+       // dd($row);
+        $user = Client::where('account', $row['account'])->first();
+        $branch =  isset($row['branch']) && $row['branch'] != '' ? \App\Models\Branch::where('name', $row['branch'])->first() : (!empty(\App\Models\Branch::where(DB::raw('lower(name)'), 'like', '%'.strtolower($row['partner']).'%')->first()) ? \App\Models\Branch::where(DB::raw('lower(name)'), 'like', '%'.strtolower($row['partner']).'%')->first() : \App\Models\Branch::create(['name' => $row['partner']]));
+        $employer = isset($row['employer']) && $row['employer'] != '' ? \App\Models\Employer::where('name', $row['employer'])->first() : [];
+
+        $phone = isset($row['phone']) && $row['phone'] != '' ? str_replace(['(000)', ' ', '(', ')'], ['','', '',''], $row['phone']) : 0;
+        $emp = !empty($employer) ? $employer : \App\Models\Employer::create(['name' => isset($row['employer']) && $row['employer'] != '' ? $row['employer'] : $row['customer'], 'phone' => isset($phone) && $phone != '' ? $phone : '0']);
         $staff = \App\Models\User::where(DB::raw('lower(name)'), 'like', '%'.strtolower($row['collector']).'%')->first();
         $partner = \App\Models\Partner::where(DB::raw('lower(name)'), 'like', '%'.strtolower($row['partner']).'%')->first();
         if(empty($user)){
@@ -31,13 +32,16 @@ class UsersImport implements ToModel, WithHeadingRow
                 'employer' => isset($row['employer']) && $row['employer'] != '' ? $row['employer'] : '',
                 'phone' => isset($phone) && $phone != '' ? validate_phone_number(trim($phone))[1] : 0,
                 'user_id' => !empty($staff) ? $staff->id : Auth::User()->id,
-                'branch' => $row['branch'],
-                'branch_id' => $brach->id,
+                'branch' => $branch->name,
+                'branch_id' => $branch->id,
                 'employer_id' => $emp->id,
                 'account' => $row['account'],
                 'amount' => (float)str_replace(',', '', $row['balance']),
-                'code' => date("mH"),
-                'address' => isset($row['branch']) && $row['branch'] != '' ? $row['branch'] : 'Dar Es Salaam',
+                'code' => isset($row['code']) && $row['code'] != '' ? $row['code'] : '',
+                'placement' => isset($row['nextaction']) && $row['nextaction'] != '' ? $row['nextaction'] : '',
+                'kinphone' => isset($row['kinphone']) && $row['kinphone'] != '' ? $row['kinphone'] : '',
+                'nextkin' => isset($row['nextkin']) && $row['nextkin'] != '' ? $row['nextkin'] : '',
+                'address' => isset($row['address']) && $row['address'] != '' ? $row['address'] :  $branch->name,
                 'partner_id' => !empty($partner) ? $partner-> id : 1,
                 'collector' => $row['collector'],
                 'deposit_account' => isset($row['settementaccount']) ? $row['settementaccount'] : null,
@@ -62,7 +66,7 @@ class UsersImport implements ToModel, WithHeadingRow
                 \App\Models\Payment::create([
                     'client_id' => $user->id,
                     'uuid' => (string) Str::uuid(),
-                    'installment_id' => \App\Models\ClientInstallment::where('client_id', $user->id)->orderBy('id')->first()->id,
+                    'installment_id' => \App\Models\ClientInstallment::where('client_id', $user->id)->orderBy('id')->first()->installment_id,
                     'amount' => (float)$row['payment'],
                     'date' => date('Y-m-d'),
                     'method_id' => 2,

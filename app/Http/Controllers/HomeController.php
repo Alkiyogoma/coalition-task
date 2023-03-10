@@ -161,7 +161,7 @@ class HomeController extends Controller
         'task_priority' => DB::table('task_priority')->orderBy('id')->get(),
         'task_status' => DB::table('task_status')->orderBy('id')->get(),
         '_token' => csrf_token(),
-        'color' => ['primary', 'secondary', 'success', 'info', 'warning', 'danger', 'dark']
+        'color' => ['default','primary', 'secondary', 'success', 'info', 'warning', 'danger', 'dark']
 
     ]);
     }
@@ -268,7 +268,9 @@ class HomeController extends Controller
 
     public function exportReport(){
         $date = date('F-d');
-        return Excel::download(new CustomerExport, 'Report_'.request()->segment(2).'_'.$date.'_'.Auth::User()->name.'.xlsx');
+        $partner = \App\Models\Partner::where('id', request()->segment(3))->first();
+
+        return Excel::download(new CustomerExport, 'Report_'.request()->segment(2).'_'.$partner->name.'_'.split_name(Auth::User()->name)['first'].'.xlsx');
     }
 
     // public function studentExport(){
@@ -508,26 +510,30 @@ class HomeController extends Controller
     {
         $partner = request('partner_id');
         $user_id = request('user_id');
+        
+    //    dd(date('Y-m-d', strtotime(request('start'))));
+    //    dd(request()->all());
         $task = \App\Models\Task::where('user_id', Auth::User()->id)->whereDate('created_at', date('Y-m-d'))->first();
 
         $this->data['url'] = !empty($task) ? "exportreport/".$type."/".$task->client->partner_id."/".Auth::User()->id : '';
         $task =   \App\Models\Task::where('user_id', Auth::User()->id)->whereDate('created_at', date('Y-m-d'))->get(['client_id']);
         $this->data['clients'] = \App\Models\Client::whereIn('id', $task)->orderBy('id', 'DESC')->get();
         if($type == 'today' && $partner > 0){
-            $task = (int)$user_id > 0 ? \App\Models\Task::where('user_id', $user_id)->whereDate('created_at', date('Y-m-d'))->get(['client_id']) :  \App\Models\Task::whereDate('created_at', date('Y-m-d'))->get(['client_id']);
+            $task = (int)$user_id > 0 ? \App\Models\Task::where('user_id', $user_id)->whereDate('created_at', date('Y-m-d'))->get(['client_id']) :  \App\Models\Task::whereDate('created_at', '>=', date('Y-m-01'))->get(['client_id']);
             $this->data['clients'] = \App\Models\Client::where('partner_id', $partner)->whereIn('id', $task)->orderBy('id', 'DESC')->get();
             $this->data['url'] = "exportreport/$type/$partner/$user_id";
         }
         if($type == 'week' && $partner > 0){
-            $task = (int)$user_id > 0 ? \App\Models\Client::where('user_id', $user_id)->whereDate('created_at', date('Y-m-d'))->get(['client_id']) :  \App\Models\Client::whereDate('created_at', date('Y-m-d'))->get(['client_id']);
+            $task = (int)$user_id > 0 ? \App\Models\Task::where('user_id', $user_id)->whereDate('created_at', '>=', date('Y-m-d'))->get(['client_id']) :  \App\Models\Task::whereDate('created_at', '>=', date('Y-m-01'))->get(['client_id']);
             $this->data['clients'] = \App\Models\Client::where('partner_id', $partner)->whereIn('id', $task)->orderBy('id', 'DESC')->get();
             $this->data['url'] = "exportreport/$type/$partner/$user_id";
         }
         if($type == 'month' && $partner > 0){
-            $task = (int)$user_id > 0 ? \App\Models\Client::where('user_id', $user_id)->whereDate('created_at', date('Y-m-d'))->get(['client_id']) :  \App\Models\Client::whereDate('created_at', date('Y-m-d'))->get(['client_id']);
+            $task = (int)$user_id > 0 ? \App\Models\Task::where('user_id', $user_id)->whereDate('created_at', '>=', date('Y-m-d'))->get(['client_id']) :  \App\Models\Task::whereDate('created_at', '>=', date('Y-m-01'))->get(['client_id']);
             $this->data['clients'] = \App\Models\Client::where('partner_id', $partner)->whereIn('id', $task)->orderBy('id', 'DESC')->get();
             $this->data['url'] = "exportreport/$type/$partner/$user_id";
         }
+        $this->data['types'] = $type;
         $this->data['partners'] = \App\Models\Partner::get();
         $this->data['codes'] = \App\Models\ActionCode::get();
         return view('message.comments', $this->data);

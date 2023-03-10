@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use \App\Http\Controllers\UsersController;
 use \App\Http\Controllers\HomeController;
 use \App\Http\Controllers\AccountController;
+use \App\Http\Controllers\ProfileController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -176,3 +177,4 @@ Route::post('/getCode', [HomeController::class, 'getCode'])->name('getCode');
 Route::get('/roles', [HomeController::class, 'roles'])->name('roles');
 Route::get('/permissions/{setting}', [HomeController::class, 'permissions'])->name('permissions');
 Route::post('/savePermits', [HomeController::class, 'savePermits'])->name('savePermits');
+Route::get('/staffs', [ProfileController::class, 'payments'])->name('roles');

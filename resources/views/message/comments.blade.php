@@ -1,16 +1,16 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="row gx-4">
+    <div class="row">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-body p-3">
+                <div class="card-body">
                 <form id="add-form" action="" method="POST">
                     <?= csrf_field() ?>
-                    <div class="row input-group input-group-outline my-3">
+                    <div class="row input-group input-group-outline">
                         <div class="col-md-3">
-                            <label class="col-form-label text-md-right">Set Title </label>
-                            <select name="partner_id" id="partner_id" class="form-control select-single" style="width: 100%" required>
+                            <label class="col-form-label text-md-right">Set Bank </label>
+                            <select name="partner_id" id="partner_id" class="form-control" style="width: 100%" required>
                             <option value="">select bank</option>
                             <?php 
                                 foreach($partners as $leader){
@@ -21,15 +21,24 @@
                         </div>
 
                         <div class="col-md-3">
-                            <label class="col-form-label text-md-right">Message</label>
-                            <select name="user_id" id="user_id" class="form-control select-single" style="width: 100%" required>
+                            <label class="col-form-label text-md-right">Staff</label>
+                            <select name="user_id" id="user_id" class="form-control" style="width: 100%" required>
                             </select>
                         </div>
                         
                         <div class="col-md-3">
-                            <label class="col-form-label text-md-right">Message</label>
-                            <input name="date" type="date" class="form-control" style="width: 100%" required>
-                            </input>
+                            @if($types == 'day')
+                                <label class="col-form-label text-md-right">Set Date</label>
+                                <input name="start" type="date" class="form-control" style="width: 100%" required>
+                            @endif
+                            @if($types == 'week')
+                                <label class="col-form-label text-md-right">Select Week</label>
+                                <input type="week" name="start" min="{{ date('Y') }}-W01" class="form-control" value="<?php echo date('Y').'-W'.date('W');?>" max="<?php echo date('Y').'-W'.date('W');?>">
+                            @endif
+                            @if($types == 'month')
+                                <label class="col-form-label text-md-right">Select Month</label>
+                                <input type="month" id="start" name="start" min="{{ date('Y') }}-01" value="{{ date('Y-m') }}" max="{{ date('Y-m') }}" class="form-control">
+                            @endif
                         </div>
                         <div class="col-md-3">
                             <label class="col-form-label text-md-right">Action</label> <br>
