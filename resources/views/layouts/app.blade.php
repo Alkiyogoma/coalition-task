@@ -223,7 +223,7 @@
                         <ul class="nav ">
                           
                             <li class="nav-item ">
-                                <a class="nav-link text-white" href="/clients/{{ Auth::User()->uuid }}">
+                                <a class="nav-link text-white" href="/clients/user/{{ Auth::User()->id }}">
                                     <span class="sidenav-mini-icon"> C </span>
                                     <span class="sidenav-normal  ms-2  ps-1"> Customers </span>
                                 </a>
@@ -688,6 +688,7 @@
   		toastr.warning("{{ session()->get('warning') }}");
   @endif
 });
+</script>
 
 </body>
 

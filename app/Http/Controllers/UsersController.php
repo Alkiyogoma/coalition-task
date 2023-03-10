@@ -152,10 +152,12 @@ class UsersController extends Controller
                     'last_update' => $user->updated_at,
                     'edit_url' => url('users.edit', $user),
                 ]);
-        return Inertia::render('Clients/Index', [
+            $view =  $type != '' && $type=='user' ? 'Dashboard' : 'Index';
+            $where_user =  $type != '' && $type=='user' ?  $id : 'Index';
+                return Inertia::render('Clients/'.$view, [
             'filters' => Request::all('search', 'trashed'),
             'users' => $users,
-            'groups' => DB::select('SELECT c.name as type, c.id, count(c.id) as total from departments c group by c.name,c.id'),
+            'groups' => DB::select('SELECT c.name as type, c.id, count(a.id) as total from partners c join clients a on a.partner_id=c.id '.$where_user.'  group by c.name,c.id'),
             'total_student' => \App\Models\User::where('status', 1)->count(),
 
         ]);
@@ -252,13 +254,13 @@ class UsersController extends Controller
             ],
             'installments' => \App\Models\ClientInstallment::where('client_id', $user->id)->orderBy('installment_id')
             ->get()->map(fn ($pay) => [
-                'id' => $pay->id,
+                'id' => $pay->installment_id,
                 'name' => $pay->name,
                 'start_date' => date('d M, Y', strtotime($pay->start_date)),
                 'end_date' => date('d M, Y', strtotime($pay->end_date)),
                 'amount' => money($pay->amount),
-                'paid' => money($pay->payments->sum('amount')),
-                'balance' => money($pay->amount - $pay->payments->sum('amount')),
+                'paid' => money($pay->installment->payments()->where('client_id', $user->id)->sum('amount')),
+                'balance' => money($pay->amount - $pay->installment->payments()->where('client_id', $user->id)->sum('amount')),
             ]),
             'tasks' => \App\Models\Task::where('client_id', $user->id)->orderBy('id', 'desc')->limit(4)
             ->get()->map(fn ($pay) => [

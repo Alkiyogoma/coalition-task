@@ -6,20 +6,13 @@
             <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
               <div class="bg-gradient-primary shadow-primary border-radius-lg pt-3 pb-3">
                 <a class="text-white text-capitalize ps-3">List of Company Departments</a>
-                <Link :href="`/add-dept`" style="float: right; margin-right: 4em;" class="mr-4 text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                <a :href="`/add-dept`" style="float: right; margin-right: 4em;" class="mr-4 text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
                   <span class="btn btn-primary btn-sm bg-gradient-secondary"> <i class="material-icons text-lg me-2">layers</i> Add Department</span>
-                </Link>
+                </a>
               </div>
             </div>
             <div class="card-body px-0 pb-2">
-              <!-- <search-filter v-model="form.search" class="mr-4 w-full max-w-md" @reset="reset">
-                <label class="block text-gray-700">Trashed:</label>
-                <select v-model="form.trashed" class="form-select mt-1 w-full">
-                  <option :value="null" />
-                  <option value="with">With Trashed</option>
-                  <option value="only">Only Trashed</option>
-                </select>
-              </search-filter> -->
+              
               <div class="table-responsive p-0">
                 <table class="table align-items-center mb-0">
                   <thead>
@@ -74,7 +67,7 @@
                   </tbody>
                 </table>
               </div>
-              <pagination class="mt-6" :links="users.links" />
+              <pagination class="mt-2" :links="users.links" />
 
             </div>
           </div>
@@ -85,7 +78,6 @@
 
 <script>
 import { Head, Link } from '@inertiajs/vue3'
-import SearchFilter from '../../Shared/SearchFilter'
 import Pagination from '../../Shared/Pagination'
 import Icon from '../../Shared/Icon'
 
@@ -95,7 +87,6 @@ export default {
     Icon,
     Link,
     Pagination,
-    SearchFilter,
   },
   props: {
     filters: Object,

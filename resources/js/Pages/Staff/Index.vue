@@ -22,7 +22,7 @@
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Phone</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Department</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Role</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder">Birth</th>
+                      <!-- <th class="text-uppercase text-secondary text-xxs font-weight-bolder">Birth</th> -->
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Employed</th>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</th>
                     </tr>
@@ -48,16 +48,19 @@
                       <td class="align-middle text-center">
                         <span class="text-secondary text-xs font-weight-bold">{{ user.role }}</span>
                       </td>
-                      <td class="align-middle text-center">
+                      <!-- <td class="align-middle text-center">
                         <span class="text-secondary text-xs font-weight-bold">{{ user.dob }}</span>
-                      </td>
+                      </td> -->
                       <td class="align-middle text-center">
                         <span class="text-secondary text-xs font-weight-bold">{{ user.jod }}</span>
                       </td>
                         <td class="align-middle">
-                        <a :href="`/profile/${user.uuid}`" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                        <Link :href="`/profile/${user.uuid}`" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
                           <span class="badge badge-sm bg-gradient-success">View</span>
-                        </a>
+                        </Link>
+                        <Link :href="`/clients/user/${user.id}`"  class="ml-3 text-info font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                          <span class="badge badge-sm bg-gradient-info">Clients</span>
+                        </Link>
                         <a href="javascript:;" class="ml-3 text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
                           <span class="badge badge-sm bg-gradient-secondary">Edit</span>
                         </a>

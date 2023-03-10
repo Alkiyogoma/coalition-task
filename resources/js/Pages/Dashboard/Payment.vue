@@ -16,7 +16,7 @@
                     </div>
                     <div class="card-body p-3">
                         <ul class="list-group">
-                            <li v-for="partner in partners" class="list-group-item border-0 justify-content-between ps-0 pb-0 border-radius-lg">
+                            <li v-for="partner in partners" :key="partner.name" class="list-group-item border-0 justify-content-between ps-0 pb-0 border-radius-lg">
                                 <div class="d-flex">
                                     <div class="d-flex align-items-center">
                                         <button
@@ -41,55 +41,48 @@
             </div>
 
             <div class="col-xl-4 col-lg-5 mt-lg-0 mt-4">
-                <div class="row">
 
-                    <div class="col-lg-12 col-sm-6">
-                        <div class="card mt-4">
-                            <div class="card-header pb-0 p-3">
-                                <h6 class="mb-0">Top Performers</h6>
-                            </div>
-                            <div class="card-body p-3">
-                                <ul class="list-group">
-                                    <li v-for="collect in payments"
-                                        class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
-                                        <div class="d-flex align-items-center">
-                                            <div class="icon icon-shape icon-sm me-3 bg-gradient-dark shadow text-center">
-                                                <i class="material-icons opacity-10">person</i>
-                                            </div>
-                                            <div class="d-flex flex-column">
-                                                <h6 class="mb-1 text-dark text-sm">{{ collect.name }}</h6>
-                                                <span class="text-xs">- {{ money(collect.amount) }} from, <span class="font-weight-bold"> {{ collect.total }}
-                                                        clients</span></span>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex">
-                                            <button
-                                                class="btn btn-link btn-icon-only btn-rounded btn-sm text-dark icon-move-right my-auto"><i
-                                                    class="ni ni-bold-right" aria-hidden="true"></i></button>
-                                        </div>
-                                    </li>
-                                  
-                                   
-                                </ul>
-                            </div>
-                        </div>
+                <div class="card">
+                    <div class="card-header pb-0 p-3">
+                        <h6 class="mb-0">Top Performers</h6>
                     </div>
-
+                    <div class="card-body p-3">
+                        <ul class="list-group">
+                            <li v-for="collect in payments" :key="collect.name"
+                                class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
+                                <div class="d-flex align-items-center">
+                                    <div class="icon icon-shape icon-sm me-3 bg-gradient-dark shadow text-center">
+                                        <i class="material-icons opacity-10">person</i>
+                                    </div>
+                                    <div class="d-flex flex-column">
+                                        <h6 class="mb-1 text-dark text-sm">{{ collect.name }}</h6>
+                                        <span class="text-xs">- {{ money(collect.amount) }} from, <span class="font-weight-bold"> {{ collect.total }}
+                                                clients</span></span>
+                                    </div>
+                                </div>
+                                <div class="d-flex">
+                                    <button
+                                        class="btn btn-link btn-icon-only btn-rounded btn-sm text-dark icon-move-right my-auto"><i
+                                            class="ni ni-bold-right" aria-hidden="true"></i></button>
+                                </div>
+                            </li>
+                            
+                            
+                        </ul>
+                    </div>
                 </div>
             </div>
-
+      
             <div class="row mt-4">
                 <div class="card">
 
                     <div class="card-body">
-                        <h5 class="mb-2">Datatable Simple</h5>
+                        <h5 class="mb-2">Payments Collections</h5>
 
                         <div class="table-responsive">
                         <table class="table table-flush">
                             <thead class="thead-light">
                                 <tr>
-                                    <!-- Collector 	 Customer Name 	 Employer 	 Account number 	 Contacts 	 Branch 	 Outstanding Balance(TZS) 	 Amount Received Jan'23  -->
-
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Collector</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"> Customer Name</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"> Account number</th>
@@ -100,7 +93,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="payment in collections">
+                                <tr v-for="payment in collections" :key="payment.id">
                                     <td class="text-sm font-weight-normal">{{ payment.collector }}</td>
                                     <td class="text-sm font-weight-normal">{{ payment.name }} </td>
                                     <td class="text-sm font-weight-normal">{{ payment.account }}</td>
