@@ -25,11 +25,6 @@ class PaymentExport extends \PhpOffice\PhpSpreadsheet\Cell\StringValueBinder imp
         return $this->titles($class_id, $partner_id);
     }
 
-    public function collections($group = 0, $id = 0, $export = null)
-    {
-        
-       
-    }
 
     public function collection()
     {
