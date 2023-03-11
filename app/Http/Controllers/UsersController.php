@@ -152,9 +152,9 @@ class UsersController extends Controller
                     'last_update' => $user->updated_at,
                     'edit_url' => url('users.edit', $user),
                 ]);
-            $view =  $type != '' && $type=='user' ? 'Dashboard' : 'Index';
-            $where_user =  $type != '' && $type=='user' ?  'WHERE user_id='.$id : '';
-                return Inertia::render('Clients/'.$view, [
+        $view =  $type != '' && $type=='user' ? 'Dashboard' : 'Index';
+        $where_user =  $type != '' && $type=='user' ?  'WHERE user_id='.$id : '';
+        return Inertia::render('Clients/'.$view, [
             'filters' => Request::all('search', 'trashed'),
             'users' => $users,
             'groups' => DB::select('SELECT c.name as type, c.id, count(a.id) as total from partners c join clients a on a.partner_id=c.id '.$where_user.'  group by c.name,c.id'),
