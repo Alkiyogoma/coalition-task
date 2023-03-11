@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use App\Imports\UsersImport;
 use App\Imports\PaymentImport;
 use App\Exports\CustomerExport;
+use App\Exports\PaymentExport;
 use Maatwebsite\Excel\Facades\Excel;
 use \App\Models\Client;
 use \App\Models\Message;
@@ -47,8 +48,8 @@ class HomeController extends Controller
     public function index($id = null, $group = null)
     {
         $date = "'".date('Y-m-d')."'";
-        $where_date = request('days') > 0 ? date('Y-m-d', strtotime('- '.request('days').'days')) : date('Y-m-01');
-        $where_ = request('days') > 0 ? "'".date('Y-m-d', strtotime('- '.request('days').'days'))."'" : "'".date('Y-m-01')."'";
+        $where_date = request('days') > 0 ? date('Y-m-d', strtotime('- '.request('days').'days')) : (request('days') != '' ? date('Y-m-d') : date('Y-m-01'));
+        $where_ = request('days') > 0 ? "'".date('Y-m-d', strtotime('- '.request('days').'days'))."'" :  (request('days') != '' ? "'".date('Y-m-d')."'" : "'".date('Y-m-01')."'");
         $payments = DB::select('WITH alltasks as(SELECT a.id, a.name, a.sex, sum(b.amount) as total, COUNT(DISTINCT b.client_id) as client FROM `payments` b JOIN `users` a on b.user_id=a.id where b.created_at >='.$where_.' GROUP BY a.id, a.name,a.sex), allusers as (SELECT a.id, a.name, sum(b.amount) as amount, COUNT(b.id) as clients FROM `clients` b JOIN `users` a on b.user_id=a.id where b.status=1 GROUP BY a.id, a.name) select a.id, a.name, a.sex, a.total, a.client, b.amount, b.clients from alltasks a left join allusers b on a.id=b.id order by total desc;');
         
         return inertia('Dashboard/Dashboard',
@@ -195,32 +196,47 @@ class HomeController extends Controller
     }
 
 
-    public function collections($id = null, $group = null)
+    public function collections($group = 0, $id = 0, $export = null)
     {
-        if(strlen($id) > 10 && (int)$group > 0){
-            $user= \App\Models\User::where('uuid', $id)->first();
+        if(($id === 'export' || $group === 'export') || $export == 'export'){
+            $date = date('F-d');
+            $partner = request()->segment(2) > 0 ? \App\Models\Partner::where('id', request()->segment(2))->first()->name : 'All Banks';
+            $name = (request()->segment(3) > 0 ? split_name(\App\Models\User::where('id', request()->segment(3))->first()->name)['first'] : 'All Staff');
+            return Excel::download(new PaymentExport, 'Report_'.date('Mi').'_'.$partner.'_'.$name.'.xlsx');
+        
+        }
+        $title = 'Payment Collections Since ';
+        if((int)($id) > 0 && (int)$group > 0){
+            $user= \App\Models\User::where('id', $id)->first();
+            $partner= \App\Models\Partner::where('id', $group)->first();
             $where_condition = " AND f.id=$user->id and a.partner_id=$group ";
-        }elseif(strlen($id) > 10 && (int)$group == 0){
-            $user= \App\Models\User::where('uuid', $id)->first();
-            $where_condition = " AND f.id=$user->id ";
+            $title = 'Payment Collections of '.$user->name.' from '. $partner->name.' Since ';
 
+        }elseif((int)($id) > 0 && (int)$group == 0){
+            $user= \App\Models\User::where('id', $id)->first();
+            $title = 'Payment Collections of '.$user->name.' Since ';
+            $where_condition = " AND f.id=$user->id ";
         }elseif((int)$group > 0){
-            $where_condition = " AND f.partner_id=$group ";
+            $partner= \App\Models\Partner::where('id', $group)->first();
+            $where_condition = " AND a.partner_id=$group ";
+            $title = 'Payment Collections from '. $partner->name.' Since ';
+
         }else{
             $where_condition = '';
         }
         $date = "'".date('Y-m-d')."'";
-        $where_date = request('days') > 0 ? date('Y-m-d', strtotime('- '.request('days').'days')) : date('Y-m-01');
-        $where_ = request('days') > 0 ? "'".date('Y-m-d', strtotime('- '.request('days').'days'))."'" : "'".date('Y-m-01')."'";
+        $where_date = request('days') > 0 ? date('Y-m-d', strtotime('- '.request('days').'days')) : (request('days') != '' ? date('Y-m-d') : date('Y-m-01'));
+        $where_ = request('days') > 0 ? "'".date('Y-m-d', strtotime('- '.request('days').'days'))."'" :  (request('days') != '' ? "'".date('Y-m-d')."'" : "'".date('Y-m-01')."'");
         $payments = DB::select('WITH alltasks as(SELECT c.id, c.name, sum(b.amount) as total, COUNT(DISTINCT b.client_id) as client FROM `payments` b JOIN `clients` a on b.client_id=a.id join partners c on c.id=a.partner_id join users f on f.id=a.user_id where b.created_at >='.$where_. ' '. $where_condition.' GROUP BY c.id, c.name), allusers as (SELECT b.id, b.name, sum(a.amount) as amount, COUNT(a.id) as clients FROM `clients` a JOIN `partners` b on a.partner_id=b.id  join users f on f.id=a.user_id   where a.status=1 '.$where_condition .' GROUP BY b.id, b.name) select a.id, a.name, a.total, a.client, b.amount, b.clients from alltasks a left join allusers b on a.id=b.id order by total desc;');
    
         return inertia('Clients/Payment',
         [
+            'title' => $title,
             'date' => $where_date,
             'url' => url()->current(),
             'days' => request('days'),
             'payments' => $payments,
-            'collections' => DB::select('SELECT b.uuid, f.name as collector, f.uuid as user_id, b.client_id, a.name, a.account, a.branch, a.phone, a.amount as amount, b.date FROM `payments` b JOIN `users` f on b.user_id=f.id join clients a on a.id=b.client_id where b.created_at >='.$where_. ' '. $where_condition.' ORDER BY b.id desc;'),
+            'collections' => DB::select('SELECT b.uuid, f.name as collector, f.uuid as user_id, b.client_id, a.name, a.account, a.branch, a.phone, b.amount as amount, b.date FROM `payments` b JOIN `users` f on b.user_id=f.id join clients a on a.id=b.client_id where b.created_at >='.$where_. ' '. $where_condition.' ORDER BY b.id desc;'),
 
         ]);
     }

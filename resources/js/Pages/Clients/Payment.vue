@@ -6,17 +6,17 @@
                 <div class="row">
                     <div class="col-lg-8 col-5 my-auto">
                     <div class="dropdown">
-                        <span class="mb-0 px-6">Payment Collections Since {{ date }}</span>
+                        <span class="mb-0 px-1"> {{ title }} - {{ date }} </span>
 
-                        <a class="cursor-pointer" id="dropdownTable" data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="cursor-pointer px-6" id="dropdownTable" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fa fa-ellipsis-v text-secondary"></i> Change Period
                         </a>
-                        <ul class="dropdown-menu px-2 py-3 ms-sm-n4 ms-n5" aria-labelledby="dropdownTable">
+                        <ul class="dropdown-menu px-2 py-2 ms-sm-n4 ms-n5" aria-labelledby="dropdownTable">
                         <li><a class="dropdown-item border-radius-md" :href="`${ url }`">This Month</a></li>
                         <li><a class="dropdown-item border-radius-md" :href="`${ url }?days=60`">Last Month</a></li>
-                        <li><a class="dropdown-item border-radius-md" :href="`${ url }?days=7`">Last 7 days</a></li>
-                        <li><a class="dropdown-item border-radius-md" :href="`${ url }?days=2`">Yesterday</a></li>
-                        <li><a class="dropdown-item border-radius-md" :href="`${ url }?days=1`">Today</a></li>
+                        <li><a class="dropdown-item border-radius-md" :href="`${ url }?days=6`">Last 7 days</a></li>
+                        <li><a class="dropdown-item border-radius-md" :href="`${ url }?days=1`">Yesterday</a></li>
+                        <li><a class="dropdown-item border-radius-md" :href="`${ url }?days=0`">Today</a></li>
                         </ul>
                     </div>
                     </div>
@@ -33,27 +33,27 @@
                 <table class="table align-items-center mb-0">
                   <thead>
                     <tr>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Employee Name</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Clients</th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Total</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Bank Name</th>
+                      <th class="text-uppercase text-secondary align-middle text-center font-weight-bolder opacity-7 ps-2">Customers</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Total Target</th>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Collected</th>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Score</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr v-for="payment in payments" key="payment.id">
+                    <tr v-for="payment in payments" :key="payment.id">
                       <td>
                         <div class="d-flex px-2 py-1">
                           <div class="px-2">
                               <img :src="`/${ callSex(payment.sex) }`" class="avatar avatar-xs rounded-circle">
                           </div>
                           <div class="d-flex flex-column justify-content-center">
-                            <h6 class="mb-0 text-sm">{{ payment.name }}</h6>
+                            <h6 class="mb-0 text-sm"><Link :href="`/collections/${ payment.id }/0`">{{ payment.name }}</Link></h6>
                           </div>
                         </div>
                       </td>
                       <td class="align-middle text-center text-sm">
-                        <span class="text-xs font-weight-bold"> {{ payment.client }} </span>
+                        <span class="text-center font-weight-bold"> {{ payment.client }} </span>
                       </td>
                       <td class="align-middle text-center text-sm">
                         <span class="text-xs font-weight-bold"> {{ money(payment.amount) }} </span>
@@ -100,7 +100,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="payment in collections">
+                                <tr v-for="payment in collections" :key="payment.id">
                                     <td class="text-sm font-weight-normal">{{ payment.collector }}</td>
                                     <td class="text-sm font-weight-normal">{{ payment.name }} </td>
                                     <td class="text-sm font-weight-normal">{{ payment.account }}</td>
@@ -119,6 +119,11 @@
                         </table>
                     </div>
                 </div>
+                <div class="col-lg-4 col-5 my-auto">
+                        <a :href="`${ url }/export?days=${ days }`" style="float: right; margin-right: 4em;" class="mr-4 text-white font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                            <span class="btn btn-primary btn-sm bg-gradient-info"><i class="material-icons text-lg me-2">payments</i> Export Payments</span>
+                        </a>
+                    </div>
             </div>
         </div>
     </div>
@@ -140,6 +145,8 @@ export default {
         payments: Array,
         partners: Array,
         date: String,
+        title: String,
+        days: String,
         url: String,
         days: String,
         collections: Array

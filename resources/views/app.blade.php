@@ -641,7 +641,7 @@
         <div class="card bg-gradient-dark">
           <div class="card-header pb-0 pt-3">
                 <div class="float-start">
-                    <h5 class="mt-3 mb-0">Latest  Notifications</h5>
+                    <h5 class="mt-1 mb-0">Latest  Notifications</h5>
                     <p>See Your Activities.</p>
                 </div>
                 <div class="float-end mt-4">

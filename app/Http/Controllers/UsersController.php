@@ -153,7 +153,7 @@ class UsersController extends Controller
                     'edit_url' => url('users.edit', $user),
                 ]);
             $view =  $type != '' && $type=='user' ? 'Dashboard' : 'Index';
-            $where_user =  $type != '' && $type=='user' ?  $id : 'Index';
+            $where_user =  $type != '' && $type=='user' ?  'WHERE user_id='.$id : '';
                 return Inertia::render('Clients/'.$view, [
             'filters' => Request::all('search', 'trashed'),
             'users' => $users,

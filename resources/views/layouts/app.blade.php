@@ -581,10 +581,10 @@
         <div class="card bg-gradient-dark">
           <div class="card-header pb-0 pt-3">
                 <div class="float-start">
-                    <h5 class="mt-3 mb-0">Latest  Notifications</h5>
+                    <h5 class="mt-1 mb-0">Latest  Notifications</h5>
                     <p>See Your Activities.</p>
                 </div>
-                <div class="float-end mt-4">
+                <div class="float-end mt-1">
                     <button class="btn btn-link text-dark p-0 fixed-plugin-close-button">
                         <i class="material-icons">clear</i>
                     </button>
@@ -612,7 +612,7 @@
             <div class="card-body p-3">
               <div class="timeline timeline-dark timeline-one-side" data-timeline-axis-style="dotted">
                   @foreach ($tasks as $task)
-                  <div v-for="task in alltasks" :key="task.id" class="timeline-block">
+                  <div  class="timeline-block">
                                 <span class="timeline-step bg-dark p-3">
                                     <i class="material-icons text-white text-sm opacity-10">
                                         notifications
