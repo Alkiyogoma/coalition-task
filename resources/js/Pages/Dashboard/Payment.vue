@@ -23,8 +23,10 @@
                                             class="btn btn-icon-only btn-rounded btn-outline-danger mb-0 me-3 p-3 btn-sm d-flex align-items-center justify-content-center"><i
                                                 class="material-icons text-lg">expand_more</i></button>
                                         <div class="d-flex flex-column">
-                                            <h6 class="mb-1 text-dark text-sm">{{ partner.name }}</h6>
-                                            <span class="text-xs"> Amount {{ money(partner.amount)  }}</span>
+                                            <Link :href="`/collections/${ partner.id }/0`">
+                                                <h6 class="mb-1 text-dark text-sm">{{ partner.name }}</h6>
+                                                <span class="text-xs"> Amount {{ money(partner.amount)  }}</span>
+                                            </Link>
                                         </div>
                                     </div>
                                     <div
@@ -55,9 +57,11 @@
                                         <i class="material-icons opacity-10">person</i>
                                     </div>
                                     <div class="d-flex flex-column">
+                                        <Link :href="`/collections/0/${ collect.id }`">
                                         <h6 class="mb-1 text-dark text-sm">{{ collect.name }}</h6>
-                                        <span class="text-xs">- {{ money(collect.amount) }} from, <span class="font-weight-bold"> {{ collect.total }}
+                                        <span class="text-xs">TZS {{ money(collect.amount) }} from, <span class="font-weight-bold"> {{ collect.total }}
                                                 clients</span></span>
+                                        </Link>
                                     </div>
                                 </div>
                                 <div class="d-flex">
@@ -77,8 +81,16 @@
                 <div class="card">
 
                     <div class="card-body">
-                        <h5 class="mb-2">Payments Collections</h5>
-
+                        <div class="row">
+                            <div class="col-lg-8">
+                                <h5 class="mb-2">Latest Payments Collections</h5>
+                            </div>
+                            <div class="col-lg-4 col-5 my-auto">
+                                <a href="/paymentadd" style="float: right; margin-right: 4em;" class="mr-4 text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                                    <span class="btn btn-primary btn-sm bg-gradient-secondary"><i class="material-icons text-lg me-2">add</i> Add Payments</span>
+                                </a>
+                            </div>
+                        </div>
                         <div class="table-responsive">
                         <table class="table table-flush">
                             <thead class="thead-light">

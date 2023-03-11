@@ -86,9 +86,9 @@
                     <ul class="dropdown-menu px-2 py-3 ms-sm-n4 ms-n5" aria-labelledby="dropdownTable">
                       <li><a class="dropdown-item border-radius-md" href="/dashboard">This Month</a></li>
                       <li><a class="dropdown-item border-radius-md" href="/dashboard?days=60">Last Month</a></li>
-                      <li><a class="dropdown-item border-radius-md" href="/dashboard?days=7">Last 7 days</a></li>
-                      <li><a class="dropdown-item border-radius-md" href="/dashboard?days=2">Yesterday</a></li>
-                      <li><a class="dropdown-item border-radius-md" href="/dashboard?days=1">Today</a></li>
+                      <li><a class="dropdown-item border-radius-md" href="/dashboard?days=6">Last 7 days</a></li>
+                      <li><a class="dropdown-item border-radius-md" href="/dashboard?days=1">Yesterday</a></li>
+                      <li><a class="dropdown-item border-radius-md" href="/dashboard?days=0">Today</a></li>
                     </ul>
                   </div>
                 </div>
@@ -107,7 +107,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr v-for="payment in payments" key="payment.id">
+                    <tr v-for="payment in payments" :key="payment.id">
                       <td>
                         <div class="d-flex px-2 py-1">
                           <div class="px-2">
@@ -151,7 +151,7 @@
             <div class="card-header pb-0 p-3">
               <div class="row">
                 <div class="col-6 d-flex align-items-center">
-                  <h6 class="mb-0">Today Sammary</h6>
+                  <h6 class="mb-0">Today Summary</h6>
                 </div>
                 <div class="col-6 text-end">
                   <a class="btn btn-outline-primary btn-sm mb-0">View All</a>
@@ -160,7 +160,7 @@
             </div>
             <div class="card-body p-3 pb-0">
               <ul class="list-group">
-                <li v-for="collect in collections" key="collect.id" class="list-group-item border-0 d-flex justify-content-between ps-0 mb-1 border-radius-lg">
+                <li v-for="collect in collections" :key="collect.id" class="list-group-item border-0 d-flex justify-content-between ps-0 mb-1 border-radius-lg">
                   <div class="d-flex flex-column">
                     <h6 class="mb-1 text-dark font-weight-bold text-sm"> - {{ collect.name }}</h6>
                     <span class="text-xs">#{{ collect.code }}</span>
