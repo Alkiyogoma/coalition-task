@@ -442,7 +442,7 @@
                 </li>
                 
                 <li class="nav-item">
-                    <a class="nav-link" href="/payments">
+                    <a class="nav-link" href="/collections">
                         <i class="material-icons-round opacity-10">dashboard</i>
                         <span class="nav-link-text ms-2 ps-1">Payments</span>
                     </a>
