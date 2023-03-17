@@ -29,8 +29,9 @@ class CustomerExport extends \PhpOffice\PhpSpreadsheet\Cell\StringValueBinder im
         $type = request()->segment(2);
         $partner_id = request()->segment(3);
         $user_id = request()->segment(4);
+        $date = date('Y-m-d');
         if($type == 'today' && $partner_id > 0){
-            $task = (int)$user_id > 0 ? \App\Models\Task::where('user_id', $user_id)->whereDate('created_at', date('Y-m-d'))->get(['client_id']) :  \App\Models\Task::whereDate('created_at', date('Y-m-d'))->get(['client_id']);
+            $task = (int)$user_id > 0 ? \App\Models\Task::where('user_id', $user_id)->whereDate('created_at', date('Y-m-d', strtotime(request('start'))))->get(['client_id']) :  \App\Models\Task::whereDate('created_at', date('Y-m-d', strtotime(request('start'))))->get(['client_id']);
             $clients = \App\Models\Client::where('partner_id', $partner_id)->whereIn('id', $task)->orderBy('id', 'DESC')
             ->get()->map(fn ($pay) => [
                 'account' => (string)$pay->account,
@@ -42,10 +43,13 @@ class CustomerExport extends \PhpOffice\PhpSpreadsheet\Cell\StringValueBinder im
         }
         if($type != 'today' && $partner_id > 0){
             if($type == 'week' && $partner_id > 0){
-                $date = date('Y-m-d', strtotime('-7 days'));
+                $start = date('Y-m-d', strtotime(request('start')));
+                $end  = date('Y-m-d',strtotime('+6 day',strtotime($start)));
             }
+
             if($type == 'month' && $partner_id > 0){
-            $date = date('Y-m-d', strtotime('-30 days')); 
+            $start = date('Y-m-d', strtotime(request('start')));
+            $end  = date('Y-m-d',strtotime('+29 day',strtotime($start)));
             }
             $i = 1;
             $partner = \App\Models\Partner::where('id', $partner_id)->first();
@@ -64,7 +68,7 @@ class CustomerExport extends \PhpOffice\PhpSpreadsheet\Cell\StringValueBinder im
                     'amount' => (string)($pay->amount),
                     'nextkin' => $pay->nextkin,
                     'nextkinphone' => $pay->nextkinphone,
-                    'payments' => $pay->payments()->whereDate('created_at', '>=', $date)->sum('amount'),
+                    'payments' => $pay->payments()->whereBetween('date', [$start, $end])->sum('amount'),
                     'code' => $pay->code,
                     'placement' => $pay->placement,
                     'about' => $pay->code
@@ -82,7 +86,7 @@ class CustomerExport extends \PhpOffice\PhpSpreadsheet\Cell\StringValueBinder im
                     'phone' => str_replace('+255', '+255(000)', $pay->phone),
                     'branch' => $pay->branch,
                     'amount' => (string)($pay->amount),
-                    'payments' => $pay->payments()->whereDate('created_at', '>=', $date)->sum('amount'),
+                    'payments' => $pay->payments()->whereBetween('date', [$start, $end])->sum('amount'),
                     'code' => $pay->code,
                     'placement' => $pay->placement,
                     'about' => $pay->code
@@ -100,7 +104,7 @@ class CustomerExport extends \PhpOffice\PhpSpreadsheet\Cell\StringValueBinder im
                     'employer' => $pay->deposit_account,
                     'amount' => (string)($pay->amount),
                     'phone' => $pay->phone,
-                    'payments' => $pay->payments()->whereDate('created_at', '>=', $date)->sum('amount'),
+                    'payments' => $pay->payments()->whereBetween('date', [$start, $end])->sum('amount'),
                     'code' => $pay->code,
                     'status' => $pay->code,
                     'placement' => $pay->placement,
@@ -119,7 +123,7 @@ class CustomerExport extends \PhpOffice\PhpSpreadsheet\Cell\StringValueBinder im
                     'branch' => $pay->branch,
                     'zone' => '',
                     'amount' => (string)($pay->amount),
-                    'payments' => $pay->payments()->whereDate('created_at', '>=', $date)->sum('amount'),
+                    'payments' => $pay->payments()->whereBetween('date', [$start, $end])->sum('amount'),
                     'days' => '',
                     'system' => '',
                     'employer' => $pay->employer,

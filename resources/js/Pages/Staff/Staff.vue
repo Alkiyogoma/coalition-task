@@ -73,7 +73,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="payment in payments">
+                <tr v-for="payment in payments" :key="payment.id">
                   <td>
                       <p class="text-sm font-weight-bold mb-0">{{ getMonthName(payment.month) }}</p>
                   </td>
@@ -138,8 +138,37 @@
                     <h6 class="text-dark text-sm font-weight-bold mb-0">{{ task.name }}</h6>
                     <p class="text-sm text-dark">
                         {{ task.about }}
-                        <br> <strong> Status - {{ task.status }}</strong> &nbsp; &nbsp; <Link :href="`/client/${task.uuid}/view`">Client: {{ task.client }}</Link> &nbsp; &nbsp; -&nbsp; &nbsp;  {{ task.time }}
+                        <br><Link :href="`/client/${task.uuid}/view`">Client: {{ task.client }}</Link> &nbsp; &nbsp; -&nbsp; &nbsp;  {{ task.time }}
                     </p>
+                    <div class="d-flex mt-0">
+                                        <div>
+                                            <i class="material-icons text-sm me-1 cursor-pointer">notifications</i>
+                                        </div>
+                                        <span class="text-sm me-2">{{ task.type }}</span>
+                                        <div>
+                                            <i class="material-icons text-sm me-1 cursor-pointer">layers</i>
+                                        </div>
+                                        <span class="text-sm me-2">{{ task.status }}</span>
+                                        <div>
+                                            <i class="material-icons text-sm me-1 cursor-pointer">thumb_up</i>
+                                        </div>
+                                        <span class="text-sm me-2"> {{ task.time }}</span>
+                                        <div>
+                                            <i class="material-icons text-xl me-1 cursor-pointer">more_vert</i>
+                                        </div>
+                                        <span class="text-sm me-2">
+                                        <div class="dropstart">
+                                            <a href="javascript:;" class="text-success" id="dropdownDesignCard" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <b><u>Update</u></b>
+                                            </a>
+                                            <ul class="dropdown-menu dropdown-menu-lg-start px-2 py-3" aria-labelledby="dropdownDesignCard">
+                                                <li v-for="method in task_status" :key="method.id"><a class="dropdown-item border-radius-md" :href="`/taskstatus/${task.uuid}/${method.id}`">{{ method.name }}</a></li>
+                                                <li><hr class="dropdown-divider"></li>
+                                                <li><a class="dropdown-item border-radius-md text-danger" :href="`/deletetask/${task.uuid}/delete`">Delete Task</a></li>
+                                            </ul>
+                                        </div>
+                                        </span>
+                                    </div>
                 </div>
             </div>
         </div>
@@ -170,6 +199,7 @@ export default {
   },
   props: {
     staff: Object,
+    task_status: Array,
     payments: Array,
     tasks: Array,
   },

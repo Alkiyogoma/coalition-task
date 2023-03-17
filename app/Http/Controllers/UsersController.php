@@ -79,6 +79,7 @@ class UsersController extends Controller
                     ];
             return Inertia::render('Staff/Staff', [
                 'payments' => $payments,
+                'task_status' => DB::table('task_status')->orderBy('id')->get(),
                 'staff' => $users,
                 'tasks' => \App\Models\Task::where('user_id', $user->id)->orderBy('id', 'desc')->limit(20)
                 ->get()->map(fn ($pay) => [
@@ -630,14 +631,15 @@ class UsersController extends Controller
             'phone' =>  validate_phone_number(trim(request('phone')))[1],
             'user_id' => request('user_id'),
             'sms_count' => $sms_count_per_sms, 
-            'status' => 0,
+            'status' => 1,
             'return_code' => 'Sent',
             'client_id' => request('client_id'),
             'sender_id' => 'STEAM',
             'sms_id' => '1',
             'sms_type' => '1'
         ]);
-        
+        send_sms(str_replace('+', '', $message->phone), $message->body);
+
         if($message && (int)$message->client_id > 0){
             \App\Models\Task::create([
                 'title' => $message->title,

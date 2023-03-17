@@ -60,9 +60,7 @@ Route::get('/notifications', function () {
     return Inertia('Notification');
 });
 
-Route::get('/calendar', function () {
-    return Inertia('Calendar');
-});
+
 Auth::routes();
 
 Route::get('user/{contact}/edit', [UsersController::class, 'edit_customer']);
@@ -130,6 +128,9 @@ Route::get('/voucher/{id}/view', [AccountController::class, 'voucher'])->name('v
 
 Route::get('/tasks', [HomeController::class, 'tasks'])->name('tasks');
 Route::get('/mytasks/{id?}', [HomeController::class, 'profile'])->name('mytasks');
+Route::get('/calendar/{id?}', [HomeController::class, 'calendar'])->name('calendar');
+Route::get('/calendar_data/{id?}', [HomeController::class, 'calendar_data'])->name('calendar_data');
+
 Route::post('saveTask', [HomeController::class, 'saveTask']);
 Route::get('taskstatus/{id}/{type}', [HomeController::class, 'updateTask']);
 Route::get('deletetask/{id}/delete', [HomeController::class, 'deleteTask']);
@@ -172,6 +173,7 @@ Route::post('/groupClient', [HomeController::class, 'groupClient'])->name('group
 Route::post('/callTasks', [HomeController::class, 'callTasks'])->name('callTasks');
 Route::post('/callGroup', [HomeController::class, 'callGroup'])->name('callGroup');
 Route::post('/getCode', [HomeController::class, 'getCode'])->name('getCode');
+Route::post('/searchs', [HomeController::class, 'search'])->name('searchs');
 
 
 Route::get('/roles', [HomeController::class, 'roles'])->name('roles');
