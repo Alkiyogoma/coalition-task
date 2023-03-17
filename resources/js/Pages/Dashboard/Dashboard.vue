@@ -154,20 +154,18 @@
                   <h6 class="mb-0">Today Summary</h6>
                 </div>
                 <div class="col-6 text-end">
-                  <a class="btn btn-outline-primary btn-sm mb-0">View All</a>
+                  <a href="/payments" class="btn btn-outline-primary btn-sm mb-0">View All</a>
                 </div>
               </div>
             </div>
             <div class="card-body p-3 pb-0">
               <ul class="list-group">
-                <li v-for="collect in collections" :key="collect.id" class="list-group-item border-0 d-flex justify-content-between ps-0 mb-1 border-radius-lg">
+                <li v-for="collect in collections" :key="collect.id" class="list-group-item border-0 d-flex justify-content-between ps-0 mb-0 border-radius-lg">
                   <div class="d-flex flex-column">
-                    <h6 class="mb-1 text-dark font-weight-bold text-sm"> - {{ collect.name }}</h6>
-                    <span class="text-xs">#{{ collect.code }}</span>
+                    <h6 class="mb-0 text-dark font-weight-bold text-sm"> - {{ collect.name }}</h6>
                   </div>
                   <div class="d-flex align-items-center text-sm">
-                    {{ money(collect.amount) }}
-                    <a class="btn btn-link text-dark text-sm mb-0 px-0 ms-4"><i class="material-icons text-lg position-relative me-1">payments</i> </a>
+                    <a class="btn btn-link text-dark text-sm mb-0 px-0">{{ money(collect.amount) }}</a>
                   </div>
                 </li>
               </ul>
