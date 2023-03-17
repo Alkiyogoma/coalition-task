@@ -27,17 +27,16 @@
                         </div>
                         
                         <div class="col-md-3">
-                            @if($types == 'day')
-                                <label class="col-form-label text-md-right">Set Date</label>
-                                <input name="start" type="date" class="form-control" style="width: 100%" required>
-                            @endif
+                            
                             @if($types == 'week')
                                 <label class="col-form-label text-md-right">Select Week</label>
                                 <input type="week" name="start" min="{{ date('Y') }}-W01" class="form-control" value="<?php echo date('Y').'-W'.date('W');?>" max="<?php echo date('Y').'-W'.date('W');?>">
-                            @endif
-                            @if($types == 'month')
+                            @elseif($types == 'month')
                                 <label class="col-form-label text-md-right">Select Month</label>
                                 <input type="month" id="start" name="start" min="{{ date('Y') }}-01" value="{{ date('Y-m') }}" max="{{ date('Y-m') }}" class="form-control">
+                            @else
+                                <label class="col-form-label text-md-right">Set Date</label>
+                                <input name="start" type="date" class="form-control" style="width: 100%" required>
                             @endif
                         </div>
                         <div class="col-md-3">
@@ -79,7 +78,8 @@
                                     <td class="text-sm font-weight-normal">{{ $client->account }}</td>
                                     <td class="text-sm font-weight-normal ">
                                         <div class="input-group input-group-outline">
-                                        <select name="codes" id="code{{ $client->id }}" onchange="send_comment(<?= $client->id ?>)" class="form-control">
+                                        <select name="codes" id="code{{ $client->id }}" onchange="send_comment(<?= $client->id ?>, 'code')" class="form-control">
+                                            <option value="<?= $client->code ?>"><?= $client->code ?></option>
                                            @foreach($codes as $code)
                                             <option value="{{ $code->code }}"> {{ $code->code}}</option>
                                            @endforeach
@@ -88,17 +88,17 @@
                                     </td>
                                     <td class="text-sm font-weight-normal">
                                         <div class="input-group input-group-outline">
-                                            <input type="date" name="date{{ $client->id }}" id="dates" class="form-control">
+                                            <input type="date" name="date{{ $client->id }}" id="ptpdate{{ $client->id }}" onchange="send_comment(<?= $client->id ?>, 'ptpdate')" value="<?php echo $client->ptpdate != '' ?  date('Y-m-d', strtotime($client->ptpdate)) : ''; ?>" class="form-control">
                                         </div>
                                     </td>
                                     <td class="text-sm font-weight-normal">
                                         <div class="input-group input-group-outline">
-                                            <input type="text" class="form-control" name="ptamount{{ $client->id }}" value="{{ $client->payments()->sum('amount') }}">
+                                            <input type="text" class="form-control" name="ptpamount{{ $client->id }}"  id="ptpamount{{ $client->id }}"  onchange="send_comment(<?= $client->id ?>, 'ptpamount')" value="{{ $client->ptpamount}}">
                                         </div>
                                     </td>
                                     <td class="text-sm font-weight-normal">
                                         <div class="input-group input-group-outline">
-                                            <textarea type="text" style="height: 40px;" name="comment{{ $client->id }}" id="comment{{ $client->id }}" class="form-control"></textarea>
+                                            <textarea type="text" style="height: 40px;" name="placement{{ $client->id }}" id="placement{{ $client->id }}"  onchange="send_comment(<?= $client->id ?>, 'placement') class="form-control">{{ $client->placement }}</textarea>
                                         </div>
                                     </td>
                                 </tr>
@@ -121,7 +121,7 @@
         </div>
         <div class="col-md-6">
             <div class="flex items-center justify-end border-gray-100">
-               @if($url != '') <a href="/{{ $url }}" class="btn bg-gradient-info btn-rounded" type="submit">Export Report</a> @endif
+               @if($url != '') <a href="/{{ $url }}?start={{ $start }}" class="btn bg-gradient-info btn-rounded" type="submit">Export Report</a> @endif
             </div>
         </div>
     </div>
@@ -200,8 +200,9 @@
             });
         }
     });
-    send_comment = function(id) {
+    send_comment = function(id,type) {
         var amount = $('#code'+id).val();
+        var value = $("#"+type+id).val();
         if (amount == 0) {
 
         } else {
@@ -210,11 +211,13 @@
                 url: "<?= url('getCode') ?>",
                 data: {
                     code: amount,
+                    type: type,
+                    type_value: value,
                     client_id: id
                 },
                 dataType: "html",
                 success: function(data) {
-                    $('#comment' + id).html(data);
+                    $('#placement' + id).html(data);
                 }
             });
         }

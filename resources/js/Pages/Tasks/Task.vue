@@ -44,7 +44,7 @@
                                     <div class="w-100">
                                         <div class="d-flex align-items-center mb-2">
                                             <a class="btn btn-youtube btn-simple mb-0 p-0" href="javascript:;">
-                                                <i class="fab fa-slack fa-lg"></i>
+                                                <span :class="`badge bg-gradient-${color[Math.floor(Math.random() * color.length)]} me-3`"> {{ average.total }} </span>
                                             </a>
                                             <span
                                                 class="me-2 text-sm font-weight-normal text-capitalize ms-2">{{ average.name }}</span>
@@ -138,10 +138,37 @@
                                     <h6 class="text-dark text-sm font-weight-bold mb-0">{{ task.name }}</h6>
                                     <p class="text-secondary text-xs mt-1 mb-1"> <Link :href="`/client/${task.uuid}/view`">Client: {{ task.client }}</Link> - {{ task.time }}</p>
                                     <p class="text-sm text-dark">
-                                        {{ task.about }}
-                                        <br> <strong> Status - {{ task.status }}</strong>
-
+                                       -  {{ task.about }}
                                     </p>
+                                    <div class="d-flex">
+                                        <div>
+                                            <i class="material-icons text-sm me-1 cursor-pointer">notifications</i>
+                                        </div>
+                                        <span class="text-sm me-2">{{ task.type }}</span>
+                                        <div>
+                                            <i class="material-icons text-sm me-1 cursor-pointer">layers</i>
+                                        </div>
+                                        <span class="text-sm me-2">{{ task.status }}</span>
+                                        <div>
+                                            <i class="material-icons text-sm me-1 cursor-pointer">thumb_up</i>
+                                        </div>
+                                        <span class="text-sm me-2"> {{ task.time }}</span>
+                                        <div>
+                                            <i class="material-icons text-xl me-1 cursor-pointer">more_vert</i>
+                                        </div>
+                                        <span class="text-sm me-2">
+                                        <div class="dropstart">
+                                            <a href="javascript:;" class="text-success" id="dropdownDesignCard" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <b><u>Update</u></b>
+                                            </a>
+                                            <ul class="dropdown-menu dropdown-menu-lg-start px-2 py-3" aria-labelledby="dropdownDesignCard">
+                                                <li v-for="method in task_status" :key="method.id"><a class="dropdown-item border-radius-md" :href="`/taskstatus/${task.uuid}/${method.id}`">{{ method.name }}</a></li>
+                                                <li><hr class="dropdown-divider"></li>
+                                                <li><a class="dropdown-item border-radius-md text-danger" :href="`/deletetask/${task.uuid}/delete`">Delete Task</a></li>
+                                            </ul>
+                                        </div>
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -163,7 +190,7 @@
                                 </span>
                                 <div class="timeline-content pt-1">
                                     <h6 class="text-white text-sm font-weight-bold mb-0">{{ task.name }}</h6>
-                                    <p class="text-secondary text-xs mt-1 mb-0">{{ task.user }} - {{ task.time }}</p>
+                                    <p class="text-secondary text-xs mt-1 mb-0">{{ task.user }} - {{ task.time }} - {{ task.type }}</p>
                                     <p class="text-sm text-white">
                                         {{ task.about }}
                                     </p>
@@ -196,20 +223,20 @@
                 <div class="input-group input-group-outline my-3">
                     <select required class="form-control" name="client_id" id="choices-currency-edit">
                         <option value="" selected="">Select Client</option>
-                        <option v-for="installment in clients" :value="installment.id">{{ installment.name }}</option>
+                        <option v-for="installment in clients" :value="installment.id" :key="installment.id">{{ installment.name }}</option>
                     </select>
                 </div>
                 
                 <div class="input-group input-group-outline my-3">
                     <select required class="form-control" name="user_id" id="choices-currency-edit">
                         <option value="" selected=""> Task Allocated to</option>
-                        <option v-for="installment in users" :value="installment.id">{{ installment.name }}</option>
+                        <option v-for="installment in users" :value="installment.id" :key="installment.id">{{ installment.name }}</option>
                     </select>
                 </div>
                 <div class="input-group input-group-outline my-3">
                     <select required class="form-control" name="task_type_id" id="choices-currency-edit">
                         <option value="" selected="">Select Task Category</option>
-                        <option v-for="installment in tasktypes" :value="installment.id">{{ installment.name }}</option>
+                        <option v-for="installment in tasktypes" :value="installment.id" :key="installment.id">{{ installment.name }}</option>
                     </select>
                 </div>
                 <div class="row">
@@ -217,7 +244,7 @@
                         <div class="input-group input-group-outline my-3">
                             <select required class="form-control" name="priority_id" id="choices-currency">
                                 <option value="" selected="">Select Task Priority</option>
-                                <option v-for="priority in task_priority" :value="priority.id">{{ priority.name }}</option>
+                                <option v-for="priority in task_priority" :value="priority.id" :key="priority.id">{{ priority.name }}</option>
                             </select>
                         </div>
                     </div>
@@ -225,7 +252,7 @@
                         <div class="input-group input-group-outline my-3">
                             <select required class="form-control" name="status_id" id="choices-currency">
                                 <option value="" selected=""> Current Task Status</option>
-                                <option v-for="method in task_status" :value="method.id">{{ method.name }}</option>
+                                <option v-for="method in task_status" :value="method.id" :key="method.id">{{ method.name }}</option>
                             </select>
                         </div>
                     </div>
@@ -243,7 +270,7 @@
                     <div class="input-group input-group-outline my-3">
                         <select required class="form-control" name="next_type_id" id="choices-currency">
                             <option value="" selected="">Next Action Activity</option>
-                            <option v-for="priority in tasktypes" :value="priority.id">{{ priority.name }}</option>
+                            <option v-for="priority in tasktypes" :value="priority.id" :key="priority.id">{{ priority.name }}</option>
                         </select>
                     </div>
                     </div>
@@ -269,6 +296,7 @@ export default {
         clients: Array,
         tasks: Array,
         alltasks: Array,
+        color: Array,
         task_priority: Array,
         tasktypes: Array,
         averages: Array,

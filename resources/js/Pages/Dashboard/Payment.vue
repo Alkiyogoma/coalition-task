@@ -59,15 +59,13 @@
                                     <div class="d-flex flex-column">
                                         <Link :href="`/collections/0/${ collect.id }`">
                                         <h6 class="mb-1 text-dark text-sm">{{ collect.name }}</h6>
-                                        <span class="text-xs">TZS {{ money(collect.amount) }} from, <span class="font-weight-bold"> {{ collect.total }}
-                                                clients</span></span>
+                                        <span class="text-xs">TZS {{ money(collect.amount) }}</span>
                                         </Link>
                                     </div>
                                 </div>
-                                <div class="d-flex">
-                                    <button
-                                        class="btn btn-link btn-icon-only btn-rounded btn-sm text-dark icon-move-right my-auto"><i
-                                            class="ni ni-bold-right" aria-hidden="true"></i></button>
+                                <div class="d-flex text-end">
+                                    <span class="font-weight-bold">  Customers <br> {{ collect.total }}</span>
+                                    
                                 </div>
                             </li>
                             
@@ -95,7 +93,7 @@
                         <table class="table table-flush">
                             <thead class="thead-light">
                                 <tr>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Collector</th>
+                                    <th class="text-uppercase text-dark text-left text-xxs font-weight-bolder opacity-7">Collector</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"> Customer Name</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"> Account number</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Branch</th>

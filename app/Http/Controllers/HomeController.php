@@ -13,6 +13,7 @@ use App\Exports\PaymentExport;
 use Maatwebsite\Excel\Facades\Excel;
 use \App\Models\Client;
 use \App\Models\Message;
+use DateTime;
 use Illuminate\Support\Str;
 
 class HomeController extends Controller
@@ -110,7 +111,8 @@ class HomeController extends Controller
         'tasktypes' => DB::table('task_type')->orderBy('id')->get(),
         'task_priority' => DB::table('task_priority')->orderBy('id')->get(),
         'task_status' => DB::table('task_status')->orderBy('id')->get(),
-        '_token' => csrf_token()
+        '_token' => csrf_token(),
+        'color' => ['info','primary', 'secondary', 'success', 'info', 'warning', 'danger', 'dark']
 
     ]);
     }
@@ -125,7 +127,7 @@ class HomeController extends Controller
         [
             'total' => \App\Models\Task::where('user_id', $user->id)->count(),
             'averages' => DB::select('SELECT a.id, a.name, COUNT(b.id) as total FROM `tasks` b JOIN `task_type` a on b.task_type_id=a.id WHERE  b.user_id='. $user->id . ' GROUP BY a.id, a.name'),
-            'statues' => DB::select('SELECT a.id, a.name, COUNT(b.id) as total FROM `tasks` b JOIN `task_status` a on b.task_type_id=a.id WHERE  b.user_id='. $user->id . ' GROUP BY a.id, a.name'),
+            'statues' => DB::select('SELECT a.id, a.name, COUNT(b.id) as total FROM `tasks` b JOIN `task_status` a on b.status_id=a.id WHERE  b.user_id='. $user->id . ' GROUP BY a.id, a.name'),
             'alltasks' => \App\Models\Task::where('user_id', $user->id)->where('status_id', 2)->orderBy('id', 'desc')->limit(20)
             ->get()->map(fn ($pay) => [
             'id' => $pay->id,
@@ -157,16 +159,58 @@ class HomeController extends Controller
             'nexttask' => !empty($pay->nexttask) ? $pay->nexttask->name : 'Followup',
         ]),
         'user' => $user,
-        'clients' => DB::table('clients')->where('user_id', $user->id)->orderBy('id')->get(),
+        'clients' => DB::table('clients')->where('status', 1)->where('user_id', $user->id)->orderBy('id')->get(),
         'tasktypes' => DB::table('task_type')->orderBy('id')->get(),
         'task_priority' => DB::table('task_priority')->orderBy('id')->get(),
         'task_status' => DB::table('task_status')->orderBy('id')->get(),
         '_token' => csrf_token(),
-        'color' => ['default','primary', 'secondary', 'success', 'info', 'warning', 'danger', 'dark']
+        'color' => ['info','primary', 'secondary', 'success', 'info', 'warning', 'danger', 'dark']
 
     ]);
     }
 
+    
+    public function calendar($id=null)
+    {
+     $uuid = $id !='' ? $id : Auth::User()->uuid;
+     $user = \App\Models\User::where('uuid', $uuid)->first();
+   
+        return inertia('Tasks/Calendar',
+        [
+            'alltasks' => \App\Models\Task::where('user_id', $user->id)->whereDate('next_date', '>=', date('Y-m-d'))->orderBy('next_date', 'asc')->limit(20)
+            ->get()->map(fn ($pay) => [
+                'id' => $pay->id,
+                'uuid' => $pay->client->uuid,
+                'title' => $pay->title,
+                'about' => $pay->about,
+                'date' => date('d M, Y', strtotime($pay->next_date)),
+                'time' =>  date('jS M Y, h:i:s A ',strtotime($pay->next_date)),
+                'user' => !empty($pay->user) ? $pay->user->name : 'Not Defined',
+                'client' => !empty($pay->client) ? $pay->client->name : 'Not Defined',
+                'phone' => !empty($pay->client) ? $pay->client->phone : 'Not Defined',
+                'type' => !empty($pay->tasktype) ? $pay->tasktype->name : 'Followup',
+                'status' => !empty($pay->taskstatus) ? $pay->taskstatus->name : 'On progess',
+                'nexttask' => (!empty($pay->client) ? $pay->client->name : 'Not Defined') . ' - ' . (!empty($pay->nexttask) ? $pay->nexttask->name : 'Followup'),
+            ]),
+            'user' => $user,
+            'color' => ['info','primary', 'secondary', 'success', 'info', 'warning', 'danger', 'dark']
+
+    ]);
+    }
+
+public function calendar_data($id = null){
+    $uuid = $id !='' ? $id : Auth::User()->uuid;
+    $user = \App\Models\User::where('uuid', $uuid)->first();
+    $tasks = \App\Models\Task::where('user_id', $user->id)->orderBy('id', 'desc')->limit(120)
+    ->get()->map(fn ($pay) => [
+       'start' => date('Y-m-d', strtotime($pay->task_date)),
+       'title' => $pay->title . ' - ' .$pay->client->name,
+       'end' =>  date('Y-m-d', strtotime($pay->next_date)),
+       'className' =>  $pay->status_id ==2 ? 'bg-gradient-info px-2' : 'bg-gradient-success px-2'
+    ]);
+    return response()->json($tasks);
+   //  json_encode($tasks);
+}
 
     public function receipt($id)
     {
@@ -527,25 +571,32 @@ class HomeController extends Controller
         $partner = request('partner_id');
         $user_id = request('user_id');
         
-    //    dd(date('Y-m-d', strtotime(request('start'))));
-    //    dd(request()->all());
         $task = \App\Models\Task::where('user_id', Auth::User()->id)->whereDate('created_at', date('Y-m-d'))->first();
+        $this->data['start'] = date('Y-m-d');
 
         $this->data['url'] = !empty($task) ? "exportreport/".$type."/".$task->client->partner_id."/".Auth::User()->id : '';
         $task =   \App\Models\Task::where('user_id', Auth::User()->id)->whereDate('created_at', date('Y-m-d'))->get(['client_id']);
         $this->data['clients'] = \App\Models\Client::whereIn('id', $task)->orderBy('id', 'DESC')->get();
         if($type == 'today' && $partner > 0){
-            $task = (int)$user_id > 0 ? \App\Models\Task::where('user_id', $user_id)->whereDate('created_at', date('Y-m-d'))->get(['client_id']) :  \App\Models\Task::whereDate('created_at', '>=', date('Y-m-01'))->get(['client_id']);
+            $task = (int)$user_id > 0 ? \App\Models\Task::where('user_id', $user_id)->whereDate('created_at', request('start'))->get(['client_id']) :  \App\Models\Task::whereDate('created_at', '>=', date('Y-m-01'))->get(['client_id']);
             $this->data['clients'] = \App\Models\Client::where('partner_id', $partner)->whereIn('id', $task)->orderBy('id', 'DESC')->get();
             $this->data['url'] = "exportreport/$type/$partner/$user_id";
+            $this->data['start'] = date('Y-m-d', strtotime(request('start')));
         }
         if($type == 'week' && $partner > 0){
-            $task = (int)$user_id > 0 ? \App\Models\Task::where('user_id', $user_id)->whereDate('created_at', '>=', date('Y-m-d'))->get(['client_id']) :  \App\Models\Task::whereDate('created_at', '>=', date('Y-m-01'))->get(['client_id']);
+            $start = date('Y-m-d', strtotime(request('start')));
+            $end  = date('Y-m-d',strtotime('+6 day',strtotime($start)));
+            $this->data['start'] = $start;
+            $task = (int)$user_id > 0 ? \App\Models\Task::where('user_id', $user_id)->whereBetween('task_date', [$start, $end])->get(['client_id']) :  \App\Models\Task::whereDate('created_at', '>=', date('Y-m-01'))->get(['client_id']);
             $this->data['clients'] = \App\Models\Client::where('partner_id', $partner)->whereIn('id', $task)->orderBy('id', 'DESC')->get();
             $this->data['url'] = "exportreport/$type/$partner/$user_id";
         }
         if($type == 'month' && $partner > 0){
-            $task = (int)$user_id > 0 ? \App\Models\Task::where('user_id', $user_id)->whereDate('created_at', '>=', date('Y-m-d'))->get(['client_id']) :  \App\Models\Task::whereDate('created_at', '>=', date('Y-m-01'))->get(['client_id']);
+            
+            $start = date('Y-m-d', strtotime(request('start')));
+            $end  = date('Y-m-d',strtotime('+29 day',strtotime($start)));
+            $this->data['start'] = $start;
+            $task = (int)$user_id > 0 ? \App\Models\Task::where('user_id', $user_id)->whereBetween('task_date', [$start, $end])->get(['client_id']) :  \App\Models\Task::whereDate('created_at', '>=', date('Y-m-01'))->get(['client_id']);
             $this->data['clients'] = \App\Models\Client::where('partner_id', $partner)->whereIn('id', $task)->orderBy('id', 'DESC')->get();
             $this->data['url'] = "exportreport/$type/$partner/$user_id";
         }
@@ -635,6 +686,9 @@ class HomeController extends Controller
         if((int)request('client_id') > 0){
             \App\Models\Client::where('id', request('client_id'))->update(['code' => request('code'),  'placement' => $code->about]);
         }
+        if((int)request('client_id') > 0 && request('type') != 'code'){
+            \App\Models\Client::where('id', request('client_id'))->update([request('type') => request('type_value')]);
+        }
     }
 
     public function saveTask(){
@@ -711,6 +765,58 @@ class HomeController extends Controller
     }
 }
 
-
   
+  public function search()
+  {
+      $q = request('q');
+
+      if (strlen($q) > 3) { //prevent empty search which load all results
+          $users = \App\Models\User::where(DB::raw('lower(name)'), 'like', '%'.strtolower($q).'%')
+          ->orWhere(DB::raw('lower(phone)'), 'like', '%'.strtolower($q).'%')->orderBy('name')->limit(5)->get();
+
+          $students = \App\Models\Client::where(DB::raw('lower(name)'), 'like', '%'.strtolower($q).'%')
+          ->orWhere(DB::raw('lower(phone)'), 'like', '%'.strtolower($q).'%')
+          ->orWhere(DB::raw('lower(account)'), 'like', '%'.strtolower($q).'%')->where('status', 1)->orderBy('name')->limit(7)->get();
+          
+          if (count($students) > 0) {
+              echo '<div class="w-full overflow-x-auto">
+                <table class="table">
+                    <thead>
+                        <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+                        <th class="px-1 py-1">-</th>
+                        <th class="px-1 py-1">Customer </th>
+                        <th class="px-1 py-1">Bank</th>
+                        <th class="px-1 py-1">Account</th>
+                        <th class="px-1 py-1">Balance</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">';
+
+              foreach ($students as $user) {
+
+                echo '<tr class="text-gray-700 dark:text-gray-400">
+                  <td class="px-1 py-1 text-sm"></td>
+                  <td class="px-1 py-1 text-sm">
+                    <a class="flex items-center justify-between text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray" href="/client/' . $user->uuid . '/view">
+                        ' .  $user->name . '</a>
+                    </td>
+                    <td class="px-1 py-1 text-sm">' .   $user->partner->name . '</td>
+                    <td class="px-1 py-1 text-sm">
+                        <a class="flex items-center justify-between text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray" href="/client/' . $user->uuid . '/view">
+                        ' .   $user->account . '</a>
+                    </td>
+                    <td class="px-1 py-1 text-sm">
+                        <a class="flex items-center justify-between text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray" href="/client/' . $user->uuid . '/view">
+                        ' .   money($user->amount) . '</a>
+                    </td>
+                </tr>';
+              }
+              echo '</tbody></table><hr></div>';
+          }
+      } else {
+          echo 'Result Not Found, Try Again.';
+      }
+  }
+
+
 }

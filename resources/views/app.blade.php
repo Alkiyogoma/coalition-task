@@ -428,7 +428,7 @@
                 </li>
                 @else
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="/profile">
+                    <a class="nav-link text-white" href="/payments">
                         <i class="material-icons-round opacity-10">home</i>
                         <span class="nav-link-text ms-2 ps-1"> Dashboard </span>
                     </a>
@@ -436,42 +436,62 @@
                 
                 <li class="nav-item">
                     <a class="nav-link text-white" href="/clients/user/{{ Auth::User()->id }}">
-                        <i class="material-icons-round opacity-10">table_view</i>
+                        <i class="material-icons-round opacity-10">supervisor_account</i>
                         <span class="nav-link-text ms-2 ps-1">Customers</span>
                     </a>
                 </li>
                 
                 <li class="nav-item">
-                    <a class="nav-link" href="/collections">
+                    <a class="nav-link" href="/collections/0/{{ Auth::User()->id }}">
                         <i class="material-icons-round opacity-10">dashboard</i>
                         <span class="nav-link-text ms-2 ps-1">Payments</span>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-white" href="/mytasks">
-                        <i class="material-icons-round opacity-10">layers</i>
+                        <i class="material-icons-round opacity-10">grading</i>
                         <span class="nav-link-text ms-2 ps-1"> My Tasks </span>
                     </a>
                 </li>
+                
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                            {{ csrf_field() }}
-                    </form>
-                    <i class="material-icons-round opacity-10">lock</i>
-                        <span class="nav-link-text ms-2 ps-1"> Logout </span>
+                    <a data-bs-toggle="collapse" href="#pagesExamples" class="nav-link text-white"
+                        aria-controls="pagesExamples" role="button" aria-expanded="false">
+                        <i class="material-icons opacity-10">store</i>
+                        <span class="nav-link-text ms-2 ps-1">Reports</span>
                     </a>
+                    <div class="collapse " id="pagesExamples">
+                        <ul class="nav ">
+                            <li class="nav-item ">
+                                <a class="nav-link text-white" href="/collections">
+                                    <span class="sidenav-mini-icon"> C </span>
+                                    <span class="sidenav-normal  ms-2  ps-1">  Collections </span>
+                                </a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link text-white" href="/comments/today">
+                                    <span class="sidenav-mini-icon"> T </span>
+                                    <span class="sidenav-normal  ms-2  ps-1"> Today Report </span>
+                                </a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link text-white" href="/comments/week">
+                                    <span class="sidenav-mini-icon"> W </span>
+                                    <span class="sidenav-normal  ms-2  ps-1"> Weekly Report </span>
+                                </a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link text-white" href="/comments/month">
+                                    <span class="sidenav-mini-icon"> M </span>
+                                    <span class="sidenav-normal  ms-2  ps-1"> Monthly Report </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </li>
+               
                 @endif
-
-                <li class="nav-item">
-                  <a class="nav-link"
-                      href="/profile"
-                     >
-                      <i class="material-icons opacity-10">person</i>
-                      <span class="nav-link-text ms-2 ps-1">My Profile</span>
-                  </a>
-              </li>
+               
             </ul>
         </div>
     </aside>
@@ -494,18 +514,11 @@
               <div class="ms-md-auto pe-md-3 d-flex">
                   <div class="input-group input-group-outline">
                       <label class="form-label">Search here</label>
-                      <input type="text" class="form-control">
+                      <input type="text" id="search_here" class="form-control">
                   </div>
               </div>
               <ul class="navbar-nav  justify-content-end">
-                  <li class="nav-item">
-                      <a href="/profile"
-                          class="nav-link text-body p-0 position-relative">
-                          <i class="material-icons me-sm-1">
-                              account_circle
-                          </i>
-                      </a>
-                  </li>
+                 
                   <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
                       <a href="javascript:;" class="nav-link text-body p-0" id="iconNavbarSidenav">
                           <div class="sidenav-toggler-inner">
@@ -526,47 +539,101 @@
                       <a href="javascript:;" class="nav-link text-body p-0 position-relative"
                           id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                           <i class="material-icons cursor-pointer">
-                              notifications
+                            account_circle
                           </i>
-                          <span
+                          <!-- <span
                               class="position-absolute top-5 start-100 translate-middle badge rounded-pill bg-danger border border-white small py-1 px-2">
                               <span class="small">11</span>
                               <span class="visually-hidden">unread notifications</span>
-                          </span>
+                          </span> -->
                       </a>
                       <ul class="dropdown-menu dropdown-menu-end p-2 me-sm-n4"
                           aria-labelledby="dropdownMenuButton">
+                          <li class="mb-2">
+                              <a class="dropdown-item border-radius-md" href="/profile">
+                                  <div class="d-flex align-items-center py-1">
+                                      <span class="material-icons">account_circle</span>
+                                      <div class="ms-2">
+                                          <h6 class="text-sm font-weight-normal my-auto">
+                                            Profile
+                                          </h6>
+                                      </div>
+                                  </div>
+                              </a>
+                          </li>
+                          <li class="mb-2">
+                              <a class="dropdown-item border-radius-md" href="/collections">
+                                  <div class="d-flex align-items-center py-1">
+                                      <span class="material-icons">payments</span>
+                                      <div class="ms-2">
+                                          <h6 class="text-sm font-weight-normal my-auto">
+                                            Collections
+                                          </h6>
+                                      </div>
+                                  </div>
+                              </a>
+                          </li>
                           <li class="mb-2">
                               <a class="dropdown-item border-radius-md" href="javascript:;">
                                   <div class="d-flex align-items-center py-1">
                                       <span class="material-icons">email</span>
                                       <div class="ms-2">
                                           <h6 class="text-sm font-weight-normal my-auto">
-                                              Check new messages
+                                              Messages
                                           </h6>
                                       </div>
                                   </div>
                               </a>
                           </li>
                           <li class="mb-2">
-                              <a class="dropdown-item border-radius-md" href="javascript:;">
+                              <a class="dropdown-item border-radius-md" href="/mytasks">
                                   <div class="d-flex align-items-center py-1">
-                                      <span class="material-icons">podcasts</span>
+                                      <span class="material-icons">layers</span>
                                       <div class="ms-2">
                                           <h6 class="text-sm font-weight-normal my-auto">
-                                              Manage podcast session
+                                              My Tasks
                                           </h6>
                                       </div>
                                   </div>
                               </a>
                           </li>
+                          
+                          <li class="mb-2">
+                              <a class="dropdown-item border-radius-md" href="/calendar">
+                                  <div class="d-flex align-items-center py-1">
+                                      <span class="material-icons">podcasts</span>
+                                      <div class="ms-2">
+                                          <h6 class="text-sm font-weight-normal my-auto">
+                                              Calendar
+                                          </h6>
+                                      </div>
+                                  </div>
+                              </a>
+                          </li>
+                          
                           <li>
-                              <a class="dropdown-item border-radius-md" href="javascript:;">
+                              <a class="dropdown-item border-radius-md" href="/clients/user/{{ Auth::User()->id }}">
                                   <div class="d-flex align-items-center py-1">
                                       <span class="material-icons">shopping_cart</span>
                                       <div class="ms-2">
                                           <h6 class="text-sm font-weight-normal my-auto">
-                                              Payment successfully completed
+                                              Customers
+                                          </h6>
+                                      </div>
+                                  </div>
+                              </a>
+                          </li>
+                          
+                          <li class="mb-2">
+                              <a class="dropdown-item border-radius-md" href="javascript:;">
+                                  <div class="d-flex align-items-center py-1">
+                                      <span class="material-icons">lock</span>
+                                      <div class="ms-2">
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                            {{ csrf_field() }}
+                                        </form>
+                                          <h6 class="text-sm font-weight-normal my-auto">
+                                              Logout
                                           </h6>
                                       </div>
                                   </div>
@@ -628,6 +695,9 @@
             </div>
         </div>
         @endif
+        <div id="search_result" style="display: none;" class="min-w-0 mt-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
+
+        </div>
       @inertia
     </div>
     </main>
@@ -653,20 +723,6 @@
         <?php
         $tasks = \App\Models\Task::where('user_id', Auth::User()->id)->orderBy('id', 'desc')->limit(5)
         ->get();
-        // ->map(fn ($pay) => [
-        //     'id' => $pay->id,
-        //     'uuid' => $pay->uuid,
-        //     'name' => $pay->title,
-        //     'about' => $pay->about,
-        //     'date' => date('d M, Y', strtotime($pay->task_date)),
-        //     'time' => timeAgo($pay->created_at),
-        //     'user' => !empty($pay->user) ? $pay->user->name : 'Not Defined',
-        //     'client' => !empty($pay->client) ? $pay->client->name : 'Not Defined',
-        //     'phone' => !empty($pay->client) ? $pay->client->phone : 'Not Defined',
-        //     'type' => !empty($pay->tasktype) ? $pay->tasktype->name : 'Followup',
-        //     'status' => !empty($pay->taskstatus) ? $pay->taskstatus->name : 'On progess',
-        //     'nexttask' => !empty($pay->nexttask) ? $pay->nexttask->name : 'Followup',
-        // ])
         ?>
             <hr class="horizontal dark my-1">
             <div class="card-body p-3">
@@ -699,7 +755,6 @@
     <script src="/assets/js/core/bootstrap.min.js"></script>
     <script src="/assets/js/plugins/perfect-scrollbar.min.js"></script>
     <script src="/assets/js/plugins/smooth-scrollbar.min.js"></script>
-    <script src="/assets/js/plugins/fullcalendar.min.js"></script>
     <script type="text/javascript" src="{{ URL::asset('assets/js/toastr.min.js') }}"></script>
 
     <script src="/assets/js/plugins/dragula/dragula.min.js"></script>
@@ -708,6 +763,23 @@
     <script src="/assets/js/material-dashboard.min.js"></script>
 
 <script>
+
+    results = function () {
+        $('#search_here').keyup(function () {
+            var q = $(this).val();
+            $.ajax({
+                type: 'POST',
+                url: "<?= url('/searchs') ?>",
+                data: "q=" + q,
+                dataType: "html",
+                success: function (data) {
+                    $('#search_result').html(data).show();
+                }
+            });
+        });
+    }
+$(document).ready(results);
+
 $(document).ready(function() {
     $('.select-single').select2();
     $('.select-multiple').select2();
