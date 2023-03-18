@@ -532,41 +532,84 @@ class UsersController extends Controller
         ]);
     }
 
-    public function edit_customer(Client $customer)
+    public function edit_customer($id)
     {
-        $id = request()->segment(2);
-        $customer = Client::where('customer_id', $id)->first();
-        $next = Client::where('customer_id', '>', $id)->first();
-        return Inertia::render('Edit', [
-            'user' => [
-                'store_id' => $customer->store,
-                'first_name' => $customer->first_name,
-                'last_name' => $customer->last_name,
-                'email' => $customer->email,
-                'active' => $customer->active,
-                'create_date' => date("d M, Y", strtotime($customer->create_date)),
-                'last_update' => date("d M, Y", strtotime($customer->last_update)),
-                'next' => $next,
-                'edit_url' => url('users.edit', $customer),
+        $customer = Client::where('uuid', $id)->first();
+        return Inertia::render('Clients/Edit', [
+            'customer' => [
+                'uuid' => $customer->uuid,
+                'name' => $customer->name,
+                'phone' => $customer->phone,
+                'account' => $customer->account,
+                'address' => $customer->address,
+                'amount' => $customer->amount,
+                'nextkin' => $customer->nextkin,
+                'kinphone' => $customer->kinphone,
+                'active' => $customer->status,
+                'collector' => $customer->collector,
+                'user_id' => $customer->user_id,
+                'employer_id' => $customer->employer_id,
+                'partner_id' => $customer->partner_id,
+                'branch_id' => $customer->branch_id,
+                'partner' => !empty($customer->partner) ? $customer->partner->name : 'Bank',
+                'branch' => !empty($customer->branchs) ? $customer->branchs->name : $customer->branch,
+                'employer' => !empty($customer->employers) ? $customer->employers->name : $customer->employer,
+                'code' => $customer->code
             ],
+            'users' => DB::table('users')->get(),
+            'partners' => DB::table('partners')->get(),
+            'installments' => DB::table('installments')->get()
         ]);
     }
-    public function update(User $User)
+    public function update($id)
     {
-        $User->update(
+        $client = \App\Models\Client::where('uuid', $id)->first();
             Request::validate([
                 'name' => ['required', 'max:100'],
-                'email' => ['nullable', 'max:50', 'email'],
-                'phone' => ['nullable', 'max:50'],
-                'address' => ['nullable', 'max:150'],
-                'city' => ['nullable', 'max:50'],
-                'region' => ['nullable', 'max:50'],
-                'country' => ['nullable', 'max:2'],
-                'postal_code' => ['nullable', 'max:25'],
-            ])
-        );
+                'phone' => ['required', 'max:50'],
+                'address' => ['required', 'max:150'],
+                'branch' => ['required', 'max:150'],
+                'collector' => ['required', 'max:150'],
+                'user_id' => ['required', 'max:42'],
+            ]);
 
-        return Redirect::back()->with('success', 'User updated.');
+            \App\Models\Client::where('uuid', $id)->update([
+                'name' => request('name'),
+                'sex' => request('sex'),
+                'employer' => request('employer'),
+                'phone' => validate_phone_number(trim(request('phone')))[1],
+                'user_id' => request('user_id'),
+                'branch' => request('branch'),
+                'nextkin' => request('nextkin'),
+                'kinphone' => request('kinphone'),
+                'status' => request('status'),
+                'address' => request('address') != '' ? request('address') : 'Dar Es Salaam',
+                'collector' => request('collector'),
+            ]);
+
+        $inst = (int)request('installment_id');
+        $installments = \App\Models\Installment::where('id', '<', $inst+1)->get();
+        if(count($installments) && $inst > 0){
+            \App\Models\ClientInstallment::where('client_id', $client->id)->delete();
+            $amount = request('amount')/$inst;
+            foreach($installments as $installment){
+                $start = $installment->id*30;
+                $end = $installment->id*30+30;
+                \App\Models\ClientInstallment::create([
+                'name' => $installment->name,
+                'start_date'  => $installment->id == 1 ? date('Y-m-d') : date('Y-m-d', strtotime('+'.$start.' days')),
+                'end_date'   => $installment->id == 1 ? date('Y-m-d', strtotime('+30 days')) : date('Y-m-d', strtotime('+'.$end .' days')),
+                'received_amount'  => 0,
+                'amount'  => $amount,
+                'status' => 1,
+                'user_id' => request('user_id'),
+                'client_id' => $client->id,
+                'installment_id' => $installment->id,
+                'installment_type_id' => 2
+            ]);
+        }
+    }
+        return redirect('client/'.$id.'/view')->with('success', 'User updated.');
     }
 
     public function destroy(User $User)

@@ -37,6 +37,7 @@
         </div>
     </div>
 </template>
+
 <script>
 import FullCalendar from '@fullcalendar/vue3'
 import dayGridPlugin from '@fullcalendar/daygrid'

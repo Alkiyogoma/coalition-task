@@ -12,11 +12,11 @@
                         <i class="fa fa-ellipsis-v text-secondary"></i> Change Period
                         </a>
                         <ul class="dropdown-menu px-2 py-2 ms-sm-n4 ms-n5" aria-labelledby="dropdownTable">
-                        <li><a class="dropdown-item border-radius-md" :href="`${ url }`">This Month</a></li>
-                        <li><a class="dropdown-item border-radius-md" :href="`${ url }?days=60`">Last Month</a></li>
-                        <li><a class="dropdown-item border-radius-md" :href="`${ url }?days=6`">Last 7 days</a></li>
-                        <li><a class="dropdown-item border-radius-md" :href="`${ url }?days=1`">Yesterday</a></li>
-                        <li><a class="dropdown-item border-radius-md" :href="`${ url }?days=0`">Today</a></li>
+                        <li><Link class="dropdown-item border-radius-md" :href="`${ url }`">This Month</Link></li>
+                        <li><Link class="dropdown-item border-radius-md" :href="`${ url }?days=60`">Last Month</Link></li>
+                        <li><Link class="dropdown-item border-radius-md" :href="`${ url }?days=6`">Last 7 days</Link></li>
+                        <li><Link class="dropdown-item border-radius-md" :href="`${ url }?days=1`">Yesterday</Link></li>
+                        <li><Link class="dropdown-item border-radius-md" :href="`${ url }?days=0`">Today</Link></li>
                         </ul>
                     </div>
                     </div>
@@ -48,7 +48,7 @@
                               <img :src="`/${ callSex(payment.sex) }`" class="avatar avatar-xs rounded-circle">
                           </div>
                           <div class="d-flex flex-column justify-content-center">
-                            <h6 class="mb-0 text-sm"><Link :href="`/collections/${ payment.id }/0`">{{ payment.name }}</Link></h6>
+                            <h6 class="mb-0 text-sm"><Link :href="`/collections/${ payment.id }/${user}`">{{ payment.name }}</Link></h6>
                           </div>
                         </div>
                       </td>
@@ -110,7 +110,7 @@
                                     </td>
                                     <td class="text-sm font-weight-normal">{{ payment.date }}</td>
                                     <td class="text-sm font-weight-normal">
-                                        <a :href="`/receipt/${payment.uuid}/payment`"> <i class="material-icons text-lg">payments</i> View</a>
+                                        <Link :href="`/receipt/${payment.uuid}/payment`"> <i class="material-icons text-lg">payments</i> View</Link>
                                    
                                     </td>
                                 </tr>
@@ -148,6 +148,7 @@ export default {
         title: String,
         days: String,
         url: String,
+        user: Number,
         days: String,
         collections: Array
     },
