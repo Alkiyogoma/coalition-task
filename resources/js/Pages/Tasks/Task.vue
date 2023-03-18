@@ -162,9 +162,9 @@
                                             <b><u>Update</u></b>
                                             </a>
                                             <ul class="dropdown-menu dropdown-menu-lg-start px-2 py-3" aria-labelledby="dropdownDesignCard">
-                                                <li v-for="method in task_status" :key="method.id"><a class="dropdown-item border-radius-md" :href="`/taskstatus/${task.uuid}/${method.id}`">{{ method.name }}</a></li>
+                                                <li v-for="method in task_status" :key="method.id"><Link class="dropdown-item border-radius-md" :href="`/taskstatus/${task.uuid}/${method.id}`">{{ method.name }}</Link></li>
                                                 <li><hr class="dropdown-divider"></li>
-                                                <li><a class="dropdown-item border-radius-md text-danger" :href="`/deletetask/${task.uuid}/delete`">Delete Task</a></li>
+                                                <li><Link class="dropdown-item border-radius-md text-danger" :href="`/deletetask/${task.uuid}/delete`">Delete Task</Link></li>
                                             </ul>
                                         </div>
                                         </span>

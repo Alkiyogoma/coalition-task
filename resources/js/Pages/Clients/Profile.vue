@@ -18,6 +18,11 @@
                     <li class="list-group-item border-0 text-sm"><strong class="text-dark">Princ Balance#:</strong> &nbsp;  {{ user.amount }}</li>
                     <li class="list-group-item border-0 text-sm"><strong class="text-dark">Paid Amount#:</strong> &nbsp;  {{ user.paid }}</li>
                     <li class="list-group-item border-0 text-sm"><strong class="text-dark">Collector#:</strong> &nbsp;  {{ user.collector }}</li>
+                    <li class="list-group-item border-0 text-sm">
+                      <Link :href="`/customer/${user.uuid}/edit`" class="text-secondary font-weight-bold  " data-toggle="tooltip" data-original-title="Edit user">
+                          <span class="btn btn-outline-primary btn-sm mb-0">Edit Profile</span>
+                        </Link>
+                    </li>
                   </ul>
                 </div>
                 <div class="row gx-4 mb-2">

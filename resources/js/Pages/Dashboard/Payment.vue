@@ -84,9 +84,9 @@
                                 <h5 class="mb-2">Latest Payments Collections</h5>
                             </div>
                             <div class="col-lg-4 col-5 my-auto">
-                                <a href="/paymentadd" style="float: right; margin-right: 4em;" class="mr-4 text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                                <Link href="/paymentadd" style="float: right; margin-right: 4em;" class="mr-4 text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
                                     <span class="btn btn-primary btn-sm bg-gradient-secondary"><i class="material-icons text-lg me-2">add</i> Add Payments</span>
-                                </a>
+                                </Link>
                             </div>
                         </div>
                         <div class="table-responsive">
@@ -113,8 +113,7 @@
                                     </td>
                                     <td class="text-sm font-weight-normal">{{ payment.date }}</td>
                                     <td class="text-sm font-weight-normal">
-                                        <a :href="`/receipt/${payment.uuid}/payment`"> <i class="material-icons text-lg">payments</i> View</a>
-                                   
+                                        <Link :href="`/receipt/${payment.uuid}/payment`"> <i class="material-icons text-lg">payments</i> View</Link>
                                     </td>
                                 </tr>
                               

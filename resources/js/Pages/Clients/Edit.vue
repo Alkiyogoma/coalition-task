@@ -1,50 +1,79 @@
 <template>
-  <br>
-  <!-- CTA -->
-  <Link
-    class="flex items-center justify-between p-4 mb-8 text-sm font-semibold text-purple-100 bg-purple-600 rounded-lg shadow-md focus:outline-none focus:shadow-outline-purple"
-    href="/classes"
-  >
-    <div class="flex items-center">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
-        <path fill-rule="evenodd" d="M7.502 6h7.128A3.375 3.375 0 0118 9.375v9.375a3 3 0 003-3V6.108c0-1.505-1.125-2.811-2.664-2.94a48.972 48.972 0 00-.673-.05A3 3 0 0015 1.5h-1.5a3 3 0 00-2.663 1.618c-.225.015-.45.032-.673.05C8.662 3.295 7.554 4.542 7.502 6zM13.5 3A1.5 1.5 0 0012 4.5h4.5A1.5 1.5 0 0015 3h-1.5z" clip-rule="evenodd" />
-        <path fill-rule="evenodd" d="M3 9.375C3 8.339 3.84 7.5 4.875 7.5h9.75c1.036 0 1.875.84 1.875 1.875v11.25c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875 0 013 20.625V9.375zm9.586 4.594a.75.75 0 00-1.172-.938l-2.476 3.096-.908-.907a.75.75 0 00-1.06 1.06l1.5 1.5a.75.75 0 001.116-.062l3-3.75z" clip-rule="evenodd" />
-      </svg>
-
-
-      <span class="ml-3">Edit School Class</span>
-    </div>
-    <span class="mr-3"> Go back  &RightArrow;</span>
-  </Link>
-         
-          <div
-            class="px-2 py-2 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800"
-          >   
-      <form @submit.prevent="update">
-       
-          <text-input v-model="form.classes" :error="form.errors.classes" class="mb-3 pr-6 w-full lg:w-1/2" label="Class name" />
-          <text-input type="number" v-model="form.classes_numeric" :error="form.errors.classes_numeric" class="mb-5 pr-6 w-full lg:w-1/2" label="Class Order ID" />
-          <select-input v-model="form.classlevel_id" :error="form.errors.classlevel_id" class="mb-5 pr-6 w-full lg:w-1/2" label="Classlevel">
-            <option :value="null" />
-            <option v-for="classlevel in classlevels" :key="classlevel.classlevel_id" :value="classlevel.classlevel_id">{{ classlevel.name }}</option>
-          </select-input>
-          <select-input v-model="form.user_id" :error="form.errors.user_id" class="mb-5 pr-6 w-full lg:w-1/2" label="Class Teacher">
-            <option :value="null" />
-            <option v-for="teacher in teachers" :key="teacher.id" :value="teacher.id">{{ teacher.name }}</option>
-          </select-input>
-          <text-input v-model="form.note" :error="form.errors.note" class="mb-5 pr-6 w-full lg:w-1/2" label="About This Class" />
-        <div class="flex items-center justify-end px-8 py-4 bg-gray-50 border-t border-gray-100">
-          <loading-button :loading="form.processing" class="btn-indigo" type="submit">Update Class</loading-button>
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <h5>Edit Customer Basic Info</h5>
         </div>
-        
-      </form>
+        <div class="card-body pt-0">
+          <form @submit.prevent="store">
+            <div class="row">
+              <text-input v-model="form.name" :error="form.errors.name" required label="Client name" />
+              <text-input v-model="form.phone" required :error="form.errors.phone" label="Phone" />
+            </div>
+            <div class="row">
+              <text-input v-model="form.address" :error="form.errors.address" label="Address" />
+                <select-input v-model="form.sex" :error="form.errors.sex" required id="choices-gender">
+                    <option value="" selected>---- Sex---</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </select-input>
+            </div>
+
+            <div class="row">
+              <text-input v-model="form.kinphone"  type="text"  :error="form.errors.kinphone"
+                label="NextKin Phone" class="input-group input-group-outline my-3"/>
+              <text-input v-model="form.nextkin"  type="text" :error="form.errors.nextkin"
+                label="Nextkin Name" class="input-group input-group-outline my-3"/>
+            </div>
+            <div class="row">
+              <text-input v-model="form.branch" required :error="form.errors.branch" label="Customer Branch" />
+              <text-input v-model="form.employer" :error="form.errors.employer" label="Customer Employer" />
+            </div>
+            <div class="row">
+              <select-input v-model="form.user_id" :error="form.errors.user_id" required label="Assigned Staff?">
+                <option :value="null" />
+                <option v-for="user in users" :key="user.id" :value="user.id">{{ user.name }}</option>
+              </select-input>
+
+              <select-input v-model="form.installment_id" :error="form.errors.installment_id" required
+                label="Payment Installments">
+                <option :value="form.installment_id" />
+                <option v-for="role in installments" :key="role.id" :value="role.id">{{ role.name }}</option>
+              </select-input>
+            </div>
+            <div class="row">
+              <text-input v-model="form.collector" required :error="form.errors.collector" label="Collector Name" />
+
+              <select-input v-model="form.status" :error="form.errors.status" required label="Curent Customer status?">
+                    <option :value="null" selected></option>
+                    <option value="1">Active Customer</option>
+                    <option value="2">Skip Tracing </option>
+                    <option value="3">To Recall</option>
+                    <option value="0">Inactive Customer</option>
+              </select-input>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+                <div class="flex items-center justify-end border-gray-100">
+                  <loading-button :loading="form.processing" type="submit">Update
+                    Customer</loading-button>
+                </div>
+              </div>
+            </div>
+
+          </form>
+        </div>
+      </div>
     </div>
-    
+  </div>
 </template>
 
 <script>
 import { Link } from '@inertiajs/vue3'
-import TextInput from '../../Shared/TextInput'
+
+import TextInput from '../../Shared/TextInputB'
 import SelectInput from '../../Shared/SelectInput'
 import MultipleInput from '../../Shared/MultipleInput'
 import LoadingButton from '../../Shared/LoadingButton'
@@ -58,28 +87,36 @@ export default {
     TextInput,
   },
   props: {
-    classes: Array,
-    classlevels: Array,
-    teachers: Array,
+    users: Array,
+    partners: Array,
+    customer: Array,
+    installments: Array,
   },
   remember: 'form',
   data() {
     return {
       form: this.$inertia.form({
-        classes:  this.classes.classes,
-        classlevel_id:  this.classes.classlevel_id,
-        user_id:  this.classes.user_id,
-        note:  this.classes.note,
-        classes_numeric:  this.classes.classes_numeric,
+        name: this.customer.name,
+        employer: this.customer.employer,
+        phone: this.customer.phone,
+        address: this.customer.address,
+        branch: this.customer.branch,
+        collector: this.customer.collector,
+        status: this.customer.status,
+        user_id: this.customer.user_id,
+        kinphone: this.customer.kinphone,
+        nextkin: this.customer.nextkin,
+        installment_id: this.customer.installment_id,
       }),
     }
   },
   methods: {
-    update() {
-      if (confirm('Are you sure you want to edit this class?')) {
-        this.form.post('/classes/'+ this.classes.uuid +'/update')
+    store() {
+      if (confirm('Are you sure you want to edit this customer?')) {
+        this.form.post('/update/' + this.customer.uuid + '/edit')
       }
     },
   },
 }
+
 </script>

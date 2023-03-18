@@ -63,13 +63,14 @@ Route::get('/notifications', function () {
 
 Auth::routes();
 
-Route::get('user/{contact}/edit', [UsersController::class, 'edit_customer']);
+Route::get('customer/{contact}/edit', [UsersController::class, 'edit_customer']);
 Route::get('add-user', [UsersController::class, 'create']);
 Route::post('saveuser', [UsersController::class, 'saveuser']);
 Route::get('users/{type?}', [UsersController::class, 'index']);
 Route::get('/profile/{id?}', [UsersController::class, 'profile']);
 
 Route::get('add-customer', [UsersController::class, 'addcustomer']);
+Route::post('update/{contact}/edit', [UsersController::class, 'update']);
 Route::get('add/{branch}', [UsersController::class, 'addemployer']);
 Route::post('save/{branch}', [UsersController::class, 'saveemployer']);
 Route::get('add-partner', [UsersController::class, 'addPartner']);

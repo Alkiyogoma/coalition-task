@@ -254,16 +254,16 @@ public function calendar_data($id = null){
             $user= \App\Models\User::where('id', $id)->first();
             $partner= \App\Models\Partner::where('id', $group)->first();
             $where_condition = " AND f.id=$user->id and a.partner_id=$group ";
-            $title = 'Payment Collections of '.$user->name.' from '. $partner->name.' Since ';
+            $title = 'Collections of '.$user->name.' from '. $partner->name.' Since ';
 
         }elseif((int)($id) > 0 && (int)$group == 0){
             $user= \App\Models\User::where('id', $id)->first();
-            $title = 'Payment Collections of '.$user->name.' Since ';
+            $title = 'Collections of '.$user->name.' Since ';
             $where_condition = " AND f.id=$user->id ";
         }elseif((int)$group > 0){
             $partner= \App\Models\Partner::where('id', $group)->first();
             $where_condition = " AND a.partner_id=$group ";
-            $title = 'Payment Collections from '. $partner->name.' Since ';
+            $title = 'Collections from '. $partner->name.' Since ';
 
         }else{
             $where_condition = '';
@@ -276,6 +276,7 @@ public function calendar_data($id = null){
         return inertia('Clients/Payment',
         [
             'title' => $title,
+            'user' => $id,
             'date' => $where_date,
             'url' => url()->current(),
             'days' => request('days'),

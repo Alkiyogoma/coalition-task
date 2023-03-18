@@ -11,7 +11,6 @@
                   <div class="card-body pt-0 p-3 text-center">
                     <h6 class="text-center mb-0">Amounts</h6>
                     <h5 class="mb-0">{{ amounts }}</h5>
-                   <!-- <span class="text-xs">Belong Interactive</span> -->
                     <hr class="horizontal dark my-3">
                   </div>
                 </div>
@@ -24,12 +23,9 @@
                     </div>
                   </div>
                   <div class="card-body pt-0 p-3 text-center">
-                    <a href="/clients">
                       <h6 class="text-center mb-0">Clients</h6>
                     <h5 class="mb-0">{{ clients }}</h5>
-                   <!-- <span class="text-xs">Belong Interactive</span> -->
                     <hr class="horizontal dark my-3">
-                    </a>
                   </div>
                 </div>
               </div>
@@ -41,12 +37,10 @@
                     </div>
                   </div>
                   <div class="card-body pt-0 p-3 text-center">
-                  <a href="/tasks">
                     <h6 class="text-center mb-0">Tasks</h6>
                     <h5 class="mb-0">{{ tasks }}</h5>
                    <!-- <span class="text-xs">Belong Interactive</span> -->
                     <hr class="horizontal dark my-3">
-                  </a>
                   </div>
                 </div>
               </div>
@@ -58,12 +52,9 @@
                     </div>
                   </div>
                   <div class="card-body pt-0 p-3 text-center">
-                    <a href="/messages">
                       <h6 class="text-center mb-0">Mesages</h6>
                         <h5 class="mb-0">{{ messages }}</h5>
-                      <!-- <span class="text-xs">Belong Interactive</span> -->
                         <hr class="horizontal dark my-3">
-                    </a>
                   </div>
                 </div>
               </div>
@@ -84,11 +75,11 @@
                       <i class="fa fa-ellipsis-v text-secondary"></i> View
                     </a>
                     <ul class="dropdown-menu px-2 py-3 ms-sm-n4 ms-n5" aria-labelledby="dropdownTable">
-                      <li><a class="dropdown-item border-radius-md" href="/dashboard">This Month</a></li>
-                      <li><a class="dropdown-item border-radius-md" href="/dashboard?days=60">Last Month</a></li>
-                      <li><a class="dropdown-item border-radius-md" href="/dashboard?days=6">Last 7 days</a></li>
-                      <li><a class="dropdown-item border-radius-md" href="/dashboard?days=1">Yesterday</a></li>
-                      <li><a class="dropdown-item border-radius-md" href="/dashboard?days=0">Today</a></li>
+                      <li><Link class="dropdown-item border-radius-md" href="/dashboard">This Month</Link></li>
+                      <li><Link class="dropdown-item border-radius-md" href="/dashboard?days=60">Last Month</Link></li>
+                      <li><Link class="dropdown-item border-radius-md" href="/dashboard?days=6">Last 7 days</Link></li>
+                      <li><Link class="dropdown-item border-radius-md" href="/dashboard?days=1">Yesterday</Link></li>
+                      <li><Link class="dropdown-item border-radius-md" href="/dashboard?days=0">Today</Link></li>
                     </ul>
                   </div>
                 </div>
@@ -154,7 +145,7 @@
                   <h6 class="mb-0">Today Summary</h6>
                 </div>
                 <div class="col-6 text-end">
-                  <a href="/payments" class="btn btn-outline-primary btn-sm mb-0">View All</a>
+                  <Link href="/payments" class="btn btn-outline-primary btn-sm mb-0">View All</Link>
                 </div>
               </div>
             </div>

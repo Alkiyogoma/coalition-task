@@ -621,16 +621,17 @@
                           </li>
                           
                           <li class="mb-2">
-                              <a class="dropdown-item border-radius-md" href="javascript:;">
+                              <a class="dropdown-item border-radius-md" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                   <div class="d-flex align-items-center py-1">
                                       <span class="material-icons">lock</span>
                                       <div class="ms-2">
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                             {{ csrf_field() }}
-                                        </form>
-                                          <h6 class="text-sm font-weight-normal my-auto">
+                                            <h6 class="text-sm font-weight-normal my-auto">
                                               Logout
                                           </h6>
+                                        </form>
+                                       
                                       </div>
                                   </div>
                               </a>
