@@ -44,7 +44,7 @@ class PaymentExport extends \PhpOffice\PhpSpreadsheet\Cell\StringValueBinder imp
             $where_condition = '';
         }
         $where_ = request('days') > 0 ? "'".date('Y-m-d', strtotime('- '.request('days').'days'))."'" :  (request('days') != '' && request('days') != 'null' ? "'".date('Y-m-d')."'" : "'".date('Y-m-01')."'");
-        $payments = collect(DB::select('SELECT b.id, f.name as collector, a.name, a.account, a.branch, a.amount, b.amount as payment, b.date FROM `payments` b JOIN `users` f on b.user_id=f.id join clients a on a.id=b.client_id where b.created_at >='.$where_. ' '. $where_condition.' ORDER BY b.id desc;'));
+        $payments = collect(DB::select('SELECT b.id, f.name as collector, a.name, a.account, a.branch, a.amount, b.amount as payment, b.date FROM payments b JOIN users f on b.user_id=f.id join clients a on a.id=b.client_id where b.created_at >='.$where_. ' '. $where_condition.' ORDER BY b.id desc;'));
      //   dd($payments);
         return $payments;
 
