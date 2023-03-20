@@ -42,7 +42,7 @@ class UsersImport implements ToModel, WithHeadingRow
                 'placement' => isset($row['nextaction']) && $row['nextaction'] != '' ? $row['nextaction'] : '',
                 'kinphone' => isset($row['kinphone']) && $row['kinphone'] != '' ? $row['kinphone'] : '',
                 'nextkin' => isset($row['nextkin']) && $row['nextkin'] != '' ? $row['nextkin'] : '',
-                'address' => isset($row['address']) && $row['address'] != '' ? $row['address'] :  $branch->name,
+                'address' => isset($row['address']) && $row['address'] != '' ? $row['address'] :  $cbranch->name,
                 'partner_id' => !empty($partner) ? $partner-> id : 1,
                 'collector' => $row['collector'],
                 'deposit_account' => isset($row['settementaccount']) ? $row['settementaccount'] : null,
