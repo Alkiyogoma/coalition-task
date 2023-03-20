@@ -60,7 +60,7 @@ class UsersController extends Controller
                 }else{
                     $user = \App\Models\User::where('uuid', Auth::User()->uuid)->first();
                 }
-                $payments = DB::select('WITH alltasks as(SELECT a.id,MONTH(b.created_at) as month, sum(b.amount) as total, COUNT(DISTINCT b.client_id) as client FROM `payments` b JOIN `users` a on b.user_id=a.id where b.user_id='. $user->id .' AND YEAR(b.created_at) = YEAR(CURRENT_DATE()) GROUP BY a.id,MONTH(b.created_at) ), allusers as (SELECT a.id, a.name, a.sex, sum(b.amount) as amount, COUNT(b.id) as clients, MONTH(b.created_at) as month FROM `clients` b JOIN `users` a on b.user_id=a.id where  b.user_id='. $user->id .' AND b.status=1 AND YEAR(b.created_at) = YEAR(CURRENT_DATE()) GROUP BY a.id, a.name, a.sex, MONTH(b.created_at))
+                $payments = DB::select('WITH alltasks as(SELECT a.id,MONTH(b.created_at) as month, sum(b.amount) as total, COUNT(DISTINCT b.client_id) as client FROM payments b JOIN users a on b.user_id=a.id where b.user_id='. $user->id .' AND YEAR(b.created_at) = YEAR(CURRENT_DATE()) GROUP BY a.id,MONTH(b.created_at) ), allusers as (SELECT a.id, a.name, a.sex, sum(b.amount) as amount, COUNT(b.id) as clients, MONTH(b.created_at) as month FROM clients b JOIN users a on b.user_id=a.id where  b.user_id='. $user->id .' AND b.status=1 AND YEAR(b.created_at) = YEAR(CURRENT_DATE()) GROUP BY a.id, a.name, a.sex, MONTH(b.created_at))
                 select a.id, b.name, b.sex, a.total, a.client, b.amount, b.clients, a.month from alltasks a join allusers b on a.id=b.id AND a.month=b.month order by b.month desc;');
                 $users = [
                         'id' => $user->id,
