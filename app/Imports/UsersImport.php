@@ -17,7 +17,8 @@ class UsersImport implements ToModel, WithHeadingRow
     {
        // dd($row);
         $user = Client::where('account', $row['account'])->first();
-        $branch =  isset($row['branch']) && $row['branch'] != '' ? \App\Models\Branch::where('name', $row['branch'])->first() : (!empty(\App\Models\Branch::where(DB::raw('lower(name)'), 'like', '%'.strtolower($row['partner']).'%')->first()) ? \App\Models\Branch::where(DB::raw('lower(name)'), 'like', '%'.strtolower($row['partner']).'%')->first() : \App\Models\Branch::create(['name' => $row['partner']]));
+        $branch =  isset($row['branch']) && $row['branch'] != '' ? \App\Models\Branch::where('name', $row['branch'])->first() : [];
+        $cbranch = empty($branch) ? (!empty(\App\Models\Branch::where(DB::raw('lower(name)'), 'like', '%'.strtolower($row['partner']).'%')->first()) ? \App\Models\Branch::where(DB::raw('lower(name)'), 'like', '%'.strtolower($row['partner']).'%')->first() : \App\Models\Branch::create(['name' => $row['partner']])) : $branch;
         $employer = isset($row['employer']) && $row['employer'] != '' ? \App\Models\Employer::where('name', $row['employer'])->first() : [];
 
         $phone = isset($row['phone']) && $row['phone'] != '' ? str_replace(['(000)', ' ', '(', ')'], ['','', '',''], $row['phone']) : 0;
@@ -32,8 +33,8 @@ class UsersImport implements ToModel, WithHeadingRow
                 'employer' => isset($row['employer']) && $row['employer'] != '' ? $row['employer'] : '',
                 'phone' => isset($phone) && $phone != '' ? validate_phone_number(trim($phone))[1] : 0,
                 'user_id' => !empty($staff) ? $staff->id : Auth::User()->id,
-                'branch' => $branch->name,
-                'branch_id' => $branch->id,
+                'branch' => $cbranch->name,
+                'branch_id' => $cbranch->id,
                 'employer_id' => $emp->id,
                 'account' => $row['account'],
                 'amount' => (float)str_replace(',', '', $row['balance']),
