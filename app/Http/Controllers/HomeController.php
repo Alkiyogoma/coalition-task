@@ -35,12 +35,12 @@ class HomeController extends Controller
         $date = "'".date('Y-m-d')."'";
         $where_date = request('days') > 0 ? date('Y-m-d', strtotime('- '.request('days').'days')) : date('Y-m-01');
         $where_ = request('days') > 0 ? "'".date('Y-m-d', strtotime('- '.request('days').'days'))."'" : "'".date('Y-m-01')."'";
-        $payments = DB::select('WITH alltasks as(SELECT c.id, c.name, sum(b.amount) as total, COUNT(DISTINCT b.client_id) as client FROM `payments` b JOIN `clients` a on b.client_id=a.id join partners c on c.id=a.partner_id where b.created_at >='.$where_.' GROUP BY c.id, c.name), allusers as (SELECT a.id, a.name, sum(b.amount) as amount, COUNT(b.id) as clients FROM `clients` b JOIN `partners` a on b.partner_id=a.id where b.status=1 GROUP BY a.id, a.name) select a.id, a.name, a.total, a.client, b.amount, b.clients from alltasks a left join allusers b on a.id=b.id order by total desc;');
+        $payments = DB::select('WITH alltasks as(SELECT c.id, c.name, sum(b.amount) as total, COUNT(DISTINCT b.client_id) as client FROM payments b JOIN clients a on b.client_id=a.id join partners c on c.id=a.partner_id where b.created_at >='.$where_.' GROUP BY c.id, c.name), allusers as (SELECT a.id, a.name, sum(b.amount) as amount, COUNT(b.id) as clients FROM clients b JOIN partners a on b.partner_id=a.id where b.status=1 GROUP BY a.id, a.name) select a.id, a.name, a.total, a.client, b.amount, b.clients from alltasks a left join allusers b on a.id=b.id order by total desc;');
         return inertia('Dashboard/Payment',
         [
             'partners' => $payments,
-            'collections' => DB::select('SELECT b.uuid, a.name as collector, a.uuid as user_id, b.client_id, c.name, c.account, c.branch, c.phone, b.amount as amount, b.date FROM `payments` b JOIN `users` a on b.user_id=a.id join clients c on c.id=b.client_id ORDER BY a.id desc limit 20;'),
-            'payments' => DB::select('SELECT a.id, a.name, a.code, count(b.id) as total, sum(b.amount) as amount, COUNT(DISTINCT b.client_id) as client FROM `payments` b JOIN `users` a on b.user_id=a.id WHERE date <='.$date.' GROUP BY a.id, a.name, a.code ORDER BY sum(b.amount) desc')
+            'collections' => DB::select('SELECT b.uuid, a.name as collector, a.uuid as user_id, b.client_id, c.name, c.account, c.branch, c.phone, b.amount as amount, b.date FROM payments b JOIN users a on b.user_id=a.id join clients c on c.id=b.client_id ORDER BY a.id desc limit 20;'),
+            'payments' => DB::select('SELECT a.id, a.name, a.code, count(b.id) as total, sum(b.amount) as amount, COUNT(DISTINCT b.client_id) as client FROM payments b JOIN users a on b.user_id=a.id WHERE date <='.$date.' GROUP BY a.id, a.name, a.code ORDER BY sum(b.amount) desc')
 
         ]);
     }
@@ -51,7 +51,7 @@ class HomeController extends Controller
         $date = "'".date('Y-m-d')."'";
         $where_date = request('days') > 0 ? date('Y-m-d', strtotime('- '.request('days').'days')) : (request('days') != '' ? date('Y-m-d') : date('Y-m-01'));
         $where_ = request('days') > 0 ? "'".date('Y-m-d', strtotime('- '.request('days').'days'))."'" :  (request('days') != '' ? "'".date('Y-m-d')."'" : "'".date('Y-m-01')."'");
-        $payments = DB::select('WITH alltasks as(SELECT a.id, a.name, a.sex, sum(b.amount) as total, COUNT(DISTINCT b.client_id) as client FROM `payments` b JOIN `users` a on b.user_id=a.id where b.created_at >='.$where_.' GROUP BY a.id, a.name,a.sex), allusers as (SELECT a.id, a.name, sum(b.amount) as amount, COUNT(b.id) as clients FROM `clients` b JOIN `users` a on b.user_id=a.id where b.status=1 GROUP BY a.id, a.name) select a.id, a.name, a.sex, a.total, a.client, b.amount, b.clients from alltasks a left join allusers b on a.id=b.id order by total desc;');
+        $payments = DB::select('WITH alltasks as(SELECT a.id, a.name, a.sex, sum(b.amount) as total, COUNT(DISTINCT b.client_id) as client FROM payments b JOIN users a on b.user_id=a.id where b.created_at >='.$where_.' GROUP BY a.id, a.name,a.sex), allusers as (SELECT a.id, a.name, sum(b.amount) as amount, COUNT(b.id) as clients FROM clients b JOIN users a on b.user_id=a.id where b.status=1 GROUP BY a.id, a.name) select a.id, a.name, a.sex, a.total, a.client, b.amount, b.clients from alltasks a left join allusers b on a.id=b.id order by total desc;');
         
         return inertia('Dashboard/Dashboard',
         [
@@ -60,7 +60,7 @@ class HomeController extends Controller
             'amounts' => money(\App\Models\Payment::whereDate('created_at', '>=', $where_date)->sum('amount')),
             'messages' => money(\App\Models\Message::whereDate('created_at', '>=', $where_date)->count()),
             'clients' => money(\App\Models\Client::whereDate('created_at', '>=', $where_date)->count()),
-            'collections' => DB::select('SELECT a.id, a.name, a.code, count(b.id) as total, sum(b.amount) as amount, COUNT(DISTINCT b.client_id) as client FROM `payments` b JOIN `users` a on b.user_id=a.id WHERE date ='.$date.' GROUP BY a.id, a.name, a.code')
+            'collections' => DB::select('SELECT a.id, a.name, a.code, count(b.id) as total, sum(b.amount) as amount, COUNT(DISTINCT b.client_id) as client FROM payments b JOIN users a on b.user_id=a.id WHERE date ='.$date.' GROUP BY a.id, a.name, a.code')
 
         ]);
     }
@@ -71,11 +71,11 @@ class HomeController extends Controller
         return inertia('Tasks/Task',
         [
             'usertasks' => DB::select('WITH alltasks as(
-                SELECT a.id, a.name, COUNT(b.id) as total, COUNT(DISTINCT b.client_id) as client FROM `tasks` b JOIN `users` a on b.user_id=a.id  GROUP BY a.id, a.name),
-                allusers as (SELECT a.id, a.name, COUNT(b.id) as completed FROM `tasks` b JOIN `users` a on  b.user_id=a.id where b.status_id=2 GROUP BY a.id, a.name)
+                SELECT a.id, a.name, COUNT(b.id) as total, COUNT(DISTINCT b.client_id) as client FROM tasks b JOIN users a on b.user_id=a.id  GROUP BY a.id, a.name),
+                allusers as (SELECT a.id, a.name, COUNT(b.id) as completed FROM tasks b JOIN users a on  b.user_id=a.id where b.status_id=2 GROUP BY a.id, a.name)
                 select a.id, a.name, a.total, a.client, b.completed from alltasks a left join allusers b on a.id=b.id order by total desc limit 7'),
             'total' => \App\Models\Task::count(),
-            'averages' => DB::select('SELECT a.id, a.name, COUNT(b.id) as total FROM `tasks` b JOIN `task_type` a on b.task_type_id=a.id GROUP BY a.id, a.name'),
+            'averages' => DB::select('SELECT a.id, a.name, COUNT(b.id) as total FROM tasks b JOIN task_type a on b.task_type_id=a.id GROUP BY a.id, a.name'),
             'alltasks' => \App\Models\Task::where('status_id', 2)->orderBy('id', 'desc')->limit(20)
             ->get()->map(fn ($pay) => [
             'id' => $pay->id,
@@ -126,8 +126,8 @@ class HomeController extends Controller
         return inertia('Tasks/Profile',
         [
             'total' => \App\Models\Task::where('user_id', $user->id)->count(),
-            'averages' => DB::select('SELECT a.id, a.name, COUNT(b.id) as total FROM `tasks` b JOIN `task_type` a on b.task_type_id=a.id WHERE  b.user_id='. $user->id . ' GROUP BY a.id, a.name'),
-            'statues' => DB::select('SELECT a.id, a.name, COUNT(b.id) as total FROM `tasks` b JOIN `task_status` a on b.status_id=a.id WHERE  b.user_id='. $user->id . ' GROUP BY a.id, a.name'),
+            'averages' => DB::select('SELECT a.id, a.name, COUNT(b.id) as total FROM tasks b JOIN task_type a on b.task_type_id=a.id WHERE  b.user_id='. $user->id . ' GROUP BY a.id, a.name'),
+            'statues' => DB::select('SELECT a.id, a.name, COUNT(b.id) as total FROM tasks b JOIN task_status a on b.status_id=a.id WHERE  b.user_id='. $user->id . ' GROUP BY a.id, a.name'),
             'alltasks' => \App\Models\Task::where('user_id', $user->id)->where('status_id', 2)->orderBy('id', 'desc')->limit(20)
             ->get()->map(fn ($pay) => [
             'id' => $pay->id,
@@ -271,7 +271,7 @@ public function calendar_data($id = null){
         $date = "'".date('Y-m-d')."'";
         $where_date = request('days') > 0 ? date('Y-m-d', strtotime('- '.request('days').'days')) : (request('days') != '' ? date('Y-m-d') : date('Y-m-01'));
         $where_ = request('days') > 0 ? "'".date('Y-m-d', strtotime('- '.request('days').'days'))."'" :  (request('days') != '' ? "'".date('Y-m-d')."'" : "'".date('Y-m-01')."'");
-        $payments = DB::select('WITH alltasks as(SELECT c.id, c.name, sum(b.amount) as total, COUNT(DISTINCT b.client_id) as client FROM `payments` b JOIN `clients` a on b.client_id=a.id join partners c on c.id=a.partner_id join users f on f.id=a.user_id where b.created_at >='.$where_. ' '. $where_condition.' GROUP BY c.id, c.name), allusers as (SELECT b.id, b.name, sum(a.amount) as amount, COUNT(a.id) as clients FROM `clients` a JOIN `partners` b on a.partner_id=b.id  join users f on f.id=a.user_id   where a.status=1 '.$where_condition .' GROUP BY b.id, b.name) select a.id, a.name, a.total, a.client, b.amount, b.clients from alltasks a left join allusers b on a.id=b.id order by total desc;');
+        $payments = DB::select('WITH alltasks as(SELECT c.id, c.name, sum(b.amount) as total, COUNT(DISTINCT b.client_id) as client FROM payments b JOIN clients a on b.client_id=a.id join partners c on c.id=a.partner_id join users f on f.id=a.user_id where b.created_at >='.$where_. ' '. $where_condition.' GROUP BY c.id, c.name), allusers as (SELECT b.id, b.name, sum(a.amount) as amount, COUNT(a.id) as clients FROM clients a JOIN partners b on a.partner_id=b.id  join users f on f.id=a.user_id   where a.status=1 '.$where_condition .' GROUP BY b.id, b.name) select a.id, a.name, a.total, a.client, b.amount, b.clients from alltasks a left join allusers b on a.id=b.id order by total desc;');
    
         return inertia('Clients/Payment',
         [
@@ -281,7 +281,7 @@ public function calendar_data($id = null){
             'url' => url()->current(),
             'days' => request('days'),
             'payments' => $payments,
-            'collections' => DB::select('SELECT b.uuid, f.name as collector, f.uuid as user_id, b.client_id, a.name, a.account, a.branch, a.phone, b.amount as amount, b.date FROM `payments` b JOIN `users` f on b.user_id=f.id join clients a on a.id=b.client_id where b.created_at >='.$where_. ' '. $where_condition.' ORDER BY b.id desc;'),
+            'collections' => DB::select('SELECT b.uuid, f.name as collector, f.uuid as user_id, b.client_id, a.name, a.account, a.branch, a.phone, b.amount as amount, b.date FROM payments b JOIN users f on b.user_id=f.id join clients a on a.id=b.client_id where b.created_at >='.$where_. ' '. $where_condition.' ORDER BY b.id desc;'),
 
         ]);
     }
