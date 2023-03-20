@@ -82,7 +82,7 @@ class UsersImport implements ToModel, WithHeadingRow
                 \App\Models\Payment::create([
                     'client_id' => $user->id,
                     'uuid' => (string) Str::uuid(),
-                    'installment_id' => \App\Models\ClientInstallment::where('client_id', $user->id)->orderBy('id')->first()->id,
+                    'installment_id' => \App\Models\ClientInstallment::where('client_id', $user->id)->orderBy('id')->first()->installment_id,
                     'amount' => (float)$row['payment'],
                     'date' => date('Y-m-d'),
                     'method_id' => 2,
