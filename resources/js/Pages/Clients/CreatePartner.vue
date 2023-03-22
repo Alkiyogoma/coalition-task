@@ -24,10 +24,13 @@
                                 </select-input>
                           </div>
                             <div class="row">
-                            <div
-                                class="flex items-center justify-end border-gray-100">
-                                <loading-button :loading="form.processing"  type="submit">Add Partner</loading-button>
-                            </div>
+                                <select-input v-model="form.user_id" :error="form.errors.user_id" required  label="Bank Team Leader">
+                                    <option :value="null" />
+                                    <option v-for="role in users" :key="role.id" :value="role.id">{{ role.name }}</option>
+                                </select-input>
+                                <div class="col-sm-6"> <br>
+                                    <loading-button :loading="form.processing"  type="submit">Add Bank</loading-button>
+                                </div>
                             </div>
 
                         </form>
@@ -56,6 +59,7 @@
         },
         props: {
             uuid: String,
+            users: Array,
             roles: Array,
         },
         remember: 'form',
@@ -67,6 +71,7 @@
                     address: '',
                     website: '',
                     uuid: '',
+                    user_id: '',
                     partner_group_id: '',
                     email: '',
                     about: '',

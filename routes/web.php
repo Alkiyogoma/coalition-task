@@ -76,10 +76,12 @@ Route::post('save/{branch}', [UsersController::class, 'saveemployer']);
 Route::get('add-partner', [UsersController::class, 'addPartner']);
 Route::post('savepartner', [UsersController::class, 'savePartner']);
 Route::post('saveclient', [UsersController::class, 'saveClient']);
-Route::get('clients/{type?}/{id?}', [UsersController::class, 'clients']);
+Route::get('clients/{type?}/{id?}/{bank?}', [UsersController::class, 'clients']);
 Route::get('client/{uuid}/view', [UsersController::class, 'client']);
 
 Route::get('partners/{id?}', [UsersController::class, 'partners']);
+Route::get('bank/{id}/edit', [UsersController::class, 'editPartner']);
+Route::post('editPartner/{id}', [UsersController::class, 'updatePartner']);
 Route::get('branches/{id?}', [UsersController::class, 'branches']);
 Route::get('delete/{type}/{id}', [UsersController::class, 'deleteemployer']);
 
@@ -142,6 +144,8 @@ Route::get('/payments/{staff}/view', [HomeController::class, 'payments'])->name(
 Route::get('/payments/{client}/client', [HomeController::class, 'payments'])->name('homeclient');
 Route::get('/payments/{partner}/partner', [HomeController::class, 'payments'])->name('homepartner');
 Route::get('/dashboard', [HomeController::class, 'index'])->name('home');
+Route::get('/teamleader', [HomeController::class, 'teamLeader'])->name('teamLeader');
+Route::get('/collectors/{partner}/bank', [HomeController::class, 'partnerStaff'])->name('teamLeader');
 Route::get('/receipt/{id}/payment', [HomeController::class, 'receipt'])->name('receipt');
 Route::get('/collections/{client?}/{partner?}/{export?}', [HomeController::class, 'collections'])->name('collections');
 
