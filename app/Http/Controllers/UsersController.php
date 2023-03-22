@@ -81,6 +81,7 @@ class UsersController extends Controller
                 'payments' => $payments,
                 'task_status' => DB::table('task_status')->orderBy('id')->get(),
                 'staff' => $users,
+                'collections' => DB::select('SELECT b.uuid, f.name as collector, f.uuid as user_id, b.client_id, a.name, a.account, a.branch, a.phone, b.amount as amount, b.date FROM payments b JOIN users f on b.user_id=f.id join clients a on a.id=b.client_id where a.user_id='. $user->id.' ORDER BY b.id desc;'),
                 'tasks' => \App\Models\Task::where('user_id', $user->id)->orderBy('id', 'desc')->limit(20)
                 ->get()->map(fn ($pay) => [
                     'id' => $pay->id,
@@ -96,7 +97,16 @@ class UsersController extends Controller
                     'status' => !empty($pay->taskstatus) ? $pay->taskstatus->name : 'On progess',
                     'nexttask' => !empty($pay->nexttask) ? $pay->nexttask->name : 'Followup',
                 ]),
-    
+                'users' => \App\Models\Partner::whereIn('id', \App\Models\Client::where('user_id', $user->id)->distinct()->get(['partner_id']))->get()
+                    ->map(fn ($User) => [
+                    'id' => $User->id,
+                    'uuid' => $User->uuid,
+                    'name' => $User->name,
+                    'clients' => $User->clients()->where('user_id', $user->id)->count(),
+                    'amount' => $User->clients()->where('user_id', $user->id)->sum('amount'),
+                    'total' => \App\Models\Payment::whereIn('client_id', $User->clients()->where('user_id', $user->id)->get(['id']))->sum('amount'), //$User->clients()->where('partner_id', $partner->id)->count(),
+                    'created_at' => $User->created_at,
+        ])
             ]);
         }
     
@@ -127,9 +137,15 @@ class UsersController extends Controller
     {
         $type = request()->segment(2);
         $id = request()->segment(3);
+        $bank = request()->segment(4);
         if($type != '' && $id != ''){
             $check = $type."_id";
-            $client = \App\Models\Client::where('status', 1)->where($check, $id);
+            if($bank > 0 && $type=='user'){
+                $where = ['user_id' => $id, 'partner_id' => $bank];
+            }else{
+                $where = [$check => $id];
+            }
+            $client = \App\Models\Client::where('status', 1)->where($where);
         }else{
             $client = \App\Models\Client::where('status', 1);
         }
@@ -153,8 +169,8 @@ class UsersController extends Controller
                     'last_update' => $user->updated_at,
                     'edit_url' => url('users.edit', $user),
                 ]);
-        $view =  $type != '' && $type=='user' ? 'Dashboard' : 'Index';
-        $where_user =  $type != '' && $type=='user' ?  'WHERE user_id='.$id : '';
+        $view =  $type != '' && $type=='user' ? 'Staff' : 'Index';
+        $where_user =  $type != '' && $type=='user' ?  'WHERE a.user_id='.$id : '';
         return Inertia::render('Clients/'.$view, [
             'filters' => Request::all('search', 'trashed'),
             'users' => $users,
@@ -468,7 +484,21 @@ class UsersController extends Controller
         return Inertia::render('Clients/CreatePartner',
         [
             'roles' => DB::table('partner_groups')->get(),
+            'users' => DB::table('users')->get(),
             'uuid' => (string) Str::uuid()
+        ]);
+    }
+
+    
+    public function editPartner($id)
+    {
+        return Inertia::render('Clients/EditPartner',
+        [
+            'users' => DB::table('users')->get(),
+            'roles' => DB::table('partner_groups')->get(),
+            'uuid' => (string) Str::uuid(),
+            'bank' => DB::table('partners')->where('uuid', $id)->first(),
+
         ]);
     }
 

@@ -48,6 +48,9 @@ class HomeController extends Controller
 
     public function index($id = null, $group = null)
     {
+        if(Auth::User()->role_id ==1){
+           return $this->teamLeader(Auth::User()->id);
+        }
         $date = "'".date('Y-m-d')."'";
         $where_date = request('days') > 0 ? date('Y-m-d', strtotime('- '.request('days').'days')) : (request('days') != '' ? date('Y-m-d') : date('Y-m-01'));
         $where_ = request('days') > 0 ? "'".date('Y-m-d', strtotime('- '.request('days').'days'))."'" :  (request('days') != '' ? "'".date('Y-m-d')."'" : "'".date('Y-m-01')."'");
@@ -65,6 +68,81 @@ class HomeController extends Controller
         ]);
     }
 
+
+    
+    public function teamLeader($id = null, $group = null)
+    {
+        $where_date = request('days') > 0 ? date('Y-m-d', strtotime('- '.request('days').'days')) : date('Y-m-01');
+        $where_ = request('days') > 0 ? "'".date('Y-m-d', strtotime('- '.request('days').'days'))."'" : "'".date('Y-m-01')."'";
+        $payments = DB::select('WITH alltasks as(SELECT c.id, c.name, sum(b.amount) as total, COUNT(DISTINCT b.client_id) as client FROM payments b JOIN clients a on b.client_id=a.id join partners c on c.id=a.partner_id where b.created_at >='.$where_.' GROUP BY c.id, c.name), allusers as (SELECT a.id, a.name, sum(b.amount) as amount, COUNT(b.id) as clients FROM clients b JOIN partners a on b.partner_id=a.id where b.status=1 GROUP BY a.id, a.name) select a.id, a.name, a.total, a.client, b.amount, b.clients from alltasks a left join allusers b on a.id=b.id order by total desc;');
+        $user_id = $id > 0 ? $id : Auth::User()->id;
+            $date = "'".date('Y-m-d')."'";
+            $where_date = request('days') > 0 ? date('Y-m-d', strtotime('- '.request('days').'days')) : (request('days') != '' ? date('Y-m-d') : date('Y-m-01'));
+            $where_ = request('days') > 0 ? "'".date('Y-m-d', strtotime('- '.request('days').'days'))."'" :  (request('days') != '' ? "'".date('Y-m-d')."'" : "'".date('Y-m-01')."'");
+            $payments = DB::select('WITH alltasks as(SELECT a.id, a.name, a.sex, sum(b.amount) as total, COUNT(DISTINCT b.client_id) as client FROM payments b JOIN users a on b.user_id=a.id where b.created_at >='.$where_.' GROUP BY a.id, a.name,a.sex), allusers as (SELECT a.id, a.name, sum(b.amount) as amount, COUNT(b.id) as clients FROM clients b JOIN users a on b.user_id=a.id where b.status=1 GROUP BY a.id, a.name) select a.id, a.name, a.sex, a.total, a.client, b.amount, b.clients from alltasks a left join allusers b on a.id=b.id order by total desc;');
+            $bank = \App\Models\Partner::where('user_id', $user_id);
+            return inertia('Clients/Dashboard',
+            [
+                'payments' => $payments,
+                'tasks' => money(\App\Models\Task::whereIn('client_id', \App\Models\Client::whereIn('partner_id', $bank->get(['id']))->get(['id']))->whereDate('created_at', '>=', $where_date)->count()),
+                'amounts' => money(\App\Models\Payment::whereIn('client_id', \App\Models\Client::whereIn('partner_id', $bank->get(['id']))->get(['id']))->whereDate('created_at', '>=', $where_date)->sum('amount')),
+                'messages' => money(\App\Models\Message::whereDate('created_at', '>=', $where_date)->count()),
+                'clients' => money(\App\Models\Client::whereIn('partner_id', $bank->get(['id']))->whereDate('created_at', '>=', $where_date)->count()),
+                'users' => \App\Models\Partner::where('user_id', $user_id)->get()
+                ->map(fn ($User) => [
+                    'id' => $User->id,
+                    'uuid' => $User->uuid,
+                    'address' => $User->address,
+                    'name' => $User->name,
+                    'email' => $User->email,
+                    'phone' => $User->phone,
+                    'website' => $User->website,
+                    'group' =>  !empty($User->partnerGroup) > 0 ? $User->partnerGroup->name : 'BANK',
+                    'clients' =>   !empty($User->clients) ? $User->clients->count() : '0',
+                    'created_at' => $User->created_at,
+                    'edit_url' => url('users.edit', $User),
+                ]),
+                'collections' => DB::select('SELECT a.id,a.uuid, a.name, a.code, count(b.id) as total, sum(b.amount) as amount, COUNT(DISTINCT b.client_id) as client FROM payments b JOIN users a on b.user_id=a.id join clients d on d.id=b.client_id WHERE d.partner_id in (select id from partners where user_id='.$user_id.') GROUP BY a.id, a.name, a.code order by sum(b.amount) DESC '),
+                'partners' => $payments,
+                'bank' => [
+                    'members' => \App\Models\Client::whereIn('partner_id', $bank->get(['id']))->get(['id'])->count(),
+                    'amounts' => money(\App\Models\Client::whereIn('partner_id', $bank->get(['id']))->sum('amount')),
+                    'payments' => money(\App\Models\Payment::whereIn('client_id', \App\Models\Client::whereIn('partner_id', $bank->get(['id']))->get(['id']))->sum('amount')),
+                    'customers' => money(\App\Models\Client::whereIn('partner_id', $bank->get(['id']))->whereIn('id', \App\Models\Payment::distinct()->get(['client_id']))->count()),        
+                ],
+
+        ]);
+    }
+    
+    public function partnerStaff($id){
+        $partner = \App\Models\Partner::where('uuid', $id)->first();
+        return inertia('Clients/Staffs',
+        [
+            'users' => \App\Models\User::whereIn('id', \App\Models\Client::where('partner_id', $partner->id)->distinct()->get(['user_id']))->get()
+                ->map(fn ($User) => [
+                'id' => $User->id,
+                'uuid' => $User->uuid,
+                'name' => $User->name,
+                'email' => $User->email,
+                'phone' => $User->phone,
+                'clients' => $User->clients()->where('partner_id', $partner->id)->count(),
+                'amount' => $User->clients()->where('partner_id', $partner->id)->sum('amount'),
+                'total' => \App\Models\Payment::whereIn('client_id', $User->clients()->where('partner_id', $partner->id)->get(['id']))->sum('amount'), //$User->clients()->where('partner_id', $partner->id)->count(),
+                'created_at' => $User->created_at,
+        ]),
+        'bank' => [
+            'members' => $partner->clients()->count(),
+            'bankname' => $partner->name,
+            'payments' =>  \App\Models\Payment::whereIn('client_id', $partner->clients()->get(['id']))->sum('amount'),
+            'amounts' => $partner->clients()->sum('amount'),
+            'uuid' => $partner->uuid,
+            'id' => $partner->id,
+            'leader' => $partner->user->name,
+
+        ],
+    ]);
+
+    }
     public function tasks()
     {
     
@@ -282,7 +360,6 @@ public function calendar_data($id = null){
             'days' => request('days'),
             'payments' => $payments,
             'collections' => DB::select('SELECT b.uuid, f.name as collector, f.uuid as user_id, b.client_id, a.name, a.account, a.branch, a.phone, b.amount as amount, b.date FROM payments b JOIN users f on b.user_id=f.id join clients a on a.id=b.client_id where b.created_at >='.$where_. ' '. $where_condition.' ORDER BY b.id desc;'),
-
         ]);
     }
 
@@ -707,7 +784,7 @@ public function calendar_data($id = null){
              'next_type_id' => request('next_type_id'),
              'created_by' => request('user_id')
          ]);
-        return redirect()->back()->with('success', 'Mesage Sent');
+        return redirect()->back()->with('success', 'Task Created Successfully');
      }
  
      public function deleteTask($id)
@@ -719,7 +796,7 @@ public function calendar_data($id = null){
      public function updateTask($id, $status)
      { 
         \App\Models\Task::where('uuid', $id)->update(['status_id' => $status]);
-      return  redirect(url()->previous())->with('success', 'Task Updated');
+        return redirect(url()->previous())->with('success', 'Task Updated');
     }
 
 

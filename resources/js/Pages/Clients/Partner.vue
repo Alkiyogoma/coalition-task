@@ -39,31 +39,36 @@
                       <td class="align-middle text-center">
                         <span class="text-secondary text-xs font-weight-bold">{{ user.group }}</span>
                       </td>
-                      <td class="align-middle text-center">
-                        <span class="text-secondary text-xs font-weight-bold">{{ user.phone }}</span>
-                      </td>
-                      <td class="align-middle text-center">
-                        <span class="text-secondary text-xs font-weight-bold">{{ user.email }}</span>
-                      </td>
-                      <td class="align-middle text-center">
-                        <span class="text-secondary text-xs font-weight-bold">{{ user.website }}</span>
-                      </td>
+                      
                       <td class="align-middle text-center">
                         <span class="text-secondary text-xs font-weight-bold">{{ user.clients }}</span>
                       </td>
-                        <td class="align-middle">
+                      
+                      <td class="align-middle text-center">
                         <Link :href="`/clients/partner/${ user.id }`" class="text-white font-weight-bold  " data-toggle="tooltip" data-original-title="Edit user">
-                          <span class="mx-3 px-2badge badge-sm bg-gradient-success">Clients</span>
+                          <span class="btn btn-outline-success btn-sm mb-0">customers</span>
                         </Link>
+                      </td>
+                      
+                      <td class="align-middle text-center">
+                        <Link :href="`/collectors/${ user.uuid }/bank`" class="text-white font-weight-bold  " data-toggle="tooltip" data-original-title="Edit user">
+                          <span class="btn btn-outline-success btn-sm mb-0">Staffs</span>
+                        </Link>
+                      </td>
+                        <td class="align-middle">
                         <Link :href="`/collections/${ user.id }/partner`" class="text-secondary font-weight-bold" data-toggle="tooltip" data-original-title="Edit user">
-                          <span class="px-2 badge badge-sm bg-gradient-info">Collections</span>
+                          <span class="btn btn-outline-info btn-sm mb-0">Collections</span>
                         </Link>
-                        <!-- <a href="javascript:;" class="ml-3 text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                          <span class="badge badge-sm bg-gradient-primary">Edit</span>
-                        </a>
+                        <!-- 
                         <a href="javascript:;" class="ml-4 text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
                           <span class="badge badge-sm bg-gradient-secondary">Delete</span>
                         </a> -->
+                      </td>
+                      
+                      <td class="align-middle text-center">
+                        <a :href="`/bank/${ user.uuid }/edit`" class="text-secondary font-weight-bold" data-toggle="tooltip" data-original-title="Edit user">
+                          <span class="btn btn-outline-primary btn-sm mb-0">Edit</span>
+                        </a>
                       </td>
                     </tr>
                  
