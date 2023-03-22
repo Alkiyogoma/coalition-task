@@ -48,7 +48,7 @@ class HomeController extends Controller
 
     public function index($id = null, $group = null)
     {
-        if(Auth::User()->role_id ==1){
+        if(Auth::User()->role_id ==3){
            return $this->teamLeader(Auth::User()->id);
         }
         $date = "'".date('Y-m-d')."'";
