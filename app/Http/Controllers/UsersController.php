@@ -506,6 +506,7 @@ class UsersController extends Controller
     {
             Request::validate([
                 'name' => ['required', 'max:150'],
+                'user_id' => ['required', 'max:150'],
                 'email' => ['nullable', 'max:150', 'email'],
                 'phone' => ['nullable', 'max:50'],
                 'address' => ['nullable', 'max:150'],
@@ -518,6 +519,22 @@ class UsersController extends Controller
             return redirect('partners')->with('success', 'User updated.');
         }
 
+        public function updatePartner($id)
+        {
+                Request::validate([
+                    'name' => ['required', 'max:150'],
+                    'user_id' => ['required', 'max:150'],
+                    'email' => ['nullable', 'max:150', 'email'],
+                    'phone' => ['nullable', 'max:50'],
+                    'address' => ['nullable', 'max:150'],
+                    'partner_group_id' => ['nullable', 'max:50'],
+                    'website' => ['nullable', 'max:50'],
+                    'logo' => ['nullable', 'max:25'],
+                ]);
+                \App\Models\Partner::where('uuid')->update(array_merge(request()->all(), ['uuid' => (string) Str::uuid()]));
+    
+                return redirect('partners')->with('success', 'Bank Details updated.');
+            }
         public function addDept()
         {
             return Inertia::render('Staff/AddDept',
