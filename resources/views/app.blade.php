@@ -426,6 +426,12 @@
                         </ul>
                     </div>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="/tracing">
+                        <i class="material-icons-round opacity-10">home</i>
+                        <span class="nav-link-text ms-2 ps-1"> Skip Tracing </span>
+                    </a>
+                </li>
                 @else
                 <li class="nav-item">
                     <a class="nav-link text-white" href="/payments">

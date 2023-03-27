@@ -1,6 +1,4 @@
-<?php
-
-namespace App\Imports;
+<?phpnamespace App\Imports;
 
 use App\Models\Payment;
 use Illuminate\Support\Facades\Hash;

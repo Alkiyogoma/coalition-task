@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Created by Reliese Model.
- */
-
 namespace App\Models;
 
 use Carbon\Carbon;
@@ -77,9 +73,9 @@ class Expense extends Model
     {
         $query->when($filters['search'] ?? null, function ($query, $search) {
             $query->where(function ($query) use ($search) {
-                $query->where(DB::raw('lower(name)'), 'like', '%'.strtolower($search).'%')
-				->orWhere(DB::raw('lower(reference)'), 'like', '%'.strtolower($search).'%')
-				->orWhere(DB::raw('lower(amount)'), 'like', '%'.strtolower($search).'%');
+                $query->where(DB::raw('name'), 'like', '%'.strtolower($search).'%')
+				->orWhere(DB::raw('reference'), 'like', '%'.strtolower($search).'%')
+				->orWhere(DB::raw('amount'), 'like', '%'.strtolower($search).'%');
             });
         })->when($filters['trashed'] ?? null, function ($query, $trashed) {
             if ($trashed === 'with') {

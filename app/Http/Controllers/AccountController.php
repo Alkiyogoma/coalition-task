@@ -1,6 +1,4 @@
-<?php
-
-namespace App\Http\Controllers;
+<?phpnamespace App\Http\Controllers;
 
 use App\Models\Invoice;
 use Illuminate\Support\Facades\Auth;
