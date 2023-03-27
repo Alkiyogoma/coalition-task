@@ -47,11 +47,7 @@
                              <h6 class="mb-0 text-sm">{{ user.name }}</h6>
                         </Link>
                       </td>
-                      
-                      <!-- <td class="align-middle text-center">
-                        <span class="text-secondary text-xs font-weight-bold">{{ user.employer }}</span>
-                      </td> -->
-                      <td class="align-middle text-center">
+                      <td class="align-middle bg-dark text-center">
                         <span class="text-secondary text-xs font-weight-bold">{{ user.account }}</span>
                       </td>
                       <td class="align-middle text-center">
@@ -66,9 +62,6 @@
                       <td class="align-middle text-center">
                         <span class="text-secondary text-xs font-weight-bold">{{ money(user.paid) }}</span>
                       </td>
-                      <!-- <td class="align-middle text-center">
-                        <span class="text-secondary text-xs font-weight-bold">{{ user.code }}</span>
-                      </td> -->
                       <td class="align-middle text-center">
                         <span class="text-secondary text-xs font-weight-bold">{{ user.collector }}</span>
                       </td>
@@ -76,12 +69,7 @@
                           <Link :href="`/client/${user.uuid}/view`" class="text-secondary font-weight-bold  " data-toggle="tooltip" data-original-title="Edit user">
                           <span class="btn btn-outline-primary btn-sm mb-0">Profile</span>
                         </Link>
-                        <!-- <a href="javascript:;" class="ml-3 text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                          <span class="badge badge-sm bg-gradient-primary">Edit</span>
-                        </a>
-                        <a href="javascript:;" class="ml-4 text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                          <span class="badge badge-sm bg-gradient-secondary">Delete</span>
-                        </a> -->
+                        
                       </td>
                     </tr>
                  
