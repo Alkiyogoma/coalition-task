@@ -48,7 +48,7 @@ class HomeController extends Controller
 
     public function index($id = null, $group = null)
     {
-        if(Auth::User()->role_id ==3){
+        if((int)Auth::User()->role_id == 3){
            return $this->teamLeader(Auth::User()->id);
         }
         $date = "'".date('Y-m-d')."'";
@@ -81,8 +81,7 @@ class HomeController extends Controller
             $where_ = request('days') > 0 ? "'".date('Y-m-d', strtotime('- '.request('days').'days'))."'" :  (request('days') != '' ? "'".date('Y-m-d')."'" : "'".date('Y-m-01')."'");
             $payments = DB::select('WITH alltasks as(SELECT a.id, a.name, a.sex, sum(b.amount) as total, COUNT(DISTINCT b.client_id) as client FROM payments b JOIN users a on b.user_id=a.id where b.created_at >='.$where_.' GROUP BY a.id, a.name,a.sex), allusers as (SELECT a.id, a.name, sum(b.amount) as amount, COUNT(b.id) as clients FROM clients b JOIN users a on b.user_id=a.id where b.status=1 GROUP BY a.id, a.name) select a.id, a.name, a.sex, a.total, a.client, b.amount, b.clients from alltasks a left join allusers b on a.id=b.id order by total desc;');
             $bank = \App\Models\Partner::where('user_id', $user_id);
-            return inertia('Clients/Dashboard',
-            [
+            return inertia('Clients/Dashboard', [
                 'payments' => $payments,
                 'tasks' => money(\App\Models\Task::whereIn('client_id', \App\Models\Client::whereIn('partner_id', $bank->get(['id']))->get(['id']))->whereDate('created_at', '>=', $where_date)->count()),
                 'amounts' => money(\App\Models\Payment::whereIn('client_id', \App\Models\Client::whereIn('partner_id', $bank->get(['id']))->get(['id']))->whereDate('created_at', '>=', $where_date)->sum('amount')),
