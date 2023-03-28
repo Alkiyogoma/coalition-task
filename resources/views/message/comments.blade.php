@@ -12,7 +12,7 @@
                             <label class="col-form-label text-md-right">Set Bank </label>
                             <select name="partner_id" id="partner_id" class="form-control" style="width: 100%" required>
                             <option value="">select bank</option>
-                            <?php 
+                            <?php $total = 0;
                                 foreach($partners as $leader){
                                     echo '<option value="'.$leader->id.'">'.$leader->name.' ('.$leader->clients->count().')</option>';
                                 }
@@ -73,6 +73,7 @@
                             <tbody>
                             @if (count($clients))
                                 @foreach ($clients as $client)
+                                <?php $total += $client->amount; ?>
                                 <tr>
                                     <td class="text-sm font-weight-normal">{{ $client->name }}</td>
                                     <td class="text-sm font-weight-normal">{{ $client->account }}</td>
@@ -114,9 +115,8 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-6">
-                                <div class="flex items-center justify-end border-gray-100">
-                                    <button class="btn btn-success btn-rounded" type="submit">Save Changes</button>
-                                </div>
+                                <h6 class="text-dark mb-0">Total Customers - {{ count($clients) }}</h6>
+                                <h6 class="text-dark mb-0">Portfolio Value  - {{ money($total) }} </h6>
                             </div>
                             <div class="col-md-6">
                                 <div class="flex items-center justify-end border-gray-100">

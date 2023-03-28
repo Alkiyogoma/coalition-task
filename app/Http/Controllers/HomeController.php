@@ -533,7 +533,17 @@ public function calendar_data($id = null){
         public function send()
         {
             $this->data['users'] = \App\Models\Client::where('status', 1)->get();
-            $this->data['groups'] = \App\Models\Partner::get();
+            if(Auth::User()->role_id < 3){
+                $this->data['groups'] = \App\Models\Partner::get();
+                $this->data['users'] = \App\Models\Client::where('status', 1)->get();
+            }elseif(Auth::User()->role_id == 3){
+                $this->data['groups'] = \App\Models\Partner::where('user_id', Auth::User()->id)->get();
+                $this->data['users'] = \App\Models\Client::whereIn('partner_id', \App\Models\Partner::where('user_id', Auth::User()->id)->get(['id']))->where('status', 1)->get();
+            }else{
+                $user= \App\Models\User::where('id', Auth::User()->id)->first();
+                $this->data['groups'] = \App\Models\Partner::whereIn('id', \App\Models\Client::where('user_id', Auth::User()->id)->distinct()->get(['partner_id']))->get();
+                $this->data['users'] = \App\Models\Client::where('user_id', Auth::User()->id)->where('status', 1)->get();
+            }
             $this->data['families'] = \App\Models\Client::where('user_id', Auth::User()->id)->where('status', 1)->get();
             $this->data['leaders'] = \App\Models\Branch::get();
             $this->data['visitors'] = \App\Models\Employer::get();
@@ -723,7 +733,14 @@ public function calendar_data($id = null){
             $this->data['codes'] = \App\Models\ActionCode::where('partner_id', 1)->get();
         }
         $this->data['types'] = $type;
-        $this->data['partners'] = \App\Models\Partner::get();
+        if(Auth::User()->role_id < 3){
+            $this->data['partners'] = \App\Models\Partner::get();
+        }elseif(Auth::User()->role_id == 3){
+            $this->data['partners'] = \App\Models\Partner::where('user_id', Auth::User()->id)->get();
+        }else{
+            $user= \App\Models\User::where('id', Auth::User()->id)->first();
+            $this->data['partners'] = \App\Models\Partner::whereIn('id', \App\Models\Client::where('user_id', Auth::User()->id)->distinct()->get(['partner_id']))->get();
+        }
         return view('message.comments', $this->data);
     }
 

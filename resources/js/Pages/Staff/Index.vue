@@ -59,7 +59,7 @@
                           <span class="badge badge-sm bg-gradient-success">View</span>
                         </Link>
                         <Link :href="`/clients/user/${user.id}`"  class="ml-3 text-info font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                          <span class="badge badge-sm bg-gradient-info">Clients</span>
+                          <span class="badge badge-sm bg-gradient-info">Customers</span>
                         </Link>
                         <a href="javascript:;" class="ml-3 text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
                           <span class="badge badge-sm bg-gradient-secondary">Edit</span>
