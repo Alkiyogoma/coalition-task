@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Tracing extends Model
 {
-	protected $table = 'trace_clients';
+	protected $table = 'tracing';
 
 	protected $casts = [
 		'task_type_id' => 'int',

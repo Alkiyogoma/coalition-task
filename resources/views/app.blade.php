@@ -426,12 +426,7 @@
                         </ul>
                     </div>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="/tracing">
-                        <i class="material-icons-round opacity-10">home</i>
-                        <span class="nav-link-text ms-2 ps-1"> Skip Tracing </span>
-                    </a>
-                </li>
+               
                 @else
                 <li class="nav-item">
                     <a class="nav-link text-white" href="/payments">
@@ -497,7 +492,12 @@
                 </li>
                
                 @endif
-               
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="/tracing">
+                        <i class="material-icons-round opacity-10">travel_explore</i>
+                        <span class="nav-link-text ms-2 ps-1"> Skip Tracing </span>
+                    </a>
+                </li>
             </ul>
         </div>
     </aside>
@@ -514,7 +514,6 @@
                       <i class="sidenav-toggler-line"></i>
                   </div>
               </a>
-              
           </div>
           <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-8" id="navbar">
               <div class="ms-md-auto pe-md-3 d-flex">

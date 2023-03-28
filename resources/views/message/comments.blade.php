@@ -110,23 +110,22 @@
                 </div>
           
 
-    <div class="card justify-content-center">
-
-    <div class="card-body">
-    <div class="row">
-        <div class="col-md-6">
-            <div class="flex items-center justify-end border-gray-100">
-                <button class="btn btn-success btn-rounded" type="submit">Save Changes</button>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="flex items-center justify-end border-gray-100">
-               @if($url != '') <a href="/{{ $url }}?start={{ $start }}" class="btn bg-gradient-info btn-rounded" type="submit">Export Report</a> @endif
-            </div>
-        </div>
-    </div>
-
-    </div>
+                <div class="card justify-content-center">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="flex items-center justify-end border-gray-100">
+                                    <button class="btn btn-success btn-rounded" type="submit">Save Changes</button>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="flex items-center justify-end border-gray-100">
+                                @if($url != '') <a href="/{{ $url }}?start={{ $start }}" class="btn bg-gradient-info btn-rounded" type="submit">Export Report</a> @endif
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
 <script>
     $(document).ready(function() {

@@ -1,4 +1,6 @@
-<?phpnamespace App\Http\Controllers;
+<?php
+
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -184,7 +186,7 @@ class HomeController extends Controller
         ]),
         'users' => DB::table('users')->orderBy('id')->get(),
         'clients' => DB::table('clients')->orderBy('id')->get(),
-        'tasktypes' => DB::table('task_type')->orderBy('id')->get(),
+        'tasktypes' => DB::table('task_type')->where('group_id', 1)->orderBy('id')->get(),
         'task_priority' => DB::table('task_priority')->orderBy('id')->get(),
         'task_status' => DB::table('task_status')->orderBy('id')->get(),
         '_token' => csrf_token(),
@@ -236,7 +238,7 @@ class HomeController extends Controller
         ]),
         'user' => $user,
         'clients' => DB::table('clients')->where('status', 1)->where('user_id', $user->id)->orderBy('id')->get(),
-        'tasktypes' => DB::table('task_type')->orderBy('id')->get(),
+        'tasktypes' => DB::table('task_type')->where('group_id', 1)->orderBy('id')->get(),
         'task_priority' => DB::table('task_priority')->orderBy('id')->get(),
         'task_status' => DB::table('task_status')->orderBy('id')->get(),
         '_token' => csrf_token(),
@@ -894,5 +896,101 @@ public function calendar_data($id = null){
       }
   }
 
+        public function saveTrace(){
+            \App\Models\Client::where('id', request('client_id'))->update(['status' => 3]);
+            \App\Models\Task::create([
+                'title' => 'Start Skip Tracking',
+                'about' => request('about'),
+                'user_id' => request('user_id'),
+                'client_id' => request('client_id'),
+                'task_date' => date('Y-m-d'),
+                'uuid' => (string) Str::uuid(),
+                'priority_id' => 1,
+                'status_id' => 3,
+                'next_date' => request('date'),
+                'task_type_id' => 17,
+                'next_type_id' => 1,
+                'created_by' => Auth::User()->id,
+            ]);
 
+            \App\Models\Tracing::create([
+                'about' => request('about'),
+                'user_id' => Auth::User()->id,
+                'client_id' => request('client_id'),
+                'date' => date('Y-m-d'),
+                'staff_id' => request('user_id'),
+                'task_type_id' => 17,
+            ]);
+        return redirect()->back()->with('success', 'Start Tracing Created Successfully');
+    }
+
+        public function tracing($type = null) {
+        
+            $partner = request('partner_id');
+            $user_id = request('user_id');            
+            $this->data['start'] = date('Y-m-d');
+            $start = request('start_date') != '' ? "'".request('start_date')."'" : "'".date('Y-m-01')."'";
+            $end = request('end_date') != '' ? "'".request('end_date')."'" : "'".date('Y-m-d')."'";
+            $user = (int)$user_id > 0 ? \App\Models\User::where('id', $user_id)->first()->name : 'All Users';
+            $bank = (int)$partner > 0 ? \App\Models\Partner::where('id', $user_id)->first()->name : 'All Banks';
+            $task = (int)$user_id > 0 ? \App\Models\Tracing::where('staff_id', $user_id)->whereBetween('date', [$start, $end])->get(['client_id']) :  \App\Models\Tracing::whereDate('date', '>=', date('Y-m-01'))->get(['client_id']);
+            $this->data['clients'] = (int)$partner > 0 ? \App\Models\Client::where('partner_id', $partner)->whereIn('id', $task)->orderBy('id', 'DESC')->get() : \App\Models\Client::whereIn('id', $task)->orderBy('id', 'DESC')->get();
+            $this->data['url'] = "exportreport/$type/$partner/$user_id";
+            
+            $where = (int)$user_id > 0 && $partner > 0 ? ' AND a.staff_id = ' . $user_id . ' AND c.partner_id = ' . $partner . '' : ( (int)$user_id > 0 ? ' AND a.staff_id = ' . $user_id . '' : ((int)$partner > 0 ? ' AND c.partner_id = '.$partner : '' ));
+            $where_user =  (int)$user_id > 0 ? ' AND user_id = ' . $user_id . ' ' : '';
+            $scanned = collect(DB::select('SELECT count(a.*) from tracing a join clients c on a.client_id=c.id WHERE a.id in (select distinct trace_id from trace_clients where trace_id>0 '.$where_user.') AND a.date between '.$start. ' AND '.$end.$where))->first()->count;
+            $recoved = collect(DB::select('SELECT count(a.*) from tracing a join clients c on a.client_id=c.id WHERE a.id in (select distinct trace_id from trace_clients where trace_id>0 '.$where_user.') AND a.phone is not null AND a.date between '.$start. ' AND '.$end.$where))->first()->count;
+            $total = collect(DB::select('SELECT count(a.*) from tracing a join clients c on a.client_id=c.id WHERE a.date between '.$start. ' AND '.$end.$where))->first()->count;
+            $pending = collect(DB::select('SELECT count(a.*) from tracing a join clients c on a.client_id=c.id WHERE a.id NOT IN (select distinct trace_id from trace_clients where trace_id>0) AND a.date between '.$start. ' AND '.$end.$where))->first()->count;
+            $remained = $total - $recoved;
+
+            $this->data['types'] = $type;
+            $this->data['report'] = [
+                'scanned' => $scanned,
+                'recoved' => $recoved,
+                'total' => $total,
+                'pending' => $pending,
+                'remained' => $remained,
+                'user' => $user,
+                'bank' => $bank,
+             ];
+            $this->data['partners'] = \App\Models\Partner::get();
+            $this->data['codes'] = \App\Models\TaskType::where('group_id', 2)->get();
+            return view('message.tracing', $this->data);
+        }
+
+        public function getTrace(){
+            $code = \App\Models\TaskType::where('id',  request('code'))->first();
+            if (!empty($code)) {
+                echo $code->about;
+            }else{
+                echo 'Not valid task type';
+            }
+            if((int)request('client_id') > 0){
+                \App\Models\Tracing::where('client_id', request('client_id'))->update(['task_type_id' => request('code')]);
+                if(request('type_value') != '' && (request('type') == 'phone' || request('type') == 'about')){
+                    \App\Models\Tracing::where('client_id', request('client_id'))->update([request('type') => request('type_value')]);
+                }
+                $trace = \App\Models\TraceClient::where('trace_id', request('trace_id'))->first();
+                if(empty($trace)){
+                    \App\Models\TraceClient::create([
+                    'task_type_id' => request('code'),
+                    'trace_id' => request('trace_id'),
+                    'about' => request('type_value'),
+                    'user_id' => Auth::User()->id,
+                ]);
+            }else{
+                $trace = \App\Models\TraceClient::where('trace_id', request('trace_id'))->wheredate('created_at', date('Y-m-d'))
+                ->update([
+                    'task_type_id' => request('code'),
+                    'trace_id' => request('trace_id'),
+                    'about' => request('about'),
+                    'user_id' => Auth::User()->id,
+                ]);
+
+            }
+            echo 'Success';
+        }
+    }
 }

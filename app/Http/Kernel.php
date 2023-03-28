@@ -1,4 +1,6 @@
-<?phpnamespace App\Http;
+<?php
+
+namespace App\Http;
 
 use App\Http\Middleware\HandleInertiaRequests;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
