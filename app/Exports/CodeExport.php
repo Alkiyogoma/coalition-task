@@ -5,74 +5,50 @@ namespace App\Exports;
 use App\Models\Client;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Concerns\ShouldAutoSize;
+use Maatwebsite\Excel\Concerns\WithStyles;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use Maatwebsite\Excel\Concerns\WithCustomValueBinder;
+use PhpOffice\PhpSpreadsheet\Cell\Cell;
+use PhpOffice\PhpSpreadsheet\Cell\DataType;
 
-use PhpOffice\PhpSpreadsheet\Shared\Date;
-use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
-use Maatwebsite\Excel\Concerns\WithColumnFormatting;
-use Maatwebsite\Excel\Concerns\WithMapping;
-
-//class ReportExport implements FromCollection, WithHeadings
-
-class ReportExport implements WithColumnFormatting, WithMapping
+class CodeExport extends \PhpOffice\PhpSpreadsheet\Cell\StringValueBinder implements WithCustomValueBinder,FromCollection, WithHeadings,ShouldAutoSize,WithStyles
 {
   public $data;
 
     public function headings(): array
     {
-        $class_id = request()->segment(2);
-        $partner_id = request()->segment(3);
-        return $this->titles($class_id, $partner_id);
+        $partner_id = request()->segment(2);
+        return $this->titles($partner_id);
     }
 
-    public function map($invoice): array
-    {
-        return [
-            $invoice->invoice_number,
-            Date::dateTimeToExcel($invoice->created_at),
-            $invoice->total
-        ];
-    }
-    
-    public function columnFormats(): array
-    {
-        return [
-            'B' => NumberFormat::FORMAT_DATE_DDMMYYYY,
-            'C' => NumberFormat::FORMAT_CURRENCY_EUR_SIMPLE,
-        ];
-    }
     public function collection()
     {
-        $type = request()->segment(2);
-        $partner_id = request()->segment(3);
-        $user_id = request()->segment(4);
-        if($type == 'today' && $partner_id > 0){
-            $task = (int)$user_id > 0 ? \App\Models\Task::where('user_id', $user_id)->whereDate('created_at', request('start'))->get(['client_id']) :  \App\Models\Task::whereDate('created_at', request('start'))->get(['client_id']);
-            $clients = \App\Models\Client::where('partner_id', $partner_id)->whereIn('id', $task)->orderBy('id', 'DESC')
-            ->get()->map(fn ($pay) => [
-                'account' => (string)$pay->account,
-                'phone' => !empty($pay->codename) ? $pay->codename->code : $pay->code,
-                'date' => $pay->ptpdate,
-                'amount' => (string)($pay->ptpamount),
-                'about' => $pay->placement,
-            ]);
+        $partner_id = request()->segment(2);
+        $user_id = request()->segment(3);
+        $start = request('start') != '' ? request('start') : date('Y-m-01');
+        $end = request('end') != '' ? request('end') : date('Y-m-d');
+        $partner = (int)$partner_id > 0 ? \App\Models\Partner::where('id', $partner_id)->first()->name : 'All Banks';
+        $customers = [];
+        $clients = [];
+        if((int)$user_id > 0 && $partner_id > 0){
+            $customers = \App\Models\Client::whereBetween('ptpdate', [$start, $end])->where('user_id', $user_id)->where('partner_id', $partner_id)->where('code', request('code'))->orderBy('id', 'asc');
+        }elseif((int)$user_id > 0){
+            $customers = \App\Models\Client::whereBetween('ptpdate', [$start, $end])->where('user_id', $user_id)->where('code', request('code'))->orderBy('id', 'asc');
+        }elseif((int)$partner_id > 0){
+            $customers = \App\Models\Client::whereBetween('ptpdate', [$start, $end])->where('partner_id', $partner_id)->where('code', request('code'))->orderBy('id', 'asc');
+            $clients = \App\Models\Client::whereBetween('ptpdate', [$start, $end])->where('partner_id', $partner_id)->where('code', request('code'))->orderBy('id', 'DESC')->get();
+
         }
-        if($type != 'today' && $partner_id > 0){
-            if($type == 'week' && $partner_id > 0){
-                $date = date('Y-m-d', strtotime('-7 days'));
-            }
-            if($type == 'month' && $partner_id > 0){
-            $date = date('Y-m-d', strtotime('-30 days')); 
-            }
+        if(count($customers->get()) && $partner_id > 0){
+           
             $i = 1;
             $partner = \App\Models\Partner::where('id', $partner_id)->first();
             if(!empty($partner) && strtolower($partner->name) == 'equity bank'){
             // Equity Bank Headers
                 $list = 'S/N,Customer Names,Account Number,Customer Mobile Number,Employer Name,OUTSTANDING LOAN BALANCE,NEXT OF KIN NAME,Amount Received,Reason Code,Follow up/Next action';
                 // S/N	Collector	Customer Names	Account Number	Customer Mobile Number	Employer Name	 OUTSTANDING LOAN BALANCE 	NEXT OF KIN NAME	Next Kin Phone	 Amount Received Jan'23 	 Reason Code 	 Follow up/Next action 
-                $clients = \App\Models\Client::where('partner_id', $partner_id)->where('status', 1)->orderBy('id', 'DESC')
-                ->get()->map(fn ($pay, $i=1) => [
+                $clients = $customers->get()->map(fn ($pay, $i=1) => [
                     'id' => $i+1,
                     'collector' => $pay->user->name,
                     'name' => $pay->name,
@@ -82,7 +58,7 @@ class ReportExport implements WithColumnFormatting, WithMapping
                     'amount' => (string)($pay->amount),
                     'nextkin' => $pay->nextkin,
                     'nextkinphone' => $pay->nextkinphone,
-                    'payments' => $pay->payments()->whereDate('created_at', '>=', $date)->sum('amount'),
+                    'payments' => $pay->ptpamount,
                     'code' => $pay->code,
                     'placement' => $pay->placement,
                     'about' => $pay->code
@@ -90,17 +66,15 @@ class ReportExport implements WithColumnFormatting, WithMapping
             }
             if(!empty($partner) && strtolower($partner->name) == 'stanbic bank'){
                 // stanbic Bank
-                $list = 'Collector,Customer Name,Employer,Account number,Contacts,Branch,Outstanding Balance(TZS),Amount Received,Reason Code,Follow up/Next action,Recall/Retain';
-                $clients = \App\Models\Client::where('partner_id', $partner_id)->where('status', 1)->orderBy('id', 'DESC')
-                ->get()->map(fn ($pay, $i=1) => [
+                $clients = $customers->get()->map(fn ($pay, $i=1) => [
                     'id' => $pay->user->name,
                     'name' => $pay->name,
                     'employer' => $pay->employer,
                     'account' => "$pay->account",
-                    'phone' => $pay->phone,
+                    'phone' => str_replace('+255', '+255(000)', $pay->phone),
                     'branch' => $pay->branch,
                     'amount' => (string)($pay->amount),
-                    'payments' => $pay->payments()->whereDate('created_at', '>=', $date)->sum('amount'),
+                    'payments' => $pay->ptpamount,
                     'code' => $pay->code,
                     'placement' => $pay->placement,
                     'about' => $pay->code
@@ -108,9 +82,7 @@ class ReportExport implements WithColumnFormatting, WithMapping
             }
             if(!empty($partner) && strtolower($partner->name) == 'nmb bank'){
                 // NMB Bank
-                $list = 'COLLECTOR,BRANCH NAME,CUST NAME,ACCOUNT NUMBER,SETT ACC,PRINC BAL,PHONE NUMBER,PAYMENT,REASON CODE,STATUS,PLACEMENT';
-                $clients = \App\Models\Client::where('partner_id', $partner_id)->where('status', 1)->orderBy('id', 'DESC')
-                ->get()->map(fn ($pay, $i=1) => [
+                $clients = $customers->get()->map(fn ($pay, $i=1) => [
                     'id' => $pay->user->name,
                     'branch' => $pay->branch,
                     'name' => $pay->name,
@@ -118,7 +90,7 @@ class ReportExport implements WithColumnFormatting, WithMapping
                     'employer' => $pay->deposit_account,
                     'amount' => (string)($pay->amount),
                     'phone' => $pay->phone,
-                    'payments' => $pay->payments()->whereDate('created_at', '>=', $date)->sum('amount'),
+                    'payments' => $pay->ptpamount,
                     'code' => $pay->code,
                     'status' => $pay->code,
                     'placement' => $pay->placement,
@@ -126,10 +98,7 @@ class ReportExport implements WithColumnFormatting, WithMapping
             }
             if(!empty($partner) && strtolower($partner->name) == 'crdb bank'){
                 // CRDB Bank
-                $list = 'Loan Acc. No.,Customer Name,Segment,Description,Branch,Zone,Aproved loan amount_txccy,
-                Total Exposure,Days past due,System classification,Employer Name,Debt collector,Loan collection Officer,Status,Date';
-                $clients = \App\Models\Client::where('partner_id', $partner_id)->where('status', 1)->orderBy('id', 'DESC')
-                ->get()->map(fn ($pay, $i=1) => [
+                $clients = $customers->get()->map(fn ($pay, $i=1) => [
                     'account' => $pay->account,
                     'name' => $pay->name,
                     'segment' => '',
@@ -137,7 +106,7 @@ class ReportExport implements WithColumnFormatting, WithMapping
                     'branch' => $pay->branch,
                     'zone' => '',
                     'amount' => (string)($pay->amount),
-                    'payments' => $pay->payments()->whereDate('created_at', '>=', $date)->sum('amount'),
+                    'payments' => $pay->ptpamount,
                     'days' => '',
                     'system' => '',
                     'employer' => $pay->employer,
@@ -148,23 +117,23 @@ class ReportExport implements WithColumnFormatting, WithMapping
                 ]);
             }
            
+        }else{
+            return redirect('codereports')->with('success', 'No Customer Data Available');
         }
-
-        return   $clients;
+        return  $clients;
     }
 
-    public function titles($class_id, $partner_id = 0)
+    public function titles($partner_id = 0)
     {
-        if($class_id == 'today'){
-            $list = 'Account Number,Action Codes,PTP Date,PTP Amount,Remarks,Future Review Date,Executor,Attorney,Summon Issue Date,Judgement Granted Date,Judgement Amount,Name of Liquidator,Date of First Meeting,Date of Second Meeting,Final L&D Date,Date of Attachment,Asset Valuation Amount,Storage Location,Date Sold,Sold Amount,Date Outsourced,Name of Insurer,Date of Claim Lodged,FSV';
-        }else{
+        $list = '';
+        if($partner_id > 0){
             $partner = \App\Models\Partner::where('id', $partner_id)->first();
             if(!empty($partner) && strtolower($partner->name) == 'equity bank'){
                 // Equity Bank Headers
                 $list = 'S/N,Collector,Customer Names,Account Number,Customer Mobile Number,Employer Name,OUTSTANDING LOAN BALANCE,NEXT OF KIN NAME,NEXT KIN PHONE,Amount Received,Reason Code,Follow up/Next action';
             }
             if(!empty($partner) && strtolower($partner->name) == 'stanbic bank'){
-                // stanbic Bank
+                // stanbic Bank Stanbic Bank
             $list = 'Collector,Customer Name,Employer,Account number,Contacts,Branch,Outstanding Balance(TZS),Amount Received,Reason Code,Follow up/Next action,Recall/Retain';
             }
             if(!empty($partner) && strtolower($partner->name) == 'nmb bank'){
@@ -175,7 +144,7 @@ class ReportExport implements WithColumnFormatting, WithMapping
                 // CRDB Bank
             $list = 'Loan Acc. No.,Customer Name,Segment,Description,Branch,Zone,Aproved loan amount_txccy,Total Exposure,Days past due,System classification,Employer Name,Debt collector,Loan collection Officer,Status,Date';
             }
-    }
+        }
 
         $title = explode(',', rtrim($list, ','));
     
@@ -187,4 +156,41 @@ class ReportExport implements WithColumnFormatting, WithMapping
     
     }
 
+    public function styles(Worksheet $sheet)
+    {
+        return [
+            // Style the first row as bold text.
+            1    => ['font' => ['bold' => true, 'background' => 'orange', 'size' => 12]],
+
+            // Styling a specific cell by coordinate.
+            // 'B2' => ['font' => ['italic' => true]],
+
+            // Styling an entire column.
+            // 'C'  => ['font' => ['size' => 16]],
+        ];
+    }
+
+    public function bindValue999(Cell $cell, $value)
+    {
+        if (is_numeric($value)) {
+            $cell->setValueExplicit($value, DataType::TYPE_NUMERIC);
+
+            return true;
+        }
+
+        if (is_string($value)) {
+            $cell->setValueExplicit($value, DataType::TYPE_STRING);
+
+            return true;
+        }
+
+        if (is_numeric($value)) {
+            $cell->setValueExplicit($value, DataType::TYPE_NUMERIC);
+
+            return true;
+        }
+
+        // else return default behavior
+        return parent::bindValue($cell, $value);
+    }
 }

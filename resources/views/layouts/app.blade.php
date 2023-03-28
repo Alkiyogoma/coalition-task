@@ -368,59 +368,6 @@
                     </ul>
                 </div>
               </li>
-                <li class="nav-item">
-                    <a data-bs-toggle="collapse" href="#componentsExamples" class="nav-link text-white"
-                        aria-controls="componentsExamples" role="button" aria-expanded="false">
-                        <i
-                            class="material-icons-round {% if page.brand == 'RTL' %}ms-2{% else %} me-2{% endif %}">view_in_ar</i>
-                        <span class="nav-link-text ms-2 ps-1">Reports</span>
-                    </a>
-                    <div class="collapse " id="componentsExamples">
-                        <ul class="nav ">
-                            <li class="nav-item ">
-                                <a class="nav-link text-white"
-                                    href="/reports"
-                                   >
-                                    <span class="sidenav-mini-icon"> GR </span>
-                                    <span class="sidenav-normal  ms-2  ps-1"> General Report </span>
-                                </a>
-                            </li>
-                            <li class="nav-item ">
-                                <a class="nav-link text-white"
-                                    href="/partners"
-                                   >
-                                    <span class="sidenav-mini-icon"> PR </span>
-                                    <span class="sidenav-normal  ms-2  ps-1"> Pre Invoices </span>
-                                </a>
-                            </li>
-                            <li class="nav-item ">
-                                <a class="nav-link text-white"
-                                    href="/billing"
-                                   >
-                                    <span class="sidenav-mini-icon"> MR </span>
-                                    <span class="sidenav-normal  ms-2  ps-1"> Monthly Report </span>
-                                </a>
-                            </li>
-                            <li class="nav-item ">
-                                <a class="nav-link text-white"
-                                    href="/pagination"
-                                   >
-                                    <span class="sidenav-mini-icon"> MP </span>
-                                    <span class="sidenav-normal  ms-2  ps-1"> Monthly Prospects </span>
-                                </a>
-                            </li>
-                            
-                            <li class="nav-item ">
-                                <a class="nav-link text-white"
-                                    href="/pagination"
-                                   >
-                                    <span class="sidenav-mini-icon"> MP </span>
-                                    <span class="sidenav-normal  ms-2  ps-1"> Monthly Prospects </span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
                 @else
                 <li class="nav-item">
                     <a class="nav-link text-white" href="/payments">
@@ -448,18 +395,15 @@
                         <span class="nav-link-text ms-2 ps-1"> My Tasks </span>
                     </a>
                 </li>
-                
-               
                 @endif
                 <li class="nav-item">
-                    <a data-bs-toggle="collapse" href="#pagesExamples" class="nav-link text-white"
-                        aria-controls="pagesExamples" role="button" aria-expanded="false">
+                    <a data-bs-toggle="collapse" href="#pagesExamplesReport" class="nav-link text-white"
+                        aria-controls="pagesExamplesReport" role="button" aria-expanded="false">
                         <i class="material-icons opacity-10">store</i>
                         <span class="nav-link-text ms-2 ps-1">Reports</span>
                     </a>
-                    <div class="collapse " id="pagesExamples">
+                    <div class="collapse " id="pagesExamplesReport">
                         <ul class="nav ">
-                          
                             <li class="nav-item ">
                                 <a class="nav-link text-white" href="/collections">
                                     <span class="sidenav-mini-icon"> C </span>
@@ -482,6 +426,12 @@
                                 <a class="nav-link text-white" href="/comments/month">
                                     <span class="sidenav-mini-icon"> M </span>
                                     <span class="sidenav-normal  ms-2  ps-1"> Monthly Report </span>
+                                </a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link text-white" href="/codereports">
+                                    <span class="sidenav-mini-icon"> C </span>
+                                    <span class="sidenav-normal  ms-2  ps-1"> Codes Reports </span>
                                 </a>
                             </li>
                         </ul>

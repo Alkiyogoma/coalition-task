@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use App\Imports\UsersImport;
 use App\Imports\PaymentImport;
 use App\Exports\CustomerExport;
+use App\Exports\CodeExport;
 use App\Exports\PaymentExport;
 use Maatwebsite\Excel\Facades\Excel;
 use \App\Models\Client;
@@ -408,6 +409,28 @@ public function calendar_data($id = null){
         $partner = \App\Models\Partner::where('id', request()->segment(3))->first();
 
         return Excel::download(new CustomerExport, 'Report_'.request()->segment(2).'_'.$partner->name.'_'.split_name(Auth::User()->name)['first'].'.xlsx');
+    }
+
+    public function exportReportCode(){
+        $date = date('F-d');
+        $partner = request()->segment(2);
+        $user_id = request()->segment(3);
+        
+        $start = request('start') != '' ? request('start') : date('Y-m-01');
+        $end = request('end') != '' ? request('end') : date('Y-m-d');
+        $partner = \App\Models\Partner::where('id', request()->segment(2))->first();
+        if((int)$user_id > 0 && $partner > 0){
+            $clients = \App\Models\Client::whereBetween('ptpdate', [$start, $end])->where('user_id', $user_id)->where('partner_id', $partner)->where('code', request('code'))->orderBy('id', 'DESC')->get();
+        }elseif((int)$user_id > 0){
+            $clients = \App\Models\Client::whereBetween('ptpdate', [$start, $end])->where('user_id', $user_id)->where('code', request('code'))->orderBy('id', 'DESC')->get();
+
+        }elseif((int)$partner > 0){
+            $clients = \App\Models\Client::whereBetween('ptpdate', [$start, $end])->where('partner_id', $partner)->where('code', request('code'))->orderBy('id', 'DESC')->get();
+        }
+        if(count($clients) == 0) {
+            return redirect('codereports')->with('success', 'No Customer Data Available');
+        }
+        return Excel::download(new CodeExport, request('code').'Report_'.request()->segment(2).'_'.$partner->name.'_'.split_name(Auth::User()->name)['first'].'.xlsx');
     }
 
     // public function studentExport(){
@@ -931,7 +954,7 @@ public function calendar_data($id = null){
             $start = request('start_date') != '' ? "'".request('start_date')."'" : "'".date('Y-m-01')."'";
             $end = request('end_date') != '' ? "'".request('end_date')."'" : "'".date('Y-m-d')."'";
             $user = (int)$user_id > 0 ? \App\Models\User::where('id', $user_id)->first()->name : 'All Users';
-            $bank = (int)$partner > 0 ? \App\Models\Partner::where('id', $user_id)->first()->name : 'All Banks';
+            $bank = (int)$partner > 0 ? \App\Models\Partner::where('id', $partner)->first()->name : 'All Banks';
             $task = (int)$user_id > 0 ? \App\Models\Tracing::where('staff_id', $user_id)->whereBetween('date', [$start, $end])->get(['client_id']) :  \App\Models\Tracing::whereDate('date', '>=', date('Y-m-01'))->get(['client_id']);
             $this->data['clients'] = (int)$partner > 0 ? \App\Models\Client::where('partner_id', $partner)->whereIn('id', $task)->orderBy('id', 'DESC')->get() : \App\Models\Client::whereIn('id', $task)->orderBy('id', 'DESC')->get();
             $this->data['url'] = "exportreport/$type/$partner/$user_id";
@@ -954,6 +977,8 @@ public function calendar_data($id = null){
                 'user' => $user,
                 'bank' => $bank,
              ];
+            $this->data['start_date'] = $start;
+            $this->data['end_date'] = $end;
             $this->data['partners'] = \App\Models\Partner::get();
             $this->data['codes'] = \App\Models\TaskType::where('group_id', 2)->get();
             return view('message.tracing', $this->data);
@@ -970,6 +995,9 @@ public function calendar_data($id = null){
                 \App\Models\Tracing::where('client_id', request('client_id'))->update(['task_type_id' => request('code')]);
                 if(request('type_value') != '' && (request('type') == 'phone' || request('type') == 'about')){
                     \App\Models\Tracing::where('client_id', request('client_id'))->update([request('type') => request('type_value')]);
+                    if(request('type') == 'phone' && strlen(request('type_value')) > 9){
+                        \App\Models\Client::where('id', request('client_id'))->update(['status' => 1, 'phone' => request('type_value')]);
+                    }
                 }
                 $trace = \App\Models\TraceClient::where('trace_id', request('trace_id'))->first();
                 if(empty($trace)){
@@ -992,4 +1020,34 @@ public function calendar_data($id = null){
             echo 'Success';
         }
     }
+
+
+    public function codereports($type = null) {
+        
+        $partner = request('partner_id');
+        $user_id = request('user_id');            
+        $start = request('start_date') != '' ? request('start_date') : date('Y-m-01');
+        $end = request('end_date') != '' ? request('end_date') : date('Y-m-d');
+        $user = (int)$user_id > 0 ? \App\Models\User::where('id', $user_id)->first()->name : 'All Users';
+        $bank = (int)$partner > 0 ? \App\Models\Partner::where('id', $partner)->first()->name : 'All Banks';
+        $this->data['url'] = "exportreportcode/$partner/$user_id";
+        $clients = [];
+        if((int)$user_id > 0 && $partner > 0){
+            $clients = \App\Models\Client::whereBetween('ptpdate', [$start, $end])->where('user_id', $user_id)->where('partner_id', $partner)->where('code', request('code'))->orderBy('id', 'DESC')->get();
+        }elseif((int)$user_id > 0){
+            $clients = \App\Models\Client::whereBetween('ptpdate', [$start, $end])->where('user_id', $user_id)->where('code', request('code'))->orderBy('id', 'DESC')->get();
+
+        }elseif((int)$partner > 0){
+            $clients = \App\Models\Client::whereBetween('ptpdate', [$start, $end])->where('partner_id', $partner)->where('code', request('code'))->orderBy('id', 'DESC')->get();
+        }
+        $this->data['start_date'] = $start;
+        $this->data['end_date'] = $end;
+        $this->data['code'] = request('code');
+        $this->data['clients'] = $clients;
+        $this->data['partners'] = \App\Models\Partner::get();
+        $this->data['codes'] = \App\Models\ActionCode::where('partner_id', 1)->get();
+        return view('message.codereport', $this->data);
+    }
+
+
 }

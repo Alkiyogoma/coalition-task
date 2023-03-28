@@ -74,8 +74,8 @@ class CustomerExport extends \PhpOffice\PhpSpreadsheet\Cell\StringValueBinder im
                     'about' => $pay->code
                 ]);
             }
-            if(!empty($partner) && strtolower($partner->name) == 'stanbick bank'){
-                // Stanbick Bank
+            if(!empty($partner) && strtolower($partner->name) == 'stanbic bank'){
+                // stanbic Bank
                 $list = 'Collector,Customer Name,Employer,Account number,Contacts,Branch,Outstanding Balance(TZS),Amount Received,Reason Code,Follow up/Next action,Recall/Retain';
                 $clients = \App\Models\Client::where('partner_id', $partner_id)->where('status', 1)->orderBy('id', 'DESC')
                 ->get()->map(fn ($pay, $i=1) => [
@@ -149,8 +149,8 @@ class CustomerExport extends \PhpOffice\PhpSpreadsheet\Cell\StringValueBinder im
                 // Equity Bank Headers
                 $list = 'S/N,Collector,Customer Names,Account Number,Customer Mobile Number,Employer Name,OUTSTANDING LOAN BALANCE,NEXT OF KIN NAME,NEXT KIN PHONE,Amount Received,Reason Code,Follow up/Next action';
             }
-            if(!empty($partner) && strtolower($partner->name) == 'stanbick bank'){
-                // Stanbick Bank
+            if(!empty($partner) && strtolower($partner->name) == 'stanbic bank'){
+                // stanbic Bank
             $list = 'Collector,Customer Name,Employer,Account number,Contacts,Branch,Outstanding Balance(TZS),Amount Received,Reason Code,Follow up/Next action,Recall/Retain';
             }
             if(!empty($partner) && strtolower($partner->name) == 'nmb bank'){

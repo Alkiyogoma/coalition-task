@@ -173,10 +173,13 @@ Route::post('/send_to_numbers', [HomeController::class, 'send_to_numbers'])->nam
 Route::post('/buySMS', [HomeController::class, 'buySMS'])->name('buySMS');
 Route::any('/comments/{type}/{client?}/{user?}', [HomeController::class, 'comments'])->name('comments');
 Route::any('/tracing/{type?}/{client?}/{user?}', [HomeController::class, 'tracing'])->name('trancing');
+Route::any('/ptpreports/{type?}/{client?}/{user?}', [HomeController::class, 'ptpreports'])->name('ptpreports');
+Route::any('/codereports/{type?}/{client?}/{user?}', [HomeController::class, 'codereports'])->name('codereports');
 Route::post('/saveTrace', [HomeController::class, 'saveTrace'])->name('saveTrace');
 Route::post('/getTrace', [HomeController::class, 'getTrace'])->name('getTrace');
 
 Route::get('/exportreport/{type}/{client?}/{user?}', [HomeController::class, 'exportReport'])->name('exportreport');
+Route::get('/exportreportcode/{type}/{client?}/{user?}', [HomeController::class, 'exportReportCode'])->name('exportreportCode');
 Route::post('/staffClient', [HomeController::class, 'staffClient'])->name('staffClient');
 Route::post('/groupClient', [HomeController::class, 'groupClient'])->name('groupClient');
 Route::post('/callTasks', [HomeController::class, 'callTasks'])->name('callTasks');
