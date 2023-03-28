@@ -12,7 +12,7 @@
                             <label class="col-form-label text-md-right">Set Bank </label>
                             <select name="partner_id" id="partner_id" class="form-control form-control-sm" style="width: 100%" required>
                             <option value="">select bank</option>
-                            <?php $i =1;
+                            <?php 
                                 foreach($partners as $leader){
                                     echo '<option value="'.$leader->id.'">'.$leader->name.' ('.$leader->clients->count().')</option>';
                                 }
@@ -46,9 +46,6 @@
                         <table class="table table-flush" id="datatable-basic">
                             <thead class="thead-light">
                                 <tr>
-                                    <th>
-                                        #
-                                    </th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         Customer
                                     </th>
@@ -71,7 +68,6 @@
                             @if (count($clients))
                                 @foreach ($clients as $client)
                                 <tr>
-                                    <td class="text-sm {{ $client->status == 1 ? 'text-white bg-info' : '' }} font-weight-normal">{{ $i++ }}</td>
                                     <td class="text-sm font-weight-normal">{{ $client->name }}</td>
                                     <td class="text-sm font-weight-normal">{{ $client->account }}</td>
                                     <td class="text-sm font-weight-normal ">
@@ -102,38 +98,36 @@
                     </div>
                 </div>
           
-@if (count($clients))
+
     <div class="card justify-content-center">
         <div class="card-body">
             <div class="row">
                 <div class="col-md-6">
-                    <div class="card justify-content-center">
-                        <div class="card-body">
-                            <h6 class="text-dark mb-0">COLLECTTION REPORT: {{ $start_date }}  - {{ $end_date }}</h6>
-                            <h6 class="text-dark mb-0">COLLECTOR NAME : {{ $report['user'] }}</h6>
-                            <h6 class="text-dark mb-0">ACCOUNT COLLECTED CLIENT : {{ $report['bank'] }}</h6>
-                            <h6 class="text-dark mb-0">TOTAL ACCOUT PORTFOLIO: {{ $report['total'] }}</h6>
-                            <h6 class="text-dark mb-0">TOTAL ACCOUNT SCANNED: {{ $report['scanned'] }}</h6>
-                            <h6 class="text-dark mb-0">TOTAL ACCOUNT PENDING: {{ $report['pending'] }}</h6>
-                            <h6 class="text-dark mb-0">TOTAL ACCOUNT RECOVERD: {{ $report['recoved'] }}</h6>
-                            <h6 class="text-dark mb-0">TOTAL ACCOUNT FOR SKP TRACING: {{ $report['remained'] }}</h6>
-                        </div>
+                    <div class="flex items-center justify-end border-gray-100">
+                        <button class="btn btn-success btn-rounded" type="submit">Save Changes</button>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="flex items-center justify-end border-gray-100">
-                        @if($url != '') <a href="/{{ $url }}?start={{ $start }}" class="btn bg-gradient-info btn-rounded" type="submit">
-                            <i class="material-icons text-lg me-2">arrow_circle_down</i>
-                            Export Tracing Report</a>
-                        @endif
+                    @if($url != '') <a href="/{{ $url }}?start={{ $start }}" class="btn bg-gradient-info btn-rounded" type="submit">Export Report</a> @endif
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-@endif
 
+<div class="card justify-content-center">
+    <div class="card-body">
+        <h6 class="text-dark mb-0">COLLECTTION REPORT: 21/ 03/ 2023</h6>
+        <h6 class="text-dark mb-0">COLLECTOR NAME : XXXX</h6>
+        <h6 class="text-dark mb-0">ACCOUNT COLLECTED :CLIENT : CRDB & NMB</h6>
+        <h6 class="text-dark mb-0">TOTAL ACCOUT PORTFOLIO: 500 (CRDB=200, NMB=300)</h6>
+        <h6 class="text-dark mb-0">TOTAL ACCOUNT SCANNED: 500</h6>
+        <h6 class="text-dark mb-0">TOTAL ACCOUNT PENDING: 0</h6>
+        <h6 class="text-dark mb-0">TOTAL ACCOUNT RECOVERD: 100</h6>
+        <h6 class="text-dark mb-0">TOTAL ACCOUNT FOR SKP TRACING: 400</h6>
+    </div>
 <script>
 $(document).ready(function() {
     $('.js-example-basic-single').select2();

@@ -60,8 +60,8 @@ class PaymentExport extends \PhpOffice\PhpSpreadsheet\Cell\StringValueBinder imp
                 // Equity Bank Headers
                 $list = 'S/N,Collector,Customer Names,Account Number,Customer Mobile Number,Employer Name,OUTSTANDING LOAN BALANCE,NEXT OF KIN NAME,NEXT KIN PHONE,Amount Received,Reason Code,Follow up/Next action';
             }
-            if(!empty($partner) && strtolower($partner->name) == 'stanbick bank'){
-                // Stanbick Bank
+            if(!empty($partner) && strtolower($partner->name) == 'stanbic bank'){
+                // stanbic Bank
             $list = 'Collector,Customer Name,Employer,Account number,Contacts,Branch,Outstanding Balance(TZS),Amount Received,Reason Code,Follow up/Next action,Recall/Retain';
             }
             if(!empty($partner) && strtolower($partner->name) == 'nmb bank'){

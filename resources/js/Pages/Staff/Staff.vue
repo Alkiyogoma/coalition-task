@@ -77,9 +77,6 @@
                       <td>
                         <p class="text-sm font-weight-bold mb-0">{{ getMonthName(payment.month) }}</p>
                       </td>
-                      <!-- <td>
-                    <p class="align-middle text-center text-sm">{{ payment.clients }}</p>
-                  </td> -->
                       <td>
                         <p class="align-middle text-center text-sm">{{ payment.client }}</p>
                       </td>
@@ -121,13 +118,13 @@
   </div>
 
 
-  <div class="row mt-4">
+  <div class="row">
     <div class="col-lg-6 mt-lg-0">
       <div class="card">
-        <div class="card-header">
-          <h6 class="text-capitalize ps-3">Latest {{ staff.name }} Activities</h6>
-        </div>
+
         <div class="card-body px-0 pb-2">
+          <h6 class="text-capitalize ps-3">Latest {{ staff.name }} Activities</h6>
+
           <div class="timeline timeline-one-side" data-timeline-axis-style="dotted">
             <div v-for="task in tasks" :key="task.id" class="timeline-block">
               <span class="timeline-step bg-dark p-3">
@@ -186,10 +183,8 @@
 
     <div class="col-lg-6 mt-lg-0">
       <div class="card">
-        <div class="card-header mb-0 pb-0">
-          <h6 class="text-dark">{{ staff.name }} Banks</h6>
-        </div>
         <div class="card-body">
+          <h6 class="text-dark">{{ staff.name }} Banks</h6>
           <div class="table-responsive">
             <table class="table align-items-center mb-0">
               <thead>
@@ -207,7 +202,7 @@
               <tbody>
                 <tr v-for="payment in users" :key="payment.id">
                   <td>
-                    <div class="d-flex px-2 py-1">
+                    <div class="d-flex py-1">
                       <div class="px-2">
                         <img :src="`/${callSex(payment.sex)}`" class="avatar avatar-xs rounded-circle">
                       </div>
@@ -235,27 +230,27 @@
           </div>
           <hr>
           <div class="table-responsive">
-                        <table class="table table-flush">
-                            <thead class="thead-light">
-                                <tr>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"> Customer Name</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Amount Received </th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Date</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr v-for="payment in collections" :key="payment.id">
-                                    <td class="text-sm font-weight-normal">{{ payment.name }} - {{ payment.account }}</td>
-                                    <td class="align-middle text-center text-sm">
-                                        {{ money(payment.amount) }}
-                                    </td>
-                                    <td class="text-sm font-weight-normal">{{ payment.date }}</td>
-                                    
-                                </tr>
-                              
-                            </tbody>
-                        </table>
-                    </div>
+            <table class="table table-flush">
+              <thead class="thead-light">
+                <tr>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"> Customer Name</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Amount Received </th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="payment in collections" :key="payment.id">
+                  <td class="text-sm font-weight-normal">{{ payment.name }} - {{ payment.account }}</td>
+                  <td class="align-middle text-center text-sm">
+                    {{ money(payment.amount) }}
+                  </td>
+                  <td class="text-sm font-weight-normal">{{ payment.date }}</td>
+
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
