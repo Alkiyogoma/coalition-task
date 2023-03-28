@@ -18,7 +18,8 @@ class Partner extends Model
 	protected $table = 'partners';
 
 	protected $casts = [
-		'partner_group_id' => 'int'
+		'partner_group_id' => 'int',
+		'user_id' => 'int'
 	];
 
 	protected $fillable = [
@@ -29,6 +30,7 @@ class Partner extends Model
 		'website',
 		'uuid',
 		'logo',
+		'user_id',
 		'partner_group_id',
 		'about'
 	];

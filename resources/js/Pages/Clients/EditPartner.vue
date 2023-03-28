@@ -23,6 +23,7 @@
                                     <option v-for="role in roles" :key="role.id" :value="role.id">{{ role.name }}</option>
                                 </select-input>
                           </div>
+                          
                             <div class="row">
                                 <select-input v-model="form.user_id" :error="form.errors.user_id" required  label="Bank Team Leader">
                                     <option :value="null" />

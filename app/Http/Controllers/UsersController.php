@@ -532,7 +532,7 @@ class UsersController extends Controller
                     'website' => ['nullable', 'max:50'],
                     'logo' => ['nullable', 'max:25'],
                 ]);
-                \App\Models\Partner::where('uuid')->update(array_merge(request()->all(), ['uuid' => (string) Str::uuid()]));
+                \App\Models\Partner::where('uuid', $id)->update(array_merge(request()->all(), ['uuid' => (string) Str::uuid()]));
     
                 return redirect('partners')->with('success', 'Bank Details updated.');
             }
