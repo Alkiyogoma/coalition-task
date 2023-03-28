@@ -150,10 +150,10 @@ class UsersController extends Controller
             $client = \App\Models\Client::where('status', 1);
         }
             $users = $client->filter(Request::only('search'))
-                ->paginate(9)
+                ->paginate(50)
                 ->withQueryString()
-                ->through(fn ($user) => [
-                    'id' => $user->id,
+                ->through(fn ($user, $i=1) => [
+                    'id' => $i+1,
                     'uuid' => $user->uuid,
                     'name' => $user->name,
                     'collector' => $user->collector,
