@@ -74,9 +74,9 @@
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Name</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Group</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Contacts</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"> Phone</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Email</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Customers</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"> Customers</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Staffs</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Collection</th>
                     </tr>
                   </thead>
                   <tbody>

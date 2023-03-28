@@ -47,7 +47,7 @@
                              <h6 class="mb-0 text-sm">{{ user.name }}</h6>
                         </Link>
                       </td>
-                      <td class="align-middle bg-dark text-center">
+                      <td class="align-middle text-center">
                         <span class="text-secondary text-xs font-weight-bold">{{ user.account }}</span>
                       </td>
                       <td class="align-middle text-center">

@@ -38,7 +38,7 @@
                                                     class="avatar avatar-xs rounded-circle">
                                             </div>
                                             <div class="d-flex flex-column justify-content-center">
-                                                <Link :href="`/collections/${ bank.id }/${ payment.id }`">
+                                                <Link :href="`/clients/user/${ payment.id }`">
                                                     <h6 class="mb-0 text-sm">{{ payment.name }}</h6>
                                                 </Link>
                                             </div>
