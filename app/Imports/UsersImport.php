@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\DB;
 
 class UsersImport implements ToModel, WithHeadingRow
 {
-   
+
     public function model(array $row)
     {
        // dd($row);

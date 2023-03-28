@@ -419,6 +419,7 @@ public function calendar_data($id = null){
 
     public function clientUpload() 
     {
+        ini_set('memory_limit', '444M');
         Excel::import(new UsersImport, request()->file('files'));
         return redirect('clients')->with('success', 'All Students Uploaded Successfully!');
     }
