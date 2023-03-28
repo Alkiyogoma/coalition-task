@@ -31,23 +31,12 @@
                   {{ staff.email }}</li>
                 <li class="list-group-item border-0  text-sm"><strong class="text-dark">Location:</strong> &nbsp;
                   {{ staff.address }}</li>
-                <li class="list-group-item border-0  text-sm"><strong class="text-dark">
+                <!-- <li class="list-group-item border-0  text-sm"><strong class="text-dark">
                     Joined:</strong> &nbsp;{{ staff.jod }}</li>
 
                 <li class="list-group-item border-0  text-sm"><strong class="text-dark">
                     Last Login:</strong> &nbsp;{{ staff.jod }}</li>
-                <li class="list-group-item border-0  pb-0">
-                  <strong class="text-dark text-sm">Social:</strong> &nbsp;
-                  <a class="btn btn-facebook btn-simple mb-0 ps-1 pe-2 py-0" href="javascript:;">
-                    <i class="fab fa-facebook fa-lg"></i>
-                  </a>
-                  <a class="btn btn-twitter btn-simple mb-0 ps-1 pe-2 py-0" href="javascript:;">
-                    <i class="fab fa-twitter fa-lg"></i>
-                  </a>
-                  <a class="btn btn-instagram btn-simple mb-0 ps-1 pe-2 py-0" href="javascript:;">
-                    <i class="fab fa-instagram fa-lg"></i>
-                  </a>
-                </li>
+                -->
               </ul>
             </div>
           </div>
@@ -64,7 +53,6 @@
                   <thead>
                     <tr>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Months</th>
-                      <!-- <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">C</th> -->
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Clients</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Amount</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Collected</th>
@@ -119,6 +107,85 @@
 
 
   <div class="row">
+    <div class="col-lg-6 mt-lg-0">
+      <div class="card">
+        <div class="card-body">
+          <h6 class="text-dark">{{ staff.name }} Banks</h6>
+          <div class="table-responsive">
+            <table class="table align-items-center mb-0">
+              <thead>
+                <tr>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Employee
+                    Name</th>
+                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                    Target</th>
+                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                    Collected</th>
+                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                    Clients</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="payment in users" :key="payment.id">
+                  <td>
+                    <div class="d-flex py-1">
+                      <div class="px-2">
+                        <img :src="`/${callSex(payment.sex)}`" class="avatar avatar-xs rounded-circle">
+                      </div>
+                      <div class="d-flex flex-column justify-content-center">
+                        <Link :href="`/collections/${payment.id}/${staff.id}`">
+                        <h6 class="mb-0 text-sm">{{ payment.name }}</h6>
+                        </Link>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="align-middle text-center text-sm">
+                    <span class="text-xs font-weight-bold"> {{ money(payment.amount) }} </span>
+                  </td>
+                  <td class="align-middle text-center text-sm">
+                    <span class="text-xs font-weight-bold"> {{ money(payment.total) }} </span>
+                  </td>
+                  <td class="align-middle">
+                      <Link :href="`/clients/user/${staff.id}/${payment.id}`" class="ml-3 text-info font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                        <span class="badge badge-sm bg-gradient-info">Customers</span>
+                      </Link>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="table-responsive">
+            <table class="table table-flush">
+              <thead class="thead-light">
+                  <tr>
+                    <th colspan="3">
+                      <h6 class="text-dark">Latest {{ staff.name }} Collections</h6>
+                    </th>
+                  </tr>
+                <tr>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"> Customer Name</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"> Received </th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="payment in collections" :key="payment.id">
+                  <td class="text-sm font-weight-normal">{{ payment.name }} - {{ payment.account }}</td>
+                  <td class="align-middle text-center text-sm">
+                    {{ money(payment.amount) }}
+                  </td>
+                  <td class="text-sm font-weight-normal">{{ payment.date }}</td>
+
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="col-lg-6 mt-lg-0">
       <div class="card">
 
@@ -176,80 +243,6 @@
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-lg-6 mt-lg-0">
-      <div class="card">
-        <div class="card-body">
-          <h6 class="text-dark">{{ staff.name }} Banks</h6>
-          <div class="table-responsive">
-            <table class="table align-items-center mb-0">
-              <thead>
-                <tr>
-                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Employee
-                    Name</th>
-                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                    Target</th>
-                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                    Collected</th>
-                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                    Clients</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="payment in users" :key="payment.id">
-                  <td>
-                    <div class="d-flex py-1">
-                      <div class="px-2">
-                        <img :src="`/${callSex(payment.sex)}`" class="avatar avatar-xs rounded-circle">
-                      </div>
-                      <div class="d-flex flex-column justify-content-center">
-                        <Link :href="`/collections/${payment.id}/${staff.id}`">
-                        <h6 class="mb-0 text-sm">{{ payment.name }}</h6>
-                        </Link>
-                      </div>
-                    </div>
-                  </td>
-                  <td class="align-middle text-center text-sm">
-                    <span class="text-xs font-weight-bold"> {{ money(payment.amount) }} </span>
-                  </td>
-                  <td class="align-middle text-center text-sm">
-                    <span class="text-xs font-weight-bold"> {{ money(payment.total) }} </span>
-                  </td>
-                  <td class="align-middle">
-                    <Link :href="`/clients/user/${staff.id}/${payment.id}`">
-                    <span class="btn btn-outline-success btn-sm mb-0">customers</span>
-                    </Link>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <hr>
-          <div class="table-responsive">
-            <table class="table table-flush">
-              <thead class="thead-light">
-                <tr>
-                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"> Customer Name</th>
-                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Amount Received </th>
-                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Date</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="payment in collections" :key="payment.id">
-                  <td class="text-sm font-weight-normal">{{ payment.name }} - {{ payment.account }}</td>
-                  <td class="align-middle text-center text-sm">
-                    {{ money(payment.amount) }}
-                  </td>
-                  <td class="text-sm font-weight-normal">{{ payment.date }}</td>
-
-                </tr>
-
-              </tbody>
-            </table>
           </div>
         </div>
       </div>

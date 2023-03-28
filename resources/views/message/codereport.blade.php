@@ -101,8 +101,8 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="flex items-center justify-end border-gray-100">
-                                <h6 class="text-dark mb-0">Total Clients - {{ count($clients) }}</h6>
-                                <h6 class="text-dark mb-0">Total Amount - {{ money($total) }} </h6>
+                                <h6 class="text-dark mb-0">Total Customers - {{ count($clients) }}</h6>
+                                <h6 class="text-dark mb-0">Total PTP Amount - {{ money($total) }} </h6>
                         </div>
                     </div>
                     <div class="col-md-6">
