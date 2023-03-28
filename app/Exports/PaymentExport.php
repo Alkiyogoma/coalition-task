@@ -1,4 +1,6 @@
-<?phpnamespace App\Exports;
+<?php
+
+namespace App\Exports;
 
 use Illuminate\Support\Facades\DB;
 use App\Models\Client;

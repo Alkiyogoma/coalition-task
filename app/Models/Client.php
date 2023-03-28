@@ -86,6 +86,12 @@ class Client extends Model
 	{
 		return $this->belongsTo(Employer::class, 'employer_id', 'id');
 	}
+	
+	public function traces()
+	{
+		return $this->hasMany(Tracing::class, 'client_id', 'id');
+	}
+	
 	public function branchs()
 	{
 		return $this->belongsTo(Branch::class, 'branch_id', 'id');

@@ -25,30 +25,6 @@
                     </li>
                   </ul>
                 </div>
-                <div class="row gx-4 mb-2">
-                    <table class="table end-0">
-                    <tbody class="nav nav-pills nav-fill p-1" role="tablist">
-                        <th class="nav-item">
-                        <a class="nav-link mb-0 px-0 py-1 active"  data-bs-toggle="modal" data-bs-target="#exampleModalLong">
-                            <i class="material-icons text-lg position-relative">layers</i>
-                            <span class="ms-1">Activities</span>
-                        </a>
-                        </th>
-                        <th class="nav-item">
-                        <a class="nav-link mb-0 px-0 py-1" data-bs-toggle="modal" data-bs-target="#exampleModalMessage">
-                            <i class="material-icons text-lg position-relative">email</i>
-                            <span class="ms-1">Messages</span>
-                        </a>
-                        </th>
-                        <th class="nav-item">
-                        <a class="nav-link mb-0 px-0 py-1" data-bs-toggle="modal" data-bs-target="#modal-notification">
-                            <i class="material-icons text-lg position-relative">menu</i>
-                            <span class="ms-1">Add Payment</span>
-                        </a>
-                        </th>
-                    </tbody>
-                    </table>
-                </div>
               </div>
             </div>
             <div class="col-12 col-md-6 col-xl-8">
@@ -74,6 +50,44 @@
                 </div>
               </div>
             </div>
+          </div>
+          <div class="row gx-4">
+            <table class="table end-0">
+              <tbody class="nav nav-pills nav-fill p-1" role="tablist">
+                  <th class="nav-item">
+                  <a class="nav-link mb-0 px-0 py-1 active"  data-bs-toggle="modal" data-bs-target="#exampleModalLong">
+                      <i class="material-icons text-lg position-relative">layers</i>
+                      <span class="ms-1">Activities</span>
+                  </a>
+                  </th>
+                  <th class="nav-item">
+                  <a class="nav-link mb-0 px-0 py-1" data-bs-toggle="modal" data-bs-target="#exampleModalMessage">
+                      <i class="material-icons text-lg position-relative">email</i>
+                      <span class="ms-1">Messages</span>
+                  </a>
+                  </th>
+                  <th class="nav-item">
+                    <a class="nav-link mb-0 px-0 py-1" data-bs-toggle="modal" data-bs-target="#modal-notification">
+                        <i class="material-icons text-lg position-relative">menu</i>
+                        <span class="ms-1">Add Payment</span>
+                    </a>
+                  </th>
+                  
+                  <th class="nav-item">
+                    <a class="nav-link mb-0 px-0 py-1" data-bs-toggle="modal" data-bs-target="#modal-tracing">
+                        <i class="material-icons text-lg position-relative">manage_search</i>
+                        <span class="ms-1">Skip Tracing</span>
+                    </a>
+                  </th>
+                  
+                  <th class="nav-item">
+                    <a class="nav-link mb-0 px-0 py-1" data-bs-toggle="modal" data-bs-target="#modal-notification1">
+                        <i class="material-icons text-lg position-relative">find_replace</i>
+                        <span class="ms-1">Recall</span>
+                    </a>
+                  </th>
+              </tbody>
+            </table>
           </div>
           <div class="row">
                 <div class="col-12">
@@ -230,6 +244,43 @@
       </div>
     </div>
 
+    <div class="modal fade" id="modal-tracing" tabindex="-1" role="dialog" aria-labelledby="modal-tracing" aria-hidden="true">
+      <div class="modal-dialog modal-danger modal-dialog-centered modal-" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title font-weight-normal" id="modal-title-tracing"> Skip Tracing for <u>{{ user.name }}</u> </h5>
+            <button type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">
+                <form role="form text-left" method="post" action="/saveTrace">
+                  <div class="input-group input-group-outline">
+                    <label>Customer Balance &nbsp; - &nbsp; </label> {{ user.remained }}  <br>
+                  </div>
+                  <div class="input-group input-group-outline my-3">
+                      <input type="hidden" :value="user.id" name="client_id" class="form-control">
+                      <input type="hidden" :value="user._token" name="_token" class="form-control">
+                  </div>
+                <div class="input-group input-group-outline my-3">
+                    <select required class="form-control" name="user_id" id="choices-currency-edit">
+                        <option value="" selected="">Select Assigned Staff</option>
+                        <option v-for="staff in staffs" :key="staff.id" :value="staff.id">{{ staff.name }}</option>
+                    </select>
+                </div>
+                <div class="input-group input-group-outline my-3">
+                    <textarea name="about" required class="multisteps-form__textarea form-control" rows="4" placeholder="Write your comment about this customer." spellcheck="false"></textarea>
+                </div>
+                  
+                  <div class="text-center">
+                    <button type="submit" class="btn bg-gradient-primary btn-lg btn-rounded w-100 mt-4 mb-0">Submit to Tracing</button>
+                  </div> 
+                </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
       <div class="modal-dialog modal-danger modal-dialog-centered modal-" role="document">
         <div class="modal-content">
@@ -307,6 +358,7 @@ export default {
     props: {
         name: String,
         user: Object,
+        staffs: Array,
         tasks: Array,
         installments: Array,
         payments: Array,

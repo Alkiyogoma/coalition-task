@@ -1,4 +1,6 @@
-<?phpnamespace App\Http\Controllers;
+<?php
+
+namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Client;
@@ -304,8 +306,9 @@ class UsersController extends Controller
             ]),
             'payments' => DB::table('payments')->where('client_id', $user->id)->orderBy('id', 'desc')->get(),
             'methods' => DB::table('payment_methods')->orderBy('id', 'desc')->get(),
-            'tasktypes' => DB::table('task_type')->orderBy('id')->get(),
+            'tasktypes' => DB::table('task_type')->where('group_id', 1)->orderBy('id')->get(),
             'task_priority' => DB::table('task_priority')->orderBy('id')->get(),
+            'staffs' => DB::table('users')->orderBy('id')->get(),
             'task_status' => DB::table('task_status')->orderBy('id')->get(),
         ]);
     }

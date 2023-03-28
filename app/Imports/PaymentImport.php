@@ -1,4 +1,6 @@
-<?phpnamespace App\Imports;
+<?php
+
+namespace App\Imports;
 
 use App\Models\Client;
 use Maatwebsite\Excel\Concerns\ToModel;
