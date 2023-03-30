@@ -703,8 +703,11 @@ public function calendar_data($id = null){
         
         $task = \App\Models\Task::where('user_id', Auth::User()->id)->whereDate('created_at', date('Y-m-d'))->first();
         $this->data['start'] = date('Y-m-d');
-        $this->data['codes'] = \App\Models\ActionCode::where('partner_id', 9)->get();
-
+        if($type == 'today'){
+            $this->data['codes'] = \App\Models\ActionCode::where('partner_id', 9)->get();
+        }else{
+            $this->data['codes'] = \App\Models\ActionCode::where('partner_id', 1)->get();
+        }
         $this->data['url'] = !empty($task) ? "exportreport/".$type."/".$task->client->partner_id."/".Auth::User()->id : '';
         $task =   \App\Models\Task::where('user_id', Auth::User()->id)->whereDate('created_at', date('Y-m-d'))->get(['client_id']);
         $this->data['clients'] = \App\Models\Client::whereIn('id', $task)->orderBy('id', 'DESC')->get();
@@ -721,7 +724,6 @@ public function calendar_data($id = null){
             $task = (int)$user_id > 0 ? \App\Models\Task::where('user_id', $user_id)->whereBetween('task_date', [$start, $end])->get(['client_id']) :  \App\Models\Task::whereDate('created_at', '>=', date('Y-m-01'))->get(['client_id']);
             $this->data['clients'] = \App\Models\Client::where('partner_id', $partner)->whereIn('id', $task)->orderBy('id', 'DESC')->get();
             $this->data['url'] = "exportreport/$type/$partner/$user_id";
-            $this->data['codes'] = \App\Models\ActionCode::where('partner_id', 1)->get();
         }
         if($type == 'month' && $partner > 0){
             
@@ -731,7 +733,6 @@ public function calendar_data($id = null){
             $task = (int)$user_id > 0 ? \App\Models\Task::where('user_id', $user_id)->whereBetween('task_date', [$start, $end])->get(['client_id']) :  \App\Models\Task::whereDate('created_at', '>=', date('Y-m-01'))->get(['client_id']);
             $this->data['clients'] = \App\Models\Client::where('partner_id', $partner)->whereIn('id', $task)->orderBy('id', 'DESC')->get();
             $this->data['url'] = "exportreport/$type/$partner/$user_id";
-            $this->data['codes'] = \App\Models\ActionCode::where('partner_id', 1)->get();
         }
         $this->data['types'] = $type;
         if(Auth::User()->role_id < 3){
