@@ -1,24 +1,11 @@
 <template>
                 <br>
                 <!-- CTA -->
-                <a
-                  class="flex items-center justify-between p-4 mb-8 text-sm font-semibold text-purple-100 bg-purple-600 rounded-lg shadow-md focus:outline-none focus:shadow-outline-purple"
-                  href="/view-subjects"
-                >
-                  <div class="flex items-center">
-                    <svg
-                  class="w-5 h-5"
-                  aria-hidden="true"
-                  fill="none"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"
-                  ></path>
+                <a class="flex items-center justify-between p-4 mb-8 text-sm font-semibold text-purple-100 bg-purple-600 rounded-lg shadow-md focus:outline-none focus:shadow-outline-purple" href="/view-subjects"
+>                  <div class="flex items-center">
+                    <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"
+>                  <path
+                    d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z" ></path>
                   <path d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"></path>
                     </svg>
                     <span class="pl-4">Select Class Subjects</span>
@@ -69,18 +56,11 @@
                 <div class="flex items-center text-sm">
                   <!-- Avatar with inset shadow -->
                   <div
-                    class="relative hidden w-8 h-8 mr-3 rounded-full md:block"
-                  >
+                    class="relative hidden w-8 h-8 mr-3 rounded-full md:block" >
                     <img
-                      class="object-cover w-full h-full rounded-full"
-                      src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
-                      alt=""
-                      loading="lazy"
-                    />
+                      class="object-cover w-full h-full rounded-full"     src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"     alt=""     loading="lazy"   />
                     <div
-                      class="absolute inset-0 rounded-full shadow-inner"
-                      aria-hidden="true"
-                    ></div>
+                      class="absolute inset-0 rounded-full shadow-inner"     aria-hidden="true"   ></div>
                   </div>
                   <div>
                     <p class="font-semibold"> {{ subject.name }}</p>
@@ -111,23 +91,10 @@
           </td>
           <td class="px-2 py-2">
             <div class="flex items-center space-x-4 text-sm">
-              <Link :href="`/subjects/${subject.id}/view`" tabindex="-1"
-                    class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
-                    aria-label="View"
-                  >
-                <svg
-                  class="w-5 h-3"
-                  aria-hidden="true"
-                  fill="none"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  viewBox="0 0 16 16"
-                  stroke="currentColor"
-                >
-                  <path
-                    d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
-                  ></path>
+              <Link :href="`/subjects/${subject.id}/view`" tabindex="-1"   class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"   aria-label="View" >
+                <svg class="w-5 h-3" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 16 16" stroke="currentColor"
+>                  <path
+                    d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" ></path>
                 </svg>
                 <span class="ml-2">Subjects</span>
               </Link>

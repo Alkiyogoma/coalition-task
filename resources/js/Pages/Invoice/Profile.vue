@@ -237,13 +237,13 @@
           <div class="modal-body">
                 <form role="form text-left" method="post" action="/saveTask">
                   
-                  <div class="input-group input-group-outline my-3">
+                  <!-- <div class="input-group input-group-outline my-3">
                       <label class="form-label">Task Title</label>
-                      <input type="text" required name="title" class="form-control">
+                      <input type="text" required name="title" class="form-control"> -->
                       <input type="hidden" :value="user.id" name="client_id" class="form-control">
                       <input type="hidden" :value="user.user_id" name="user_id" class="form-control">
                       <input type="hidden" :value="user._token" name="_token" class="form-control">
-                  </div>
+                  <!-- </div> -->
                 <div class="input-group input-group-outline my-3">
                     <select required class="form-control" name="task_type_id" id="choices-currency-edit">
                         <option value="" selected="">Select Task Category</option>
@@ -253,8 +253,8 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="input-group input-group-outline my-3">
-                            <select required class="form-control" name="priority_id" id="choices-currency">
-                                <option value="" selected="">Select Task Priority</option>
+                            <select required class="form-control" name="action_code_id" id="choices-currency">
+                                <option value="" selected="">Select Action Code</option>
                                 <option v-for="priority in task_priority" :value="priority.id">{{ priority.name }}</option>
                             </select>
                         </div>

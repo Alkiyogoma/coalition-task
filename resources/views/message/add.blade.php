@@ -59,10 +59,10 @@
               </div>
 
               <div class="row input-group input-group-outline my-3" style="display: none;" id="families">
-                <label class="col-form-label text-md-right col-12 col-md-2">Select Clients</label>
+                <label class="col-form-label text-md-right col-12 col-md-2">Select Customers</label>
                 <div class="col-sm-12 col-md-8" data-select2-id="12">
                 <select name="family_id[]" class="form-control select-multiple" style="width: 100%" multiple="">
-                <option value="">Select Clients here...</option>
+                <option value="">Select Customers here...</option>
                     <option value="all">All Clients</option>
                     <?php 
                       // $families = \App\Models\Family::get();

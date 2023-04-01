@@ -197,7 +197,7 @@ class HomeController extends Controller
         'users' => DB::table('users')->orderBy('id')->get(),
         'clients' => DB::table('clients')->orderBy('id')->get(),
         'tasktypes' => DB::table('task_type')->where('group_id', 1)->orderBy('id')->get(),
-        'task_priority' => DB::table('task_priority')->orderBy('id')->get(),
+        'task_priority' => \App\Models\ActionCode::where('partner_id', 1)->get(),
         'task_status' => DB::table('task_status')->orderBy('id')->get(),
         '_token' => csrf_token(),
         'color' => ['info','primary', 'secondary', 'success', 'info', 'warning', 'danger', 'dark']
@@ -249,9 +249,10 @@ class HomeController extends Controller
         'user' => $user,
         'clients' => DB::table('clients')->where('status', 1)->where('user_id', $user->id)->orderBy('id')->get(),
         'tasktypes' => DB::table('task_type')->where('group_id', 1)->orderBy('id')->get(),
-        'task_priority' => DB::table('task_priority')->orderBy('id')->get(),
+        'task_priority' =>  \App\Models\ActionCode::where('partner_id', 1)->get(),
         'task_status' => DB::table('task_status')->orderBy('id')->get(),
         '_token' => csrf_token(),
+        'client_status' => DB::table('client_status')->orderBy('id')->get(),
         'color' => ['info','primary', 'secondary', 'success', 'info', 'warning', 'danger', 'dark']
 
     ]);
@@ -832,20 +833,26 @@ public function calendar_data($id = null){
     }
 
     public function saveTask(){
+        $title = \App\Models\TaskType::where('id', request('task_type_id'))->first();
+
          \App\Models\Task::create([
-             'title' => request('title'),
+             'title' => !empty($title) ? $title->name : (request('title') != '' ? request('title') : 'Followup'),
              'about' => request('about'),
              'user_id' => request('user_id'),
              'client_id' => request('client_id'),
              'task_date' => date('Y-m-d'),
              'uuid' => (string) Str::uuid(),
-             'priority_id' => request('priority_id'),
+             'action_code_id' => request('action_code_id'),
              'status_id' => request('status_id'),
              'next_date' => request('date'),
              'task_type_id' => request('task_type_id'),
              'next_type_id' => request('next_type_id'),
              'created_by' => request('user_id')
          ]);
+         $code = \App\Models\ActionCode::where('id', request('action_code_id'))->first();
+         $client = \App\Models\Client::where('id', request('client_id'))->first();
+         !empty($code) ? \App\Models\Client::where('id', request('client_id'))->update(['code' => $code->code, 'client_status_id' => (int)request('client_status_id') > 0 ? (int)request('client_status_id') : $client->task_status_id,  'ptpdate' => request('date') != '' ? request('date') : date('Y-m-d')]) : '';
+
         return redirect()->back()->with('success', 'Task Created Successfully');
      }
  
@@ -967,7 +974,7 @@ public function calendar_data($id = null){
                 'client_id' => request('client_id'),
                 'task_date' => date('Y-m-d'),
                 'uuid' => (string) Str::uuid(),
-                'priority_id' => 1,
+                'action_code_id' => 1,
                 'status_id' => 3,
                 'next_date' => request('date'),
                 'task_type_id' => 17,

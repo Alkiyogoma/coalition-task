@@ -46,9 +46,7 @@
                         </div>
                         <div class="col-md-1 col-sm-6">
                             <label class="col-form-label text-md-right">Action</label> <br>
-                            <input type="submit"  class="btn btn-success btn-sm"
-                            style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"
-                             value="Submit" />
+                            <input type="submit"  class="btn btn-success btn-sm"           style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"            value="Submit" />
                         </div>
                         </div>
                     </form>

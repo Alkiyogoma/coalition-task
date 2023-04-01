@@ -50,8 +50,7 @@
                     </div>
                     <div class="card-body p-3">
                         <ul class="list-group">
-                            <li v-for="collect in payments" :key="collect.name"
-                                class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
+                            <li v-for="collect in payments" :key="collect.name"               class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
                                 <div class="d-flex align-items-center">
                                     <div class="icon icon-shape icon-sm me-3 bg-gradient-dark shadow text-center">
                                         <i class="material-icons opacity-10">person</i>

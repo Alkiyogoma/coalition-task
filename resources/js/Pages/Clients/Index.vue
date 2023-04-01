@@ -5,9 +5,9 @@
           <div class="card">
             <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
               <div class="bg-gradient-primary shadow-primary border-radius-lg pt-3 pb-3">
-                <a class="text-white text-capitalize ps-3">List of All Compy Clients</a>
+                <a class="text-white text-capitalize ps-3">List of All Bank Customers</a>
                 <a href="/add-customer" style="float: right; margin-right: 4em;" class="mr-4 text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                  <span class="btn btn-primary btn-sm bg-gradient-secondary"><i class="material-icons text-lg me-2">person_add</i> Add Clients</span>
+                  <span class="btn btn-primary btn-sm bg-gradient-secondary"><i class="material-icons text-lg me-2">person_add</i> Add Customers</span>
                 </a>
               </div>
             </div>
@@ -87,6 +87,161 @@
         </div>
       </div>
       
+  <div class="row mt-4">
+    <div class="col-sm-6">
+      <div class="card mt-4">
+        <div class="card-header pb-0 p-3">
+          <h6 class="mb-0">Bank Customers Summary</h6>
+        </div>
+        <div class="card-body p-3">
+          <ul class="list-group">
+            <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
+              <div class="d-flex align-items-center">
+                <div class="icon icon-shape icon-sm me-3 bg-gradient-dark shadow text-center">
+                  <i class="material-icons opacity-10">launch</i>
+                </div>
+                <div class="d-flex flex-column">
+                  <h6 class="mb-1 text-dark text-sm">Total accounts</h6>
+                  <span class="font-weight-bold">Account Portifolio</span>
+                </div>
+              </div>
+              <div class="d-flex"> 
+                  {{ clients }}
+              </div>
+            </li>
+            <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
+              <div class="d-flex align-items-center">
+                <div class="icon icon-shape icon-sm me-3 bg-gradient-dark shadow text-center">
+                  <i class="material-icons opacity-10">book_online</i>
+                </div>
+                <div class="d-flex flex-column">
+                  <h6 class="mb-1 text-dark text-sm">Scanned accounts</h6>
+                  <span class="text-xs">Reached Accounts</span>
+                </div>
+              </div>
+              <div class="d-flex">
+                  {{ reached }}
+              </div>
+            </li>
+            <li class="list-group-item border-0 d-flex justify-content-between ps-0 border-radius-lg">
+              <div class="d-flex align-items-center">
+                <div class="icon icon-shape icon-sm me-3 bg-gradient-dark shadow text-center">
+                  <i class="material-icons opacity-10">priority_high</i>
+                </div>
+                <div class="d-flex flex-column">
+                  <h6 class="mb-1 text-dark text-sm">Pending accounts</h6>
+                  <span class="font-weight-bold">Not Scanned account</span>
+                </div>
+              </div>
+              <div class="d-flex">
+                  {{ pending }}
+              </div>
+            </li>
+            
+            <li class="list-group-item border-0 d-flex justify-content-between ps-0 border-radius-lg">
+              <div class="d-flex align-items-center">
+                <div class="icon icon-shape icon-sm me-3 bg-gradient-dark shadow text-center">
+                  <i class="material-icons opacity-10">payments</i>
+                </div>
+                <div class="d-flex flex-column">
+                  <h6 class="mb-1 text-dark text-sm">Active accounts</h6>
+                  <span class="font-weight-bold">Active Phone Numbers</span>
+                </div>
+              </div>
+              <div class="d-flex">
+                  {{ active }}
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 mt-sm-0 mt-4">
+      <div class="card h-100">
+        <div class="card-header pb-0 p-3">
+          <div class="row">
+            <div class="col-md-6">
+              <h6 class="mb-0">Skip Tracing Summary </h6>
+            </div>
+            <div class="col-md-6 d-flex justify-content-end align-items-center">
+              <i class="material-icons me-2 text-lg">global_search</i>
+              <small>View</small>
+            </div>
+          </div>
+        </div>
+        <div class="card-body p-3">
+          <ul class="list-group">
+            <li class="list-group-item border-0 justify-content-between ps-0 pb-0 border-radius-lg">
+              <div class="d-flex">
+                <div class="d-flex align-items-center">
+                  <button
+                    class="btn btn-icon-only btn-rounded btn-outline-success mb-0 me-3 p-3 btn-sm d-flex align-items-center justify-content-center"><i
+                      class="material-icons text-lg">label_important</i></button>
+                  <div class="d-flex flex-column">
+                    <h6 class="mb-1 text-dark text-sm">Total accounts </h6>
+                  </div>
+                </div>
+                <div class="d-flex mr-3 align-items-center text-success text-gradient text-sm font-weight-bold ms-auto">
+                  {{ skip }}
+                </div>
+              </div>
+              <hr class="horizontal dark mt-3 mb-2" />
+            </li>
+            <li class="list-group-item border-0 justify-content-between ps-0 pb-0 border-radius-lg">
+              <div class="d-flex">
+                <div class="d-flex align-items-center">
+                  <button
+                    class="btn btn-icon-only btn-rounded btn-outline-success mb-0 me-3 p-3 btn-sm d-flex align-items-center justify-content-center"><i
+                      class="material-icons text-lg">label_important</i></button>
+                  <div class="d-flex flex-column">
+                    <h6 class="mb-1 text-dark text-sm">Recovered accounts </h6>
+                  </div>
+                </div>
+                <div class="d-flex align-items-center text-success text-gradient text-sm font-weight-bold ms-auto">
+                  {{ skip }}
+                </div>
+              </div>
+              <hr class="horizontal dark mt-3 mb-2" />
+            </li>
+            <li class="list-group-item border-0 justify-content-between ps-0 pb-0 border-radius-lg">
+              <div class="d-flex">
+                <div class="d-flex align-items-center">
+                  <button
+                    class="btn btn-icon-only btn-rounded btn-outline-success mb-0 me-3 p-3 btn-sm d-flex align-items-center justify-content-center"><i
+                      class="material-icons text-lg">label_important</i></button>
+                  <div class="d-flex flex-column">
+                    <h6 class="mb-1 text-dark text-sm">Unrecovered accounts </h6>
+                  </div>
+                </div>
+                
+                <div class="d-flex align-items-center text-success text-gradient text-sm font-weight-bold ms-auto">
+                  {{ inactive }}
+                </div>
+              </div>
+              <hr class="horizontal dark mt-3 mb-2" />
+            </li>
+            <li class="list-group-item border-0 justify-content-between ps-0 pb-0 border-radius-lg">
+              <div class="d-flex">
+                <div class="d-flex align-items-center">
+                  <button
+                    class="btn btn-icon-only btn-rounded btn-outline-success mb-0 me-3 p-3 btn-sm d-flex align-items-center justify-content-center"><i
+                      class="material-icons text-lg">label_important</i></button>
+                  <div class="d-flex flex-column">
+                    <h6 class="mb-1 text-dark text-sm">Inactive accounts </h6>
+                  </div>
+                </div>
+                <div class="d-flex align-items-center text-success text-gradient text-sm font-weight-bold ms-auto">
+                 {{ inactive }}
+                </div>
+              </div>
+              <hr class="horizontal dark mt-3 mb-2" />
+            </li>
+            
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -109,6 +264,15 @@ export default {
   props: {
     filters: Object,
     groups: Array,
+    users: Object,
+    clients: String,
+    active: String,
+    pending: String,
+    reached: String,
+    skip: String,
+    inactive: String,
+    amount: String,
+    total: String,
     users: Object,
     total_student : Number
   },

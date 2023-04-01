@@ -105,30 +105,25 @@
                               document.body.getAttribute("data-sidebar-size")
                             ? document.body.setAttribute(
                                   "data-sidebar-size",
-                                  "sm"
-                              )
+                                  "sm"             )
                             : document.body.setAttribute(
                                   "data-sidebar-size",
-                                  "lg"
-                              )
+                                  "lg"             )
                         : "md" == e
                         ? "md" ==
                           document.body.getAttribute("data-sidebar-size")
                             ? document.body.setAttribute(
                                   "data-sidebar-size",
-                                  "sm"
-                              )
+                                  "sm"             )
                             : document.body.setAttribute(
                                   "data-sidebar-size",
-                                  "md"
-                              )
+                                  "md"             )
                         : "sm" ==
                           document.body.getAttribute("data-sidebar-size")
                         ? document.body.setAttribute("data-sidebar-size", "lg")
                         : document.body.setAttribute(
                               "data-sidebar-size",
-                              "sm"
-                          ));
+                              "sm"         ));
         }),
         n("#sidebar-menu a").each(function () {
             var t = window.location.href.split(/[?#]/)[0];
@@ -225,8 +220,7 @@
                             (t.target.parentElement.classList.toggle("active"),
                             t.target.nextElementSibling &&
                                 t.target.nextElementSibling.classList.toggle(
-                                    "show"
-                                ));
+                                    "show"               ));
                     };
                 window.addEventListener("resize", s);
             }
@@ -337,8 +331,7 @@
         n("input[name='layout']").on("change", function () {
             window.location.href =
                 "vertical" == n(this).val()
-                    ? "index.html"
-                    : "layouts-horizontal.html";
+                    ? "index.html"   : "layouts-horizontal.html";
         }),
         n("input[name='layout-mode']").on("change", function () {
             "light" == n(this).val()

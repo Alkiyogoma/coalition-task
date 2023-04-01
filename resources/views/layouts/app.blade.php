@@ -77,8 +77,7 @@
             <ul class="navbar-nav">
             @if(Auth::User()->role_id == 1 || Auth::User()->role_id ==2)
                 <li class="nav-item mb-2 mt-0">
-                    <a data-bs-toggle="collapse" href="#ProfileNav" class="nav-link text-white"
-                        aria-controls="ProfileNav" role="button" aria-expanded="false">
+                    <a data-bs-toggle="collapse" href="#ProfileNav" class="nav-link text-white"       aria-controls="ProfileNav" role="button" aria-expanded="false">
                         <img src="/<?= !Auth::check() && Auth::User()->sex == 'Female' ? 'assets/img/team-3.jpg' : 'assets/img/drake.jpg' ?>" class="avatar">
                         <span class="nav-link-text ms-2 ps-1">{{ !Auth::check() ? 'Staff Profile' : Auth::User()->name }}</span>
                     </a>
@@ -110,8 +109,7 @@
                 </li>
                 <hr class="horizontal light mt-0">
                 {{-- <li class="nav-item">
-                    <a data-bs-toggle="collapse" href="#dashboardsExamples" class="nav-link text-white"
-                        aria-controls="dashboardsExamples" role="button" aria-expanded="false">
+                    <a data-bs-toggle="collapse" href="#dashboardsExamples" class="nav-link text-white"       aria-controls="dashboardsExamples" role="button" aria-expanded="false">
                         <i class="material-icons-round opacity-10">dashboard</i>
                         <span class="nav-link-text ms-2 ps-1">Dashboards</span>
                     </a>
@@ -140,8 +138,7 @@
                 </li>
                 --}}
                 <li class="nav-item">
-                  <a data-bs-toggle="collapse" href="#componentsStaffs" class="nav-link text-white"
-                      aria-controls="componentsStaffs" role="button" aria-expanded="false">
+                  <a data-bs-toggle="collapse" href="#componentsStaffs" class="nav-link text-white"     aria-controls="componentsStaffs" role="button" aria-expanded="false">
                       <i class="material-icons opacity-10">table_view</i>
                       <span class="nav-link-text ms-2 ps-1">Company</span>
                   </a>
@@ -149,34 +146,23 @@
                       <ul class="nav ">
                          
                         <li class="nav-item ">
-                            <a class="nav-link text-white"
-                                href="/departments"
-                               >
+                            <a class="nav-link text-white"               href="/departments"              >
                                   <span class="sidenav-mini-icon"> D </span>
                                   <span class="sidenav-normal  ms-2  ps-1"> Departments </span>
                               </a>
                           </li>
                           <li class="nav-item ">
-                              <a class="nav-link text-white"
-                                  href="/users"
-                                 >
-                                  <span class="sidenav-mini-icon"> E </span>
+                              <a class="nav-link text-white"                 href="/users">                                  <span class="sidenav-mini-icon"> E </span>
                                   <span class="sidenav-normal  ms-2  ps-1"> Employees </span>
                               </a>
                           </li>
                           <li class="nav-item ">
-                              <a class="nav-link text-white"
-                                  href="/tasks"
-                                 >
-                                  <span class="sidenav-mini-icon"> T </span>
+                              <a class="nav-link text-white"                 href="/tasks">                                  <span class="sidenav-mini-icon"> T </span>
                                   <span class="sidenav-normal  ms-2  ps-1"> Staff Tasks </span>
                               </a>
                           </li>
                           <li class="nav-item ">
-                              <a class="nav-link text-white"
-                                  href="/roles"
-                                 >
-                                  <span class="sidenav-mini-icon"> M </span>
+                              <a class="nav-link text-white"                 href="/roles">                                  <span class="sidenav-mini-icon"> M </span>
                                   <span class="sidenav-normal  ms-2  ps-1"> Permissions </span>
                               </a>
                           </li>
@@ -184,8 +170,7 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a data-bs-toggle="collapse" href="#componentsCustomers" class="nav-link text-white"
-                        aria-controls="componentsCustomers" role="button" aria-expanded="false">
+                    <a data-bs-toggle="collapse" href="#componentsCustomers" class="nav-link text-white"       aria-controls="componentsCustomers" role="button" aria-expanded="false">
                         <i
                         class="material-icons-round {% if page.brand == 'RTL' %}ms-2{% else %} me-2{% endif %}">apps</i>
                         <span class="nav-link-text ms-2 ps-1">Customers</span>
@@ -194,42 +179,27 @@
                         <ul class="nav ">
                          
                             <li class="nav-item ">
-                                <a class="nav-link text-white"
-                                    href="/clients"
-                                   >
-                                    <span class="sidenav-mini-icon"> C </span>
+                                <a class="nav-link text-white"                   href="/clients"  >                                    <span class="sidenav-mini-icon"> C </span>
                                     <span class="sidenav-normal  ms-2  ps-1"> Clients </span>
                                 </a>
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link text-white"
-                                    href="/collections"
-                                   >
-                                    <span class="sidenav-mini-icon"> P </span>
+                                <a class="nav-link text-white"                   href="/collections"  >                                    <span class="sidenav-mini-icon"> P </span>
                                     <span class="sidenav-normal  ms-2  ps-1"> Payments </span>
                                 </a>
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link text-white"
-                                    href="/partners"
-                                   >
-                                    <span class="sidenav-mini-icon"> P </span>
+                                <a class="nav-link text-white"                   href="/partners"  >                                    <span class="sidenav-mini-icon"> P </span>
                                     <span class="sidenav-normal  ms-2  ps-1"> Partiners </span>
                                 </a>
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link text-white"
-                                    href="/branches"
-                                   >
-                                    <span class="sidenav-mini-icon"> B </span>
+                                <a class="nav-link text-white"                   href="/branches"  >                                    <span class="sidenav-mini-icon"> B </span>
                                     <span class="sidenav-normal  ms-2  ps-1"> Branches </span>
                                 </a>
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link text-white"
-                                    href="/branches/employee"
-                                   >
-                                    <span class="sidenav-mini-icon"> E </span>
+                                <a class="nav-link text-white"                   href="/branches/employee"  >                                    <span class="sidenav-mini-icon"> E </span>
                                     <span class="sidenav-normal  ms-2  ps-1"> Employers </span>
                                 </a>
                             </li>
@@ -239,8 +209,7 @@
                 </li>
   
                 <li class="nav-item">
-                    <a data-bs-toggle="collapse" href="#pagesExamples" class="nav-link text-white"
-                        aria-controls="pagesExamples" role="button" aria-expanded="false">
+                    <a data-bs-toggle="collapse" href="#pagesExamples" class="nav-link text-white"       aria-controls="pagesExamples" role="button" aria-expanded="false">
                         <i class="material-icons opacity-10">store</i>
                         <span class="nav-link-text ms-2 ps-1">Cases</span>
                     </a>
@@ -277,24 +246,19 @@
                 
           
               <li class="nav-item">
-                <a data-bs-toggle="collapse" href="#componentsCases" class="nav-link text-white"
-                    aria-controls="componentsCases" role="button" aria-expanded="false">
+                <a data-bs-toggle="collapse" href="#componentsCases" class="nav-link text-white"   aria-controls="componentsCases" role="button" aria-expanded="false">
                     <i class="material-icons text-lg position-relative">email</i>
                     <span class="nav-link-text ms-2 ps-1">Messages</span>
                 </a>
                 <div class="collapse " id="componentsCases">
                     <ul class="nav ">
                         <li class="nav-item ">
-                            <a class="nav-link text-white"
-                                href="/sendmessage"
-                               >
+                            <a class="nav-link text-white"               href="/sendmessage"              >
                                 <span class="sidenav-normal  ms-2  ps-1"> New Message </span>
                             </a>
                         </li>
                         <li class="nav-item ">
-                            <a class="nav-link text-white"
-                                href="/sent"
-                               >
+                            <a class="nav-link text-white"               href="/sent"              >
                                 <span class="sidenav-normal  ms-2  ps-1"> Sent Messages </span>
                             </a>
                         </li>
@@ -319,8 +283,7 @@
             </li>
              
             <li class="nav-item">
-                <a data-bs-toggle="collapse" href="#componentsAccounts" class="nav-link text-white"
-                    aria-controls="componentsAccounts" role="button" aria-expanded="false">
+                <a data-bs-toggle="collapse" href="#componentsAccounts" class="nav-link text-white"   aria-controls="componentsAccounts" role="button" aria-expanded="false">
                     <i class="material-icons-round {% if page.brand == 'RTL' %}ms-2{% else %} me-2{% endif %}">receipt_long</i>
                     <span class="nav-link-text ms-2 ps-1">Accounts</span>
                 </a>
@@ -334,33 +297,26 @@
                             </a>
                         </li>
                         <li class="nav-item ">
-                            <a class="nav-link text-white"
-                                href="/revenues"
-                               >
+                            <a class="nav-link text-white"               href="/revenues"              >
                                 <span class="sidenav-mini-icon"> R </span>
                                 <span class="sidenav-normal  ms-2  ps-1"> Revenues </span>
                             </a>
                         </li>
                     
                         <li class="nav-item ">
-                            <a class="nav-link text-white"
-                                href="/invoices">
+                            <a class="nav-link text-white"               href="/invoices">
                                 <span class="sidenav-mini-icon"> E </span>
                                 <span class="sidenav-normal  ms-2  ps-1"> Invoices </span>
                             </a>
                         </li>
                         <li class="nav-item ">
-                            <a class="nav-link text-white"
-                                href="/reports"
-                               >
+                            <a class="nav-link text-white"               href="/reports"              >
                                 <span class="sidenav-mini-icon"> R </span>
                                 <span class="sidenav-normal  ms-2  ps-1">Reports </span>
                             </a>
                         </li>
                         <li class="nav-item ">
-                            <a class="nav-link text-white"
-                                href="/groups"
-                               >
+                            <a class="nav-link text-white"               href="/groups"              >
                                 <span class="sidenav-mini-icon"> A </span>
                                 <span class="sidenav-normal  ms-2  ps-1"> Groups </span>
                             </a>
@@ -397,8 +353,7 @@
                 </li>
                 @endif
                 <li class="nav-item">
-                    <a data-bs-toggle="collapse" href="#pagesExamplesReport" class="nav-link text-white"
-                        aria-controls="pagesExamplesReport" role="button" aria-expanded="false">
+                    <a data-bs-toggle="collapse" href="#pagesExamplesReport" class="nav-link text-white"       aria-controls="pagesExamplesReport" role="button" aria-expanded="false">
                         <i class="material-icons opacity-10">store</i>
                         <span class="nav-link-text ms-2 ps-1">Reports</span>
                     </a>
@@ -487,8 +442,7 @@
                       </a>
                   </li>
                   <li class="nav-item dropdown pe-2">
-                      <a href="javascript:;" class="nav-link text-body p-0 position-relative"
-                          id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                      <a href="javascript:;" class="nav-link text-body p-0 position-relative"         id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                           <i class="material-icons cursor-pointer">
                             account_circle
                           </i>
@@ -498,8 +452,7 @@
                               <span class="visually-hidden">unread notifications</span>
                           </span> -->
                       </a>
-                      <ul class="dropdown-menu dropdown-menu-end p-2 me-sm-n4"
-                          aria-labelledby="dropdownMenuButton">
+                      <ul class="dropdown-menu dropdown-menu-end p-2 me-sm-n4"         aria-labelledby="dropdownMenuButton">
                           <li class="mb-2">
                               <a class="dropdown-item border-radius-md" href="/profile">
                                   <div class="d-flex align-items-center py-1">

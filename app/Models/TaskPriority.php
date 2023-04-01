@@ -25,6 +25,6 @@ class TaskPriority extends Model
 
 	public function tasks()
 	{
-		return $this->hasMany(Task::class, 'priority_id');
+		return $this->hasMany(Task::class, 'action_code_id');
 	}
 }

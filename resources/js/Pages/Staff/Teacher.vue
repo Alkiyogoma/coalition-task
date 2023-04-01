@@ -94,23 +94,10 @@
                         </td>
                             <td class="px-2 py-2 text-xs">
                                 <div class="flex items-center space-x-4 text-sm">
-              <Link :href="`/subjects/${exam.id}/view`" tabindex="-1"
-                    class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
-                    aria-label="View"
-                  >
-                <svg
-                  class="w-5 h-3"
-                  aria-hidden="true"
-                  fill="none"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  viewBox="0 0 16 16"
-                  stroke="currentColor"
-                >
-                  <path
-                    d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
-                  ></path>
+              <Link :href="`/subjects/${exam.id}/view`" tabindex="-1"   class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"   aria-label="View" >
+                <svg class="w-5 h-3" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 16 16" stroke="currentColor"
+>                  <path
+                    d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" ></path>
                 </svg>
                 <span class="ml-2">Results</span>
               </Link>
@@ -166,9 +153,7 @@
                             </span>
                         </td>
                         <td>
-                            <Link :href="`/contacts/${exam.uuid}/view`" tabindex="-1"
-                                class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
-                                aria-label="View">
+                            <Link :href="`/contacts/${exam.uuid}/view`" tabindex="-1"               class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"               aria-label="View">
                             <icon name="user" fill="currentColor" class="block w-6 h-6 fill-gray-400" />
                             View
                             </Link>
@@ -203,8 +188,7 @@
                         <td>{{ $subject_average.max }}</td>
                         <td>{{ $subject_average.min }}</td>
                         <td>{{ round($subject_average.avg, 1) }}</td>
-                        <td> <a href="`/dashboard/teacher/${subject_average.subjectID/$teacher_info.teacherID/$subject_average.examID`"
-                                class="btn btn-success btn-sm">View</a> </td>
+                        <td> <a href="`/dashboard/teacher/${subject_average.subjectID/$teacher_info.teacherID/$subject_average.examID`"               class="btn btn-success btn-sm">View</a> </td>
                     </tr>
 
                 </tbody>

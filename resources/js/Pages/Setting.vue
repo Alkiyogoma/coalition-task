@@ -7,8 +7,7 @@
                     <div class="row justify-content-center align-items-center">
                         <div class="col-sm-auto col-4">
                             <div class="avatar avatar-xl position-relative">
-                                <img src="/assets/img/bruce-mars.jpg" alt="bruce"
-                                    class="w-100 rounded-circle shadow-sm">
+                                <img src="/assets/img/bruce-mars.jpg" alt="bruce"                   class="w-100 rounded-circle shadow-sm">
                             </div>
                         </div>
                         <div class="col-sm-auto col-8 my-auto">
@@ -118,8 +117,7 @@
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label mt-4">Skills</label>
-                                <input class="form-control" id="choices-skills" type="text"
-                                    value="vuejs, angular, react" placeholder="Enter something" />
+                                <input class="form-control" id="choices-skills" type="text"                   value="vuejs, angular, react" placeholder="Enter something" />
                             </div>
                         </div>
                     </div>
@@ -173,8 +171,7 @@
                                     certain.</p>
                             </div>
                             <div class="w-50 text-end">
-                                <button class="btn btn-outline-secondary mb-3 mb-md-0 ms-auto" type="button"
-                                    name="button">Deactivate</button>
+                                <button class="btn btn-outline-secondary mb-3 mb-md-0 ms-auto" type="button"                   name="button">Deactivate</button>
                                 <button class="btn bg-gradient-danger mb-0 ms-2" type="button" name="button">Delete
                                     Account</button>
                             </div>

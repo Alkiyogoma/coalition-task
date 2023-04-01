@@ -18,9 +18,9 @@ class Client extends Model
 		'amount' => 'float',
 		'status' => 'int',
 		'user_id' => 'int',
+		'client_status_id',
 		'partner_id' => 'int',
 		'branch_id' => 'int',
-		'code_id' => 'int',
 		'group_id' => 'int',
 		'ptpamount' => 'float'
 	];
@@ -45,6 +45,7 @@ class Client extends Model
 		'user_id',
 		'partner_id',
 		'branch_id',
+		'client_status_id',
 		'branch',
 		'placement',
 		'code',
