@@ -9,8 +9,7 @@
                         <i class="material-icons text-lg me-2">add</i>   Add Task
                     </a>
                     <div class="dropleft ms-3">
-                        <button class="btn bg-gradient-dark dropdown-toggle" type="button" id="dropdownImport"
-                            data-bs-toggle="dropdown" aria-expanded="false">
+                        <button class="btn bg-gradient-dark dropdown-toggle" type="button" id="dropdownImport"           data-bs-toggle="dropdown" aria-expanded="false">
                             Today
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownImport">
@@ -28,10 +27,7 @@
                         <div class="card-header pb-0 p-3">
                             <div class="d-flex align-items-center">
                                 <h6 class="mb-0">Top Tasks Percentages</h6>
-                                <button type="button"
-                                    class="btn btn-icon-only btn-rounded btn-outline-secondary mb-0 ms-2 btn-sm d-flex align-items-center justify-content-center ms-auto"
-                                    data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                    title="See how much traffic do you get from social media">
+                                <button type="button"                   class="btn btn-icon-only btn-rounded btn-outline-secondary mb-0 ms-2 btn-sm d-flex align-items-center justify-content-center ms-auto"                   data-bs-toggle="tooltip" data-bs-placement="bottom"                   title="See how much traffic do you get from social media">
                                     <i class="material-icons text-sm">priority_high</i>
                                 </button>
                             </div>
@@ -52,8 +48,7 @@
                                         </div>
                                         <div>
                                             <div class="progress progress-md">
-                                                <div :class="`progress-bar bg-gradient-dark w-${ callPercent(Math.ceil(average.total*100/total)) }`" role="progressbar"
-                                                    :aria-valuenow="`${ Math.ceil(average.total*100/total) }`" aria-valuemin="0" :aria-valuemax="`${ Math.ceil(average.total*100/total) }`">
+                                                <div :class="`progress-bar bg-gradient-dark w-${ callPercent(Math.ceil(average.total*100/total)) }`" role="progressbar"                                   :aria-valuenow="`${ Math.ceil(average.total*100/total) }`" aria-valuemin="0" :aria-valuemax="`${ Math.ceil(average.total*100/total) }`">
                                                 </div>
                                             </div>
                                         </div>
@@ -68,10 +63,7 @@
                         <div class="card-header pb-0 p-3">
                             <div class="d-flex align-items-center">
                                 <h6>Completed Tasks</h6>
-                                <button type="button"
-                                    class="btn btn-icon-only btn-rounded btn-outline-success mb-0 ms-2 btn-sm d-flex align-items-center justify-content-center ms-auto"
-                                    data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                    title="Data is based from sessions and is 100% accurate">
+                                <button type="button"                   class="btn btn-icon-only btn-rounded btn-outline-success mb-0 ms-2 btn-sm d-flex align-items-center justify-content-center ms-auto"                   data-bs-toggle="tooltip" data-bs-placement="bottom"                   title="Data is based from sessions and is 100% accurate">
                                     <i class="material-icons text-sm">done</i>
                                 </button>
                             </div>
@@ -214,15 +206,15 @@
           <div class="modal-body">
                 <form role="form text-left" method="post" action="/saveTask">
                   
-                  <div class="input-group input-group-outline my-3">
+                  <!-- <div class="input-group input-group-outline my-3">
                       <label class="form-label">Task Title</label>
                       <input type="text" required name="title" class="form-control">
-                      <input type="hidden" :value="_token" name="_token" class="form-control">
-                  </div>
-                  
+                  </div> -->
+                  <input type="hidden" :value="_token" name="_token" class="form-control">
+
                 <div class="input-group input-group-outline my-3">
                     <select required class="form-control" name="client_id" id="choices-currency-edit">
-                        <option value="" selected="">Select Client</option>
+                        <option value="" selected="">Select Customer</option>
                         <option v-for="installment in clients" :value="installment.id" :key="installment.id">{{ installment.name }}</option>
                     </select>
                 </div>
@@ -242,8 +234,8 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="input-group input-group-outline my-3">
-                            <select required class="form-control" name="priority_id" id="choices-currency">
-                                <option value="" selected="">Select Task Priority</option>
+                            <select required class="form-control" name="action_code_id" id="choices-currency">
+                                <option value="" selected="">Select Action Code</option>
                                 <option v-for="priority in task_priority" :value="priority.id" :key="priority.id">{{ priority.name }}</option>
                             </select>
                         </div>

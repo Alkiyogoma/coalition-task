@@ -56,6 +56,7 @@ class User extends Authenticatable
 		'salary',
 		'status',
 		'email_verified_at',
+		'client_status_id',
 		'password',
 		'remember_token'
 	];

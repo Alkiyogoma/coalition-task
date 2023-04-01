@@ -28,14 +28,12 @@
                             <select-input v-model="form.partner_id" :error="form.errors.partner_id" required 
                                 label="From Partner?">
                                 <option :value="null" />
-                                <option v-for="organization in partners" :key="organization.id"
-                                    :value="organization.id">{{ organization.name }}</option>
+                                <option v-for="organization in partners" :key="organization.id"                   :value="organization.id">{{ organization.name }}</option>
                             </select-input>
                             
                             <select-input v-model="form.installment_id" :error="form.errors.installment_id" required  label="Payment Installments">
                                 <option :value="null" />
-                                <option v-for="role in installments" :key="role.id"
-                                    :value="role.id">{{ role.name }}</option>
+                                <option v-for="role in installments" :key="role.id"                   :value="role.id">{{ role.name }}</option>
                             </select-input>
                           </div>
                           <div class="row">
@@ -44,8 +42,7 @@
                             <select-input v-model="form.user_id" :error="form.errors.user_id" required 
                                 label="Assigned Staff?">
                                 <option :value="null" />
-                                <option v-for="user in users" :key="user.id"
-                                    :value="user.id">{{ user.name }}</option>
+                                <option v-for="user in users" :key="user.id"                   :value="user.id">{{ user.name }}</option>
                             </select-input>
                           </div>
                           

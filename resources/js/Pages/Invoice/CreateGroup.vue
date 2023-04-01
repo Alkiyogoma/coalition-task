@@ -14,8 +14,7 @@
                             <select-input v-model="form.account_id" :error="form.errors.account_id" required 
                                 label=" Account Group Category?">
                                 <option :value="null" />
-                                <option v-for="organization in categories" :key="organization.id"
-                                    :value="organization.id">{{ organization.name }}</option>
+                                <option v-for="organization in categories" :key="organization.id"                   :value="organization.id">{{ organization.name }}</option>
                             </select-input>
                           
                             <div

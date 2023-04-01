@@ -52,9 +52,7 @@
                 </div>
                 <div>
                   <div class="progress progress-md">
-                    <div :class="`progress-bar bg-gradient-dark w-${callPercent(Math.ceil(average.total * 100 / total))}`"
-                      role="progressbar" :aria-valuenow="`${Math.ceil(average.total * 100 / total)}`" aria-valuemin="0"
-                      :aria-valuemax="`${Math.ceil(average.total * 100 / total)}`">
+                    <div :class="`progress-bar bg-gradient-dark w-${callPercent(Math.ceil(average.total * 100 / total))}`"     role="progressbar" :aria-valuenow="`${Math.ceil(average.total * 100 / total)}`" aria-valuemin="0"     :aria-valuemax="`${Math.ceil(average.total * 100 / total)}`">
                     </div>
                   </div>
                 </div>
@@ -204,36 +202,49 @@
         </div>
         <div class="modal-body">
           <form role="form text-left" method="post" action="/saveTask">
-
-            <div class="input-group input-group-outline my-3">
+<!-- 
+            <div class="input-group input-group-outline my-2">
               <label class="form-label">Task Title</label>
-              <input type="text" required name="title" class="form-control">
+              <input type="text" required name="title" class="form-control"> -->
               <input type="hidden" :value="_token" name="_token" class="form-control">
               <input type="hidden" :value="user.id" name="user_id" class="form-control">
-            </div>
-            <div class="input-group input-group-outline my-3" style="min-width: 100% !important;">
+            <!-- </div> -->
+            <div class="input-group input-group-outline my-2" style="min-width: 100% !important;">
               <select required class="form-control select-single" style="width: 100% !important;" name="client_id" id="choices-currency-edit">
-                <option value="" selected="">Select Client</option>
+                <option value="" selected="">Select Customer</option>
                 <option v-for="installment in clients" :value="installment.id" :key="installment.id">{{ installment.name }} - {{ installment.account }}</option>
               </select>
             </div>
-            <div class="input-group input-group-outline my-3">
-              <select required class="form-control" name="task_type_id" id="choices-currency-edit">
-                <option value="" selected="">Select Task Category</option>
-                <option v-for="installment in tasktypes" :value="installment.id" :key="installment.id">{{ installment.name }}</option>
-              </select>
+            <div class="row">
+                <div class="col-md-6">
+                  <div class="input-group input-group-outline my-2">
+                      <select required class="form-control" name="task_type_id" id="choices-currency-edit">
+                          <option value="" selected="">Select Task Category</option>
+                          <option v-for="installment in tasktypes" :key="installment.id" :value="installment.id">{{ installment.name }}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                  <div class="input-group input-group-outline my-2">
+                      <select required class="form-control" name="client_status_id" id="choices-currency-edit">
+                          <option value="" selected="">Current Customer Status</option>
+                          <option v-for="status in client_status" :key="status.id" :value="status.id">{{ status.name }}</option>
+                      </select>
+                  </div>
+                </div>
             </div>
+            
             <div class="row">
               <div class="col-md-6">
-                <div class="input-group input-group-outline my-3">
-                  <select required class="form-control" name="priority_id" id="choices-currency">
-                    <option value="" selected="">Select Task Priority</option>
+                <div class="input-group input-group-outline my-2">
+                  <select required class="form-control" name="action_code_id" id="choices-currency">
+                    <option value="" selected="">Select Action Code</option>
                     <option v-for="priority in task_priority" :value="priority.id" :key="priority.id">{{ priority.name }}</option>
                   </select>
                 </div>
               </div>
               <div class="col-md-6">
-                <div class="input-group input-group-outline my-3">
+                <div class="input-group input-group-outline my-2">
                   <select required class="form-control" name="status_id" id="choices-currency">
                     <option value="" selected=""> Current Task Status</option>
                     <option v-for="method in task_status" :value="method.id" :key="method.id">{{ method.name }}</option>
@@ -241,19 +252,19 @@
                 </div>
               </div>
             </div>
-            <div class="input-group input-group-outline my-3">
+            <div class="input-group input-group-outline my-2">
               <textarea name="about" required class="multisteps-form__textarea form-control" rows="3"
                 :placeholder="`Write your activity performed`" spellcheck="false"></textarea>
             </div>
             <div class="row">
               <div class="col-md-6">
-                <div class="input-group input-group-outline my-3">
+                <div class="input-group input-group-outline my-2">
                   <input onfocus="(this.type = 'datetime-local')" class="form-control" required
                     onblur="(this.type = 'text')" name="date" placeholder="Set Next Action Date" />
                 </div>
               </div>
               <div class="col-md-6">
-                <div class="input-group input-group-outline my-3">
+                <div class="input-group input-group-outline my-2">
                   <select required class="form-control" name="next_type_id" id="choices-currency">
                     <option value="" selected="">Next Action Activity</option>
                     <option v-for="priority in tasktypes" :value="priority.id"  :key="priority.id">{{ priority.name }}</option>
@@ -287,6 +298,7 @@ export default {
     tasktypes: Array,
     averages: Array,
     total: Number,
+    client_status: Array,
     task_status: Array,
     statues: Array,
     color: Array,

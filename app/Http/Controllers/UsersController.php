@@ -103,8 +103,13 @@ class UsersController extends Controller
                     'uuid' => $User->uuid,
                     'name' => $User->name,
                     'clients' => $User->clients()->where('user_id', $user->id)->count(),
+                    'active' => $User->clients()->where('user_id', $user->id)->where('client_status_id', 3)->count(),
+                    'pending' => $User->clients()->where('user_id', $user->id)->whereNull('client_status_id')->count(),
+                    'reached' => $User->clients()->where('user_id', $user->id)->whereNotNull('client_status_id')->count(),
+                    'skip' => $User->clients()->where('user_id', $user->id)->where('client_status_id', 1)->count(),
+                    'inactive' => $User->clients()->where('user_id', $user->id)->where('client_status_id', 2)->count(),
                     'amount' => $User->clients()->where('user_id', $user->id)->sum('amount'),
-                    'total' => \App\Models\Payment::whereIn('client_id', $User->clients()->where('user_id', $user->id)->get(['id']))->sum('amount'), //$User->clients()->where('partner_id', $partner->id)->count(),
+                    'total' => \App\Models\Payment::whereIn('client_id', $User->clients()->where('user_id', $user->id)->get(['id']))->orWhere('user_id', $user->id)->sum('amount'), //$User->clients()->where('partner_id', $partner->id)->count(),
                     'created_at' => $User->created_at,
         ])
             ]);
@@ -138,16 +143,20 @@ class UsersController extends Controller
         $type = request()->segment(2);
         $id = request()->segment(3);
         $bank = request()->segment(4);
+        $status =  request('status') != '' ? request('status') : '';
         if($type != '' && $id != ''){
             $check = $type."_id";
             if($bank > 0 && $type=='user'){
                 $where = ['user_id' => $id, 'partner_id' => $bank];
+                $all = \App\Models\Client::where($where);
             }else{
                 $where = [$check => $id];
+                $all = \App\Models\Client::where($where);
             }
-            $client = \App\Models\Client::where('status', 1)->where($where);
+            $client = (string)request('status') == 'all' ? \App\Models\Client::whereNull('client_status_id')->where($where) : (request('status') != '' ? \App\Models\Client::whereIn('client_status_id', [$status])->where($where) :  \App\Models\Client::where($where));
         }else{
-            $client = \App\Models\Client::where('status', 1);
+            $client = (string)request('status') == 'all' ? \App\Models\Client::whereNull('client_status_id') : (request('status') != '' ? \App\Models\Client::whereIn('client_status_id', [$status]) :  \App\Models\Client::orderBy('client_status_id'));
+            $all = \App\Models\Client::orderBy('client_status_id');
         }
             $users = $client->filter(Request::only('search'))
                 ->paginate(50)
@@ -176,6 +185,14 @@ class UsersController extends Controller
             'users' => $users,
             'groups' => DB::select('SELECT c.name as type, c.id, count(a.id) as total from partners c join clients a on a.partner_id=c.id '.$where_user.'  group by c.name,c.id'),
             'total_student' => \App\Models\User::where('status', 1)->count(),
+            'clients' => $all->count(),
+            'active' => $all->where('client_status_id', 3)->count(),
+            'pending' => $all->whereNull('client_status_id')->count(),
+            'reached' => $all->whereNotNull('client_status_id')->count(),
+            'skip' => $all->where('client_status_id', 1)->count(),
+            'inactive' => $all->where('client_status_id', 2)->count(),
+            'amount' => $all->sum('amount'),
+            'total' => \App\Models\Payment::whereIn('client_id', $all->get(['id']))->sum('amount'), 
 
         ]);
     }
@@ -266,6 +283,7 @@ class UsersController extends Controller
                 'phone' => $user->phone,
                 'account' => ucfirst($user->account),
                 'last_update' => $user->updated_at,
+                'client_status_id' => (int)$user->client_status_id > 0 ? $user->client_status_id : '',
                 'user_id' => Auth::User()->id,
                 '_token' => csrf_token()
             ],
@@ -307,8 +325,10 @@ class UsersController extends Controller
             'payments' => DB::table('payments')->where('client_id', $user->id)->orderBy('id', 'desc')->get(),
             'methods' => DB::table('payment_methods')->orderBy('id', 'desc')->get(),
             'tasktypes' => DB::table('task_type')->where('group_id', 1)->orderBy('id')->get(),
-            'task_priority' => DB::table('task_priority')->orderBy('id')->get(),
+            'task_priority' => \App\Models\ActionCode::where('partner_id', 1)->get(),
+            'client_status' => DB::table('client_status')->orderBy('id')->get(),
             'staffs' => DB::table('users')->orderBy('id')->get(),
+            'collections' => DB::select('SELECT b.uuid, c.name as collector, c.uuid as user_id, b.client_id, a.name, a.account, a.branch, a.phone, b.amount as amount, b.date FROM payments b JOIN users c on b.user_id=c.id join clients a on a.id=b.client_id where b.client_id='. $user->id .' ORDER BY c.id desc;'),
             'task_status' => DB::table('task_status')->orderBy('id')->get(),
         ]);
     }
@@ -699,7 +719,7 @@ class UsersController extends Controller
                     'task_type_id' => 10,
                     'task_date' => date('Y-m-d'),
                     'uuid' => (string) Str::uuid(),
-                    'priority_id' => 1,
+                    'action_code_id' => 1,
                     'status_id' => 2,
                     'next_date' => date('Y-m-d'),
                     'next_type_id' => 1,
@@ -740,7 +760,7 @@ class UsersController extends Controller
                 'task_type_id' => 5,
                 'task_date' => date('Y-m-d'),
                 'uuid' => (string) Str::uuid(),
-                'priority_id' => 1,
+                'action_code_id' => 1,
                 'status_id' => 2,
                 'next_date' => date('Y-m-d'),
                 'next_type_id' => 1,

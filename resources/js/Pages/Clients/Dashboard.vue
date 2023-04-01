@@ -104,7 +104,7 @@
                       
                       <td class="align-middle text-center">
                         <Link :href="`/collectors/${ user.uuid }/bank`" class="text-white font-weight-bold  " data-toggle="tooltip" data-original-title="Edit user">
-                          <span class="btn btn-outline-success btn-sm mb-0">Staffs</span>
+                          <span class="btn btn-outline-success btn-sm mb-0">Collectors</span>
                         </Link>
                       </td>
                         <td class="align-middle">
@@ -185,8 +185,7 @@
          </div>
          <div class="card-body p-3 pb-0">
           <ul class="list-group">
-              <li v-for="collect in collections" :key="collect.name"
-                  class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
+              <li v-for="collect in collections" :key="collect.name" class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
                   <div class="d-flex align-items-center">
                       <div class="icon icon-shape icon-sm me-3 bg-gradient-dark shadow text-center">
                           <i class="material-icons opacity-10">person</i>

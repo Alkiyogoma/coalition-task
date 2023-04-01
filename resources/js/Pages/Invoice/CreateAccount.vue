@@ -13,8 +13,7 @@
                             <select-input v-model="form.type_id" :error="form.errors.type_id" required 
                                 label="Group Type?">
                                 <option :value="null" />
-                                <option v-for="organization in categories" :key="organization.id"
-                                    :value="organization.id">{{ organization.name }}</option>
+                                <option v-for="organization in categories" :key="organization.id"                   :value="organization.id">{{ organization.name }}</option>
                             </select-input>
                             
                           </div>

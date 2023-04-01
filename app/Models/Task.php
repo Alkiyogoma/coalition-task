@@ -18,7 +18,7 @@ class Task extends Model
 		'user_id' => 'int',
 		'client_id' => 'int',
 		'task_type_id' => 'int',
-		'priority_id' => 'int',
+		'action_code_id' => 'int',
 		'status_id' => 'int',
 		'next_type_id' => 'int',
 		'created_by' => 'int'
@@ -37,7 +37,7 @@ class Task extends Model
 		'task_type_id',
 		'task_date',
 		'uuid',
-		'priority_id',
+		'action_code_id',
 		'status_id',
 		'next_date',
 		'next_type_id',
@@ -72,7 +72,7 @@ class Task extends Model
 
 	public function priority()
 	{
-		return $this->belongsTo(TaskPriority::class, 'priority_id');
+		return $this->belongsTo(ActionCode::class, 'action_code_id');
 	}
 
 	public function taskstatus()

@@ -107,7 +107,7 @@
 
 
   <div class="row">
-    <div class="col-lg-6 mt-lg-0">
+    <div class="col-lg-12 mt-lg-0">
       <div class="card">
         <div class="card-body">
           <h6 class="text-dark">{{ staff.name }} Banks</h6>
@@ -123,6 +123,22 @@
                     Collected</th>
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                     Clients</th>
+                    
+                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                    Scanned</th>
+                    
+                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                    Pending</th>
+                    
+                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                    Active</th>
+                    
+                    
+                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                    Skip</th>
+                    
+                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                    Inactive</th>
                 </tr>
               </thead>
               <tbody>
@@ -143,42 +159,31 @@
                     <span class="text-xs font-weight-bold"> {{ money(payment.amount) }} </span>
                   </td>
                   <td class="align-middle text-center text-sm">
-                    <span class="text-xs font-weight-bold"> {{ money(payment.total) }} </span>
+                    <Link :href="`/collections/${payment.id}/${staff.id}`">
+                      <u class="text-xs font-weight-bold"> {{ money(payment.total) }} </u>
+                    </Link>
                   </td>
-                  <td class="align-middle">
-                      <Link :href="`/clients/user/${staff.id}/${payment.id}`" class="ml-3 text-info font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                        <span class="badge badge-sm bg-gradient-info">Customers</span>
-                      </Link>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <div class="table-responsive">
-            <table class="table table-flush">
-              <thead class="thead-light">
-                  <tr>
-                    <th colspan="3">
-                      <h6 class="text-dark">Latest {{ staff.name }} Collections</h6>
-                    </th>
-                  </tr>
-                <tr>
-                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"> Customer Name</th>
-                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"> Received </th>
-                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Date</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="payment in collections" :key="payment.id">
-                  <td class="text-sm font-weight-normal">{{ payment.name }} - {{ payment.account }}</td>
+                  
                   <td class="align-middle text-center text-sm">
-                    {{ money(payment.amount) }}
+                    <a :href="`/clients/user/${staff.id}/${payment.id}`" class="text-xs font-weight-bold"> <u> {{ (payment.clients) }}</u> </a>
                   </td>
-                  <td class="text-sm font-weight-normal">{{ payment.date }}</td>
-
+                  <td class="align-middle text-center text-sm">
+                    <a :href="`/clients/user/${staff.id}/${payment.id}?status=1,2,3`" class="text-xs font-weight-bold"><u>{{ (payment.reached) }}</u> </a>
+                  </td>
+                  <td class="align-middle text-center text-sm">
+                    <a :href="`/clients/user/${staff.id}/${payment.id}?status=null`" class="text-xs font-weight-bold"><u>{{ (payment.pending) }} </u></a>
+                  </td>
+                  <td class="align-middle text-center text-sm">
+                    <a :href="`/clients/user/${staff.id}/${payment.id}?status=3`" class="text-xs font-weight-bold"><u>{{ (payment.active) }}</u> </a>
+                  </td>
+                  <td class="align-middle text-center text-sm">
+                    <a  :href="`/clients/user/${staff.id}/${payment.id}?status=1`" class="text-xs font-weight-bold"><u> {{ (payment.skip) }}</u> </a>
+                  </td>
+                
+                  <td class="align-middle text-center text-sm">
+                    <a :href="`/clients/user/${staff.id}/${payment.id}?status=2`" class="text-xs font-weight-bold"><u>{{ (payment.inactive) }}</u> </a>
+                  </td>
                 </tr>
-
               </tbody>
             </table>
           </div>
@@ -186,63 +191,51 @@
       </div>
     </div>
 
-    <div class="col-lg-6 mt-lg-0">
-      <div class="card">
+  </div>
+  <div class="row">
+    <div class="col-lg-12">
 
-        <div class="card-body px-0 pb-2">
-          <h6 class="text-capitalize ps-3">Latest {{ staff.name }} Activities</h6>
+      <div class="card card-success">
+        <div class="card-body">
+          <h6 class="text-dark">Latest {{ staff.name }} Collections</h6>
 
-          <div class="timeline timeline-one-side" data-timeline-axis-style="dotted">
-            <div v-for="task in tasks" :key="task.id" class="timeline-block">
-              <span class="timeline-step bg-dark p-3">
-                <i class="material-icons text-sm opacity-10">
-                  notifications
-                </i>
-              </span>
-              <div class="timeline-content pt-1">
-                <h6 class="text-dark text-sm font-weight-bold mb-0">{{ task.name }}</h6>
-                <p class="text-sm text-dark">
-                  {{ task.about }}
-                  <br>
-                  <Link :href="`/client/${task.uuid}/view`">Client: {{ task.client }}</Link> &nbsp; &nbsp; -&nbsp;
-                  &nbsp; {{ task.time }}
-                </p>
-                <div class="d-flex mt-0">
-                  <div>
-                    <i class="material-icons text-sm me-1 cursor-pointer">notifications</i>
-                  </div>
-                  <span class="text-sm me-2">{{ task.type }}</span>
-                  <div>
-                    <i class="material-icons text-sm me-1 cursor-pointer">layers</i>
-                  </div>
-                  <span class="text-sm me-2">{{ task.status }}</span>
-                  <div>
-                    <i class="material-icons text-sm me-1 cursor-pointer">thumb_up</i>
-                  </div>
-                  <span class="text-sm me-2"> {{ task.time }}</span>
-                  <div>
-                    <i class="material-icons text-xl me-1 cursor-pointer">more_vert</i>
-                  </div>
-                  <span class="text-sm me-2">
-                    <div class="dropstart">
-                      <a href="javascript:;" class="text-success" id="dropdownDesignCard" data-bs-toggle="dropdown"
-                        aria-expanded="false">
-                        <b><u>Update</u></b>
-                      </a>
-                      <ul class="dropdown-menu dropdown-menu-lg-start px-2 py-3" aria-labelledby="dropdownDesignCard">
-                        <li v-for="method in task_status" :key="method.id"><a class="dropdown-item border-radius-md"
-                            :href="`/taskstatus/${task.uuid}/${method.id}`">{{ method.name }}</a></li>
-                        <li>
-                          <hr class="dropdown-divider">
-                        </li>
-                        <li><a class="dropdown-item border-radius-md text-danger"
-                            :href="`/deletetask/${task.uuid}/delete`">Delete Task</a></li>
-                      </ul>
-                    </div>
-                  </span>
-                </div>
-              </div>
-            </div>
+          <div class="table-responsive">
+            <table class="table table-flush">
+              <thead class="thead-light">
+                <tr>
+                  <!-- Collector 	 Customer Name 	 Employer 	 Account number 	 Contacts 	 Branch 	 Outstanding Balance(TZS) 	 Amount Received Jan'23  -->
+
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Collector</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"> Customer Name
+                  </th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"> Account number
+                  </th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Branch</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Amount Received
+                  </th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Date</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="payment in collections" :key="payment.id">
+                  <td class="text-sm font-weight-normal">{{ payment.collector }}</td>
+                  <td class="text-sm font-weight-normal">{{ payment.name }} </td>
+                  <td class="text-sm font-weight-normal">{{ payment.account }}</td>
+                  <td class="text-sm font-weight-normal">{{ payment.branch }}</td>
+                  <td class="align-middle text-center text-sm">
+                    {{ money(payment.amount) }}
+                  </td>
+                  <td class="text-sm font-weight-normal">{{ payment.date }}</td>
+                  <td class="text-sm font-weight-normal">
+                    <Link :href="`/receipt/${payment.uuid}/payment`"> <i class="material-icons text-lg">payments</i>
+                    View</Link>
+
+                  </td>
+                </tr>
+
+              </tbody>
+            </table>
           </div>
         </div>
       </div>

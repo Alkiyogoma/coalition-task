@@ -9,10 +9,7 @@
                         <div class="card-header pb-0 p-3">
                             <div class="d-flex justify-content-between">
                                 <h6 class="mb-0">Revenue</h6>
-                                <button type="button"
-                                    class="btn btn-icon-only btn-rounded btn-outline-secondary mb-0 ms-2 btn-sm d-flex align-items-center justify-content-center"
-                                    data-bs-toggle="tooltip" data-bs-placement="left"
-                                    data-bs-original-title="See which ads perform better">
+                                <button type="button"                   class="btn btn-icon-only btn-rounded btn-outline-secondary mb-0 ms-2 btn-sm d-flex align-items-center justify-content-center"                   data-bs-toggle="tooltip" data-bs-placement="left"                   data-bs-original-title="See which ads perform better">
                                     <i class="material-icons text-sm">priority_high</i>
                                 </button>
                             </div>
@@ -149,8 +146,7 @@
                                             <td>
                                                 <div class="d-flex px-3 py-1">
                                                     <div>
-                                                        <img src="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/soft-ui-design-system/assets/img/ecommerce/blue-shoe.jpg"
-                                                            class="avatar me-3" alt="image">
+                                                        <img src="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/soft-ui-design-system/assets/img/ecommerce/blue-shoe.jpg"                                           class="avatar me-3" alt="image">
                                                     </div>
                                                     <div class="d-flex flex-column justify-content-center">
                                                         <h6 class="mb-0 text-sm">Nike v22 Running</h6>
@@ -176,8 +172,7 @@
                                             <td>
                                                 <div class="d-flex px-3 py-1">
                                                     <div>
-                                                        <img src="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/soft-ui-design-system/assets/img/ecommerce/black-mug.jpg"
-                                                            class="avatar me-3" alt="image">
+                                                        <img src="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/soft-ui-design-system/assets/img/ecommerce/black-mug.jpg"                                           class="avatar me-3" alt="image">
                                                     </div>
                                                     <div class="d-flex flex-column justify-content-center">
                                                         <h6 class="mb-0 text-sm">Business Kit (Mug + Notebook)</h6>
@@ -203,8 +198,7 @@
                                             <td>
                                                 <div class="d-flex px-3 py-1">
                                                     <div>
-                                                        <img src="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/soft-ui-design-system/assets/img/ecommerce/black-chair.jpg"
-                                                            class="avatar me-3" alt="image">
+                                                        <img src="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/soft-ui-design-system/assets/img/ecommerce/black-chair.jpg"                                           class="avatar me-3" alt="image">
                                                     </div>
                                                     <div class="d-flex flex-column justify-content-center">
                                                         <h6 class="mb-0 text-sm">Black Chair</h6>
@@ -230,8 +224,7 @@
                                             <td>
                                                 <div class="d-flex px-3 py-1">
                                                     <div>
-                                                        <img src="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/soft-ui-design-system/assets/img/ecommerce/bang-sound.jpg"
-                                                            class="avatar me-3" alt="image">
+                                                        <img src="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/soft-ui-design-system/assets/img/ecommerce/bang-sound.jpg"                                           class="avatar me-3" alt="image">
                                                     </div>
                                                     <div class="d-flex flex-column justify-content-center">
                                                         <h6 class="mb-0 text-sm">Wireless Charger</h6>
@@ -257,8 +250,7 @@
                                             <td>
                                                 <div class="d-flex px-3 py-1">
                                                     <div>
-                                                        <img src="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/soft-ui-design-system/assets/img/ecommerce/photo-tools.jpg"
-                                                            class="avatar me-3" alt="image">
+                                                        <img src="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/soft-ui-design-system/assets/img/ecommerce/photo-tools.jpg"                                           class="avatar me-3" alt="image">
                                                     </div>
                                                     <div class="d-flex flex-column justify-content-center">
                                                         <h6 class="mb-0 text-sm">Mountain Trip Kit (Camera + Backpack)
