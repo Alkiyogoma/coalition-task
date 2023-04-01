@@ -101,8 +101,10 @@
                   <i class="material-icons opacity-10">launch</i>
                 </div>
                 <div class="d-flex flex-column">
+                  <a :href="`${ get_url }`">
                   <h6 class="mb-1 text-dark text-sm">Total accounts</h6>
                   <span class="font-weight-bold">Account Portifolio</span>
+                </a>
                 </div>
               </div>
               <div class="d-flex"> 
@@ -115,8 +117,10 @@
                   <i class="material-icons opacity-10">book_online</i>
                 </div>
                 <div class="d-flex flex-column">
-                  <h6 class="mb-1 text-dark text-sm">Scanned accounts</h6>
-                  <span class="text-xs">Reached Accounts</span>
+                  <a :href="`${ get_url }?status=3`">
+                    <h6 class="mb-1 text-dark text-sm">Scanned accounts</h6>
+                    <span class="text-xs">Reached Accounts</span>
+                  </a>
                 </div>
               </div>
               <div class="d-flex">
@@ -129,8 +133,10 @@
                   <i class="material-icons opacity-10">priority_high</i>
                 </div>
                 <div class="d-flex flex-column">
-                  <h6 class="mb-1 text-dark text-sm">Pending accounts</h6>
-                  <span class="font-weight-bold">Not Scanned account</span>
+                  <a :href="`${ get_url }?status=all`">
+                    <h6 class="mb-1 text-dark text-sm">Pending accounts</h6>
+                    <span class="font-weight-bold">Not Scanned account</span>
+                  </a>
                 </div>
               </div>
               <div class="d-flex">
@@ -144,8 +150,10 @@
                   <i class="material-icons opacity-10">payments</i>
                 </div>
                 <div class="d-flex flex-column">
+                  <a :href="`${ get_url }?status=3`">
                   <h6 class="mb-1 text-dark text-sm">Active accounts</h6>
                   <span class="font-weight-bold">Active Phone Numbers</span>
+                  </a>
                 </div>
               </div>
               <div class="d-flex">
@@ -172,7 +180,8 @@
         <div class="card-body p-3">
           <ul class="list-group">
             <li class="list-group-item border-0 justify-content-between ps-0 pb-0 border-radius-lg">
-              <div class="d-flex">
+              <a :href="`${ get_url }?status=1`">
+                <div class="d-flex">
                 <div class="d-flex align-items-center">
                   <button
                     class="btn btn-icon-only btn-rounded btn-outline-success mb-0 me-3 p-3 btn-sm d-flex align-items-center justify-content-center"><i
@@ -185,8 +194,10 @@
                   {{ skip }}
                 </div>
               </div>
+              </a>
               <hr class="horizontal dark mt-3 mb-2" />
             </li>
+
             <li class="list-group-item border-0 justify-content-between ps-0 pb-0 border-radius-lg">
               <div class="d-flex">
                 <div class="d-flex align-items-center">
@@ -269,6 +280,7 @@ export default {
     active: String,
     pending: String,
     reached: String,
+    get_url: String,
     skip: String,
     inactive: String,
     amount: String,
