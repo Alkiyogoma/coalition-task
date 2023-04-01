@@ -283,7 +283,6 @@
         </div>
 
 </template>
-
 <script>
 import { Head, Link } from "@inertiajs/vue3";
 import pickBy from "lodash/pickBy";

@@ -168,10 +168,10 @@
                     <a :href="`/clients/user/${staff.id}/${payment.id}`" class="text-xs font-weight-bold"> <u> {{ (payment.clients) }}</u> </a>
                   </td>
                   <td class="align-middle text-center text-sm">
-                    <a :href="`/clients/user/${staff.id}/${payment.id}?status=1,2,3`" class="text-xs font-weight-bold"><u>{{ (payment.reached) }}</u> </a>
+                    <a :href="`/clients/user/${staff.id}/${payment.id}?status=1`" class="text-xs font-weight-bold"><u>{{ (payment.reached) }}</u> </a>
                   </td>
                   <td class="align-middle text-center text-sm">
-                    <a :href="`/clients/user/${staff.id}/${payment.id}?status=null`" class="text-xs font-weight-bold"><u>{{ (payment.pending) }} </u></a>
+                    <a :href="`/clients/user/${staff.id}/${payment.id}?status=all`" class="text-xs font-weight-bold"><u>{{ (payment.pending) }} </u></a>
                   </td>
                   <td class="align-middle text-center text-sm">
                     <a :href="`/clients/user/${staff.id}/${payment.id}?status=3`" class="text-xs font-weight-bold"><u>{{ (payment.active) }}</u> </a>

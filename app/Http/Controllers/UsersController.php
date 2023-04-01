@@ -11,6 +11,7 @@ use Inertia\Inertia;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\URL;
 
 class UsersController extends Controller
 {
@@ -192,6 +193,7 @@ class UsersController extends Controller
             'skip' => $all->where('client_status_id', 1)->count(),
             'inactive' => $all->where('client_status_id', 2)->count(),
             'amount' => $all->sum('amount'),
+            'get_url' => URL::current(),
             'total' => \App\Models\Payment::whereIn('client_id', $all->get(['id']))->sum('amount'), 
 
         ]);
