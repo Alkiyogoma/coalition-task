@@ -326,8 +326,8 @@
 
     setInterval(function() {
         window.location.reload();
-    }, 300000);
-    
+    }, 200000);
+
     </script>
 
 
