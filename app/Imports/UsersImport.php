@@ -44,7 +44,7 @@ class UsersImport implements ToModel, WithHeadingRow
                 'nextkin' => isset($row['nextkin']) && $row['nextkin'] != '' ? $row['nextkin'] : '',
                 'address' => isset($row['address']) && $row['address'] != '' ? $row['address'] :  $cbranch->name,
                 'partner_id' => !empty($partner) ? $partner-> id : 1,
-                'collector' => $row['collector'],
+                'collector' => !empty($staff) ? $staff->name : $row['collector'],
                 'deposit_account' => isset($row['settementaccount']) ? $row['settementaccount'] : null,
             ]);
 
@@ -71,7 +71,7 @@ class UsersImport implements ToModel, WithHeadingRow
                     'amount' => (float)$row['payment'],
                     'date' => date('Y-m-d'),
                     'method_id' => 2,
-                    'about' => 'Received from '. $row['customer'],
+                    'about' => 'Received from '. $user->name,
                     'reference' => date("MYH"),
                     'status' => 1,
                     'user_id' => !empty($staff) ? $staff->id : Auth::User()->id,
@@ -87,7 +87,7 @@ class UsersImport implements ToModel, WithHeadingRow
                     'amount' => (float)$row['payment'],
                     'date' => date('Y-m-d'),
                     'method_id' => 2,
-                    'about' => 'Received from '. $row['customer'],
+                    'about' => 'Received from '. $user->name,
                     'reference' => date("MYH"),
                     'status' => 1,
                     'user_id' => !empty($staff) ? $staff->id : Auth::User()->id,
