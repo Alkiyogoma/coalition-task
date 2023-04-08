@@ -8,10 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class TaskPriority
- * 
-
- * @property Collection|Task[] $tasks
- *
  * @package App\Models
  */
 class TaskPriority extends Model
