@@ -90,13 +90,13 @@
                 </li>
                 
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="/tasks/0">
+                    <a class="nav-link text-white" href="tasks?status_id=4&type=status_id">
                         <i class="material-icons-round opacity-10">pending_actions</i>
                         <span class="nav-link-text ms-2 ps-1"> Pending </span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="/tasks/1">
+                    <a class="nav-link text-white" href="/tasks?status_id=2&type=status_id">
                         <i class="material-icons-round opacity-10">grading</i>
                         <span class="nav-link-text ms-2 ps-1"> Completed </span>
                     </a>

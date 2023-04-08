@@ -28,10 +28,7 @@
                 <i class="material-icons text-sm me-1 cursor-pointer">schedule</i>
               </div>
               <span class="text-sm me-2"> {{ task.time }}</span>
-              <div>
-                <i class="material-icons text-xl me-1 cursor-pointer">edit_note</i>
-              </div>
-              <span class="text-sm me-2"> <b>Edit</b></span>
+              
               <div>
                 <i class="material-icons text-xl me-1 ml-4 cursor-pointer">format_list_bulleted</i>
               </div>
