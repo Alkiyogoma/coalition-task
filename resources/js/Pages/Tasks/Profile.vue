@@ -165,6 +165,7 @@ export default {
   props: {
     _token: String,
     user: Array,
+    users: Array,
     clients: Array,
     tasks: Array,
     alltasks: Array,
