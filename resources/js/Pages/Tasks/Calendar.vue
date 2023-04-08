@@ -24,7 +24,7 @@
                                 </div>
                                 <div class="ms-3">
                                     <div class="numbers">
-                                        <h6 class="mb-1 text-dark text-sm"> <a :href="`/client/${ task.uuid }/view`">{{ task.project }}</a></h6>
+                                        <h6 class="mb-1 text-dark text-sm"> <a :href="`/client/${ task.uuid }/view`">{{ task.type }} - {{ task.status }} </a></h6>
                                         <span class="text-sm">{{ task.time }}</span>
                                     </div>
                                 </div>

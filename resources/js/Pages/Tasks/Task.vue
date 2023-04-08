@@ -27,19 +27,19 @@
                 <div class="card-body p-3">
                     <ul class="list-group">
 
-                        <li v-for="average in averages" :key="average.id"
+                        <li v-for="average in taskstatus" :key="average.id"
                             class="list-group-item border-0 d-flex align-items-center px-0 mb-2">
                             <div class="w-100">
                                 <div class="d-flex align-items-center mb-2">
-                                    <a class="btn btn-youtube btn-simple mb-0 p-0" href="javascript:;">
+                                    <Link class="btn btn-youtube btn-simple mb-0 p-0" :href="`tasks?status_id=${ average.id }&type=status_id`">
                                         <span
                                             :class="`badge bg-gradient-${color[Math.floor(Math.random() * color.length)]} me-3`">
                                             {{ average.total }} </span>
-                                    </a>
                                     <span class="me-2 text-sm font-weight-normal text-capitalize ms-2">{{ average.name
                                     }}</span>
                                     <span class="ms-auto text-sm font-weight-normal">{{ Math.ceil(average.total * 100 / total)
                                     }}%</span>
+                                    </Link>
                                 </div>
                                 <div>
                                     <div class="progress progress-md">
@@ -76,15 +76,15 @@
                             class="list-group-item border-0 d-flex align-items-center px-0 mb-2">
                             <div class="w-100">
                                 <div class="d-flex align-items-center mb-2">
-                                    <a class="btn btn-youtube btn-simple mb-0 p-0" href="javascript:;">
+                                    <Link class="btn btn-youtube btn-simple mb-0 p-0" :href="`tasks?status_id=${ average.id }&type=task_type_id`">
                                         <span
                                             :class="`badge bg-gradient-${color[Math.floor(Math.random() * color.length)]} me-3`">
                                             {{ average.total }} </span>
-                                    </a>
                                     <span class="me-2 text-sm font-weight-normal text-capitalize ms-2">{{ average.name
                                     }}</span>
                                     <span class="ms-auto text-sm font-weight-normal">{{ Math.ceil(average.total * 100 / total)
                                     }}%</span>
+                                    </Link>
                                 </div>
                                 <div>
                                     <div class="progress progress-md">
@@ -197,7 +197,7 @@ export default {
         users: Array,
         projects: Array,
         tasks: Array,
-        alltasks: Array,
+        taskstatus: Array,
         color: Array,
         task_priority: Array,
         tasktypes: Array,

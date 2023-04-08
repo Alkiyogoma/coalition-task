@@ -30,39 +30,11 @@ class HomeController extends Controller
             'usertasks' => DB::select('WITH alltasks as(
                 SELECT a.id, a.name, COUNT(b.id) as total, COUNT(DISTINCT b.client_id) as client FROM tasks b JOIN users a on b.user_id=a.id  GROUP BY a.id, a.name),
                 allusers as (SELECT a.id, a.name, COUNT(b.id) as completed FROM tasks b JOIN users a on  b.user_id=a.id where b.status_id=2 GROUP BY a.id, a.name)
-                select a.id, a.name, a.total, a.client, b.completed from alltasks a left join allusers b on a.id=b.id order by total desc limit 7'),
+                select a.id, a.name, a.total, a.client, b.completed from alltasks a left join allusers b on a.id=b.id order by total desc limit 20'),
             'total' => \App\Models\Task::count(),
             'averages' => DB::select('SELECT a.id, a.name, COUNT(b.id) as total FROM tasks b JOIN task_type a on b.task_type_id=a.id GROUP BY a.id, a.name'),
-            'alltasks' => \App\Models\Task::where('status_id', 2)->orderBy('id', 'desc')->limit(20)
-            ->get()->map(fn ($pay) => [
-            'id' => $pay->id,
-            'uuid' => $pay->uuid,
-            'name' => $pay->title,
-            'about' => $pay->about,
-            'time' => timeAgo($pay->created_at),
-            'date' => date('d M, Y', strtotime($pay->task_date)),
-            'user' => !empty($pay->user) ? $pay->user->name : 'Not Defined',
-            'type' => !empty($pay->tasktype) ? $pay->tasktype->name : 'Followup',
-            'client' => !empty($pay->client) ? $pay->client->name : 'Not Defined',
-            'phone' => !empty($pay->client) ? $pay->client->phone : 'Not Defined',
-            'status' => !empty($pay->taskstatus) ? $pay->taskstatus->name : 'On progess',
-            'project' => !empty($pay->project) ? $pay->project->name : 'Followup',
-        ]),
-        'tasks' => \App\Models\Task::whereNotIn('status_id', [2])->orderBy('id', 'desc')->limit(20)
-        ->get()->map(fn ($pay) => [
-            'id' => $pay->id,
-            'uuid' => $pay->client->uuid,
-            'name' => $pay->title,
-            'about' => $pay->about,
-            'date' => date('d M, Y', strtotime($pay->task_date)),
-            'time' => timeAgo($pay->created_at),
-            'user' => !empty($pay->user) ? $pay->user->name : 'Not Defined',
-            'client' => !empty($pay->client) ? $pay->client->name : 'Not Defined',
-            'phone' => !empty($pay->client) ? $pay->client->phone : 'Not Defined',
-            'type' => !empty($pay->tasktype) ? $pay->tasktype->name : 'Followup',
-            'status' => !empty($pay->taskstatus) ? $pay->taskstatus->name : 'On progess',
-            'project' => !empty($pay->project) ? $pay->project->name : 'Followup',
-        ]),
+            'taskstatus' => DB::select('SELECT a.id, a.name, COUNT(b.id) as total FROM tasks b JOIN task_status a on b.status_id=a.id GROUP BY a.id, a.name'),
+        
         'users' => DB::table('users')->orderBy('id')->get(),
         'projects' => \App\Models\Project::orderBy('id')->get(),
         'tasktypes' => DB::table('task_type')->orderBy('id')->get(),
@@ -77,14 +49,10 @@ class HomeController extends Controller
 
     public function tasks($id=null)
     {
-     
+     $task  = request('project') != '' ? \App\Models\Task::where(['project_id' => request('project')]) : (request('type') != '' ?  \App\Models\Task::where([request('type') => request('status_id')]) : \App\Models\Task::whereNotNull('about'));
         return inertia('Tasks/Profile',
         [
-            'total' => \App\Models\Task::count(),
-            'averages' => DB::select('SELECT a.id, a.name, COUNT(b.id) as total FROM tasks b JOIN task_type a on b.task_type_id=a.id  GROUP BY a.id, a.name'),
-            'statues' => DB::select('SELECT a.id, a.name, COUNT(b.id) as total FROM tasks b JOIN task_status a on b.status_id=a.id GROUP BY a.id, a.name'),
-        'tasks' => \App\Models\Task::limit(120)
-        ->get()->map(fn ($pay) => [
+        'tasks' => $task->get()->map(fn ($pay) => [
             'id' => $pay->id,
             'uuid' => $pay->uuid,
             'name' => $pay->title,
@@ -120,13 +88,10 @@ class HomeController extends Controller
             ->get()->map(fn ($pay) => [
                 'id' => $pay->id,
                 'uuid' => $pay->client->uuid,
-                'title' => $pay->title,
+                'title' => $pay->project->name,
                 'about' => $pay->about,
                 'date' => date('d M, Y', strtotime($pay->next_date)),
                 'time' =>  date('jS M Y, h:i:s A ',strtotime($pay->next_date)),
-                'user' => !empty($pay->user) ? $pay->user->name : 'Not Defined',
-                'client' => !empty($pay->client) ? $pay->client->name : 'Not Defined',
-                'phone' => !empty($pay->client) ? $pay->client->phone : 'Not Defined',
                 'type' => !empty($pay->tasktype) ? $pay->tasktype->name : 'Followup',
                 'status' => !empty($pay->taskstatus) ? $pay->taskstatus->name : 'On progess',
                 'project' => (!empty($pay->client) ? $pay->client->name : 'Not Defined') . ' - ' . (!empty($pay->project) ? $pay->project->name : 'Followup'),
@@ -137,17 +102,14 @@ class HomeController extends Controller
     }
 
 public function calendar_data($id = null){
-    $uuid = $id !='' ? $id : Auth::User()->uuid;
-    $user = \App\Models\User::where('uuid', $uuid)->first();
     $tasks = \App\Models\Task::orderBy('id', 'desc')->limit(120)
     ->get()->map(fn ($pay) => [
-       'start' => date('Y-m-d', strtotime($pay->task_date)),
-       'title' => $pay->title . ' - ' .$pay->client->name,
+       'start' => date('Y-m-d', strtotime($pay->next_date)),
+       'title' => $pay->tasktype->name . ' - ' . $pay->taskstatus->name,
        'end' =>  date('Y-m-d', strtotime($pay->next_date)),
        'className' =>  $pay->status_id ==2 ? 'bg-gradient-info px-2' : 'bg-gradient-success px-2'
     ]);
     return response()->json($tasks);
-   //  json_encode($tasks);
 }
 
 
@@ -220,59 +182,6 @@ public function calendar_data($id = null){
         \App\Models\Task::where('uuid', $id)->update(['status_id' => $status]);
         return redirect(url()->previous())->with('success', 'Task Updated');
     }
-
-  
-  public function search()
-  {
-      $q = request('q');
-
-      if (strlen($q) > 3) { //prevent empty search which load all results
-          $users = \App\Models\User::where(DB::raw('lower(name)'), 'like', '%'.strtolower($q).'%')
-          ->orWhere(DB::raw('lower(phone)'), 'like', '%'.strtolower($q).'%')->orderBy('name')->limit(5)->get();
-
-          $students = \App\Models\Task::where(DB::raw('lower(name)'), 'like', '%'.strtolower($q).'%')
-          ->orWhere(DB::raw('lower(phone)'), 'like', '%'.strtolower($q).'%')
-          ->orWhere(DB::raw('lower(account)'), 'like', '%'.strtolower($q).'%')->where('status', 1)->orderBy('name')->limit(7)->get();
-          
-          if (count($students) > 0) {
-              echo '<div class="w-full overflow-x-auto">
-                <table class="table">
-                    <thead>
-                        <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
-                        <th class="px-1 py-1">-</th>
-                        <th class="px-1 py-1">Customer </th>
-                        <th class="px-1 py-1">Bank</th>
-                        <th class="px-1 py-1">Account</th>
-                        <th class="px-1 py-1">Balance</th>
-                    </tr>
-                </thead>
-                <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">';
-
-              foreach ($students as $user) {
-
-                echo '<tr class="text-gray-700 dark:text-gray-400">
-                  <td class="px-1 py-1 text-sm"></td>
-                  <td class="px-1 py-1 text-sm">
-                    <a class="flex items-center justify-between text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray" href="/client/' . $user->uuid . '/view">
-                        ' .  $user->name . '</a>
-                    </td>
-                    <td class="px-1 py-1 text-sm">' .   $user->partner->name . '</td>
-                    <td class="px-1 py-1 text-sm">
-                        <a class="flex items-center justify-between text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray" href="/client/' . $user->uuid . '/view">
-                        ' .   $user->account . '</a>
-                    </td>
-                    <td class="px-1 py-1 text-sm">
-                        <a class="flex items-center justify-between text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray" href="/client/' . $user->uuid . '/view">
-                        ' .   money($user->amount) . '</a>
-                    </td>
-                </tr>';
-              }
-              echo '</tbody></table><hr></div>';
-          }
-      } else {
-          echo 'Result Not Found, Try Again.';
-      }
-  }
 
   public function departments()
   {
