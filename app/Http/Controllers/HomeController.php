@@ -46,7 +46,7 @@ class HomeController extends Controller
             'client' => !empty($pay->client) ? $pay->client->name : 'Not Defined',
             'phone' => !empty($pay->client) ? $pay->client->phone : 'Not Defined',
             'status' => !empty($pay->taskstatus) ? $pay->taskstatus->name : 'On progess',
-            'nexttask' => !empty($pay->nexttask) ? $pay->nexttask->name : 'Followup',
+            'project' => !empty($pay->project) ? $pay->project->name : 'Followup',
         ]),
         'tasks' => \App\Models\Task::whereNotIn('status_id', [2])->orderBy('id', 'desc')->limit(20)
         ->get()->map(fn ($pay) => [
@@ -61,10 +61,10 @@ class HomeController extends Controller
             'phone' => !empty($pay->client) ? $pay->client->phone : 'Not Defined',
             'type' => !empty($pay->tasktype) ? $pay->tasktype->name : 'Followup',
             'status' => !empty($pay->taskstatus) ? $pay->taskstatus->name : 'On progess',
-            'nexttask' => !empty($pay->nexttask) ? $pay->nexttask->name : 'Followup',
+            'project' => !empty($pay->project) ? $pay->project->name : 'Followup',
         ]),
         'users' => DB::table('users')->orderBy('id')->get(),
-        'clients' => DB::table('clients')->orderBy('id')->get(),
+        'projects' => \App\Models\Project::orderBy('id')->get(),
         'tasktypes' => DB::table('task_type')->orderBy('id')->get(),
         'task_priority' => \App\Models\TaskType::whereNotNull('name')->get(),
         'task_status' => DB::table('task_status')->orderBy('id')->get(),
@@ -75,7 +75,7 @@ class HomeController extends Controller
     }
 
 
-    public function profile($id=null)
+    public function tasks($id=null)
     {
      
         return inertia('Tasks/Profile',
@@ -96,11 +96,11 @@ class HomeController extends Controller
             'phone' => !empty($pay->client) ? $pay->client->phone : 'Not Defined',
             'type' => !empty($pay->priority) ? $pay->priority->name : 'Normal',
             'status' => !empty($pay->taskstatus) ? $pay->taskstatus->name : 'On progess',
-            'nexttask' => !empty($pay->nexttask) ? $pay->nexttask->name : 'Followup',
+            'project' => !empty($pay->project) ? $pay->project->name : 'Followup',
         ]),
         'user' => \App\Models\User::first(),
         'users' => DB::table('users')->orderBy('id')->get(),
-        'clients' => DB::table('clients')->where('status', 1)->orderBy('id')->get(),
+        'projects' => \App\Models\Project::orderBy('id')->get(),
         'tasktypes' =>  \App\Models\TaskType::orderBy('id')->get(),
         'task_priority' =>  \App\Models\TaskPriority::orderBy('id')->get(),
         'task_status' =>  \App\Models\TaskStatus::orderBy('id')->get(),
@@ -129,7 +129,7 @@ class HomeController extends Controller
                 'phone' => !empty($pay->client) ? $pay->client->phone : 'Not Defined',
                 'type' => !empty($pay->tasktype) ? $pay->tasktype->name : 'Followup',
                 'status' => !empty($pay->taskstatus) ? $pay->taskstatus->name : 'On progess',
-                'nexttask' => (!empty($pay->client) ? $pay->client->name : 'Not Defined') . ' - ' . (!empty($pay->nexttask) ? $pay->nexttask->name : 'Followup'),
+                'project' => (!empty($pay->client) ? $pay->client->name : 'Not Defined') . ' - ' . (!empty($pay->project) ? $pay->project->name : 'Followup'),
             ]),
             'user' => \App\Models\User::first(),
             'color' => ['info','primary', 'secondary', 'success', 'info', 'warning', 'danger', 'dark']

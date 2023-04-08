@@ -109,7 +109,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title font-weight-normal" id="modal-title-exampleModalLong"> Add New Task Performed to
-                        Clients </h5>
+                        projects </h5>
                     <button type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
@@ -125,8 +125,8 @@
 
                         <div class="input-group input-group-outline my-3">
                             <select required class="form-control" name="client_id" id="choices-currency-edit">
-                                <option value="" selected="">Select Customer</option>
-                                <option v-for="installment in clients" :value="installment.id" :key="installment.id">{{
+                                <option value="" selected="">Select Project</option>
+                                <option v-for="installment in projects" :value="installment.id" :key="installment.id">{{
                                     installment.name }}</option>
                             </select>
                         </div>
@@ -169,19 +169,10 @@
                                 :placeholder="`Write your activity performed`" spellcheck="false"></textarea>
                         </div>
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <div class="input-group input-group-outline my-3">
                                     <input onfocus="(this.type = 'datetime-local')" class="form-control" required
                                         onblur="(this.type = 'text')" name="date" placeholder="Set Next Action Date" />
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="input-group input-group-outline my-3">
-                                    <select required class="form-control" name="next_type_id" id="choices-currency">
-                                        <option value="" selected="">Next Action Activity</option>
-                                        <option v-for="priority in tasktypes" :value="priority.id" :key="priority.id">{{
-                                            priority.name }}</option>
-                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -204,7 +195,7 @@ export default {
     props: {
         _token: String,
         users: Array,
-        clients: Array,
+        projects: Array,
         tasks: Array,
         alltasks: Array,
         color: Array,

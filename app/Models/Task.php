@@ -55,7 +55,7 @@ class Task extends Model
 		return $this->belongsTo(TaskType::class, 'task_type_id', 'id');
 	}
 
-	public function nexttask()
+	public function project()
 	{
 		return $this->belongsTo(TaskType::class, 'next_type_id', 'id');
 	}

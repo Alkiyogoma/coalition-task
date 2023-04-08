@@ -70,7 +70,7 @@
                 </li>
                 
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="/mytasks">
+                    <a class="nav-link text-white" href="/tasks">
                         <i class="material-icons-round opacity-10">task</i>
                         <span class="nav-link-text ms-2 ps-1">All Tasks</span>
                     </a>
