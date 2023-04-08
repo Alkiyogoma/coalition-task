@@ -52,7 +52,7 @@ class HomeController extends Controller
      $task  = request('project') != '' ? \App\Models\Task::where(['project_id' => request('project')]) : (request('type') != '' ?  \App\Models\Task::where([request('type') => request('status_id')]) : \App\Models\Task::whereNotNull('about'));
         return inertia('Tasks/Profile',
         [
-        'tasks' => $task->get()->map(fn ($pay) => [
+        'tasks' => $task->orderBy('priority_id', 'asc')->orderBy('status', 'asc')->get()->map(fn ($pay) => [
             'id' => $pay->id,
             'uuid' => $pay->uuid,
             'name' => $pay->title,
