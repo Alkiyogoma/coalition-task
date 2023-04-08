@@ -5,7 +5,12 @@
     </div>
   </div>
   <div class="row gx-4">
-    <div class="col-lg-6">
+    <div class="col-lg-12">
+      <div class="card" v-for="task in tasks" :key="task.id">
+        <div class="card-body">
+          This is some text within a card body.
+        </div>
+      </div>
       <div class="card mt-4">
         <div class="card-header pb-0">
           <h6>Latest New Client Tasks</h6>

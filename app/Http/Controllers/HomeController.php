@@ -137,7 +137,7 @@ class HomeController extends Controller
             'total' => \App\Models\Task::count(),
             'averages' => DB::select('SELECT a.id, a.name, COUNT(b.id) as total FROM tasks b JOIN task_type a on b.task_type_id=a.id  GROUP BY a.id, a.name'),
             'statues' => DB::select('SELECT a.id, a.name, COUNT(b.id) as total FROM tasks b JOIN task_status a on b.status_id=a.id GROUP BY a.id, a.name'),
-            'alltasks' => \App\Models\Task::where('status_id', 2)->orderBy('id', 'desc')->limit(20)
+            'alltasks' => \App\Models\Task::orderBy('id', 'asc')->limit(200)
             ->get()->map(fn ($pay) => [
             'id' => $pay->id,
             'uuid' => $pay->uuid,
@@ -152,7 +152,7 @@ class HomeController extends Controller
             'status' => !empty($pay->taskstatus) ? $pay->taskstatus->name : 'On progess',
             'nexttask' => !empty($pay->nexttask) ? $pay->nexttask->name : 'Followup',
         ]),
-        'tasks' => \App\Models\Task::whereNotIn('status_id', [2])->orderBy('id', 'desc')->limit(120)
+        'tasks' => \App\Models\Task::limit(120)
         ->get()->map(fn ($pay) => [
             'id' => $pay->id,
             'uuid' => $pay->uuid,
