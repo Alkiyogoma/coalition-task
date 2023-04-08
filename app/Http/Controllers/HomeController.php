@@ -157,14 +157,13 @@ public function calendar_data($id = null){
              'title' => !empty($title) ? $title->name : (request('title') != '' ? request('title') : 'Followup'),
              'about' => request('about'),
              'user_id' => request('user_id'),
-             'client_id' => request('client_id'),
              'task_date' => date('Y-m-d'),
              'uuid' => (string) Str::uuid(),
              'priority_id' => request('priority_id'),
              'status_id' => request('status_id'),
              'next_date' => request('date'),
              'task_type_id' => request('task_type_id'),
-             'next_type_id' => request('next_type_id'),
+             'project_id' => request('project_id'),
              'created_by' => request('user_id')
          ]);
 

@@ -20,7 +20,7 @@ class Task extends Model
 		'task_type_id' => 'int',
 		'priority_id' => 'int',
 		'status_id' => 'int',
-		'next_type_id' => 'int',
+		'project_id' => 'int',
 		'created_by' => 'int'
 	];
 
@@ -40,7 +40,7 @@ class Task extends Model
 		'priority_id',
 		'status_id',
 		'next_date',
-		'next_type_id',
+		'project_id',
 		'created_by'
 	];
 
@@ -57,7 +57,7 @@ class Task extends Model
 
 	public function project()
 	{
-		return $this->belongsTo(TaskType::class, 'next_type_id', 'id');
+		return $this->belongsTo(TaskType::class, 'project_id', 'id');
 	}
 
 	public function createdBy()
