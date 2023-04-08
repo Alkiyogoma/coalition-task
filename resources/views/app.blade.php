@@ -96,7 +96,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="/tasks?status_id=2&type=status_id">
+                    <a class="nav-link text-white" href="/tasks?status_id=7&type=status_id">
                         <i class="material-icons-round opacity-10">grading</i>
                         <span class="nav-link-text ms-2 ps-1"> Completed </span>
                     </a>
