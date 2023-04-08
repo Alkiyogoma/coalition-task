@@ -16,13 +16,10 @@
                 <table class="table align-items-center mb-0">
                   <thead>
                     <tr>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">S/N</th>
+                      <th class="text-uppercase text-secondary text-center font-weight-bolder opacity-7">S/N</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Name</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"> Phone</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Email</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Address</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Staffs</th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</th>
+                      <th class="text-uppercase text-secondary text-center font-weight-bolder opacity-7">Tasks</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"></th>
                     </tr>
                   </thead>
                   <tbody v-if="!users.length">
@@ -35,20 +32,11 @@
                       </td>
                       
                       <td class="align-middle text-center">
-                        <span class="text-secondary text-xs font-weight-bold">{{ user.phone }}</span>
-                      </td>
-                      <td class="align-middle text-center">
-                        <span class="text-secondary text-xs font-weight-bold">{{ user.email }}</span>
-                      </td>
-                      <td class="align-middle text-center">
-                        <span class="text-secondary text-xs font-weight-bold">{{ user.address }}</span>
-                      </td>
-                      <td class="align-middle text-center">
                         <span class="text-secondary text-xs font-weight-bold">{{ user.clients }}</span>
                       </td>
-                        <td class="align-middle">
-                        <Link :href="`/users/${ user.id }`" class="text-secondary font-weight-bold  " data-toggle="tooltip" data-original-title="Edit user">
-                            <span class="btn btn-outline-primary btn-sm mb-0">Staffs</span>
+                        <td class="align-middle align-center">
+                        <Link :href="`/tasks?project=${user.id}`" class="text-secondary font-weight-bold  " data-toggle="tooltip" data-original-title="Edit user">
+                            <span class="btn btn-outline-primary btn-sm mb-0">Tasks</span>
                         </Link>
                         <!-- <a href="javascript:;" class="ml-3 text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
                           <span class="badge badge-sm bg-gradient-primary">Edit</span>
