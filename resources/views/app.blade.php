@@ -139,23 +139,6 @@
     <script src="/assets/js/material-dashboard.min.js"></script>
 
 <script>
-
-    results = function () {
-        $('#search_here').keyup(function () {
-            var q = $(this).val();
-            $.ajax({
-                type: 'POST',
-                url: "<?= url('/searchs') ?>",
-                data: "q=" + q,
-                dataType: "html",
-                success: function (data) {
-                    $('#search_result').html(data).show();
-                }
-            });
-        });
-    }
-$(document).ready(results);
-
 $(document).ready(function() {
     $('.select-single').select2();
     $('.select-multiple').select2();
