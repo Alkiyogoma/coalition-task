@@ -16,8 +16,6 @@ use \App\Http\Controllers\HomeController;
 */
 
 
-Auth::routes();
-
 
 Route::get('departments', [HomeController::class, 'departments']);
 Route::get('add-dept', [HomeController::class, 'addDept']);

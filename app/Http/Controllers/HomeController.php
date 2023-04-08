@@ -66,7 +66,7 @@ class HomeController extends Controller
         'users' => DB::table('users')->orderBy('id')->get(),
         'clients' => DB::table('clients')->orderBy('id')->get(),
         'tasktypes' => DB::table('task_type')->where('group_id', 1)->orderBy('id')->get(),
-        'task_priority' => \App\Models\ActionCode::where('partner_id', 1)->get(),
+        'task_priority' => \App\Models\TaskType::whereNotNull('name')->get(),
         'task_status' => DB::table('task_status')->orderBy('id')->get(),
         '_token' => csrf_token(),
         'color' => ['info','primary', 'secondary', 'success', 'info', 'warning', 'danger', 'dark']
@@ -131,14 +131,13 @@ class HomeController extends Controller
 
     public function profile($id=null)
     {
-     $uuid = $id !='' ? $id : Auth::User()->uuid;
-     $user = \App\Models\User::where('uuid', $uuid)->first();
+     
         return inertia('Tasks/Profile',
         [
-            'total' => \App\Models\Task::where('user_id', $user->id)->count(),
-            'averages' => DB::select('SELECT a.id, a.name, COUNT(b.id) as total FROM tasks b JOIN task_type a on b.task_type_id=a.id WHERE  b.user_id='. $user->id . ' GROUP BY a.id, a.name'),
-            'statues' => DB::select('SELECT a.id, a.name, COUNT(b.id) as total FROM tasks b JOIN task_status a on b.status_id=a.id WHERE  b.user_id='. $user->id . ' GROUP BY a.id, a.name'),
-            'alltasks' => \App\Models\Task::where('user_id', $user->id)->where('status_id', 2)->orderBy('id', 'desc')->limit(20)
+            'total' => \App\Models\Task::count(),
+            'averages' => DB::select('SELECT a.id, a.name, COUNT(b.id) as total FROM tasks b JOIN task_type a on b.task_type_id=a.id  GROUP BY a.id, a.name'),
+            'statues' => DB::select('SELECT a.id, a.name, COUNT(b.id) as total FROM tasks b JOIN task_status a on b.status_id=a.id GROUP BY a.id, a.name'),
+            'alltasks' => \App\Models\Task::where('status_id', 2)->orderBy('id', 'desc')->limit(20)
             ->get()->map(fn ($pay) => [
             'id' => $pay->id,
             'uuid' => $pay->uuid,
@@ -153,7 +152,7 @@ class HomeController extends Controller
             'status' => !empty($pay->taskstatus) ? $pay->taskstatus->name : 'On progess',
             'nexttask' => !empty($pay->nexttask) ? $pay->nexttask->name : 'Followup',
         ]),
-        'tasks' => \App\Models\Task::where('user_id', $user->id)->whereNotIn('status_id', [2])->orderBy('id', 'desc')->limit(120)
+        'tasks' => \App\Models\Task::whereNotIn('status_id', [2])->orderBy('id', 'desc')->limit(120)
         ->get()->map(fn ($pay) => [
             'id' => $pay->id,
             'uuid' => $pay->uuid,
@@ -168,11 +167,11 @@ class HomeController extends Controller
             'status' => !empty($pay->taskstatus) ? $pay->taskstatus->name : 'On progess',
             'nexttask' => !empty($pay->nexttask) ? $pay->nexttask->name : 'Followup',
         ]),
-        'user' => $user,
-        'clients' => DB::table('clients')->where('status', 1)->where('user_id', $user->id)->orderBy('id')->get(),
-        'tasktypes' => DB::table('task_type')->where('group_id', 1)->orderBy('id')->get(),
-        'task_priority' =>  \App\Models\ActionCode::where('partner_id', 1)->get(),
-        'task_status' => DB::table('task_status')->orderBy('id')->get(),
+        'user' => \App\Models\User::first(),
+        'clients' => DB::table('clients')->where('status', 1)->orderBy('id')->get(),
+        'tasktypes' =>  \App\Models\TaskType::where('group_id', 1)->orderBy('id')->get(),
+        'task_priority' =>  \App\Models\TaskPriority::orderBy('id')->get(),
+        'task_status' =>  \App\Models\TaskStatus::orderBy('id')->get(),
         '_token' => csrf_token(),
         'client_status' => DB::table('client_status')->orderBy('id')->get(),
         'color' => ['info','primary', 'secondary', 'success', 'info', 'warning', 'danger', 'dark']
@@ -183,12 +182,10 @@ class HomeController extends Controller
     
     public function calendar($id=null)
     {
-     $uuid = $id !='' ? $id : Auth::User()->uuid;
-     $user = \App\Models\User::where('uuid', $uuid)->first();
    
         return inertia('Tasks/Calendar',
         [
-            'alltasks' => \App\Models\Task::where('user_id', $user->id)->whereDate('next_date', '>=', date('Y-m-d'))->orderBy('next_date', 'asc')->limit(20)
+            'alltasks' => \App\Models\Task::orderBy('id', 'asc')->limit(20)
             ->get()->map(fn ($pay) => [
                 'id' => $pay->id,
                 'uuid' => $pay->client->uuid,
@@ -203,16 +200,15 @@ class HomeController extends Controller
                 'status' => !empty($pay->taskstatus) ? $pay->taskstatus->name : 'On progess',
                 'nexttask' => (!empty($pay->client) ? $pay->client->name : 'Not Defined') . ' - ' . (!empty($pay->nexttask) ? $pay->nexttask->name : 'Followup'),
             ]),
-            'user' => $user,
+            'user' => \App\Models\User::first(),
             'color' => ['info','primary', 'secondary', 'success', 'info', 'warning', 'danger', 'dark']
-
-    ]);
+        ]);
     }
 
 public function calendar_data($id = null){
     $uuid = $id !='' ? $id : Auth::User()->uuid;
     $user = \App\Models\User::where('uuid', $uuid)->first();
-    $tasks = \App\Models\Task::where('user_id', $user->id)->orderBy('id', 'desc')->limit(120)
+    $tasks = \App\Models\Task::orderBy('id', 'desc')->limit(120)
     ->get()->map(fn ($pay) => [
        'start' => date('Y-m-d', strtotime($pay->task_date)),
        'title' => $pay->title . ' - ' .$pay->client->name,

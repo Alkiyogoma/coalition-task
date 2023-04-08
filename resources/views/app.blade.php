@@ -5,34 +5,14 @@
     <meta charset="utf-8" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="apple-touch-icon" sizes="76x76" href="/assets/images/logo.jpg">
-    <link rel="icon" type="image/jpg" href="/assets/images/logo.jpg">
+    <link rel="apple-touch-icon" sizes="76x76" href="/assets/images/logo.webp">
+    <link rel="icon" type="image/jpg" href="/assets/images/logo.webp">
     <title>
-      STEAM Generation Recoveries LTD
+        Simple Laravel web application for task management:
     </title>
 
 
     <link rel="canonical" href="https://www.steamtz.com" />
-
-    <meta name="keywords"
-        content="STEAM Generation, Albogast, Kiyogoma, CRM, Tanzania Developer, Albogast, STEAM, Generation, Recoveries">
-    <meta name="description"
-        content="STEAM Generation Recoveries LTD ">
-
-    <meta name="twitter:card" content="product">
-    <meta name="twitter:site" content="@STEAMGeneration">
-    <meta name="twitter:title" content="STEAM Generation Recoveries LTD by STEAM Generation">
-    <meta name="twitter:description"
-        content="STEAM Generation Recoveries LTD">
-    <meta name="twitter:creator" content="@STEAMGeneration">
-  
-    <meta property="fb:app_id" content="655968634437471">
-    <meta property="og:title" content="STEAM Generation Recoveries LTD by STEAM Generation" />
-    <meta property="og:type" content="article" />
-   <meta property="og:description"
-        content="STEAM Generation Recoveries LTD" />
-    <meta property="og:site_name" content="STEAM Generation" />
-
     <link rel="stylesheet" type="text/css"
         href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
 
@@ -73,8 +53,9 @@
             <a class="navbar-brand m-0"
                 href="/dashboard"
                >
-                <img src="/assets/images/logo.jpg" class="navbar-brand-img h-100" alt="main_logo">
-                <span class="ms-1 font-weight-bold text-white">STEAM Generation </span> 
+               
+                <img src="/assets/images/logo.webp" class="navbar-brand-img h-100" alt="main_logo">
+                <span class="ms-1 font-weight-bold text-white">Coalition Project Manager </span> 
             </a>
         </div>
         <hr class="horizontal light mt-0 mb-2">
@@ -89,32 +70,39 @@
                 </li>
                 
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="/clients/user/{{ Auth::User()->id }}">
-                        <i class="material-icons-round opacity-10">supervisor_account</i>
-                        <span class="nav-link-text ms-2 ps-1">Customers</span>
+                    <a class="nav-link text-white" href="/mytasks">
+                        <i class="material-icons-round opacity-10">task</i>
+                        <span class="nav-link-text ms-2 ps-1">All Tasks</span>
                     </a>
                 </li>
                 
                 <li class="nav-item">
-                    <a class="nav-link" href="/collections/0/{{ Auth::User()->id }}">
-                        <i class="material-icons-round opacity-10">dashboard</i>
-                        <span class="nav-link-text ms-2 ps-1">Payments</span>
+                    <a class="nav-link text-white" href="/calendar">
+                        <i class="material-icons-round opacity-10">grading</i>
+                        <span class="nav-link-text ms-2 ps-1"> Calendar </span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="/mytasks">
+                    <a class="nav-link" href="/projects">
+                        <i class="material-icons-round opacity-10">dashboard</i>
+                        <span class="nav-link-text ms-2 ps-1">Projects</span>
+                    </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="/tasks/0">
+                        <i class="material-icons-round opacity-10">pending_actions</i>
+                        <span class="nav-link-text ms-2 ps-1"> Pending </span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="/tasks/1">
                         <i class="material-icons-round opacity-10">grading</i>
-                        <span class="nav-link-text ms-2 ps-1"> My Tasks </span>
+                        <span class="nav-link-text ms-2 ps-1"> Completed </span>
                     </a>
                 </li>
                 
               
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="/tracing">
-                        <i class="material-icons-round opacity-10">travel_explore</i>
-                        <span class="nav-link-text ms-2 ps-1"> Skip Tracing </span>
-                    </a>
-                </li>
             </ul>
         </div>
     </aside>

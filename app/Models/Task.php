@@ -46,7 +46,7 @@ class Task extends Model
 
 	public function client()
 	{
-		return $this->belongsTo(Client::class)->withDefault(['name' => 'Not Defined']);
+		return $this->belongsTo(User::class)->withDefault(['name' => 'Not Defined']);
 
 	}
 
