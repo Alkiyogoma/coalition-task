@@ -279,18 +279,15 @@ public function calendar_data($id = null){
       $id = request()->segment(2);
       
       return Inertia::render('Tasks/Project', [
-          'users' => \App\Models\TaskStatus::whereNotNull('id')
+          'users' => \App\Models\Project::whereNotNull('id')
               ->orderBy('id')
               ->paginate(12)->withQueryString()
               ->through(fn ($User) => [
                   'id' => $User->id,
                   'uuid' => $User->uuid,
-                  'address' => $User->address,
-                  'name' => $User->name,
-                  'email' => $User->email,
                   'phone' => $User->phone,
                   'website' => $User->about,
-                  'clients' =>   !empty($User->users) ? $User->users->count() : '0',
+                  'clients' =>   !empty($User->tasks) ? $User->tasks->count() : '0',
                   'created_at' => $User->created_at,
                   'edit_url' => url('users.edit', $User),
               ]),
