@@ -152,7 +152,11 @@ class HomeController extends Controller
             'status' => !empty($pay->taskstatus) ? $pay->taskstatus->name : 'On progess',
             'nexttask' => !empty($pay->nexttask) ? $pay->nexttask->name : 'Followup',
         ]),
+<<<<<<< HEAD
         'tasks' => \App\Models\Task::limit(120)
+=======
+        'tasks' => \App\Models\Task::whereNotIn('status_id', [2])->orderBy('id', 'desc')->limit(120)
+>>>>>>> 2ef31e8f6c2cedfe0afb90cb13f5d89c875afe11
         ->get()->map(fn ($pay) => [
             'id' => $pay->id,
             'uuid' => $pay->uuid,
