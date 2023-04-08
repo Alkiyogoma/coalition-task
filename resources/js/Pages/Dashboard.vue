@@ -24,7 +24,7 @@
                     </div>
                   </div>
                   <div class="card-body pt-0 p-3 text-center">
-                    <h6 class="text-center mb-0">Clients</h6>
+                    <h6 class="text-center mb-0">Customers</h6>
                     <h5 class="mb-0">{{ clients }}</h5>
                    <!-- <span class="text-xs">Belong Interactive</span> -->
                     <hr class="horizontal dark my-3">
@@ -94,7 +94,7 @@
                   <thead>
                     <tr>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Employee Name</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Clients</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Customers</th>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Total</th>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Collected</th>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Score</th>

@@ -26,7 +26,7 @@
                                 <ul class="list-unstyled list-unstyled-border">
                                     <li class="media">
                                         <a href="#">
-                                            <img alt="image" class="mr-3 rounded" width="50"                               src="<?=$root?>assets/img/products/product-4-50.png">
+                                            <img alt="image" class="mr-3 rounded" width="50"    src="<?=$root?>assets/img/products/product-4-50.png">
                                         </a>
                                         <div class="media-body">
                                         <div class="media-right"><?=$this_day?></div>
@@ -38,7 +38,7 @@
                                     </li>
                                     <li class="media">
                                         <a href="#">
-                                            <img alt="image" class="mr-3 rounded" width="50"                           src="<?=$root?>assets/img/products/product-2-50.png">
+                                            <img alt="image" class="mr-3 rounded" width="50"             src="<?=$root?>assets/img/products/product-2-50.png">
                                         </a>
                                         <div class="media-body">
                                         <div class="media-right"><?=$this_week?></div>
@@ -50,7 +50,7 @@
                                     </li>
                                     <li class="media">
                                         <a href="#">
-                                            <img alt="image" class="mr-3 rounded" width="50"                               src="<?=$root?>assets/img/products/product-2-50.png">
+                                            <img alt="image" class="mr-3 rounded" width="50"    src="<?=$root?>assets/img/products/product-2-50.png">
                                         </a>
                                         <div class="media-body">
                                             <div class="media-right"><?=$this_month?></div>

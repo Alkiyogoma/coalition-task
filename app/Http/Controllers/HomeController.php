@@ -72,21 +72,46 @@ class HomeController extends Controller
             'payments' => $payments,
             'tasks' => money(\App\Models\Task::whereDate('created_at', '>=', $where_date)->count()),
             'amounts' => money(\App\Models\Payment::whereDate('created_at', '>=', $where_date)->sum('amount')),
-            'messages' => money(\App\Models\Message::whereDate('created_at', '>=', $where_date)->count()),
+            'users' => \App\Models\Partner::get()
+                ->map(fn ($User, $j=1) => [
+                    'no' => $j+1,
+                    'id' => $User->id,
+                    'uuid' => $User->uuid,
+                    'address' => $User->address,
+                    'name' => $User->name,
+                    'email' => $User->email,
+                    'phone' => $User->phone,
+                    'website' => $User->website,
+                    'user' =>  !empty($User->user) > 0 ? $User->user->name : 'BANK',
+                    'clients' =>   !empty($User->clients) ? $User->clients->count() : '0',
+                    'active' => !empty($User->clients) ? $User->clients()->where('client_status_id', 3)->count() : 0,
+                    'pending' => !empty($User->clients) ? $User->clients()->whereNull('client_status_id')->count() : 0,
+                    'reached' => !empty($User->clients) ? $User->clients()->whereNotNull('client_status_id')->count() : 0,
+                    'skip' => !empty($User->clients) ? $User->clients()->where('client_status_id', 1)->count() : 0,
+                    'inactive' => !empty($User->clients) ? $User->clients()->where('client_status_id', 2)->count() : 0,
+                    'amount' => !empty($User->clients) ? $User->clients()->sum('amount') : 0,
+                    'created_at' => $User->created_at,
+                ]),
             'clients' => money(\App\Models\Client::whereDate('created_at', '>=', $where_date)->count()),
-            'collections' => DB::select('SELECT a.id, a.name, a.code, count(b.id) as total, sum(b.amount) as amount, COUNT(DISTINCT b.client_id) as client FROM payments b JOIN users a on b.user_id=a.id WHERE date ='.$date.' GROUP BY a.id, a.name, a.code')
+            'collections' => DB::select('SELECT a.id, a.name, a.code, count(b.id) as total, sum(b.amount) as amount, COUNT(DISTINCT b.client_id) as client FROM payments b JOIN users a on b.user_id=a.id WHERE date ='.$date.' GROUP BY a.id, a.name, a.code'),
+            'bank' => [
+                'members' => \App\Models\Client::count(),
+                'amounts' => money(\App\Models\Client::sum('amount')),
+                'payments' => money(\App\Models\Payment::sum('amount')),
+                'customers' => money(\App\Models\Client::whereIn('id', \App\Models\Payment::distinct()->get(['client_id']))->count()),        
+            ],
 
         ]);
     }
 
 
     
-    public function teamLeader($id = null, $group = null)
+    public function teamLeader($uuid = null, $group = null)
     {
         $where_date = request('days') > 0 ? date('Y-m-d', strtotime('- '.request('days').'days')) : date('Y-m-01');
         $where_ = request('days') > 0 ? "'".date('Y-m-d', strtotime('- '.request('days').'days'))."'" : "'".date('Y-m-01')."'";
         $payments = DB::select('WITH alltasks as(SELECT c.id, c.name, sum(b.amount) as total, COUNT(DISTINCT b.client_id) as client FROM payments b JOIN clients a on b.client_id=a.id join partners c on c.id=a.partner_id where b.created_at >='.$where_.' GROUP BY c.id, c.name), allusers as (SELECT a.id, a.name, sum(b.amount) as amount, COUNT(b.id) as clients FROM clients b JOIN partners a on b.partner_id=a.id where b.status=1 GROUP BY a.id, a.name) select a.id, a.name, a.total, a.client, b.amount, b.clients from alltasks a left join allusers b on a.id=b.id order by total desc;');
-        $user_id = $id > 0 ? $id : Auth::User()->id;
+        $user_id = $uuid != '' ? \App\Models\User::where('uuid', $uuid)->first()->id : Auth::User()->id;
             $date = "'".date('Y-m-d')."'";
             $where_date = request('days') > 0 ? date('Y-m-d', strtotime('- '.request('days').'days')) : (request('days') != '' ? date('Y-m-d') : date('Y-m-01'));
             $where_ = request('days') > 0 ? "'".date('Y-m-d', strtotime('- '.request('days').'days'))."'" :  (request('days') != '' ? "'".date('Y-m-d')."'" : "'".date('Y-m-01')."'");

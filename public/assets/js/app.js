@@ -220,7 +220,7 @@
                             (t.target.parentElement.classList.toggle("active"),
                             t.target.nextElementSibling &&
                                 t.target.nextElementSibling.classList.toggle(
-                                    "show"               ));
+                                    "show" ));
                     };
                 window.addEventListener("resize", s);
             }

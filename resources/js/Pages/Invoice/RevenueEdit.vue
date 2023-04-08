@@ -12,7 +12,7 @@
                             <div class="input-group input-group-outline my-3">
                                 <select required class="form-control" name="account_group_id" id="choices-currency-edit">
                                     <option :value="`${payment.account_group_id}`"  selected="">Select Account Category</option>
-                                    <option v-for="installment in categories" :value="installment.id">{{ installment.name }}</option>
+                                    <option v-for="installment in categories" :value="installment.id" :key="installment.id">{{ installment.name }}</option>
                                 </select>
                             </div>
                             </div>
@@ -29,7 +29,7 @@
                         <div class="input-group input-group-outline my-3">
                             <select required class="form-control" name="method_id" id="choices-currency">
                                 <option :value="`${payment.method_id}`" selected="">Select Payment Method</option>
-                                <option v-for="method in methods" :value="method.id">{{ method.name }}</option>
+                                <option v-for="method in methods" :value="method.id" :key="method.id">{{ method.name }}</option>
                             </select>
                         </div>
                     </div>
@@ -37,7 +37,7 @@
                         <div class="input-group input-group-outline my-3">
                             <select required class="form-control" name="user_id" id="choices-currency-edit">
                                 <option :value="`${payment.user_id}`"  selected="">Select Received by Staff?</option>
-                                <option v-for="installment in users" :value="installment.id">{{ installment.name }}</option>
+                                <option v-for="installment in users" :value="installment.id" :key="installment.id">{{ installment.name }}</option>
                             </select>
                         </div>
                     </div>

@@ -15,14 +15,15 @@ class UsersImport implements ToModel, WithHeadingRow
 
     public function model(array $row)
     {
-       // dd($row);
+        $user = Client::first();
+       if(isset($row['customer']) && strlen($row['customer']) > 5){
         $user = Client::where('account', $row['account'])->first();
-        $branch =  isset($row['branch']) && $row['branch'] != '' ? \App\Models\Branch::where(DB::raw('lower(name)'), 'like', '%'.strtolower($row['branch']))->first() : [];
+        $branch =  isset($row['branch']) && strlen($row['branch']) > 5  ? \App\Models\Branch::where(DB::raw('lower(name)'), 'like', '%'.strtolower($row['branch']))->first() : [];
         $cbranch = empty($branch) ? (!empty(\App\Models\Branch::where(DB::raw('lower(name)'), 'like', '%'.strtolower($row['partner']).'%')->first()) ? \App\Models\Branch::where(DB::raw('lower(name)'), 'like', '%'.strtolower($row['partner']).'%')->first() : \App\Models\Branch::create(['name' => $row['partner']])) : $branch;
-        $employer = isset($row['employer']) && $row['employer'] != '' ? \App\Models\Employer::where('name', $row['employer'])->first() : [];
+        $employer = isset($row['employer']) && strlen($row['employer']) > 5 ? \App\Models\Employer::where('name', $row['employer'])->first() : [];
 
         $phone = isset($row['phone']) && $row['phone'] != '' ? str_replace(['(000)', ' ', '(', ')'], ['','', '',''], $row['phone']) : 0;
-        $emp = !empty($employer) ? $employer : \App\Models\Employer::create(['name' => isset($row['employer']) && $row['employer'] != '' ? $row['employer'] : $row['customer'], 'phone' => isset($phone) && $phone != '' ? $phone : '0']);
+        $emp = !empty($employer) ? $employer : \App\Models\Employer::create(['name' => isset($row['employer']) && strlen($row['employer']) > 5  ? $row['employer'] : $row['customer'], 'phone' => isset($phone) && $phone != '' ? $phone : '0']);
         $staff = \App\Models\User::where(DB::raw('lower(name)'), 'like', '%'.strtolower($row['collector']).'%')->first();
         $partner = \App\Models\Partner::where(DB::raw('lower(name)'), 'like', '%'.strtolower($row['partner']).'%')->first();
         if(empty($user)){
@@ -30,10 +31,10 @@ class UsersImport implements ToModel, WithHeadingRow
                 'name' => $row['customer'],
                 'sex' => 'Male',
                 'uuid' => (string) Str::uuid(),
-                'employer' => isset($row['employer']) && $row['employer'] != '' ? $row['employer'] : '',
+                'employer' => isset($row['employer']) && strlen($row['employer']) > 5  ? $row['employer'] : '',
                 'phone' => isset($phone) && $phone != '' ? validate_phone_number(trim($phone))[1] : 0,
                 'user_id' => !empty($staff) ? $staff->id : Auth::User()->id,
-                'branch' => isset($row['branch']) && $row['branch'] != '' ? $row['branch'] : $cbranch->name,
+                'branch' => isset($row['branch']) && strlen($row['branch']) > 5  ? $row['branch'] : $cbranch->name,
                 'branch_id' => $cbranch->id,
                 'employer_id' => $emp->id,
                 'account' => $row['account'],
@@ -45,7 +46,7 @@ class UsersImport implements ToModel, WithHeadingRow
                 'address' => isset($row['address']) && $row['address'] != '' ? $row['address'] :  $cbranch->name,
                 'partner_id' => !empty($partner) ? $partner-> id : 1,
                 'collector' => !empty($staff) ? $staff->name : $row['collector'],
-                'deposit_account' => isset($row['settementaccount']) ? $row['settementaccount'] : null,
+                'deposit_account' => isset($row['settlementaccount']) ? $row['settlementaccount'] : null,
             ]);
 
             $installment = \App\Models\Installment::orderBy('id')->first();
@@ -95,8 +96,8 @@ class UsersImport implements ToModel, WithHeadingRow
             }
             return $user;
         }
-                
-        }
-
+    }
+        return $user;
+    }
 
 }

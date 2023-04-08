@@ -17,7 +17,7 @@
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Employee
                                         Name</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                        Clients</th>
+                                        Customers</th>
                                     <th
                                         class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         Total</th>
@@ -34,7 +34,7 @@
                                     <td>
                                         <div class="d-flex px-2 py-1">
                                             <div class="px-2">
-                                                <img :src="`/${callSex(payment.sex)}`"                                   class="avatar avatar-xs rounded-circle">
+                                                <img :src="`/${callSex(payment.sex)}`"        class="avatar avatar-xs rounded-circle">
                                             </div>
                                             <div class="d-flex flex-column justify-content-center">
                                                 <Link :href="`/clients/user/${ payment.id }`">
@@ -61,7 +61,7 @@
                                                 </div>
                                             </div>
                                             <div class="progress">
-                                                <div :class="`progress-bar bg-gradient-info w-${callPercent(Math.ceil(payment.total * 100 / payment.amount))}`"                                   role="progressbar"                                   v-bind:aria-valuenow="`${Math.ceil(payment.total * 100 / payment.amount)}`"                                   aria-valuemin="0"                                   :aria-valuemax="`${Math.ceil(payment.total * 100 / payment.amount)}`">
+                                                <div :class="`progress-bar bg-gradient-info w-${callPercent(Math.ceil(payment.total * 100 / payment.amount))}`"        role="progressbar"        v-bind:aria-valuenow="`${Math.ceil(payment.total * 100 / payment.amount)}`"        aria-valuemin="0"        :aria-valuemax="`${Math.ceil(payment.total * 100 / payment.amount)}`">
                                                 </div>
                                             </div>
                                         </div>

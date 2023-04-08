@@ -78,7 +78,7 @@
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label mt-4">Skills</label>
-                                <input class="form-control" id="choices-skills" type="text"                   value="vuejs, angular, react" placeholder="Enter something" />
+                                <input class="form-control" id="choices-skills" type="text"     value="vuejs, angular, react" placeholder="Enter something" />
                             </div>
                         </div>
                         <hr>

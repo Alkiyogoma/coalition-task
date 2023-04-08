@@ -39,7 +39,7 @@
                                         <td class="text-right">
                                               <div
                                                 class="form-check form-switch mb-0 d-flex align-items-center justify-content-center">
-                                                <input class="form-check-input" name="permission_id[]" {{ $check }} value="<?=$permission->id?>" id="switch<?=$permission->id?>" type="checkbox"                                   id="flexSwitchCheckDefault<?=$permission->id?>">
+                                                <input class="form-check-input" name="permission_id[]" {{ $check }} value="<?=$permission->id?>" id="switch<?=$permission->id?>" type="checkbox"        id="flexSwitchCheckDefault<?=$permission->id?>">
                                                     <label class="custom-control-label px-2" for="switch<?=$permission->id?>">{{ ucfirst(str_replace('_', ' ', $permission->name)) }}</label>
 
                                             </div>

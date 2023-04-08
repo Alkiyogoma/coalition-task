@@ -53,7 +53,7 @@
                   <thead>
                     <tr>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Months</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Clients</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Customers</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Amount</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Collected</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
@@ -122,7 +122,7 @@
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                     Collected</th>
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                    Clients</th>
+                    Customers</th>
                     
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                     Scanned</th>
@@ -146,7 +146,7 @@
                   <td>
                     <div class="d-flex py-1">
                       <div class="px-2">
-                        <img :src="`/${callSex(payment.sex)}`" class="avatar avatar-xs rounded-circle">
+                        <img src="/assets/images/logo.jpg" class="avatar avatar-xs rounded-circle">
                       </div>
                       <div class="d-flex flex-column justify-content-center">
                         <Link :href="`/collections/${payment.id}/${staff.id}`">
@@ -168,7 +168,7 @@
                     <a :href="`/clients/user/${staff.id}/${payment.id}`" class="text-xs font-weight-bold"> <u> {{ (payment.clients) }}</u> </a>
                   </td>
                   <td class="align-middle text-center text-sm">
-                    <a :href="`/clients/user/${staff.id}/${payment.id}?status=1`" class="text-xs font-weight-bold"><u>{{ (payment.reached) }}</u> </a>
+                    <a :href="`/clients/user/${staff.id}/${payment.id}?status=1,2,3`" class="text-xs font-weight-bold"><u>{{ (payment.reached) }}</u> </a>
                   </td>
                   <td class="align-middle text-center text-sm">
                     <a :href="`/clients/user/${staff.id}/${payment.id}?status=all`" class="text-xs font-weight-bold"><u>{{ (payment.pending) }} </u></a>
@@ -192,11 +192,9 @@
     </div>
 
   </div>
-  <div class="row">
+  <div class="row mt-2">
     <div class="col-lg-12">
 
-      <div class="card card-success">
-        <div class="card-body">
           <h6 class="text-dark">Latest {{ staff.name }} Collections</h6>
 
           <div class="table-responsive">
@@ -238,9 +236,7 @@
             </table>
           </div>
         </div>
-      </div>
     </div>
-  </div>
 </template>
 
 <script>

@@ -82,7 +82,7 @@
                                             <thead>
                                                 <tr>
                                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Employee Name</th>
-                                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Clients</th>
+                                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Customers</th>
                                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Total</th>
                                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Collected</th>
                                                     <th class="text-left px-5 text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Score</th>
@@ -227,7 +227,7 @@
                                             </div>
                                             <div class="d-flex">
                                                 <span class="font-weight-bold"> {{ $collect->total }}
-                                                    clients</span>
+                                                    Customers</span>
                                             </div>
                                         </li>
                                         @endforeach

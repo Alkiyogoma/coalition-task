@@ -22,7 +22,7 @@
                 <option value="" selected>select Here..</option>
                     <option value="groups">Specific Partners</option>
                     <option value="leaders">Specific Branches</option>
-                    <option value="families">Specific Clients</option>
+                    <option value="families">Specific Customers</option>
                     <option value="visitors">Assigned Employers</option>
                     <option value="members">Company Employee</option>
                   </select>
@@ -63,7 +63,7 @@
                 <div class="col-sm-12 col-md-8" data-select2-id="12">
                 <select name="family_id[]" class="form-control select-multiple" style="width: 100%" multiple="">
                 <option value="">Select Customers here...</option>
-                    <option value="all">All Clients</option>
+                    <option value="all">All Customers</option>
                     <?php 
                       // $families = \App\Models\Family::get();
                       foreach($families as $family){

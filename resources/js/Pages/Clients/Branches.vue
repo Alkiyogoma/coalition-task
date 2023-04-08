@@ -29,7 +29,7 @@
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"> Phone</th>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Email</th>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Address</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Clients</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Customers</th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</th>
                   </tr>
                 </thead>
@@ -56,7 +56,7 @@
                     </td>
                       <td class="align-middle">
                       <Link :href="`/clients/${ type }/${ user.id }`" class="text-secondary font-weight-bold  " data-toggle="tooltip" data-original-title="Edit user">
-                        <span class="py-2 badge badge-sm bg-gradient-success">Clients</span>
+                        <span class="py-2 badge badge-sm bg-gradient-success">Customers</span>
                       </Link>
   
                       <Link :href="`/delete/${ type }/${ user.id }`" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
@@ -67,7 +67,7 @@
                
               
       <tr  class="text-gray-700 dark:text-gray-400" v-if="users.data.length === 0">
-        <td class="px-2 py-2" colspan="4">No Clients found.</td>
+        <td class="px-2 py-2" colspan="4">No Customers found.</td>
       </tr>
                 </tbody>
               </table>

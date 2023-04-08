@@ -114,7 +114,7 @@
                             <table class="w-full whitespace-no-wrap">
                             <thead>
                                 <tr
-                                class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800"               >
+                                class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800" >
                                 <th class="px-2 py-2">Exam</th>
                                 <th class="px-2 py-2">Total</th>
                                 <th class="px-2 py-2">Everage</th>
@@ -122,7 +122,7 @@
                                 <th class="px-2 py-2">View</th>
                                 </tr>
                             </thead>
-                            <tbody v-if="exams.length"               class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800"           >
+                            <tbody v-if="exams.length" class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800"           >
                                 <tr  v-for="exam in exams" :key="exam.examID" class="text-gray-700 dark:text-gray-400">
                                 <td class="px-2 py-2">
                                     <div class="flex items-center text-sm">
@@ -146,7 +146,7 @@
                                     {{ exam.date }}
                                 </td>
                                 <td class="px-2 py-2 text-sm">
-                                    <Link :href="`/contacts/${exam.examID}/${exam.student_id}/${exam.academic_year_id}/view`" tabindex="-1"                       class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"                       aria-label="View"   >                                    <icon name="cheveron-right" fill="currentColor" class="block w-6 h-6 fill-gray-400" />
+                                    <Link :href="`/contacts/${exam.examID}/${exam.student_id}/${exam.academic_year_id}/view`" tabindex="-1"         class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"         aria-label="View"   >                                    <icon name="cheveron-right" fill="currentColor" class="block w-6 h-6 fill-gray-400" />
 
                                     </Link>
                                 </td>
@@ -198,10 +198,10 @@
                                   </span>
                               </td>
                               <td class="px-2 py-2 text-sm">
-                                  <Link :href="`/contacts/${invoice.invoice_id}/${invoice.student_id}/view`" tabindex="-1"                     class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"                     aria-label="View" >                                  <icon name="cheveron-right" fill="currentColor" class="block w-6 h-6 fill-gray-400" />
+                                  <Link :href="`/contacts/${invoice.invoice_id}/${invoice.student_id}/view`" tabindex="-1"       class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"       aria-label="View" >                                  <icon name="cheveron-right" fill="currentColor" class="block w-6 h-6 fill-gray-400" />
                                   View Invoice
                                   </Link>
-                                  <Link :href="`/contacts/${invoice.invoice_id}/${invoice.student_id}/view`" tabindex="-1"                     class="flex items-center justify-between text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"                     aria-label="View" >                                  <icon name="cheveron-right" fill="currentColor" class="block w-6 h-6 fill-gray-400" />
+                                  <Link :href="`/contacts/${invoice.invoice_id}/${invoice.student_id}/view`" tabindex="-1"       class="flex items-center justify-between text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"       aria-label="View" >                                  <icon name="cheveron-right" fill="currentColor" class="block w-6 h-6 fill-gray-400" />
                                   Payments
                                   </Link>
                               </td>
@@ -259,7 +259,7 @@
                         <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
                           <th class="px-2 py-2">Stream</th>
                           <th class="px-2 py-2">
-                            <a :href="`/contacts/${contact.uuid}/edit`" tabindex="-1"                     class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"                     aria-label="View" >                                  <icon name="user" fill="currentColor" class="block w-6 h-6 fill-gray-400" />
+                            <a :href="`/contacts/${contact.uuid}/edit`" tabindex="-1"       class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"       aria-label="View" >                                  <icon name="user" fill="currentColor" class="block w-6 h-6 fill-gray-400" />
                                   View edit
                                   </a>
                                 </th>
@@ -313,7 +313,7 @@
                         <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
                           <th class="px-2 py-2">Profile</th>
                           <th class="px-2 py-2">  
-                            <Link  :href="`/viewuser/${parent.uuid}/parent`" tabindex="-1"                     class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"                     aria-label="View" >                                  <icon name="user" fill="currentColor" class="block w-6 h-6 fill-gray-400" />
+                            <Link  :href="`/viewuser/${parent.uuid}/parent`" tabindex="-1"       class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"       aria-label="View" >                                  <icon name="user" fill="currentColor" class="block w-6 h-6 fill-gray-400" />
                                   View Profile
                                   </Link>
  </th>
@@ -331,7 +331,7 @@
                         <table class="w-full whitespace-no-wrap">
                             <thead>
                                 <tr
-                                class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800"               >
+                                class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800" >
                                 <th class="px-2 py-2">Payment date</th>
                                 <th class="px-2 py-2">Amount</th>
                                 <th class="px-2 py-2">Method</th>
@@ -340,7 +340,7 @@
                                 <th class="px-2 py-2">View</th>
                                 </tr>
                             </thead>
-                            <tbody v-if="payments.length"               class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800"           >
+                            <tbody v-if="payments.length" class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800"           >
                                 <tr  v-for="exam in payments" :key="exam.id" class="text-gray-700 dark:text-gray-400">
                                 <td class="px-2 py-2">
                                     <div class="flex items-center text-sm">
@@ -368,7 +368,7 @@
                                     {{ exam.receipt }}
                                 </td>
                                 <td class="px-2 py-2 text-sm">
-                                  <Link  :href="`/receipts/${exam.uuid}/view`" tabindex="-1"                     class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"                     aria-label="View" >                                  <icon name="user" fill="currentColor" class="block w-6 h-6 fill-gray-400" />
+                                  <Link  :href="`/receipts/${exam.uuid}/view`" tabindex="-1"       class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"       aria-label="View" >                                  <icon name="user" fill="currentColor" class="block w-6 h-6 fill-gray-400" />
                                    Receipt
                                   </Link>
                                 </td>
@@ -386,13 +386,13 @@
                         <table class="w-full whitespace-no-wrap">
                             <thead>
                                 <tr
-                                class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800"               >
+                                class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800" >
                                 <th class="px-2 py-2">Exam</th>
                                 <th class="px-2 py-2">Total</th>
                                 <th class="px-2 py-2">View</th>
                                 </tr>
                             </thead>
-                            <tbody v-if="subjects.length"               class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800"           >
+                            <tbody v-if="subjects.length" class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800"           >
                                 <tr  v-for="exam in subjects" :key="exam.subject_id" class="text-gray-700 dark:text-gray-400">
                                 <td class="px-2 py-2">
                                     <div class="flex items-center text-sm">

@@ -17,10 +17,10 @@
                                 </div>
                                 <div class="col-5">
                                     <div class="dropdown text-end">
-                                        <a href="javascript:;" class="cursor-pointer text-secondary" id="dropdownUsers1"                           data-bs-toggle="dropdown" aria-expanded="false">
+                                        <a href="javascript:;" class="cursor-pointer text-secondary" id="dropdownUsers1"             data-bs-toggle="dropdown" aria-expanded="false">
                                             <span class="text-xs text-secondary">6 May - 7 May</span>
                                         </a>
-                                        <ul class="dropdown-menu dropdown-menu-end px-2 py-3"                           aria-labelledby="dropdownUsers1">
+                                        <ul class="dropdown-menu dropdown-menu-end px-2 py-3"             aria-labelledby="dropdownUsers1">
                                             <li><a class="dropdown-item border-radius-md" href="javascript:;">Last 7
                                                     days</a></li>
                                             <li><a class="dropdown-item border-radius-md" href="javascript:;">Last
@@ -48,10 +48,10 @@
                                 </div>
                                 <div class="col-5">
                                     <div class="dropdown text-end">
-                                        <a href="javascript:;" class="cursor-pointer text-secondary" id="dropdownUsers2"                           data-bs-toggle="dropdown" aria-expanded="false">
+                                        <a href="javascript:;" class="cursor-pointer text-secondary" id="dropdownUsers2"             data-bs-toggle="dropdown" aria-expanded="false">
                                             <span class="text-xs text-secondary">6 May - 7 May</span>
                                         </a>
-                                        <ul class="dropdown-menu dropdown-menu-end px-2 py-3"                           aria-labelledby="dropdownUsers2">
+                                        <ul class="dropdown-menu dropdown-menu-end px-2 py-3"             aria-labelledby="dropdownUsers2">
                                             <li><a class="dropdown-item border-radius-md" href="javascript:;">Last 7
                                                     days</a></li>
                                             <li><a class="dropdown-item border-radius-md" href="javascript:;">Last
@@ -79,10 +79,10 @@
                                 </div>
                                 <div class="col-5">
                                     <div class="dropdown text-end">
-                                        <a href="javascript:;" class="cursor-pointer text-secondary" id="dropdownUsers3"                           data-bs-toggle="dropdown" aria-expanded="false">
+                                        <a href="javascript:;" class="cursor-pointer text-secondary" id="dropdownUsers3"             data-bs-toggle="dropdown" aria-expanded="false">
                                             <span class="text-xs text-secondary">6 May - 7 May</span>
                                         </a>
-                                        <ul class="dropdown-menu dropdown-menu-end px-2 py-3"                           aria-labelledby="dropdownUsers3">
+                                        <ul class="dropdown-menu dropdown-menu-end px-2 py-3"             aria-labelledby="dropdownUsers3">
                                             <li><a class="dropdown-item border-radius-md" href="javascript:;">Last 7
                                                     days</a></li>
                                             <li><a class="dropdown-item border-radius-md" href="javascript:;">Last
@@ -193,7 +193,7 @@
                                 <div class="card-body p-3 pt-0">
                                     <div class="row">
                                         <div class="col-4">
-                                            <img src="/assets/img/kal-visuals-square.jpg" alt="kal"                               class="border-radius-lg shadow shadow-dark w-100 mt-n4">
+                                            <img src="/assets/img/kal-visuals-square.jpg" alt="kal"    class="border-radius-lg shadow shadow-dark w-100 mt-n4">
                                         </div>
                                         <div class="col-8 my-auto">
                                             <p class="text-muted text-sm mt-3">
