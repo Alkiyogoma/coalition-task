@@ -72,7 +72,7 @@ class Task extends Model
 
 	public function priority()
 	{
-		return $this->belongsTo(ActionCode::class, 'action_code_id');
+		return $this->belongsTo(TaskPriority::class, 'action_code_id');
 	}
 
 	public function taskstatus()

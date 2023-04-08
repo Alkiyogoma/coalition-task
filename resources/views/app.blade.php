@@ -55,7 +55,7 @@
                >
                
                 <img src="/assets/images/logo.webp" class="navbar-brand-img h-100" alt="main_logo">
-                <span class="ms-1 font-weight-bold text-white">Coalition Project Manager </span> 
+                <span class="ms-1 font-weight-bold text-white"> Task Management </span> 
             </a>
         </div>
         <hr class="horizontal light mt-0 mb-2">
@@ -63,7 +63,7 @@
             <ul class="navbar-nav">
          
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="/payments">
+                    <a class="nav-link text-white" href="/">
                         <i class="material-icons-round opacity-10">home</i>
                         <span class="nav-link-text ms-2 ps-1"> Dashboard </span>
                     </a>
