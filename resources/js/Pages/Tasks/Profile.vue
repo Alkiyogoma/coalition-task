@@ -24,6 +24,11 @@
                 <i class="material-icons text-sm me-1 cursor-pointer">layers</i>
               </div>
               <span class="text-sm me-2">{{ task.status }}</span>
+
+              <div>
+                <i class="material-icons text-sm me-1 cursor-pointer">grading</i>
+              </div>
+              <span class="text-sm me-2">{{ task.tasktype }}</span>
               <div>
                 <i class="material-icons text-sm me-1 cursor-pointer">schedule</i>
               </div>
