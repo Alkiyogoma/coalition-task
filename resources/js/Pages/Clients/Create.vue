@@ -3,7 +3,14 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h5>Customer Basic Info</h5>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <h5>Customer Basic Info</h5>
+                        </div>
+                        <div class="col-sm-6">
+                            <a href="/clientUploads" class="btn bg-gradient-info btn-sm btn-rounded w-60 mt-4 mb-0" type="submit">Upload Customer by Excel</a>
+                        </div>
+                    </div>
                 </div>
                 <div class="card-body pt-0">
                         <form @submit.prevent="store">
@@ -28,12 +35,12 @@
                             <select-input v-model="form.partner_id" :error="form.errors.partner_id" required 
                                 label="From Partner?">
                                 <option :value="null" />
-                                <option v-for="organization in partners" :key="organization.id"                   :value="organization.id">{{ organization.name }}</option>
+                                <option v-for="organization in partners" :key="organization.id"     :value="organization.id">{{ organization.name }}</option>
                             </select-input>
                             
                             <select-input v-model="form.installment_id" :error="form.errors.installment_id" required  label="Payment Installments">
                                 <option :value="null" />
-                                <option v-for="role in installments" :key="role.id"                   :value="role.id">{{ role.name }}</option>
+                                <option v-for="role in installments" :key="role.id"     :value="role.id">{{ role.name }}</option>
                             </select-input>
                           </div>
                           <div class="row">
@@ -42,7 +49,7 @@
                             <select-input v-model="form.user_id" :error="form.errors.user_id" required 
                                 label="Assigned Staff?">
                                 <option :value="null" />
-                                <option v-for="user in users" :key="user.id"                   :value="user.id">{{ user.name }}</option>
+                                <option v-for="user in users" :key="user.id"     :value="user.id">{{ user.name }}</option>
                             </select-input>
                           </div>
                           

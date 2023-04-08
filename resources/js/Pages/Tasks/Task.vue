@@ -27,7 +27,7 @@
                         <div class="card-header pb-0 p-3">
                             <div class="d-flex align-items-center">
                                 <h6 class="mb-0">Top Tasks Percentages</h6>
-                                <button type="button"                   class="btn btn-icon-only btn-rounded btn-outline-secondary mb-0 ms-2 btn-sm d-flex align-items-center justify-content-center ms-auto"                   data-bs-toggle="tooltip" data-bs-placement="bottom"                   title="See how much traffic do you get from social media">
+                                <button type="button"     class="btn btn-icon-only btn-rounded btn-outline-secondary mb-0 ms-2 btn-sm d-flex align-items-center justify-content-center ms-auto"     data-bs-toggle="tooltip" data-bs-placement="bottom"     title="See how much traffic do you get from social media">
                                     <i class="material-icons text-sm">priority_high</i>
                                 </button>
                             </div>
@@ -48,7 +48,7 @@
                                         </div>
                                         <div>
                                             <div class="progress progress-md">
-                                                <div :class="`progress-bar bg-gradient-dark w-${ callPercent(Math.ceil(average.total*100/total)) }`" role="progressbar"                                   :aria-valuenow="`${ Math.ceil(average.total*100/total) }`" aria-valuemin="0" :aria-valuemax="`${ Math.ceil(average.total*100/total) }`">
+                                                <div :class="`progress-bar bg-gradient-dark w-${ callPercent(Math.ceil(average.total*100/total)) }`" role="progressbar"        :aria-valuenow="`${ Math.ceil(average.total*100/total) }`" aria-valuemin="0" :aria-valuemax="`${ Math.ceil(average.total*100/total) }`">
                                                 </div>
                                             </div>
                                         </div>
@@ -63,7 +63,7 @@
                         <div class="card-header pb-0 p-3">
                             <div class="d-flex align-items-center">
                                 <h6>Completed Tasks</h6>
-                                <button type="button"                   class="btn btn-icon-only btn-rounded btn-outline-success mb-0 ms-2 btn-sm d-flex align-items-center justify-content-center ms-auto"                   data-bs-toggle="tooltip" data-bs-placement="bottom"                   title="Data is based from sessions and is 100% accurate">
+                                <button type="button"     class="btn btn-icon-only btn-rounded btn-outline-success mb-0 ms-2 btn-sm d-flex align-items-center justify-content-center ms-auto"     data-bs-toggle="tooltip" data-bs-placement="bottom"     title="Data is based from sessions and is 100% accurate">
                                     <i class="material-icons text-sm">done</i>
                                 </button>
                             </div>
@@ -77,7 +77,7 @@
                                                 class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                                 Employee</th>
                                             <th class="align-middle text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                                Clients</th>
+                                                Customers</th>
                                             <th class="align-middle text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                                 Tasks</th>
                                             <th class="align-middle text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">

@@ -11,25 +11,25 @@
 
               <div class="card-body p-3">
                 <ul class="list-group">
-                  <li class="list-group-item mb-0 border-0 pt-0 text-sm"><strong class="text-dark">Full Name:</strong>
+                  <li class="mb-0 border-0 pt-0 text-sm"><strong class="text-dark">Full Name:</strong>
                     &nbsp; {{ user.name }}</li>
-                  <li class="list-group-item mb-0 border-0 text-sm"><strong class="text-dark">Mobile:</strong> &nbsp; {{
+                  <li class="mb-0 border-0 text-sm"><strong class="text-dark">Mobile:</strong> &nbsp; {{
                     user.phone }}</li>
-                  <li class="list-group-item mb-0 border-0 text-sm"><strong class="text-dark">Branch:</strong> &nbsp; {{
+                  <li class="mb-0 border-0 text-sm"><strong class="text-dark">Branch:</strong> &nbsp; {{
                     user.branch }}</li>
-                  <li class="list-group-item mb-0 border-0 text-sm"><strong class="text-dark">Account#:</strong> &nbsp; {{
+                  <li class="mb-0 border-0 text-sm"><strong class="text-dark">Account#:</strong> &nbsp; {{
                     user.account }}</li>
-                  <li class="list-group-item mb-0 border-0 text-sm"><strong class="text-dark">Princ Balance#:</strong>
+                  <li class="mb-0 border-0 text-sm"><strong class="text-dark">Princ Balance#:</strong>
                     &nbsp; {{ user.amount }}</li>
-                  <li class="list-group-item mb-0 border-0 text-sm"><strong class="text-dark">Paid Amount#:</strong>
+                  <li class="mb-0 border-0 text-sm"><strong class="text-dark">Paid Amount#:</strong>
                     &nbsp; {{ user.paid }}</li>
-                  <li class="list-group-item mb-0 border-0 text-sm"><strong class="text-dark">Collector#:</strong> &nbsp;
+                  <li class="mb-0 border-0 text-sm"><strong class="text-dark">Collector#:</strong> &nbsp;
                     {{ user.collector }}</li>
                   <li class="list-group-item mb-0 border-0 text-sm">
-                    <Link :href="`/customer/${user.uuid}/edit`" class="text-secondary font-weight-bold  "
+                    <a :href="`/customer/${user.uuid}/edit`" class="text-secondary font-weight-bold  "
                       data-toggle="tooltip" data-original-title="Edit user">
                     <span class="btn btn-outline-primary btn-sm mb-0">Edit Profile</span>
-                    </Link>
+                    </a>
                   </li>
                 </ul>
               </div>
@@ -42,7 +42,7 @@
               </div>
               <div class="card-body p-1">
                 <ul class="list-group">
-                  <li class="list-group-item mb-0 border-0 d-flex align-items-center">
+                  <li class="mb-0 border-0 d-flex align-items-center">
                     <div class="d-flex align-items-start flex-column justify-content-center">
                       <div v-for="task in tasks" :key="task.id">
                         <h6 class="text-sm">{{ task.user }} &nbsp; &nbsp; - &nbsp; &nbsp; {{ task.time }}</h6>
@@ -107,7 +107,7 @@
                 <thead>
                   <tr>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                      Installments</th>
+                      Deposits</th>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                       Amount</th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
@@ -253,13 +253,10 @@
                 <input type="hidden" :value="user.user_id" name="user_id" class="form-control">
                 <input type="hidden" :value="user._token" name="_token" class="form-control">
               </div>
-              <div class="input-group input-group-outline my-3">
-                <label class="form-label">Reference No#</label>
-                <input type="text" required name="reference" class="form-control">
-              </div>
+              
               <div class="input-group input-group-outline my-3">
                 <select required class="form-control" name="installment_id" id="choices-currency-edit">
-                  <option value="" selected="">Select Installments</option>
+                  <option value="" selected="">Select Deposits</option>
                   <option v-for="installment in installments" :key="installment.id" :value="installment.id">{{
                     installment.name }}</option>
                 </select>
@@ -270,8 +267,12 @@
 
               </div>
               <div class="input-group input-group-outline my-3">
+                <label class="form-label">Reference No#</label>
+                <input type="text" required name="reference" class="form-control">
+              </div>
+              <div class="input-group input-group-outline my-3">
                 <select required class="form-control" name="method_id" id="choices-currency">
-                  <option value="" selected="">Select Payment Method</option>
+                  <option value="2" selected="">Select Payment Method</option>
                   <option v-for="method in methods" :key="method.id" :value="method.id">{{ method.name }}</option>
                 </select>
               </div>

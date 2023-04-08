@@ -8,7 +8,7 @@
                 <div class="card-body pt-0">
                         <form @submit.prevent="store">
                           <div class="row">
-                            <text-input v-model="form.name" :error="form.errors.first_name"               label="Staff name" />
+                            <text-input v-model="form.name" :error="form.errors.first_name" label="Staff name" />
                                 <select-input v-model="form.sex" :error="form.errors.sex" required id="choices-gender">
                                   <option value="">---- Sex---</option>
                                   <option value="Male">Male</option>
@@ -28,14 +28,14 @@
                             <text-input v-model="form.salary" :error="form.errors.salary" label="Staff Salary" :value="0" />
                           </div>
                           <div class="row">
-                            <select-input v-model="form.department_id" :error="form.errors.department_id"               label="Staff Department">
+                            <select-input v-model="form.department_id" :error="form.errors.department_id" label="Staff Department">
                                 <option :value="null" />
-                                <option v-for="organization in departments" :key="organization.id"                   :value="organization.id">{{ organization.name }}</option>
+                                <option v-for="organization in departments" :key="organization.id"     :value="organization.id">{{ organization.name }}</option>
                             </select-input>
                             
-                            <select-input v-model="form.role_id" :error="form.errors.role_id"               label="Staff Role">
+                            <select-input v-model="form.role_id" :error="form.errors.role_id" label="Staff Role">
                                 <option :value="null" />
-                                <option v-for="role in roles" :key="role.id"                   :value="role.id">{{ role.name }}</option>
+                                <option v-for="role in roles" :key="role.id"     :value="role.id">{{ role.name }}</option>
                             </select-input>
                           </div>
                             <div class="row">

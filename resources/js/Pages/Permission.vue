@@ -38,19 +38,19 @@
                                         <td>
                                             <div
                                                 class="form-check form-switch mb-0 d-flex align-items-center justify-content-center">
-                                                <input class="form-check-input" checked type="checkbox"                                   id="flexSwitchCheckDefault11">
+                                                <input class="form-check-input" checked type="checkbox"        id="flexSwitchCheckDefault11">
                                             </div>
                                         </td>
                                         <td>
                                             <div
                                                 class="form-check form-switch mb-0 d-flex align-items-center justify-content-center">
-                                                <input class="form-check-input" type="checkbox"                                   id="flexSwitchCheckDefault12">
+                                                <input class="form-check-input" type="checkbox"        id="flexSwitchCheckDefault12">
                                             </div>
                                         </td>
                                         <td>
                                             <div
                                                 class="form-check form-switch mb-0 d-flex align-items-center justify-content-center">
-                                                <input class="form-check-input" type="checkbox"                                   id="flexSwitchCheckDefault13">
+                                                <input class="form-check-input" type="checkbox"        id="flexSwitchCheckDefault13">
                                             </div>
                                         </td>
                                     </tr>
@@ -65,19 +65,19 @@
                                         <td>
                                             <div
                                                 class="form-check form-switch mb-0 d-flex align-items-center justify-content-center">
-                                                <input class="form-check-input" checked type="checkbox"                                   id="flexSwitchCheckDefault14">
+                                                <input class="form-check-input" checked type="checkbox"        id="flexSwitchCheckDefault14">
                                             </div>
                                         </td>
                                         <td>
                                             <div
                                                 class="form-check form-switch mb-0 d-flex align-items-center justify-content-center">
-                                                <input class="form-check-input" checked type="checkbox"                                   id="flexSwitchCheckDefault15">
+                                                <input class="form-check-input" checked type="checkbox"        id="flexSwitchCheckDefault15">
                                             </div>
                                         </td>
                                         <td>
                                             <div
                                                 class="form-check form-switch mb-0 d-flex align-items-center justify-content-center">
-                                                <input class="form-check-input" type="checkbox"                                   id="flexSwitchCheckDefault16">
+                                                <input class="form-check-input" type="checkbox"        id="flexSwitchCheckDefault16">
                                             </div>
                                         </td>
                                     </tr>
@@ -92,19 +92,19 @@
                                         <td>
                                             <div
                                                 class="form-check form-switch mb-0 d-flex align-items-center justify-content-center">
-                                                <input class="form-check-input" type="checkbox"                                   id="flexSwitchCheckDefault17">
+                                                <input class="form-check-input" type="checkbox"        id="flexSwitchCheckDefault17">
                                             </div>
                                         </td>
                                         <td>
                                             <div
                                                 class="form-check form-switch mb-0 d-flex align-items-center justify-content-center">
-                                                <input class="form-check-input" checked type="checkbox"                                   id="flexSwitchCheckDefault18">
+                                                <input class="form-check-input" checked type="checkbox"        id="flexSwitchCheckDefault18">
                                             </div>
                                         </td>
                                         <td>
                                             <div
                                                 class="form-check form-switch mb-0 d-flex align-items-center justify-content-center">
-                                                <input class="form-check-input" type="checkbox"                                   id="flexSwitchCheckDefault19">
+                                                <input class="form-check-input" type="checkbox"        id="flexSwitchCheckDefault19">
                                             </div>
                                         </td>
                                     </tr>
@@ -117,19 +117,19 @@
                                         <td>
                                             <div
                                                 class="form-check form-switch mb-0 d-flex align-items-center justify-content-center">
-                                                <input class="form-check-input" checked type="checkbox"                                   id="flexSwitchCheckDefault20">
+                                                <input class="form-check-input" checked type="checkbox"        id="flexSwitchCheckDefault20">
                                             </div>
                                         </td>
                                         <td>
                                             <div
                                                 class="form-check form-switch mb-0 d-flex align-items-center justify-content-center">
-                                                <input class="form-check-input" checked type="checkbox"                                   id="flexSwitchCheckDefault21">
+                                                <input class="form-check-input" checked type="checkbox"        id="flexSwitchCheckDefault21">
                                             </div>
                                         </td>
                                         <td>
                                             <div
                                                 class="form-check form-switch mb-0 d-flex align-items-center justify-content-center">
-                                                <input class="form-check-input" checked type="checkbox"                                   id="flexSwitchCheckDefault22">
+                                                <input class="form-check-input" checked type="checkbox"        id="flexSwitchCheckDefault22">
                                             </div>
                                         </td>
                                     </tr>

@@ -56,7 +56,7 @@
                   </td>
                 </tr>
                 <tr class="text-gray-700 dark:text-gray-400" v-if="users.data.length === 0">
-                  <td class="px-2 py-2" colspan="4">No Clients found.</td>
+                  <td class="px-2 py-2" colspan="4">No Customers found.</td>
                 </tr>
               </tbody>
             </table>

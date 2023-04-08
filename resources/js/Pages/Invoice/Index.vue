@@ -5,9 +5,9 @@
           <div class="card">
             <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
               <div class="bg-gradient-primary shadow-primary border-radius-lg pt-3 pb-3">
-                <a class="text-white text-capitalize ps-3">List of All Compy Clients</a>
+                <a class="text-white text-capitalize ps-3">List of Customers</a>
                 <a href="/add-customer" style="float: right; margin-right: 4em;" class="mr-4 text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                  <span class="btn btn-primary btn-sm bg-gradient-secondary"><i class="material-icons text-lg me-2">person_add</i> Add Clients</span>
+                  <span class="btn btn-primary btn-sm bg-gradient-secondary"><i class="material-icons text-lg me-2">person_add</i> Add Customers</span>
                 </a>
               </div>
             </div>
@@ -87,7 +87,7 @@
                  
                 
         <tr  class="text-gray-700 dark:text-gray-400" v-if="users.data.length === 0">
-          <td class="px-2 py-2" colspan="4">No Clients found.</td>
+          <td class="px-2 py-2" colspan="4">No Customers found.</td>
         </tr>
                   </tbody>
                 </table>

@@ -17,19 +17,19 @@
                     <div class="nav-wrapper position-relative end-0">
                         <ul class="nav nav-pills nav-fill p-1" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link mb-0 px-0 py-1 active " data-bs-toggle="tab" href="javascript:;"                   role="tab" aria-selected="true">
+                                <a class="nav-link mb-0 px-0 py-1 active " data-bs-toggle="tab" href="javascript:;"     role="tab" aria-selected="true">
                                     <i class="material-icons text-lg position-relative">home</i>
                                     <span class="ms-1">App</span>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link mb-0 px-0 py-1 " data-bs-toggle="tab" href="javascript:;"                   role="tab" aria-selected="false">
+                                <a class="nav-link mb-0 px-0 py-1 " data-bs-toggle="tab" href="javascript:;"     role="tab" aria-selected="false">
                                     <i class="material-icons text-lg position-relative">email</i>
                                     <span class="ms-1">Messages</span>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link mb-0 px-0 py-1 " data-bs-toggle="tab" href="javascript:;"                   role="tab" aria-selected="false">
+                                <a class="nav-link mb-0 px-0 py-1 " data-bs-toggle="tab" href="javascript:;"     role="tab" aria-selected="false">
                                     <i class="material-icons text-lg position-relative">settings</i>
                                     <span class="ms-1">Settings</span>
                                 </a>
@@ -130,33 +130,33 @@
                                             </div>
                                         </div>
                                         <div class="col-1 my-auto">
-                                            <button class="btn btn-icon-only text-white mb-0 me-3 me-sm-0"                               type="button" data-bs-toggle="tooltip" data-bs-placement="top"                               title="" data-bs-original-title="Video call">
+                                            <button class="btn btn-icon-only text-white mb-0 me-3 me-sm-0"    type="button" data-bs-toggle="tooltip" data-bs-placement="top"    title="" data-bs-original-title="Video call">
                                                 <i class="material-icons">videocam</i>
                                             </button>
                                         </div>
                                         <div class="col-1 my-auto">
                                             <div class="dropdown">
-                                                <button class="btn btn-icon-only text-white mb-0" type="button"                                   data-bs-toggle="dropdown">
+                                                <button class="btn btn-icon-only text-white mb-0" type="button"        data-bs-toggle="dropdown">
                                                     <i class="material-icons">settings</i>
                                                 </button>
-                                                <ul class="dropdown-menu dropdown-menu-end me-sm-n2 p-2"                                   aria-labelledby="chatmsg">
+                                                <ul class="dropdown-menu dropdown-menu-end me-sm-n2 p-2"        aria-labelledby="chatmsg">
                                                     <li>
-                                                        <a class="dropdown-item border-radius-md"                                           href="javascript:;">
+                                                        <a class="dropdown-item border-radius-md"                href="javascript:;">
                                                             Profile
                                                         </a>
                                                     </li>
                                                     <li>
-                                                        <a class="dropdown-item border-radius-md"                                           href="javascript:;">
+                                                        <a class="dropdown-item border-radius-md"                href="javascript:;">
                                                             Mute conversation
                                                         </a>
                                                     </li>
                                                     <li>
-                                                        <a class="dropdown-item border-radius-md"                                           href="javascript:;">
+                                                        <a class="dropdown-item border-radius-md"                href="javascript:;">
                                                             Block
                                                         </a>
                                                     </li>
                                                     <li>
-                                                        <a class="dropdown-item border-radius-md"                                           href="javascript:;">
+                                                        <a class="dropdown-item border-radius-md"                href="javascript:;">
                                                             Clear chat
                                                         </a>
                                                     </li>
@@ -164,7 +164,7 @@
                                                         <hr class="dropdown-divider">
                                                     </li>
                                                     <li>
-                                                        <a class="dropdown-item border-radius-md text-danger"                                           href="javascript:;">
+                                                        <a class="dropdown-item border-radius-md text-danger"                href="javascript:;">
                                                             Delete chat
                                                         </a>
                                                     </li>
@@ -283,7 +283,7 @@
                                         <div class="card ">
                                             <div class="card-body p-2">
                                                 <div class="col-12 p-0">
-                                                    <img src="https://images.unsplash.com/photo-1547949003-9792a18a2601?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80"                                       alt="Rounded image" class="img-fluid mb-2 border-radius-lg">
+                                                    <img src="https://images.unsplash.com/photo-1547949003-9792a18a2601?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80"            alt="Rounded image" class="img-fluid mb-2 border-radius-lg">
                                                 </div>
                                                 <div class="d-flex align-items-center text-sm opacity-6">
                                                     <i class="ni ni-check-bold text-sm me-1"></i>

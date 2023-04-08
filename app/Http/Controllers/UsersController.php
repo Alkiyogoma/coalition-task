@@ -112,7 +112,9 @@ class UsersController extends Controller
                     'amount' => $User->clients()->where('user_id', $user->id)->sum('amount'),
                     'total' => \App\Models\Payment::whereIn('client_id', $User->clients()->where('user_id', $user->id)->get(['id']))->orWhere('user_id', $user->id)->sum('amount'), //$User->clients()->where('partner_id', $partner->id)->count(),
                     'created_at' => $User->created_at,
-        ])
+                ]),
+                'get_url' => URL::current(),
+
             ]);
         }
     
@@ -154,9 +156,9 @@ class UsersController extends Controller
                 $where = [$check => $id];
                 $all = \App\Models\Client::where($where);
             }
-            $client = (string)request('status') == 'all' ? \App\Models\Client::whereNull('client_status_id')->where($where) : (request('status') != '' ? \App\Models\Client::whereIn('client_status_id', [$status])->where($where) :  \App\Models\Client::where($where));
+            $client = (string)request('status') == 'all' ? \App\Models\Client::whereNull('client_status_id')->where($where) : (request('status') != '' ? \App\Models\Client::whereIn('client_status_id',  explode(',', $status))->where($where) :  \App\Models\Client::where($where));
         }else{
-            $client = (string)request('status') == 'all' ? \App\Models\Client::whereNull('client_status_id') : (request('status') != '' ? \App\Models\Client::whereIn('client_status_id', [$status]) :  \App\Models\Client::orderBy('client_status_id'));
+            $client = (string)request('status') == 'all' ? \App\Models\Client::whereNull('client_status_id') : (request('status') != '' ? \App\Models\Client::whereIn('client_status_id', explode(',', $status)) :  \App\Models\Client::orderBy('client_status_id'));
             $all = \App\Models\Client::orderBy('client_status_id');
         }
             $users = $client->filter(Request::only('search'))

@@ -43,7 +43,7 @@
                     <div class="col-md-6">
                         <div class="input-group input-group-outline my-3">
                             <select required class="form-control" name="method_id" id="choices-currency">
-                                <option value="" selected="">Select Payment Method</option>
+                                <option value="1" selected="">Select Payment Method</option>
                                 <option v-for="method in methods" :value="method.id">{{ method.name }}</option>
                             </select>
                         </div>

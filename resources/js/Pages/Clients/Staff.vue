@@ -4,7 +4,7 @@
       <div class="card">
         <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
           <div class="bg-gradient-primary shadow-primary border-radius-lg pt-3 pb-3">
-            <a class="text-white text-capitalize ps-3">List of All Compy Clients</a>
+            <a class="text-white text-capitalize ps-3">List of Customers</a>
           </div>
         </div>
         <div class="card-body px-0 pb-2">
@@ -16,7 +16,7 @@
               <thead>
                 <tr>
                   <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">S/N</th>
-                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Customer</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Customer Name</th>
                   <!-- <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Employer</th> -->
                   <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"> Account number</th>
                   <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Contacts</th>
@@ -80,7 +80,7 @@
 
 
                 <tr class="text-gray-700 dark:text-gray-400" v-if="users.data.length === 0">
-                  <td class="px-2 py-2" colspan="4">No Clients found.</td>
+                  <td class="px-2 py-2" colspan="4">No Customers found.</td>
                 </tr>
               </tbody>
             </table>
@@ -162,7 +162,9 @@
                 </div>
               </div>
               <div class="d-flex">
+                <a :href="`${ get_url }?status=3`">
                   {{ active }}
+                </a>
               </div>
             </li>
           </ul>
@@ -285,6 +287,7 @@ export default {
     pending: String,
     reached: String,
     skip: String,
+    get_url: String,
     inactive: String,
     amount: String,
     total: String,

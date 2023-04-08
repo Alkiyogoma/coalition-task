@@ -1,6 +1,6 @@
 <template>
   <div class="container-fluid py-4">
-   <div class="row">
+    <div class="row">
            <div class="col-md-6 col-sm-6 col-lg-3">
              <div class="card">
                <div class="card-header mx-4 p-3 text-center">
@@ -9,7 +9,7 @@
                  </div>
                </div>
                <div class="card-body pt-0 p-3 text-center">
-                 <h6 class="text-center mb-0">Target</h6>
+                 <h6 class="text-center mb-0">Total Amount</h6>
                  <h5 class="mb-0">{{ bank.amounts }}</h5>
                  <hr class="horizontal dark my-3">
                </div>
@@ -58,10 +58,10 @@
                </div>
              </div>
            </div>
-         </div>
-       </div>
+    </div>
+  </div>
    
-   <div class="row mt-5 mb-4">
+   <div class="row mt-1 mb-4">
      <div class="col-lg-8 col-md-6 mb-md-0 mb-4">
        <div class="card">
          <div class="card-body px-0 pb-2">
@@ -104,7 +104,7 @@
                       
                       <td class="align-middle text-center">
                         <Link :href="`/collectors/${ user.uuid }/bank`" class="text-white font-weight-bold  " data-toggle="tooltip" data-original-title="Edit user">
-                          <span class="btn btn-outline-success btn-sm mb-0">Collectors</span>
+                          <span class="btn btn-outline-dark btn-sm mb-0">Collectors</span>
                         </Link>
                       </td>
                         <td class="align-middle">
@@ -117,13 +117,13 @@
                 
                   </tbody>
                 </table>
-              </div>
+          </div>
            <div class="table-responsive">
              <table class="table align-items-center mb-0">
                <thead>
                  <tr>
                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Employee Name</th>
-                   <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Clients</th>
+                   <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Customers</th>
                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Total</th>
                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Collected</th>
                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Score</th>
