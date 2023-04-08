@@ -10,18 +10,18 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Project extends Model
 {
-	protected $table = 'action_codes';
+	protected $table = 'projects';
 
 	protected $fillable = [
 		'code',
-        'partner_id',
+        'id',
         'name',
 		'about'
 	];
 
     
-	public function partner()
+	public function tasks()
 	{
-		return $this->belongsTo(Partner::class);
+		return $this->belongsTo(Task::class, 'id', 'project_id');
 	}
 }
