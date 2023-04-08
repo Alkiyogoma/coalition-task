@@ -6,18 +6,8 @@
                 </div>
                 <div class="col-lg-6 col-12 d-flex ms-auto">
                     <a  data-bs-toggle="modal" data-bs-target="#exampleModalLong" class="btn btn-icon btn-outline-secondary ms-auto">
-                        <i class="material-icons text-lg me-2">add</i>   Add Task
+                        <i class="material-icons text-lg me-2">add_task</i>   Add Task
                     </a>
-                    <div class="dropleft ms-3">
-                        <button class="btn bg-gradient-dark dropdown-toggle" type="button" id="dropdownImport"           data-bs-toggle="dropdown" aria-expanded="false">
-                            Today
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownImport">
-                            <li><a class="dropdown-item" href="javascript:;">Yesterday</a></li>
-                            <li><a class="dropdown-item" href="javascript:;">Last 7 days</a></li>
-                            <li><a class="dropdown-item" href="javascript:;">Last 30 days</a></li>
-                        </ul>
-                    </div>
                     
                 </div>
             </div>
