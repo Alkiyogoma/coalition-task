@@ -99,6 +99,7 @@ class HomeController extends Controller
             'nexttask' => !empty($pay->nexttask) ? $pay->nexttask->name : 'Followup',
         ]),
         'user' => \App\Models\User::first(),
+        'users' => DB::table('users')->orderBy('id')->get(),
         'clients' => DB::table('clients')->where('status', 1)->orderBy('id')->get(),
         'tasktypes' =>  \App\Models\TaskType::orderBy('id')->get(),
         'task_priority' =>  \App\Models\TaskPriority::orderBy('id')->get(),
