@@ -27,10 +27,6 @@ class HomeController extends Controller
     {
         return inertia('Tasks/Task',
         [
-            'usertasks' => DB::select('WITH alltasks as(
-                SELECT a.id, a.name, COUNT(b.id) as total, COUNT(DISTINCT b.client_id) as client FROM tasks b JOIN users a on b.user_id=a.id  GROUP BY a.id, a.name),
-                allusers as (SELECT a.id, a.name, COUNT(b.id) as completed FROM tasks b JOIN users a on  b.user_id=a.id where b.status_id=2 GROUP BY a.id, a.name)
-                select a.id, a.name, a.total, a.client, b.completed from alltasks a left join allusers b on a.id=b.id order by total desc limit 20'),
             'total' => \App\Models\Task::count(),
             'averages' => DB::select('SELECT a.id, a.name, COUNT(b.id) as total FROM tasks b JOIN task_type a on b.task_type_id=a.id GROUP BY a.id, a.name'),
             'taskstatus' => DB::select('SELECT a.id, a.name, COUNT(b.id) as total FROM tasks b JOIN task_status a on b.status_id=a.id GROUP BY a.id, a.name'),
