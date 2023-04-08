@@ -172,7 +172,6 @@ export default {
     tasktypes: Array,
     averages: Array,
     total: Number,
-    client_status: Array,
     task_status: Array,
     statues: Array,
     color: Array,

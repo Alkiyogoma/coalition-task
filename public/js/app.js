@@ -23383,7 +23383,6 @@ __webpack_require__.r(__webpack_exports__);
     tasktypes: Array,
     averages: Array,
     total: Number,
-    client_status: Array,
     task_status: Array,
     statues: Array,
     color: Array

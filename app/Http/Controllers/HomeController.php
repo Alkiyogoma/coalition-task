@@ -104,7 +104,6 @@ class HomeController extends Controller
         'task_priority' =>  \App\Models\TaskPriority::orderBy('id')->get(),
         'task_status' =>  \App\Models\TaskStatus::orderBy('id')->get(),
         '_token' => csrf_token(),
-        'client_status' => DB::table('client_status')->orderBy('id')->get(),
         'color' => ['info','primary', 'secondary', 'success', 'info', 'warning', 'danger', 'dark']
 
     ]);
