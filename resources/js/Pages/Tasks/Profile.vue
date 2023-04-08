@@ -107,8 +107,8 @@
             <div class="row">
               <div class="col-md-6">
                 <div class="input-group input-group-outline my-3">
-                  <select required class="form-control" name="action_code_id" id="choices-currency">
-                    <option value="" selected="">Select Action Code</option>
+                  <select required class="form-control" name="priority_id" id="choices-currency">
+                    <option value="" selected="">Select Task Priority</option>
                     <option v-for="priority in task_priority" :value="priority.id" :key="priority.id">{{ priority.name }}
                     </option>
                   </select>
