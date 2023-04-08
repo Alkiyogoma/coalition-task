@@ -61,51 +61,11 @@ class User extends Authenticatable
 		'remember_token'
 	];
 
-	public function client_installments()
-	{
-		return $this->hasMany(ClientInstallment::class);
-	}
 
-	public function clients()
-	{
-		return $this->hasMany(Client::class);
-	}
-
-	public function departments()
-	{
-		return $this->belongsToMany(Department::class, 'user_departments')
-					->withPivot('id')
-					->withTimestamps();
-	}
-
-	public function installments()
-	{
-		return $this->hasMany(Installment::class);
-	}
-
-	public function payments()
-	{
-		return $this->hasMany(Payment::class);
-	}
-
-	public function posts()
-	{
-		return $this->hasMany(Post::class);
-	}
 
 	public function tasks()
 	{
 		return $this->hasMany(Task::class);
-	}
-	
-	public function role()
-	{
-		return $this->belongsTo(Role::class);
-	}
-
-	public function department()
-	{
-		return $this->belongsTo(Department::class);
 	}
 
 	public function scopeFilter($query, array $filters)

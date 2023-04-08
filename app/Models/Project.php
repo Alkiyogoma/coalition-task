@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * Class Category
  */
-class ActionCode extends Model
+class Project extends Model
 {
 	protected $table = 'action_codes';
 
