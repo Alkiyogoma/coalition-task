@@ -17,7 +17,7 @@ use \App\Http\Controllers\HomeController;
 
 
 
-Route::get('departments', [HomeController::class, 'departments']);
+Route::get('projects', [HomeController::class, 'departments']);
 Route::get('add-dept', [HomeController::class, 'addDept']);
 Route::post('saveDept', [HomeController::class, 'saveDept']);
 

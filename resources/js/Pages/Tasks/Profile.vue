@@ -6,23 +6,11 @@
   </div>
   <div class="row gx-4">
     <div class="col-lg-12">
-      <div class="card" v-for="task in tasks" :key="task.id">
-        <div class="card-body">
-          This is some text within a card body.
-        </div>
-      </div>
-      <div class="card mt-4">
-        <div class="card-header pb-0">
-          <h6>Latest New Client Tasks</h6>
-        </div>
-              
+      <draggable class="dragArea list-group w-full" :list="list" @change="log">
+          <div class="card rounded-md mt-1"
+          v-for="task in list" :key="task.name">
             <div class="card-body">
-              <div class="d-flex mt-2"  v-for="task in tasks" :key="task.id">
-                <div class="flex-shrink-0">
-                  <img alt="Image placeholder" class="avatar rounded-circle" src="/assets/images/logo.jpg">
-                </div>
-                <div class="flex-grow-1 ms-3">
-                  <h6 class="h6 mt-0">{{ task.name }}</h6>
+              <h6 class="h6 mt-0">{{ task.name }}</h6>
                   <p class="text-sm">{{ task.about }}</p>
                   <div class="d-flex">
                     <div>
@@ -34,7 +22,7 @@
                     </div>
                     <span class="text-sm me-2">{{ task.status }}</span>
                     <div>
-                      <i class="material-icons text-sm me-1 cursor-pointer">thumb_up</i>
+                      <i class="material-icons text-sm me-1 cursor-pointer">time</i>
                     </div>
                     <span class="text-sm me-2"> {{ task.time }}</span>
                     <div>
@@ -53,36 +41,10 @@
                       </div>
                     </span>
                   </div>
-                </div>
-              </div>
-          </div>
-        </div>
-      </div>
-
-    <div class="col-lg-6 mt-lg-0">
-      <div class="card mt-4 bg-gradient-dark">
-        <div class="card-header bg-transparent pb-0">
-          <h6 class="text-white">Completed Client Tasks</h6>
-        </div>
-        <div class="card-body p-3">
-          <div class="timeline timeline-dark timeline-one-side" data-timeline-axis-style="dotted">
-            <div v-for="task in alltasks" :key="task.id" class="timeline-block">
-              <span class="timeline-step bg-dark p-3">
-                <i class="material-icons text-white text-sm opacity-10">
-                  done
-                </i>
-              </span>
-              <div class="timeline-content pt-1">
-                <h6 class="text-white text-sm font-weight-bold mb-0">{{ task.name }}</h6>
-                <p class="text-secondary text-xs mt-1 mb-0">{{ task.user }} - {{ task.time }}</p>
-                <p class="text-sm text-white">
-                  {{ task.about }}
-                </p>
-              </div>
+              
             </div>
-          </div>
         </div>
-      </div>
+      </draggable>
     </div>
   </div>
 
@@ -184,6 +146,9 @@
 
 import { Link } from '@inertiajs/vue3';
 
+import { defineComponent } from 'vue'
+import { VueDraggableNext } from 'vue-draggable-next'
+
 export default {
   props: {
     _token: String,
@@ -200,29 +165,21 @@ export default {
     statues: Array,
     color: Array,
   },
-  components: { Link },
+  components: { 
+    Link,
+    draggable: VueDraggableNext,
+ },
+ data(){
+    return {
+          enabled: true,
+          list: this.tasks,
+          dragging: false,
+        }
+    },
   methods: {
-    callPercent: function (num) {
-
-      if (num % 5 == 0 || num % 10 == 0) {
-        return num;
-      }
-
-      // calculate the difference between the number and the next multiple of 5 or 10
-      var diff = 0;
-      if (num < 5) {
-        diff = 5 - num;
-      } else if (num < 10) {
-        diff = 10 - num;
-      } else {
-        diff = 10 - (num % 10);
-      }
-      // add the difference to the number to get the next multiple of 5 or 10
-      var nextMultiple = 0;
-      nextMultiple = num + diff;
-
-      return nextMultiple;
-    }
+    log(event) {
+          console.log(event)
+        },
   }
 };
 </script>

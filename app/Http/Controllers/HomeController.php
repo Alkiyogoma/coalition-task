@@ -152,11 +152,7 @@ class HomeController extends Controller
             'status' => !empty($pay->taskstatus) ? $pay->taskstatus->name : 'On progess',
             'nexttask' => !empty($pay->nexttask) ? $pay->nexttask->name : 'Followup',
         ]),
-<<<<<<< HEAD
         'tasks' => \App\Models\Task::limit(120)
-=======
-        'tasks' => \App\Models\Task::whereNotIn('status_id', [2])->orderBy('id', 'desc')->limit(120)
->>>>>>> 2ef31e8f6c2cedfe0afb90cb13f5d89c875afe11
         ->get()->map(fn ($pay) => [
             'id' => $pay->id,
             'uuid' => $pay->uuid,
@@ -351,7 +347,7 @@ public function calendar_data($id = null){
   {
       $id = request()->segment(2);
       
-      return Inertia::render('Staff/Department', [
+      return Inertia::render('Tasks/Project', [
           'users' => \App\Models\TaskStatus::whereNotNull('id')
               ->orderBy('id')
               ->paginate(12)->withQueryString()
@@ -372,7 +368,7 @@ public function calendar_data($id = null){
 
   public function addDept()
   {
-      return Inertia::render('Staff/AddDept',
+      return Inertia::render('Tasks/AddProject',
       [
           'roles' => DB::table('users')->get(),
           'uuid' => (string) Str::uuid()

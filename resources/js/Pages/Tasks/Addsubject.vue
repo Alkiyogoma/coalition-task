@@ -1,7 +1,7 @@
 <template>
     <div class="flex m-10">
       <draggable class="dragArea list-group w-full" :list="list" @change="log">
-                <div class="list-group-item mb-0 border-0 px-0 bg-gray-300 m-1 p-3 rounded-md text-center"
+          <div class="list-group-item mb-0 border-0 px-0 bg-gray-300 m-1 p-3 rounded-md text-center"
           v-for="element in list" :key="element.name">
           {{ element.name }}
         </div>
@@ -14,7 +14,7 @@
     export default defineComponent({
       components: {
         draggable: VueDraggableNext,
-      },
+      }, 
       data() {
         return {
           enabled: true,
