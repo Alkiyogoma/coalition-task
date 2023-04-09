@@ -18,7 +18,7 @@
                         <button type="button"
                             class="btn btn-icon-only btn-rounded btn-outline-secondary mb-0 ms-2 btn-sm d-flex align-items-center justify-content-center ms-auto"
                             data-bs-toggle="tooltip" data-bs-placement="bottom"
-                            title="See how much traffic do you get from social media">
+                            title="See how project tasks performed in summary">
                             <i class="material-icons text-sm">priority_high</i>
                         </button>
                     </div>
@@ -63,7 +63,7 @@
                         <button type="button"
                             class="btn btn-icon-only btn-rounded btn-outline-secondary mb-0 ms-2 btn-sm d-flex align-items-center justify-content-center ms-auto"
                             data-bs-toggle="tooltip" data-bs-placement="bottom"
-                            title="See how much traffic do you get from social media">
+                            title="See how project tasks performed in summary">
                             <i class="material-icons text-sm">priority_high</i>
                         </button>
                     </div>

@@ -27212,7 +27212,7 @@ var _hoisted_3 = {
 var _hoisted_4 = {
   "class": "card h-100"
 };
-var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"card-header pb-0 p-3\"><div class=\"d-flex align-items-center\"><h6 class=\"mb-0\"> Task Status Percentages</h6><button type=\"button\" class=\"btn btn-icon-only btn-rounded btn-outline-secondary mb-0 ms-2 btn-sm d-flex align-items-center justify-content-center ms-auto\" data-bs-toggle=\"tooltip\" data-bs-placement=\"bottom\" title=\"See how much traffic do you get from social media\"><i class=\"material-icons text-sm\">priority_high</i></button></div></div>", 1);
+var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"card-header pb-0 p-3\"><div class=\"d-flex align-items-center\"><h6 class=\"mb-0\"> Task Status Percentages</h6><button type=\"button\" class=\"btn btn-icon-only btn-rounded btn-outline-secondary mb-0 ms-2 btn-sm d-flex align-items-center justify-content-center ms-auto\" data-bs-toggle=\"tooltip\" data-bs-placement=\"bottom\" title=\"See how project tasks performed in summary\"><i class=\"material-icons text-sm\">priority_high</i></button></div></div>", 1);
 var _hoisted_6 = {
   "class": "card-body p-3"
 };
@@ -27241,7 +27241,7 @@ var _hoisted_14 = {
 var _hoisted_15 = {
   "class": "card h-100"
 };
-var _hoisted_16 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"card-header pb-0 p-3\"><div class=\"d-flex align-items-center\"><h6 class=\"mb-0\"> Tasks Types Percentages</h6><button type=\"button\" class=\"btn btn-icon-only btn-rounded btn-outline-secondary mb-0 ms-2 btn-sm d-flex align-items-center justify-content-center ms-auto\" data-bs-toggle=\"tooltip\" data-bs-placement=\"bottom\" title=\"See how much traffic do you get from social media\"><i class=\"material-icons text-sm\">priority_high</i></button></div></div>", 1);
+var _hoisted_16 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"card-header pb-0 p-3\"><div class=\"d-flex align-items-center\"><h6 class=\"mb-0\"> Tasks Types Percentages</h6><button type=\"button\" class=\"btn btn-icon-only btn-rounded btn-outline-secondary mb-0 ms-2 btn-sm d-flex align-items-center justify-content-center ms-auto\" data-bs-toggle=\"tooltip\" data-bs-placement=\"bottom\" title=\"See how project tasks performed in summary\"><i class=\"material-icons text-sm\">priority_high</i></button></div></div>", 1);
 var _hoisted_17 = {
   "class": "card-body p-3"
 };
