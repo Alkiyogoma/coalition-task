@@ -1,7 +1,8 @@
 
 
 
-# Laravel Inertiajs CRUD APP
+# Simple Laravel web application for task management
+
 Inertia.js lets you quickly build modern single-page React, Vue and Svelte apps using classic server-side routing and controllers.
 
 Build single-page apps, without building an API.
