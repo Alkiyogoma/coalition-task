@@ -81,7 +81,7 @@
             <input type="hidden" :value="_token" name="_token" class="form-control">
 
             <div class="input-group input-group-outline my-3">
-              <select required class="form-control" name="client_id" id="choices-currency-edit">
+              <select required class="form-control" name="project_id" id="choices-currency-edit">
                 <option value="" selected="">Select Project</option>
                 <option v-for="installment in projects" :value="installment.id" :key="installment.id">{{ installment.name
                 }}</option>

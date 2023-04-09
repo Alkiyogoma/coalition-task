@@ -26918,7 +26918,7 @@ var _hoisted_29 = {
 var _hoisted_30 = {
   required: "",
   "class": "form-control",
-  name: "client_id",
+  name: "project_id",
   id: "choices-currency-edit"
 };
 var _hoisted_31 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
@@ -27307,7 +27307,7 @@ var _hoisted_32 = {
 var _hoisted_33 = {
   required: "",
   "class": "form-control",
-  name: "client_id",
+  name: "project_id",
   id: "choices-currency-edit"
 };
 var _hoisted_34 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
