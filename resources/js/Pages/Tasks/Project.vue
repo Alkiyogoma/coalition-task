@@ -6,7 +6,7 @@
               <div class="bg-gradient-primary shadow-primary border-radius-lg pt-3 pb-3">
                 <a class="text-white text-capitalize ps-3">List of Company Projects</a>
                 <a :href="`/add-dept`" style="float: right; margin-right: 4em;" class="mr-4 text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                  <span class="btn btn-primary btn-sm bg-gradient-secondary"> <i class="material-icons text-lg me-2">add</i> Add Ptoject</span>
+                  <span class="btn btn-primary btn-sm bg-gradient-secondary"> <i class="material-icons text-lg me-2">add</i> Add Project</span>
                 </a>
               </div>
             </div>

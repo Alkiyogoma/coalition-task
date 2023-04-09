@@ -27112,7 +27112,7 @@ var _hoisted_2 = {
 var _hoisted_3 = {
   "class": "card"
 };
-var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"card-header p-0 position-relative mt-n4 mx-3 z-index-2\"><div class=\"bg-gradient-primary shadow-primary border-radius-lg pt-3 pb-3\"><a class=\"text-white text-capitalize ps-3\">List of Company Projects</a><a href=\"/add-dept\" style=\"float:right;margin-right:4em;\" class=\"mr-4 text-secondary font-weight-bold text-xs\" data-toggle=\"tooltip\" data-original-title=\"Edit user\"><span class=\"btn btn-primary btn-sm bg-gradient-secondary\"><i class=\"material-icons text-lg me-2\">add</i> Add Ptoject</span></a></div></div>", 1);
+var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"card-header p-0 position-relative mt-n4 mx-3 z-index-2\"><div class=\"bg-gradient-primary shadow-primary border-radius-lg pt-3 pb-3\"><a class=\"text-white text-capitalize ps-3\">List of Company Projects</a><a href=\"/add-dept\" style=\"float:right;margin-right:4em;\" class=\"mr-4 text-secondary font-weight-bold text-xs\" data-toggle=\"tooltip\" data-original-title=\"Edit user\"><span class=\"btn btn-primary btn-sm bg-gradient-secondary\"><i class=\"material-icons text-lg me-2\">add</i> Add Project</span></a></div></div>", 1);
 var _hoisted_5 = {
   "class": "card-body px-0 pb-2"
 };
