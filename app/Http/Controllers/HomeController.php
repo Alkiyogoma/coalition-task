@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Request;
 
 class HomeController extends Controller
 {
@@ -212,15 +212,11 @@ public function calendar_data($id = null){
   {
           Request::validate([
               'name' => ['required', 'max:150'],
-              'email' => ['required', 'max:150', 'email'],
-              'phone' => ['required', 'max:50'],
-              'address' => ['required', 'max:150'],
-              'user_id' => ['required', 'max:150'],
               'about' => ['required', 'max:500'],
           ]);
-          \App\Models\Department::create(array_merge(request()->all(), ['uuid' => (string) Str::uuid()]));
+          \App\Models\Project::create(array_merge(request()->all(), ['uuid' => (string) Str::uuid()]));
 
-          return redirect('departments')->with('success', 'User updated.');
+          return redirect('projects')->with('success', 'User updated.');
       }
 
     public function dragTask(){
