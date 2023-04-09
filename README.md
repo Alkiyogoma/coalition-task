@@ -1,52 +1,67 @@
 
+# Simple Laravel web application for task management
 
+This is a project for Coalition Technologies Technical Challenge
+In this challenge they are testing your ability to create Simple Laravel web application for task management as part of Laravel Developer Skills Test
 
-# Laravel Inertiajs CRUD APP
-Inertia.js lets you quickly build modern single-page React, Vue and Svelte apps using classic server-side routing and controllers.
+## Getting started
 
-Build single-page apps, without building an API.
-- **[Read More here](https://inertiajs.com/)**
+To get started, you have to clone the project repository
 
-# Tailwind Windmill Dashboard
-It uses Tailwind CSS for styling, and some may say it is totally biased, but it uses the most simple theming plugin there is for it, 
+```bash
+git clone https://github.com/Alkiyogoma/coalition-task.git
+```
 
-A multi theme, completely accessible, with components and pages examples, ready for production dashboard.
-- **[Preview Fronted Template here](https://windmill-dashboard.vercel.app/)**
-- **[Gir repo here](https://github.com/estevanmaito/windmill-dashboard)**
+You need to install Node.js(NPM) and PHP Laravel with Composer . 
 
+## Installing Requirements Steps
+Before installing this project you should ensure that your local machine has PHP and Composer environment installed.
 
-# Installation Steps
+On the backend side you need to install all needed composer PHP dependecies.
 
-## Your First Laravel Project
+```bash
+composer update
+```
 
-Before creating your first Laravel project, you should ensure that your local machine has PHP and Composer installed. 
- #### composer create-project laravel/laravel project-name
- 
-## 2. Inertia Server-side setup
+Once you have your server-side framework configured, you then need to setup your client-side framework.
 
-The first step when installing Inertia is to configure your server-side framework. Inertia ships with official server-side adapters for Laravel and Rails. 
-Install the Inertia server-side adapters using the preferred package manager for that language or framework.
-- **[Read More here](https://inertiajs.com/server-side-setup)**
+Install NPM packages and all required Node js dependecies, run:
 
- #### composer require inertiajs/inertia-laravel
- #### php artisan inertia:middleware
- #### 
- 
- ## 3. Client-side setup (vue3)
+```bash
+npm install
+```
 
-Once you have your server-side framework configured, you then need to setup your client-side framework. Inertia currently provides support for React, Vue, and Svelte.
+Run Laravel Mix that provides a fluent API for defining Webpack to compile and minify your application CSS and JavaScript files.
 
-- **[Read More here](https://inertiajs.com/client-side-setup)**
+```bash
+npx mix
+```
 
- #### npm install @inertiajs/inertia @inertiajs/inertia-vue3
- ####  npm install vue@next
- #### npm install -D vue@compiler-sfc
- ####  npx mix
- 
- ## License
+- Import database *task-database.sql* file to your Mysql database
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Then start your backend by running:
 
-### Visit 
+```bash
+php artisan serve
+```
 
-- **[DASMS Online bulksms provider](https://darsms.co.tz/)**
+To use your app, open your browser and go to http://localhost:8000/
+
+## Technologies
+#### Frontend
+- VueJs
+- Boostrap
+- HTML5
+
+#### Backend
+- PHP
+- Laravel
+- MYSQL
+- InertiaJs
+
+## Visit Live Demo Site
+
+- **[View Task management site ](https://coalitiontask.darsms.co.tz/)** at https://coalitiontask.darsms.co.tz
+
+- **[Coalition technologies site ](https://coalitiontechnologies.com/)** at https://coalitiontechnologies.com/
+
