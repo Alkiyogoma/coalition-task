@@ -26215,7 +26215,9 @@ var _hoisted_15 = {
 var _hoisted_16 = {
   "class": "mb-1 text-dark text-sm"
 };
-var _hoisted_17 = ["href"];
+var _hoisted_17 = {
+  href: "#"
+};
 var _hoisted_18 = {
   "class": "text-sm"
 };
@@ -26229,9 +26231,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       value: task.id,
       key: task.id,
       "class": "d-flex mt-2"
-    }, [_hoisted_13, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h6", _hoisted_16, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
-      href: "/client/".concat(task.uuid, "/view")
-    }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(task.type) + " - " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(task.status), 9 /* TEXT, PROPS */, _hoisted_17)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_18, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(task.time), 1 /* TEXT */)])])], 8 /* PROPS */, _hoisted_12);
+    }, [_hoisted_13, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h6", _hoisted_16, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", _hoisted_17, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(task.type) + " - " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(task.status), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_18, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(task.time), 1 /* TEXT */)])])], 8 /* PROPS */, _hoisted_12);
   }), 128 /* KEYED_FRAGMENT */))])])])])])]);
 }
 
