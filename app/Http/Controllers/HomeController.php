@@ -85,7 +85,7 @@ class HomeController extends Controller
             ->get()->map(fn ($pay) => [
                 'id' => $pay->id,
                 'uuid' => $pay->client->uuid,
-                'title' => $pay->project->name,
+                'title' => $pay->tasktype->name,
                 'about' => $pay->about,
                 'date' => date('d M, Y', strtotime($pay->next_date)),
                 'time' =>  date('jS M Y, h:i:s A ',strtotime($pay->next_date)),
