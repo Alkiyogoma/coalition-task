@@ -63,5 +63,3 @@ To use your app, open your browser and go to http://localhost:8000/
 
 - **[View Task management site ](https://coalitiontask.darsms.co.tz/)** at https://coalitiontask.darsms.co.tz
 
-- **[Coalition technologies site ](https://coalitiontechnologies.com/)** at https://coalitiontechnologies.com/
-
