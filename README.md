@@ -3,6 +3,7 @@
 
 This is a project for Coalition Technologies Technical Challenge
 In this challenge they are testing your ability to create Simple Laravel web application for task management as part of Laravel Developer Skills Test
+![alt text](https://github.com/Alkiyogoma/coalition-task/blob/main/public/dashboard.png?raw=true)
 
 ## Getting started
 
