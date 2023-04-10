@@ -64,3 +64,7 @@ To use your app, open your browser and go to http://localhost:8000/
 
 - **[View Task management site ](https://coalitiontask.darsms.co.tz/)** at https://coalitiontask.darsms.co.tz
 
+## Task List Screenshots with drag and drop feature
+
+![alt text](https://github.com/Alkiyogoma/coalition-task/blob/main/public/tasklist.png?raw=true)
+
