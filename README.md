@@ -1,7 +1,7 @@
 
-# Simple Laravel web application for task management
+# Simple Laravel application for task management
 
-This is a project for Coalition Technologies Technical Challenge
+This is a project for Task management for laravel with all basic functionality.
 In this challenge they are testing your ability to create Simple Laravel web application for task management as part of Laravel Developer Skills Test
 ![alt text](https://github.com/Alkiyogoma/coalition-task/blob/main/public/dashboard.png?raw=true)
 
